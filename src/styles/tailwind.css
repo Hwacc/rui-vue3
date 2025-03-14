@@ -1,0 +1,198 @@
+@import 'tailwindcss';
+
+@config '../../tailwind.config.ts';
+
+@plugin 'tailwindcss-animate';
+@plugin 'tailwindcss-animated';
+
+@theme {
+  /* Breakpoints */
+  --break-point-sm: 1024px;
+  --break-point-md: 1440px;
+  --break-point-lg: 1920px;
+  --break-point-xl: 2560px;
+  --break-point-2xl: 3840px;
+
+  /* Text */
+  --text-size-xs: 0.75rem;
+  --text-size-sm: 0.875rem;
+  --text-size-base: 1rem;
+  --text-size-lg: 1.125rem;
+  --text-size-xl: 1.25rem;
+
+  /* Border Radius */
+  --radius: 0.125rem;
+  --radius-md: calc(var(--radius) + 0.125rem);
+  --radius-lg: calc(var(--radius) + 0.25rem);
+
+  /* Colors */
+  --color-tw-ring-color: transparent;
+
+  --color-rz-green: oklch(76.87% 0.2343 141.32);
+  --color-rz-green-dark: oklch(47.48% 0.1584 141.32);
+  --color-rz-green-dark-hover: oklch(59.25% 0.1135 141.32);
+  --color-rz-green-dark-active: oklch(33.16% 0.1092 141.32);
+  --color-rz-green-light: oklch(82.23% 0.1854 141.32);
+  --color-rz-green-border: oklch(45.35% 0.117 141.32);
+  --color-rz-green-border-hover: oklch(70.57% 0.1369 141.32);
+  --color-rz-green-border-active: oklch(45.88% 0.1354 141.32);
+
+  --color-rz-orange: oklch(80.16% 0.1705 73.27);
+  --color-rz-red: oklch(62.32% 0.2121 25.89);
+
+  --color-black: oklch(0% 0 0);
+  --color-h00: oklch(0% 0 0);
+  --color-white: oklch(100% 0 0);
+  --color-hff: oklch(100% 0 0);
+  --color-h70: oklch(54.52% 0 0);
+  --color-h4f: oklch(42.76% 0 0);
+  --color-h9b: oklch(68.95% 0 0);
+  --color-h83: oklch(61% 0 0);
+  --color-h37: oklch(33.68% 0 0);
+  --color-hcc: oklch(84.52% 0 0);
+  --color-hbb: oklch(79.21% 0 0);
+  --color-h33: oklch(32.11% 0 0);
+  --color-h24: oklch(26.03% 0 0);
+  --color-h8f: oklch(65% 0 0);
+  --color-h1a: oklch(21.78% 0 0);
+  --color-ha7: oklch(72.84% 0 0);
+  --color-h5e: oklch(48.19% 0 0);
+  --color-h4c: oklch(41.65% 0 0);
+  --color-h55: oklch(44.95% 0 0);
+  --color-h54: oklch(44.59% 0 0);
+  --color-h66: oklch(51.03% 0 0);
+  --color-h58: oklch(46.04% 0 0);
+  --color-h28: oklch(27.68% 0 0);
+  --color-h78: oklch(57.27% 0 0);
+  --color-h88: oklch(62.68% 0 0);
+
+  /* Shadows */
+  --shadow-glory: 0 0 1.5625rem 0 oklch(86.64% 0.294827 141.32 / 47%);
+
+  /* Animations */
+  --animate-accordion-down: accordion-down 0.2s ease-out;
+  --animate-accordion-up: accordion-up 0.2s ease-out;
+  --animate-collapsible-down: collapsible-down 0.2s ease-in-out;
+  --animate-collapsible-up: collapsible-up 0.2s ease-in-out;
+  --animate-quick-squeeze-x: squeeze-x 0.1s ease-in-out;
+  --animate-path-dash: path-dash 0.2s linear forwards;
+
+  /* Keyframes */
+  @keyframes accordion-down {
+    from {
+      height: 0px;
+    }
+
+    to {
+      height: var(--radix-accordion-content-height, 0px);
+    }
+  }
+
+  @keyframes accordion-up {
+    from {
+      height: var(--radix-accordion-content-height, 0px);
+    }
+
+    to {
+      height: 0px;
+    }
+  }
+
+  @keyframes collapsible-down {
+    from {
+      height: 0px;
+    }
+
+    to {
+      height: var(--radix-collapsible-content-height, 0px);
+    }
+  }
+
+  @keyframes collapsible-up {
+    from {
+      height: var(--radix-collapsible-content-height, 0px);
+    }
+
+    to {
+      height: 0px;
+    }
+  }
+
+  @keyframes squeeze-x {
+    from {
+      transform: scaleX(1);
+    }
+
+    50% {
+      transform: scaleX(1.15);
+    }
+
+    to {
+      transform: scaleX(1);
+    }
+  }
+
+  @keyframes path-dash {
+    to {
+      stroke-dashoffset: 0;
+    }
+  }
+}
+
+
+@layer base {
+
+  *,
+  ::after,
+  ::before,
+  ::backdrop,
+  ::file-selector-button {
+    border-color: var(--color-gray-200, currentColor);
+  }
+
+  :root {
+    --radius: .125rem;
+  }
+}
+
+@utility flex-c {
+  @apply flex justify-center items-center;
+}
+
+@utility flex-ac {
+  @apply flex justify-around items-center;
+}
+
+@utility flex-bc {
+  @apply flex justify-between items-center;
+}
+
+@utility flex-col-c {
+  @apply flex flex-col justify-center items-center;
+}
+
+@utility flex-col-ac {
+  @apply flex flex-col justify-center items-center;
+}
+
+@utility flex-col-bc {
+  @apply flex flex-col justify-between items-center;
+}
+
+@utility hide-scrollbar {
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+@utility check-dash-animate {
+  stroke-dasharray: 50;
+  stroke-dashoffset: -50;
+  @apply animate-path-dash;
+}
+
+@utility check-indeterminate-dash-animate {
+  stroke-dasharray: 50;
+  stroke-dashoffset: 50;
+  @apply animate-path-dash;
+}

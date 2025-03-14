@@ -1,0 +1,16 @@
+body {
+  margin: 0;
+  color: #fff;
+  font-family: Inter, Avenir, Helvetica, Arial, sans-serif;
+  background-image: linear-gradient(to bottom, #020917, #101725);
+}
+
+.test-block {
+  display: flex;
+  align-items: center;
+  color: #bbbbbb;
+  font-size: 0.875rem;
+  border: 1px solid #bbbbbb;
+  border-radius: 0.25rem;
+  padding: 0.5rem;
+}
