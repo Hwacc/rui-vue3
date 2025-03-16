@@ -1,8 +1,8 @@
 <script lang="ts" setup>
-import type { TabsIndicatorProps } from 'radix-vue';
+import type { TabsIndicatorProps } from 'reka-ui';
 import { computed, type HTMLAttributes } from 'vue';
 import { cn } from '@/lib/utils';
-import { TabsIndicator, useForwardProps } from 'radix-vue';
+import { TabsIndicator, useForwardProps } from 'reka-ui';
 import { tabsIndicatorVariants } from '.';
 
 const { class: propsClass, ...props } = defineProps<

@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import type { TabsListProps } from 'radix-vue';
+import type { TabsListProps } from 'reka-ui';
 import type { HTMLAttributes } from 'vue';
 import { cn } from '@/lib/utils';
-import { TabsList } from 'radix-vue';
+import { TabsList } from 'reka-ui';
 import { computed, onMounted, unref, watchEffect } from 'vue';
 import { tabsListVariants } from '.';
 import { injectTabsContext } from './Tabs.vue';
@@ -11,30 +11,27 @@ const { class: propsClass, ...props } = defineProps<
   TabsListProps & { class?: HTMLAttributes['class'] }
 >();
 
-onMounted(() => {
-  console.log('tablistRef');
-});
+const { value, initTabList, tabsTriggers } = injectTabsContext();
 
-const { value, initTabList, triggers } = injectTabsContext();
-initTabList();
+onMounted(() => {
+  initTabList();
+});
 
 watchEffect(
   () => {
-    const val = unref(value);
-    const currentIndex = triggers.findIndex((item) => item.value === val);
+    const currentIndex = tabsTriggers.findIndex((item) => item.value === unref(value));
     if (currentIndex === -1) return;
-    const parentRect = triggers[currentIndex]?.el?.parentElement?.getBoundingClientRect();
-    const prevRect = triggers[currentIndex - 1]?.el?.getBoundingClientRect();
-    const curRect = triggers[currentIndex]?.el?.getBoundingClientRect();
-    const nextRect = triggers[currentIndex + 1]?.el?.getBoundingClientRect();
+    const parentRect = tabsTriggers[currentIndex]?.el?.parentElement?.getBoundingClientRect();
+    const prevRect = tabsTriggers[currentIndex - 1]?.el?.getBoundingClientRect();
+    const curRect = tabsTriggers[currentIndex]?.el?.getBoundingClientRect();
+    const nextRect = tabsTriggers[currentIndex + 1]?.el?.getBoundingClientRect();
 
     if (!parentRect || !curRect) return;
     const deltaX = curRect.x - parentRect.x;
-    console.log('deltaX', deltaX, parentRect.x);
     // 完全在左边
     if (deltaX <= 0) {
       console.log('total left');
-      triggers[currentIndex]?.el?.parentElement?.scrollBy({
+      tabsTriggers[currentIndex]?.el?.parentElement?.scrollBy({
         left: prevRect ? -(Math.abs(deltaX) + curRect.width) - prevRect.width / 2 : -9999,
         behavior: 'smooth',
       });
@@ -42,14 +39,14 @@ watchEffect(
     // 在左边包含但显示不全
     else if (deltaX < 0 && Math.abs(deltaX) <= curRect.width) {
       console.log('partial left');
-      triggers[currentIndex]?.el?.parentElement?.scrollBy({
+      tabsTriggers[currentIndex]?.el?.parentElement?.scrollBy({
         left: prevRect ? deltaX - prevRect.width / 2 : -curRect.width,
         behavior: 'smooth',
       });
     } else if (deltaX > 0 && prevRect && deltaX < prevRect.width / 2) {
       // 包含但是上一个显示不够
       console.log('include but prev not enough');
-      triggers[currentIndex]?.el?.parentElement?.scrollBy({
+      tabsTriggers[currentIndex]?.el?.parentElement?.scrollBy({
         left: -(prevRect.width / 2 - deltaX),
         behavior: 'smooth',
       });
@@ -57,7 +54,7 @@ watchEffect(
     // 完全在右边
     else if (deltaX >= parentRect.width) {
       console.log('total right');
-      triggers[currentIndex]?.el?.parentElement?.scrollBy({
+      tabsTriggers[currentIndex]?.el?.parentElement?.scrollBy({
         left: nextRect ? deltaX - parentRect.width + curRect.width + nextRect.width / 2 : 9999,
         behavior: 'smooth',
       });
@@ -68,7 +65,7 @@ watchEffect(
       curRect.width + curRect.x > parentRect.width + parentRect.x
     ) {
       console.log('partial right');
-      triggers[currentIndex]?.el?.parentElement?.scrollBy({
+      tabsTriggers[currentIndex]?.el?.parentElement?.scrollBy({
         left: nextRect ? parentRect.width - deltaX + nextRect.width / 2 : curRect.width,
         behavior: 'smooth',
       });
@@ -79,7 +76,7 @@ watchEffect(
     ) {
       // 包含但是下一个显示不够
       console.log('include but next not enough');
-      triggers[currentIndex]?.el?.parentElement?.scrollBy({
+      tabsTriggers[currentIndex]?.el?.parentElement?.scrollBy({
         left: nextRect.width / 2 - (parentRect.width - (nextRect.x - parentRect.x)),
         behavior: 'smooth',
       });
@@ -95,14 +92,8 @@ const classNames = computed(() => {
 });
 </script>
 
-<script lang="ts">
-export default {
-  name: 'CustomTabsList',
-};
-</script>
-
 <template>
-  <TabsList v-bind="props" :class="classNames" ref="tablistRef">
+  <TabsList v-bind="props" :class="classNames">
     <slot />
   </TabsList>
 </template>

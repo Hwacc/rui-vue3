@@ -4,7 +4,7 @@ import {
   type RadioGroupRootEmits,
   type RadioGroupRootProps,
   useForwardPropsEmits,
-} from 'radix-vue';
+} from 'reka-ui';
 import { type HTMLAttributes } from 'vue';
 
 const { class: propsClass, ...props } = defineProps<

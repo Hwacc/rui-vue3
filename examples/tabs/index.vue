@@ -23,7 +23,14 @@ import { Tabs, TabsContent, TabsList, TabsTrigger, TabsIndicator } from '@/compo
           <TabsIndicator />
         </TabsList>
         <TabsContent v-for="i in 15" :key="`tab${i}`" :value="`tab${i}`">
-          {{ `content ${i}` }}
+          <div
+            class="flex items-center justify-center"
+            :style="{
+              height: `${(i + 1) * 50}px`,
+            }"
+          >
+            {{ `content ${i}` }}
+          </div>
         </TabsContent>
       </Tabs>
     </div>

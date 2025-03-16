@@ -10,10 +10,16 @@ export default defineConfig({
       index: './examples/index.ts',
     },
   },
+  output: {
+    sourceMap: {
+      js: 'source-map',
+      css: false
+    }
+  },
   resolve: {
     alias: {
       '@': './src',
-    }
+    },
   },
   plugins: [
     pluginSvg({
@@ -26,8 +32,8 @@ export default defineConfig({
     pluginVueJsx(),
     pluginVue({
       vueLoaderOptions: {
-        compilerOptions: {}
-      }
+        compilerOptions: {},
+      },
     }),
   ],
   server: {

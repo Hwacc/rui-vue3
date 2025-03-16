@@ -65,6 +65,8 @@
   --color-h28: oklch(27.68% 0 0);
   --color-h78: oklch(57.27% 0 0);
   --color-h88: oklch(62.68% 0 0);
+  --color-hee: oklch(94.91% 0 0);
+  --color-h44: oklch(38.67% 0 0);
 
   /* Shadows */
   --shadow-glory: 0 0 1.5625rem 0 oklch(86.64% 0.294827 141.32 / 47%);

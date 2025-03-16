@@ -1,12 +1,9 @@
 <script lang="ts">
 import { createContext } from 'radix-vue';
-import { injectCheckboxGroupRootContext } from './CheckboxGroupRoot.vue';
 interface CheckboxGroupContext {
   collection: Ref<string[]>;
-  indeterminateCollection: Ref<string[]>;
-  onChecked: (name?: string, value?: boolean | 'indeterminate', isPrimary?: boolean) => void;
+  onChecked: (name?: string, value?: boolean | 'indeterminate' | null, isPrimary?: boolean) => void;
   setCheckboxInstance: (instance: ComponentInternalInstance | null, isPrimary: boolean) => void;
-  setGroupInstance: (instance: ComponentInternalInstance | null) => void;
 }
 export const [injectCheckboxGroupContext, provideCheckboxGroupContext] =
   createContext<CheckboxGroupContext>('CheckboxGroupContext');
@@ -16,25 +13,15 @@ export const [injectCheckboxGroupContext, provideCheckboxGroupContext] =
 import { Primitive, useForwardPropsEmits, type PrimitiveProps } from 'radix-vue';
 import {
   ComponentInternalInstance,
-  getCurrentInstance,
   HTMLAttributes,
   reactive,
   Ref,
   ref,
+  unref,
   watch,
   watchEffect,
 } from 'vue';
 import { union } from 'lodash-es';
-
-/**
- * creat checkbox group root context, if not exist it will be null
- */
-const groupRootContext = injectCheckboxGroupRootContext(null);
-/**
- * create checkbox group context, if not exist it will be null
- */
-const groupContext = injectCheckboxGroupContext(null);
-groupContext && groupContext.setGroupInstance(getCurrentInstance());
 
 const {
   class: propsClass,
@@ -52,61 +39,35 @@ const emits = defineEmits<{
   'update:collection': [collection: string[]];
   change: [collection: string[]];
 }>();
-const forwarded = useForwardPropsEmits(props, emits);
 
-let innerCollection = ref(propsCollection);
-const innerIndeterminateCollection = ref<string[]>([]);
-
-if (groupRootContext) {
-  innerCollection = groupRootContext.collection;
-} else {
-  watch(
-    () => propsCollection,
-    (val) => {
-      innerCollection.value = val;
-    }
-  );
-  watch(innerCollection, () => {
-    emits('change', innerCollection.value);
-    emits('update:collection', innerCollection.value);
-  });
-}
+const innerCollection = ref(propsCollection);
+watch(
+  () => propsCollection,
+  (val) => {
+    innerCollection.value = val;
+  }
+);
 
 const treeStructure = reactive<{
   primary?: ComponentInternalInstance;
   children?: ComponentInternalInstance[];
-  childrenGroup?: ComponentInternalInstance[];
 }>({
   primary: undefined,
   children: [],
-  childrenGroup: [],
 });
 const isAllChecked = ref(false);
 const isIndeterminate = ref(false);
+
 watchEffect(
   () => {
-    const _oneChecked =
-      treeStructure.children?.some((checkbox) => {
-        return checkbox.vnode.component?.exposed?.innerChecked.value;
-      }) ||
-      treeStructure.childrenGroup?.some((group) => {
-        return (
-          group.vnode.component?.exposed?.isAllChecked.value ||
-          group.vnode.component?.exposed?.isIndeterminate.value
-        );
-      });
-    let _allChecked = treeStructure.children?.every((checkbox) => {
-      return checkbox.vnode.component?.exposed?.innerChecked.value;
+    const _oneChecked = treeStructure.children?.some((checkbox) => {
+      return unref(checkbox.exposed?.innerModelValue);
     });
-    if (treeStructure.childrenGroup?.length) {
-      _allChecked =
-        _allChecked &&
-        treeStructure.childrenGroup?.every((group) => {
-          return group.vnode.component?.exposed?.isAllChecked.value;
-        });
-    }
+    const _allChecked = treeStructure.children?.every((checkbox) => {
+      return unref(checkbox.exposed?.innerModelValue);
+    });
     if (treeStructure.primary) {
-      treeStructure.primary.vnode.component?.exposed?.setChecked(
+      treeStructure.primary.exposed?.setChecked(
         _allChecked ? true : _oneChecked ? 'indeterminate' : false
       );
     }
@@ -116,48 +77,29 @@ watchEffect(
   { flush: 'post' }
 );
 
-const setPrimaryChecked = (checked: boolean | undefined) => {
-  const _allChildrenNames =
-    treeStructure.children?.map((item) => item.vnode.component?.exposed?.name) || [];
-  if (checked) {
-    innerCollection.value = union(innerCollection.value, _allChildrenNames);
-  } else {
-    innerCollection.value = innerCollection.value.filter((item) => {
-      return !_allChildrenNames.includes(item);
-    });
-  }
-  if (treeStructure.childrenGroup?.length) {
-    treeStructure.childrenGroup.forEach((group) => {
-      group.vnode.component?.exposed?.setPrimaryChecked(checked);
-    });
-  }
-};
-
 provideCheckboxGroupContext({
   collection: innerCollection,
-  indeterminateCollection: innerIndeterminateCollection,
-  onChecked: (name?: string, value?: boolean | 'indeterminate', isPrimary?: boolean) => {
+  onChecked: (name?: string, value?: boolean | 'indeterminate' | null, isPrimary?: boolean) => {
     if (value === 'indeterminate') {
-      name && (innerIndeterminateCollection.value = [...innerIndeterminateCollection.value, name]);
+      return;
     } else {
-      name &&
-        (innerIndeterminateCollection.value = innerIndeterminateCollection.value.filter(
-          (item) => item !== name
-        ));
-      if (!isPrimary) {
+      if (!isPrimary && name) {
+        value
+          ? (innerCollection.value = [...new Set([...innerCollection.value, name])])
+          : (innerCollection.value = innerCollection.value.filter((item) => item !== name));
+      } else if (isPrimary) {
+        const _allChildrenNames = treeStructure.children?.map((item) => item.exposed?.name) || [];
         if (value) {
-          name &&
-            !innerCollection.value.includes(name) &&
-            (innerCollection.value = [...innerCollection.value, name]);
+          innerCollection.value = union(innerCollection.value, _allChildrenNames);
+          console.log('after union', innerCollection.value);
         } else {
-          name &&
-            innerCollection.value.includes(name) &&
-            (innerCollection.value = innerCollection.value.filter((item) => item !== name));
+          innerCollection.value = innerCollection.value.filter(
+            (item) => !_allChildrenNames.includes(item)
+          );
         }
       }
-      if (treeStructure.primary && isPrimary) {
-        setPrimaryChecked(value);
-      }
+      emits('change', innerCollection.value);
+      emits('update:collection', innerCollection.value);
     }
   },
   setCheckboxInstance: (instance, isPrimary) => {
@@ -169,18 +111,13 @@ provideCheckboxGroupContext({
       }
     }
   },
-  setGroupInstance: (instance) => {
-    if (instance) {
-      treeStructure.childrenGroup?.push(instance);
-    }
-  },
 });
 
 defineExpose({
   isAllChecked,
   isIndeterminate,
-  setPrimaryChecked,
 });
+const forwarded = useForwardPropsEmits(props, emits);
 </script>
 
 <template>

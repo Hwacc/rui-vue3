@@ -5,7 +5,7 @@ export { default as TooltipTrigger } from './TooltipTrigger.vue';
 
 import { cva, type VariantProps } from 'class-variance-authority';
 import TooltipArrow from './TooltipArrow.vue';
-import { TooltipArrowProps } from 'radix-vue';
+import { TooltipArrowProps } from 'reka-ui';
 export { TooltipArrow, type TooltipArrowProps };
 
 export const tooltipContentVariants = cva(

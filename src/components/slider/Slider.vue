@@ -270,7 +270,7 @@ export const useFloatingTooltip = (options: MaybeRef<FloatingTooltipOptions>) =>
 
 <script setup lang="ts">
 import Slider from 'vue-3-slider-component';
-import { Primitive, useForwardPropsEmits, type PrimitiveProps } from 'radix-vue';
+import { Primitive, useForwardPropsEmits, type PrimitiveProps } from 'reka-ui';
 import {
   ComponentPublicInstance,
   computed,

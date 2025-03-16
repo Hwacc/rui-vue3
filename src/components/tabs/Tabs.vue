@@ -1,14 +1,13 @@
 <script lang="ts">
-import { StringOrNumber } from 'node_modules/radix-vue/dist/shared/types';
-import { createContext } from 'radix-vue';
+import { createContext } from 'reka-ui';
 import { Ref } from 'vue';
 
 export type TabsContext = {
   value: Ref<StringOrNumber | undefined>;
   initTabList: () => void;
   initTabTrigger: () => void;
-  list: Ref<HTMLElement | undefined>;
-  triggers: Array<{
+  tabsList: Ref<HTMLElement | undefined>;
+  tabsTriggers: Array<{
     value: StringOrNumber;
     el: HTMLElement;
   }>;
@@ -17,8 +16,8 @@ export const [injectTabsContext, provideTabsContext] = createContext<TabsContext
 </script>
 
 <script setup lang="ts">
-import type { TabsRootEmits, TabsRootProps } from 'radix-vue';
-import { TabsRoot, useForwardPropsEmits } from 'radix-vue';
+import type { TabsRootEmits, TabsRootProps } from 'reka-ui';
+import { TabsRoot, useForwardPropsEmits } from 'reka-ui';
 import { getCurrentInstance, nextTick, reactive, ref } from 'vue';
 
 const { modelValue, defaultValue, ...props } = defineProps<TabsRootProps>();
@@ -29,8 +28,8 @@ const onUpdateModelValue = (value: StringOrNumber) => {
   emits('update:modelValue', value);
 };
 
-const list = ref<HTMLElement>();
-const triggers = reactive<
+const tabsList = ref<HTMLElement>();
+const tabsTriggers = reactive<
   Array<{
     value: StringOrNumber;
     el: HTMLElement;
@@ -41,22 +40,21 @@ provideTabsContext({
   value: innerValue,
   initTabList: function (this: any) {
     const instance = getCurrentInstance.call(this);
-    console.log('instance', instance);
     nextTick(() => {
-      list.value = instance?.vnode?.el as HTMLElement;
+      tabsList.value = instance?.vnode?.el as HTMLElement;
     });
   },
   initTabTrigger: function () {
     const instance = getCurrentInstance.call(this);
     nextTick(() => {
-      triggers.push({
+      tabsTriggers.push({
         value: instance?.props?.value as StringOrNumber,
         el: instance?.vnode?.el as HTMLElement,
       });
     });
   },
-  triggers,
-  list,
+  tabsList,
+  tabsTriggers,
 });
 const forwarded = useForwardPropsEmits(props, emits);
 </script>

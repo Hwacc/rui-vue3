@@ -16,8 +16,8 @@ const titleTipVariants = cva(
   {
     variants: {
       theme: {
-        default: ['bg-#ee', 'text-black', 'border-black', 'max-w-[31.25rem]'],
-        dark: ['bg-#44', 'text-#ee', 'border-none'],
+        default: ['bg-hee', 'text-black', 'border-black', 'max-w-[31.25rem]'],
+        dark: ['bg-h44', 'text-hee', 'border-none'],
       },
       hidden: {
         true: 'hidden',
@@ -46,7 +46,6 @@ class TitleTooltip {
     this.titleTipNode.className = titleTipVariants();
     this.titleTipTextNode = document.createTextNode('');
     this.titleTipNode.appendChild(this.titleTipTextNode);
-
     document.body.appendChild(this.titleTipNode);
     document.addEventListener('scroll', () => {
       if (this.showTimer) {
@@ -56,6 +55,7 @@ class TitleTooltip {
   }
 
   async onMouseEnter(el: Element, binding: DirectiveBinding) {
+    console.log('onMouseEnter', binding)
     this.showTimer && clearTimeout(this.showTimer);
     this.showTimer = setTimeout(async () => {
       try {

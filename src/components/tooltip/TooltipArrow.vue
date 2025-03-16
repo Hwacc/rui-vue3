@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { TooltipArrow, type TooltipArrowProps } from 'radix-vue';
+import { TooltipArrow, type TooltipArrowProps } from 'reka-ui';
 import { computed, HTMLAttributes, ref, watch } from 'vue';
 import { toolTipArrowVariants, ToolTipArrowVariants } from '.';
 import { cn } from '@/lib/utils';

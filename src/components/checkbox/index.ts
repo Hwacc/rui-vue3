@@ -2,7 +2,6 @@ import { cva, VariantProps } from 'class-variance-authority';
 
 export { default as Checkbox } from './Checkbox.vue';
 export { default as CheckboxGroup } from './CheckboxGroup.vue';
-export { default as CheckboxGroupRoot } from './CheckboxGroupRoot.vue';
 
 export const checkboxVariants = cva(
   [

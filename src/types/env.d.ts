@@ -37,3 +37,6 @@ declare module '*.vue' {
   const component: DefineComponent<{}, {}, any>;
   export default component;
 }
+
+declare type StringOrNumber = string | number;
+

@@ -1,17 +1,12 @@
 <script setup lang="ts">
-import type { CheckboxRootEmits, CheckboxRootProps } from 'radix-vue';
+import type { CheckboxRootEmits, CheckboxRootProps } from 'reka-ui';
 import { cn } from '@/lib/utils';
 import { Check, Minus } from 'lucide-vue-next';
-import { CheckboxIndicator, CheckboxRoot, useForwardPropsEmits } from 'radix-vue';
-import { computed, getCurrentInstance, ref, watch, watchEffect, type HTMLAttributes } from 'vue';
+import { CheckboxIndicator, CheckboxRoot, useForwardPropsEmits } from 'reka-ui';
+import { computed, getCurrentInstance, ref, watch, type HTMLAttributes } from 'vue';
 import { checkboxVariants, CheckboxVariantsProps } from '.';
 import { injectCheckboxGroupContext } from './CheckboxGroup.vue';
-import { injectCheckboxGroupRootContext } from './CheckboxGroupRoot.vue';
 
-/**
- * creat checkbox group root context, if not exist it will be null
- */
-const groupRootContext = injectCheckboxGroupRootContext(null);
 /**
  * create checkbox group context, if not exist it will be null
  */
@@ -21,7 +16,7 @@ const {
   size = 'default',
   labelClass,
   label = '',
-  checked: propsChecked = false,
+  modelValue = false,
   ...props
 } = defineProps<
   CheckboxRootProps & {
@@ -32,52 +27,44 @@ const {
     size?: CheckboxVariantsProps['size'];
   }
 >();
-const emits = defineEmits<
-  CheckboxRootEmits & { 'update:indeterminate': [value: boolean | 'indeterminate'] }
->();
-const forwarded = useForwardPropsEmits(props, emits);
+const emits = defineEmits<CheckboxRootEmits>();
 
-const innerChecked = ref(propsChecked);
+const innerModelValue = ref(modelValue);
 if (groupContext) {
   // set instances
   const instance = getCurrentInstance();
   groupContext.setCheckboxInstance(instance, primary);
   // sync innerChecked
-  watchEffect(() => {
-    const _intermediateCollection = groupContext.indeterminateCollection.value;
-    if (_intermediateCollection?.includes(props.name as string)) {
-      innerChecked.value = 'indeterminate';
-      return;
-    }
-    if(!primary) {
-      innerChecked.value = groupContext.collection.value.includes(props.name as string);
-    }
-  });
+  watch(
+    groupContext.collection,
+    (collection) => {
+      if (!primary) {
+        innerModelValue.value = collection.includes(props.name as string);
+      }
+    },
+    { immediate: true }
+  );
 }
 watch(
-  () => propsChecked,
-  (value) => {
-    innerChecked.value = value;
-  }
+  () => modelValue,
+  (val) => (innerModelValue.value = val)
 );
-watch(innerChecked, (value) => {
+watch(innerModelValue, (val) => {
   if (groupContext) {
-    groupContext.onChecked(props.name, value, primary);
+    groupContext.onChecked(props.name, val, primary);
   }
-  if (!groupContext && groupRootContext) {
-    groupRootContext.onCheckboxChecked(props.name, value, primary);
-  }
-  value === 'indeterminate' ? emits('update:indeterminate', value) : emits('update:checked', value);
+  emits('update:modelValue', val || false);
 });
-
-const checkboxRootClassName = computed(() => cn(checkboxVariants({ size })));
 
 defineExpose({
   name: props.name,
   primary,
-  innerChecked,
-  setChecked: (value: boolean | 'indeterminate') => (innerChecked.value = value),
+  innerModelValue,
+  setChecked: (value: boolean | 'indeterminate' | null) => (innerModelValue.value = value),
 });
+
+const checkboxRootClassName = computed(() => cn(checkboxVariants({ size })));
+const forwarded = useForwardPropsEmits(props, emits);
 </script>
 
 <template>
@@ -90,15 +77,15 @@ defineExpose({
       )
     "
   >
-    <CheckboxRoot v-model:checked="innerChecked" v-bind="forwarded" :class="checkboxRootClassName">
+    <CheckboxRoot v-model="innerModelValue" v-bind="forwarded" :class="checkboxRootClassName">
       <CheckboxIndicator class="flex h-full w-full items-center justify-center text-current">
         <slot name="indicator">
           <Check
-            v-if="innerChecked !== 'indeterminate'"
+            v-if="innerModelValue !== 'indeterminate'"
             class="size-full stroke-black stroke-[.125rem] [&_path]:check-dash-animate"
           />
           <Minus
-            v-if="innerChecked === 'indeterminate'"
+            v-if="innerModelValue === 'indeterminate'"
             class="size-full stroke-black stroke-[.125rem] [&_path]:check-indeterminate-dash-animate"
           />
         </slot>

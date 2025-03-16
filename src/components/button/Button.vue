@@ -1,15 +1,8 @@
-<script setup lang="ts">
-import { computed, type HTMLAttributes } from 'vue';
-import { cn } from '@/lib/utils';
-import { Primitive, TooltipContentProps, TooltipRootProps, type PrimitiveProps } from 'radix-vue';
-import { type ButtonVariants, buttonVariants } from '.';
-import {
-  Tooltip,
-  TooltipTrigger,
-  TooltipContent,
-  TooltipArrow,
-  type TooltipContentVariants,
-} from '../tooltip';
+<script lang="ts">
+import type { PrimitiveProps, TooltipContentProps, TooltipRootProps } from 'reka-ui';
+import type { HTMLAttributes } from 'vue';
+import type { TooltipContentVariants } from '../tooltip';
+import type { ButtonVariants } from '.';
 
 interface Props extends PrimitiveProps {
   type?: ButtonVariants['type'];
@@ -25,6 +18,14 @@ interface Props extends PrimitiveProps {
   tooltipContentProps?: TooltipContentProps;
   tooltipArrowClass?: HTMLAttributes['class'];
 }
+</script>
+
+<script setup lang="ts">
+import { computed } from 'vue';
+import { cn } from '@/lib/utils';
+import { Primitive } from 'reka-ui';
+import { buttonVariants } from '.';
+import { Tooltip, TooltipTrigger, TooltipContent, TooltipArrow } from '../tooltip';
 
 const {
   as = 'button',

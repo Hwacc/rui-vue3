@@ -15,7 +15,7 @@ interface Props extends PrimitiveProps {
 import { computed, ref, type HTMLAttributes } from 'vue';
 import { cn } from '@/lib/utils';
 import { useVModel } from '@vueuse/core';
-import { PrimitiveProps, useForwardExpose } from 'radix-vue';
+import { PrimitiveProps, useForwardExpose } from 'reka-ui';
 import { inputInnerVariants, inputVariants } from './index';
 import { CircleX } from 'lucide-vue-next';
 

@@ -19,7 +19,7 @@ const sliderTeleportOpts = reactive<FloatingTooltipOptions>({
   teleport: true,
   content: () => (
     <div class='flex items-center gap-2' key={new Date().getTime()}>
-      <Switch v-model={sliderSwitcherState} />
+      <Switch v-model={sliderSwitcherState.value} />
       <span>Tooltip content</span>
     </div>
   ),
@@ -49,7 +49,7 @@ const tSliderPropsChange = () => {
   <div class="container flex flex-col items-center gap-4">
     <p class="test-block gap-2">
       Slider: {{ sliderState }}
-      <Switch v-model:checked="sliderSwitcherState" />
+      <Switch v-model="sliderSwitcherState" />
       <Button @click="tSliderPropsChange">Slider Props Change</Button>
     </p>
     <div class="w-full flex gap-4">
