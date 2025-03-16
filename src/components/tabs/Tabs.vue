@@ -4,6 +4,8 @@ import { Ref } from 'vue';
 
 export type TabsContext = {
   value: Ref<StringOrNumber | undefined>;
+  index: Ref<number>;
+  orientation: 'horizontal' | 'vertical';
   initTabList: () => void;
   initTabTrigger: () => void;
   tabsList: Ref<HTMLElement | undefined>;
@@ -18,7 +20,7 @@ export const [injectTabsContext, provideTabsContext] = createContext<TabsContext
 <script setup lang="ts">
 import type { TabsRootEmits, TabsRootProps } from 'reka-ui';
 import { TabsRoot, useForwardPropsEmits } from 'reka-ui';
-import { getCurrentInstance, nextTick, reactive, ref } from 'vue';
+import { computed, getCurrentInstance, nextTick, reactive, ref } from 'vue';
 
 const { modelValue, defaultValue, ...props } = defineProps<TabsRootProps>();
 const innerValue = ref<StringOrNumber | undefined>(modelValue ?? defaultValue);
@@ -35,9 +37,13 @@ const tabsTriggers = reactive<
     el: HTMLElement;
   }>
 >([]);
-
+const index = computed(() => {
+  return tabsTriggers.findIndex((item) => item.value === innerValue.value);
+});
 provideTabsContext({
   value: innerValue,
+  index,
+  orientation: props.orientation ?? 'horizontal',
   initTabList: function (this: any) {
     const instance = getCurrentInstance.call(this);
     nextTick(() => {

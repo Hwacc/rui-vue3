@@ -1,4 +1,3 @@
-
 import { cva, VariantProps } from 'class-variance-authority';
 
 export { default as Tabs } from './Tabs.vue';
@@ -56,7 +55,17 @@ export const tabsIndicatorVariants = cva(
 );
 export type TabsIndicatorVariantsProps = VariantProps<typeof tabsIndicatorVariants>;
 
-export const tabsContentVariants = cva(['mt-2', 'outline-none'], {
-  variants: {},
-});
+export const tabsContentVariants = cva(
+  ['mt-2', 'outline-none', 'data-[state=active]:animate-duration-200'],
+  {
+    variants: {
+      prev: {
+        true: 'data-[state=active]:animate-fade-right',
+      },
+      next: {
+        true: 'data-[state=active]:animate-fade-left',
+      },
+    },
+  }
+);
 export type TabsContentVariantsProps = VariantProps<typeof tabsContentVariants>;

@@ -5,8 +5,8 @@ import { Tabs, TabsContent, TabsList, TabsTrigger, TabsIndicator } from '@/compo
 <template>
   <div class="container flex flex-col items-center gap-4">
     <p class="test-block">Tabs status:</p>
-    <div class="flex items-center gap-4">
-      <!-- <Tabs default-value="account" class="w-[400px]">
+    <div class="flex gap-4">
+      <Tabs default-value="account" class="w-[400px]">
         <TabsList class="w-full">
           <TabsTrigger value="account"> Account </TabsTrigger>
           <TabsTrigger value="password"> Password </TabsTrigger>
@@ -14,7 +14,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger, TabsIndicator } from '@/compo
         </TabsList>
         <TabsContent value="account"> Account Content </TabsContent>
         <TabsContent value="password"> Password Content </TabsContent>
-      </Tabs> -->
+      </Tabs>
       <Tabs default-value="tab10" class="w-[400px]">
         <TabsList class="w-full">
           <TabsTrigger v-for="i in 15" :key="`tab${i}`" :value="`tab${i}`">
@@ -26,7 +26,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger, TabsIndicator } from '@/compo
           <div
             class="flex items-center justify-center"
             :style="{
-              height: `${(i + 1) * 50}px`,
+              height: `${(i + 1) * 10}px`,
             }"
           >
             {{ `content ${i}` }}
