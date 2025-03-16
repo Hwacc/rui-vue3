@@ -13,23 +13,16 @@ const { class: propsClass, ...props } = defineProps<
   TabsContentProps & { class?: HTMLAttributes['class'] }
 >();
 
-const isPrev = ref(false);
-const isNext = ref(false);
+const direction = ref(0);
 watch(index, (newIndex, oldIndex) => {
-  if (newIndex - oldIndex > 0) {
-    isPrev.value = false;
-    isNext.value = true;
-  } else if (newIndex - oldIndex < 0) {
-    isPrev.value = true;
-    isNext.value = false;
-  }
+  direction.value = newIndex - oldIndex;
 });
 
 const classNames = computed(() => {
   return cn(
     tabsContentVariants({
-      prev: isPrev.value,
-      next: isNext.value,
+      prev: direction.value < 0,
+      next: direction.value > 0,
     }),
     propsClass
   );

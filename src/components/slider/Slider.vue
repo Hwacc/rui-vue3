@@ -584,7 +584,6 @@ const getFloatingTooltipContent = (value: number | string) => {
 
 <style lang="css" scoped>
 @reference "../../styles/tailwind.css";
-
 .vue-slider-default-tooltip {
   &:after {
     content: '';
