@@ -1,6 +1,7 @@
 {
   "$schema": "https://shadcn-vue.com/schema.json",
   "style": "default",
+  "typescript": true,
   "tailwind": {
     "config": "tailwind.config.ts",
     "css": "src/styles/index.css",
@@ -11,8 +12,8 @@
   "aliases": {
     "ui": "@/components",
     "components": "@/components",
-    "utils": "@/lib/utils",
     "lib": "@/lib",
+    "utils": "@/lib/utils",
     "composables": "@/composables"
   }
 }

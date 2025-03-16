@@ -9,7 +9,8 @@ import SwitchExample from './switch/index.vue';
 import CheckboxExample from './checkbox/index.vue';
 import RadioExample from './radio/index.vue';
 import SliderExample from './slider/index.vue';
-import TabsExample from './tabs/index.vue'
+import TabsExample from './tabs/index.vue';
+import CollapsibleExample from './collapsible/index.vue';
 
 import { ref } from 'vue';
 const compSize = ref<'default' | 'sm' | 'lg'>('default');
@@ -35,6 +36,7 @@ const compSize = ref<'default' | 'sm' | 'lg'>('default');
       <RadioExample />
       <SliderExample />
       <TabsExample />
+      <CollapsibleExample />
     </div>
   </TooltipProvider>
 </template>

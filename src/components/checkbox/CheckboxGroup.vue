@@ -1,5 +1,5 @@
 <script lang="ts">
-import { createContext } from 'radix-vue';
+import { createContext } from 'reka-ui';
 interface CheckboxGroupContext {
   collection: Ref<string[]>;
   onChecked: (name?: string, value?: boolean | 'indeterminate' | null, isPrimary?: boolean) => void;
@@ -10,7 +10,7 @@ export const [injectCheckboxGroupContext, provideCheckboxGroupContext] =
 </script>
 
 <script setup lang="ts">
-import { Primitive, useForwardPropsEmits, type PrimitiveProps } from 'radix-vue';
+import { Primitive, useForwardPropsEmits, type PrimitiveProps } from 'reka-ui';
 import {
   ComponentInternalInstance,
   HTMLAttributes,
