@@ -4,11 +4,15 @@ import type { HTMLAttributes } from 'vue';
 import { cn } from '@/lib/utils';
 import { TabsTrigger, useForwardProps } from 'reka-ui';
 import { computed, onMounted } from 'vue';
-import { tabsTriggerVariants } from '.';
+import { tabsTriggerVariants, TabsTriggerVariantsProps } from '.';
 import { injectTabsContext } from './Tabs.vue';
 
-const { class: propsClass, ...props } = defineProps<
-  TabsTriggerProps & { class?: HTMLAttributes['class'] }
+const {
+  class: propsClass,
+  size = 'default',
+  ...props
+} = defineProps<
+  TabsTriggerProps & { class?: HTMLAttributes['class']; size?: TabsTriggerVariantsProps['size'] }
 >();
 
 const { initTabTrigger } = injectTabsContext();
@@ -19,7 +23,7 @@ onMounted(() => {
 
 const forwardedProps = useForwardProps(props);
 const classNames = computed(() => {
-  return cn(tabsTriggerVariants(), propsClass);
+  return cn(tabsTriggerVariants({ size }), propsClass);
 });
 </script>
 

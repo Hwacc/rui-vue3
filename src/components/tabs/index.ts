@@ -20,9 +20,6 @@ export const tabsTriggerVariants = cva(
     'justify-center',
     'whitespace-nowrap',
     'rounded',
-    'px-3.75',
-    'py-2.5',
-    'text-sm',
     'transition-all',
     'outline-none',
     'disabled:pointer-events-none',
@@ -32,7 +29,13 @@ export const tabsTriggerVariants = cva(
     'data-[state=active]:text-hff',
   ],
   {
-    variants: {},
+    variants: {
+      size: {
+        default: 'px-3.75 py-2.5 text-sm',
+        sm: 'px-3 py-2 text-xs',
+        lg: 'px-4.5 py-3 text-base',
+      },
+    },
   }
 );
 export type TabsTriggerVariantsProps = VariantProps<typeof tabsTriggerVariants>;
@@ -41,7 +44,6 @@ export const tabsIndicatorVariants = cva(
   [
     'absolute',
     'left-0',
-    'h-1',
     'bottom-0',
     'w-[var(--reka-tabs-indicator-size)]',
     'translate-x-[var(--reka-tabs-indicator-position)]',
@@ -50,7 +52,13 @@ export const tabsIndicatorVariants = cva(
     'duration-300',
   ],
   {
-    variants: {},
+    variants: {
+      size: {
+        default: 'h-1',
+        sm: 'h-1',
+        lg: 'h-1.5',
+      },
+    },
   }
 );
 export type TabsIndicatorVariantsProps = VariantProps<typeof tabsIndicatorVariants>;
