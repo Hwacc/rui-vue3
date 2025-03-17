@@ -1,24 +1,96 @@
+<script lang="ts">
+import { HTMLAttributes } from 'vue';
+import { CollapsibleRootProps, CollapsibleTriggerProps, createContext } from 'reka-ui';
+
+export interface ReadMoreProps extends CollapsibleRootProps {
+  triggerProps?: CollapsibleTriggerProps & {
+    class?: HTMLAttributes['class'];
+    viewLessText?: string;
+    viewMoreText?: string;
+  };
+  contentProps?: ReadMoreContentProps & {
+    class?: HTMLAttributes['class'];
+  };
+}
+
+export interface ReadMoreContext {
+  showTrigger?: Ref<boolean>;
+}
+export const [injectReadMoreContext, provideReadMoreContext] =
+  createContext<ReadMoreContext>('ReadMoreContext');
+</script>
+
 <script setup lang="ts">
-import { Collapsible, CollapsibleTrigger, CollapsibleContent } from '.';
+import { Collapsible, CollapsibleTrigger, readMoreRootVariants, readMoreTriggerVariants } from '.';
+import { default as ReadMoreContent, ReadMoreContentProps } from './ReadMoreContent.vue';
+import { useForwardPropsEmits, CollapsibleRootEmits, CollapsibleContentEmits } from 'reka-ui';
+import { cn } from '@/lib/utils';
+import { computed, Ref, ref } from 'vue';
+
+const {
+  triggerProps,
+  contentProps,
+  class: propsClass,
+  ...props
+} = defineProps<
+  ReadMoreProps & {
+    class?: HTMLAttributes['class'];
+  }
+>();
+const rootEmits = defineEmits<CollapsibleRootEmits>();
+
+const triggerClassNames = computed(() => {
+  return cn(readMoreTriggerVariants(), triggerProps?.class);
+});
+const delegateTriggerProps = computed(() => {
+  const _delegete = {
+    ...triggerProps,
+  };
+  delete _delegete?.class;
+  delete _delegete?.viewLessText;
+  delete _delegete?.viewMoreText;
+  return _delegete;
+});
+
+const rootForwarded = useForwardPropsEmits(props, rootEmits);
+const rootClassNames = computed(() => {
+  return cn(readMoreRootVariants(), propsClass);
+});
+const contentForwarded = useForwardPropsEmits(contentProps ?? {});
+
+const showTrigger = ref(false);
+provideReadMoreContext({
+  showTrigger,
+});
 </script>
 
 <template>
-  <Collapsible>
-    <CollapsibleTrigger>trigger</CollapsibleTrigger>
-    <CollapsibleContent class="w-[200px] h-[100px]">
-      <p>
-        Tale of Immortal is an open-world sandbox game based on Chinese mythology and cultivation.
-        You will grow to become immortal, conquer the beasts from the Classic of Mountains and
-        Season, make your choices carefully and grasp your own destiny.<br />Live the mythology<br />With
-        a background based around ancient Chinese myths and stories, players will have a variety of
-        interactive options with scenes and in-game NPCs, which will affect the storyline of the
-        game and transform the game world.<br />Become Immortal<br />The theme of the game combines
-        the immortal cultivation and the unique cultural background of The Classics of Mountain and
-        Sea.<br />Players will experience the journey from a mortal to a strong, god-like being.<br />A
-        word from the dev team:<br />Our studio hopes that in this game, players will express the
-        theme of "Always stick to your heart, dare to fight against difficulties; make choices
-        carefully and grasp your own destiny."
-      </p>
-    </CollapsibleContent>
+  <Collapsible :class="rootClassNames" v-bind="rootForwarded" v-slot="{ open }">
+    <slot
+      name="trigger"
+      v-bind="{
+        open,
+        showTrigger,
+        viewLessText: triggerProps?.viewLessText,
+        viewMoreText: triggerProps?.viewMoreText,
+      }"
+    >
+      <CollapsibleTrigger
+        v-if="showTrigger"
+        :class="triggerClassNames"
+        v-bind="delegateTriggerProps"
+      >
+        {{
+          open
+            ? triggerProps?.viewLessText ?? 'View Less'
+            : triggerProps?.viewMoreText ?? 'View More'
+        }}
+      </CollapsibleTrigger>
+    </slot>
+    <ReadMoreContent v-bind="contentForwarded">
+      <template #default="{}">
+        <slot name="default" v-bind="{ open, showTrigger }"></slot>
+      </template>
+    </ReadMoreContent>
   </Collapsible>
 </template>

@@ -27,3 +27,25 @@ export const collapsibleTriggerVariants = cva([], {
   variants: {},
 });
 export type CollapsibleTriggerVariants = VariantProps<typeof collapsibleTriggerVariants>;
+
+
+export const readMoreRootVariants = cva(['relative']);
+export type ReadMoreVariants = VariantProps<typeof readMoreRootVariants>;
+
+export const readMoreContentVariants = cva(['overflow-hidden']);
+export type ReadMoreContentVariants = VariantProps<typeof readMoreContentVariants>;
+
+export const readMoreTriggerVariants = cva(
+  [
+    'absolute',
+    'bottom-0',
+    'right-0',
+    'cursor-pointer',
+    'pl-[2.5rem]',
+    'bg-linear-[90deg,transparent_0%,var(--color-h1a)_27%]',
+  ],
+  {
+    variants: {},
+  }
+);
+export type ReadMoreTriggerVariants = VariantProps<typeof readMoreTriggerVariants>;

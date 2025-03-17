@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import type { CollapsibleContentProps } from 'reka-ui';
-import { CollapsibleContent, injectCollapsibleRootContext } from 'reka-ui';
+import { CollapsibleContent } from 'reka-ui';
 import { collapsibleContentVariants } from '.';
 import { cn } from '@/lib/utils';
 import { computed, HTMLAttributes } from 'vue';
@@ -10,9 +10,6 @@ const { class: propsClass, ...props } = defineProps<
     class?: HTMLAttributes['class'];
   }
 >();
-
-const context = injectCollapsibleRootContext();
-console.log(context);
 
 const classNames = computed(() => {
   return cn(collapsibleContentVariants(), propsClass);
