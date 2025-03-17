@@ -27,3 +27,8 @@ Preview the production build locally:
 ```bash
 pnpm preview
 ```
+
+
+Install component
+
+`npx shadcn-vue@radix add component-name`
