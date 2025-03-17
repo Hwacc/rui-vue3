@@ -37,7 +37,7 @@ const {
     class?: HTMLAttributes['class'];
   }
 >();
-const rootEmits = defineEmits<
+const emits = defineEmits<
   CollapsibleRootEmits & {
     contentFound: [void];
   }
@@ -56,7 +56,7 @@ const delegateTriggerProps = computed(() => {
   return _delegete;
 });
 
-const rootForwarded = useForwardPropsEmits(props, rootEmits);
+const rootForwarded = useForwardPropsEmits(props, emits);
 const rootClassNames = computed(() => {
   return cn(readMoreRootVariants(), propsClass);
 });
@@ -91,8 +91,8 @@ provideReadMoreContext({
         }}
       </CollapsibleTrigger>
     </slot>
-    <ReadMoreContent v-bind="contentForwarded" @content-found="rootEmits('contentFound')">
-      <template #default="{}">
+    <ReadMoreContent v-bind="contentForwarded" @content-found="emits('contentFound')">
+      <template #default>
         <slot name="default" v-bind="{ open, showTrigger }"></slot>
       </template>
     </ReadMoreContent>
