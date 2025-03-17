@@ -12,7 +12,7 @@ export type ReadMoreContentEmits = {
 </script>
 
 <script setup lang="ts">
-import { computed, HTMLAttributes, ref, watchEffect } from 'vue';
+import { HTMLAttributes, ref, watchEffect } from 'vue';
 import {
   Primitive,
   injectCollapsibleRootContext,
@@ -23,7 +23,7 @@ import {
 import { useEventListener, useResizeObserver } from '@vueuse/core';
 import { cn } from '@/lib/utils';
 import { injectReadMoreContext } from './ReadMore.vue';
-import { readMoreContentVariants } from '.';
+import { readMoreContentClass } from '.';
 
 const {
   class: propsClass,
@@ -79,13 +79,6 @@ useEventListener(currentElement, 'beforematch', () => {
   });
 });
 
-const classNames = computed(() => {
-  return cn(
-    readMoreContentVariants(),
-    ['max-h-(--reka-readmore-max-height)', 'transition-[max-height]'],
-    propsClass
-  );
-});
 const forwarded = useForwardPropsEmits(props, emits);
 </script>
 
@@ -93,7 +86,7 @@ const forwarded = useForwardPropsEmits(props, emits);
   <Primitive
     v-bind="forwarded"
     :ref="forwardRef"
-    :class="classNames"
+    :class="cn(readMoreContentClass, propsClass)"
     :id="rootContext.contentId"
     :data-state="rootContext.open.value ? 'open' : 'closed'"
     :data-disabled="rootContext.disabled?.value ? '' : undefined"

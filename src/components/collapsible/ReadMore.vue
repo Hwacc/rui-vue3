@@ -21,7 +21,7 @@ export const [injectReadMoreContext, provideReadMoreContext] =
 </script>
 
 <script setup lang="ts">
-import { Collapsible, CollapsibleTrigger, readMoreRootVariants, readMoreTriggerVariants } from '.';
+import { Collapsible, CollapsibleTrigger, readMoreRootClass, readMoreTriggerClass } from '.';
 import { default as ReadMoreContent, ReadMoreContentProps } from './ReadMoreContent.vue';
 import { useForwardPropsEmits, CollapsibleRootEmits } from 'reka-ui';
 import { cn } from '@/lib/utils';
@@ -43,9 +43,6 @@ const emits = defineEmits<
   }
 >();
 
-const triggerClassNames = computed(() => {
-  return cn(readMoreTriggerVariants(), triggerProps?.class);
-});
 const delegateTriggerProps = computed(() => {
   const _delegete = {
     ...triggerProps,
@@ -57,9 +54,6 @@ const delegateTriggerProps = computed(() => {
 });
 
 const rootForwarded = useForwardPropsEmits(props, emits);
-const rootClassNames = computed(() => {
-  return cn(readMoreRootVariants(), propsClass);
-});
 const contentForwarded = useForwardPropsEmits(contentProps ?? {});
 
 const showTrigger = ref(false);
@@ -69,7 +63,7 @@ provideReadMoreContext({
 </script>
 
 <template>
-  <Collapsible :class="rootClassNames" v-bind="rootForwarded" v-slot="{ open }">
+  <Collapsible :class="cn(readMoreRootClass, propsClass)" v-bind="rootForwarded" v-slot="{ open }">
     <slot
       name="trigger"
       v-bind="{
@@ -81,7 +75,7 @@ provideReadMoreContext({
     >
       <CollapsibleTrigger
         v-if="showTrigger"
-        :class="triggerClassNames"
+        :class="cn(readMoreTriggerClass, triggerProps?.class)"
         v-bind="delegateTriggerProps"
       >
         {{
