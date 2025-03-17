@@ -30,7 +30,14 @@ watch(arrowRef, () => {
   }
 });
 
-const className = computed(() =>
+const style = computed(() => {
+  return {
+    '--rui-tooltip-arrow-width': `${props.width}px`,
+    '--rui-tooltip-arrow-height': `${props.height}px`,
+  };
+});
+
+const classNames = computed(() =>
   cn(
     toolTipArrowVariants({
       theme,
@@ -46,7 +53,8 @@ const className = computed(() =>
     ref="arrowRef"
     v-bind="props"
     :as="type === 'css' ? 'span' : 'svg'"
-    :class="className"
+    :class="classNames"
+    :style="style"
   >
     <span v-if="type === 'css'"></span>
   </TooltipArrow>

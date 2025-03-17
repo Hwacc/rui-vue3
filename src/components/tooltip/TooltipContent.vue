@@ -24,22 +24,8 @@ const {
 const emits = defineEmits<TooltipContentEmits>();
 const forwarded = useForwardPropsEmits(props, emits);
 
-const contentClassName = computed(() => {
+const classNames = computed(() => {
   return cn(
-    [
-      'z-50',
-      'overflow-hidden',
-      'animate-in',
-      'fade-in-0',
-      'zoom-in-95',
-      'data-[state=closed]:animate-out',
-      'data-[state=closed]:fade-out-0',
-      'data-[state=closed]:zoom-out-95',
-      'data-[side=bottom]:slide-in-from-top-2',
-      'data-[side=left]:slide-in-from-right-2',
-      'data-[side=right]:slide-in-from-left-2',
-      'data-[side=top]:slide-in-from-bottom-2',
-    ],
     tooltipContentVariants({
       theme,
     }),
@@ -50,11 +36,7 @@ const contentClassName = computed(() => {
 
 <template>
   <TooltipPortal>
-    <TooltipContent
-      v-bind="{ ...forwarded, ...$attrs }"
-      :class="contentClassName"
-      :data-theme="theme"
-    >
+    <TooltipContent v-bind="{ ...forwarded, ...$attrs }" :class="classNames" :data-theme="theme">
       <slot />
     </TooltipContent>
   </TooltipPortal>

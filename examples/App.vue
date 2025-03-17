@@ -27,7 +27,7 @@ const compSize = ref<'default' | 'sm' | 'lg'>('default');
       </Button>
       <div class="test-block p-1!">Current Size: {{ compSize }}</div>
     </div>
-    <div class="content flex-col-c gap-4">
+    <div class="content flex-col-c gap-4 pb-[5rem]">
       <ButtonExample />
       <VTitleExample />
       <InputExample />

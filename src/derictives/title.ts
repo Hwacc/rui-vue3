@@ -55,7 +55,6 @@ class TitleTooltip {
   }
 
   async onMouseEnter(el: Element, binding: DirectiveBinding) {
-    console.log('onMouseEnter', binding)
     this.showTimer && clearTimeout(this.showTimer);
     this.showTimer = setTimeout(async () => {
       try {

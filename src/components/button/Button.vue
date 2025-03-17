@@ -1,5 +1,10 @@
 <script lang="ts">
-import type { PrimitiveProps, TooltipContentProps, TooltipRootProps } from 'reka-ui';
+import type {
+  PrimitiveProps,
+  TooltipContentProps,
+  TooltipRootProps,
+  TooltipArrowProps,
+} from 'reka-ui';
 import type { HTMLAttributes } from 'vue';
 import type { TooltipContentVariants } from '../tooltip';
 import type { ButtonVariants } from '.';
@@ -17,6 +22,7 @@ interface Props extends PrimitiveProps {
   tooltipContentClass?: HTMLAttributes['class'];
   tooltipContentProps?: TooltipContentProps;
   tooltipArrowClass?: HTMLAttributes['class'];
+  tooltipArrowProps?: TooltipArrowProps;
 }
 </script>
 
@@ -47,6 +53,10 @@ const {
     sideOffset: 6,
   },
   tooltipArrowClass,
+  tooltipArrowProps = {
+    width: 7,
+    height: 3,
+  },
 } = defineProps<Props>();
 
 const slots = defineSlots<{
@@ -70,7 +80,10 @@ const buttonClass = computed(() =>
 </script>
 
 <template>
-  <Tooltip v-if="tooltip || slots.tooltip" v-bind="{ ...tooltipRootProps, disabled }">
+  <Tooltip
+    v-if="tooltip || slots.tooltip"
+    v-bind="{ ...tooltipRootProps, disabled}"
+  >
     <TooltipTrigger
       :as="as"
       :asChild="asChild"
@@ -90,7 +103,12 @@ const buttonClass = computed(() =>
       <slot name="tooltip">
         {{ tooltip }}
       </slot>
-      <TooltipArrow :class="tooltipArrowClass" :width="7" :height="3" force :theme="tooltipTheme" />
+      <TooltipArrow
+        :class="tooltipArrowClass"
+        force
+        :theme="tooltipTheme"
+        v-bind="tooltipArrowProps"
+      />
     </TooltipContent>
   </Tooltip>
   <Primitive

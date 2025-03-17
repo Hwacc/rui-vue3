@@ -55,7 +55,7 @@ const switcherState = ref(false);
         type="icon"
         size="sm"
         tooltip="camera"
-        :tooltipContentProps="{ align: 'end', side: 'bottom' }"
+        :tooltipContentProps="{ align: 'end', side: 'bottom', sideOffset: 6 }"
       >
         <Camera />
       </Button>

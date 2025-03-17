@@ -9,7 +9,25 @@ import { TooltipArrowProps } from 'reka-ui';
 export { TooltipArrow, type TooltipArrowProps };
 
 export const tooltipContentVariants = cva(
-  ['px-2', 'py-[.3125rem]', 'border', 'rounded', 'text-xs'],
+  [
+    'z-50',
+    'overflow-hidden',
+    'animate-in',
+    'fade-in-0',
+    'zoom-in-95',
+    'data-[state=closed]:animate-out',
+    'data-[state=closed]:fade-out-0',
+    'data-[state=closed]:zoom-out-95',
+    'data-[side=bottom]:slide-in-from-top-2',
+    'data-[side=left]:slide-in-from-right-2',
+    'data-[side=right]:slide-in-from-left-2',
+    'data-[side=top]:slide-in-from-bottom-2',
+    'px-2',
+    'py-[.3125rem]',
+    'border',
+    'rounded',
+    'text-xs',
+  ],
   {
     variants: {
       theme: {
@@ -31,8 +49,8 @@ export const toolTipArrowVariants = cva('', {
       svg: '',
       css: [
         'relative',
-        'w-[.4375rem]',
-        'h-[.1875rem]',
+        'w-[var(--rui-tooltip-arrow-width)]',
+        'h-[var(--rui-tooltip-arrow-height)]',
         'animate-fade',
         'animate-duration-100',
         [
@@ -41,9 +59,8 @@ export const toolTipArrowVariants = cva('', {
           'before:bottom-0',
           'before:w-0',
           'before:h-0',
-          'before:border-r-[.1875rem] before:border-r-transparent',
-          'before:border-l-[.1875rem] before:border-l-transparent',
-          'before:left-[.125rem]',
+          'before:border-r-(length:--rui-tooltip-arrow-height) before:border-r-transparent',
+          'before:border-l-(length:--rui-tooltip-arrow-height) before:border-l-transparent',
         ],
         [
           'after:absolute',
@@ -51,9 +68,8 @@ export const toolTipArrowVariants = cva('', {
           'after:bottom-[.0625rem]',
           'after:w-0',
           'after:h-0',
-          'after:border-r-[.1875rem] after:border-r-transparent',
-          'after:border-l-[.1875rem] after:border-l-transparent',
-          'after:left-[.125rem]'
+          'after:border-r-(length:--rui-tooltip-arrow-height) after:border-r-transparent',
+          'after:border-l-(length:--rui-tooltip-arrow-height) after:border-l-transparent',
         ],
       ],
     },
