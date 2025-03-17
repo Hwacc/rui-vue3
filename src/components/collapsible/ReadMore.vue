@@ -23,7 +23,7 @@ export const [injectReadMoreContext, provideReadMoreContext] =
 <script setup lang="ts">
 import { Collapsible, CollapsibleTrigger, readMoreRootVariants, readMoreTriggerVariants } from '.';
 import { default as ReadMoreContent, ReadMoreContentProps } from './ReadMoreContent.vue';
-import { useForwardPropsEmits, CollapsibleRootEmits, CollapsibleContentEmits } from 'reka-ui';
+import { useForwardPropsEmits, CollapsibleRootEmits } from 'reka-ui';
 import { cn } from '@/lib/utils';
 import { computed, Ref, ref } from 'vue';
 
@@ -37,7 +37,11 @@ const {
     class?: HTMLAttributes['class'];
   }
 >();
-const rootEmits = defineEmits<CollapsibleRootEmits>();
+const rootEmits = defineEmits<
+  CollapsibleRootEmits & {
+    contentFound: [void];
+  }
+>();
 
 const triggerClassNames = computed(() => {
   return cn(readMoreTriggerVariants(), triggerProps?.class);
@@ -87,7 +91,7 @@ provideReadMoreContext({
         }}
       </CollapsibleTrigger>
     </slot>
-    <ReadMoreContent v-bind="contentForwarded">
+    <ReadMoreContent v-bind="contentForwarded" @content-found="rootEmits('contentFound')">
       <template #default="{}">
         <slot name="default" v-bind="{ open, showTrigger }"></slot>
       </template>
