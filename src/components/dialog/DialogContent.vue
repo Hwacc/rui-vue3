@@ -1,51 +1,104 @@
+<script lang="ts">
+export interface DialogContentPropsImp extends DialogContentProps {
+  class?: HTMLAttributes['class'];
+  showClose?: boolean;
+  closeClass?: HTMLAttributes['class'];
+  overlay?: DialogOverlayProps & { class?: HTMLAttributes['class'] };
+  portal?: DialogPortalProps;
+}
+
+export const [injectDialogContentContext, provideDialogContentContext] =
+  createContext('DialogContent');
+</script>
+
 <script setup lang="ts">
-import type { DialogContentEmits, DialogContentProps } from 'reka-ui'
-import type { HTMLAttributes } from 'vue'
-import { cn } from '@/lib/utils'
-import { X } from 'lucide-vue-next'
+import type {
+  DialogContentEmits,
+  DialogContentProps,
+  DialogOverlayProps,
+  DialogPortalProps,
+} from 'reka-ui';
+import type { HTMLAttributes } from 'vue';
+import { cn } from '@/lib/utils';
+import { X } from 'lucide-vue-next';
 import {
+  createContext,
   DialogClose,
   DialogContent,
-
   DialogOverlay,
   DialogPortal,
   useForwardPropsEmits,
-} from 'reka-ui'
-import { computed } from 'vue'
+} from 'reka-ui';
+import { computed, ref, useSlots, watch } from 'vue';
+import { dialogContentVariants, dialogOverlayVariants, dialogCloseDefaultClass } from '.';
+import { injectDialogRootContext } from 'reka-ui';
 
-const props = defineProps<DialogContentProps & { class?: HTMLAttributes['class'] }>()
-const emits = defineEmits<DialogContentEmits>()
+const { open } = injectDialogRootContext();
 
-const delegatedProps = computed(() => {
-  const { class: _, ...delegated } = props
+const {
+  class: propsClass,
+  closeClass,
+  showClose = true,
+  overlay = {},
+  portal = {},
+  ...props
+} = defineProps<DialogContentPropsImp>();
+const emits = defineEmits<DialogContentEmits>();
 
-  return delegated
-})
+const slots = useSlots();
+const showContentClose = computed(() => {
+  const _hasDialogHeader = () => {
+    if (!slots.default) return false;
+    const defaultSlot = slots.default();
+    return defaultSlot.some((vnode) => {
+      if ((vnode.type as any).__name === 'DialogHeader') return true;
+      return false;
+    });
+  };
+  return showClose && !_hasDialogHeader();
+});
 
-const forwarded = useForwardPropsEmits(delegatedProps, emits)
+const closeFrom = ref('');
+const onPointerDownOutside = (e: any) => {
+  emits('pointerDownOutside', e);
+  closeFrom.value = 'outside';
+};
+watch(open, (value) => {
+  if (!value) {
+    console.log('close from:', closeFrom.value);
+  }
+});
+
+const overlayClassNames = computed(() => {
+  return cn(dialogOverlayVariants(), overlay.class);
+});
+const classNames = computed(() => {
+  return cn(
+    dialogContentVariants({
+      position: 'center',
+    }),
+    propsClass
+  );
+});
+const forwarded = useForwardPropsEmits(props, emits);
 </script>
 
 <template>
-  <DialogPortal>
-    <DialogOverlay
-      class="fixed inset-0 z-50 bg-black/80  data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0"
-    />
+  <DialogPortal v-bind="portal">
+    <DialogOverlay :class="overlayClassNames" />
     <DialogContent
       v-bind="forwarded"
-      :class="
-        cn(
-          'fixed left-1/2 top-1/2 z-50 grid w-full max-w-lg -translate-x-1/2 -translate-y-1/2 gap-4 border bg-background p-6 shadow-lg duration-200 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[state=closed]:slide-out-to-left-1/2 data-[state=closed]:slide-out-to-top-[48%] data-[state=open]:slide-in-from-left-1/2 data-[state=open]:slide-in-from-top-[48%] sm:rounded-lg',
-          props.class,
-        )"
+      :class="classNames"
+      @pointer-down-outside=""
+      @interact-outside="onPointerDownOutside"
     >
       <slot />
-
-      <DialogClose
-        class="absolute right-4 top-4 rounded-sm opacity-70 ring-offset-background transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:pointer-events-none data-[state=open]:bg-accent data-[state=open]:text-muted-foreground"
-      >
-        <X class="w-4 h-4" />
-        <span class="sr-only">Close</span>
-      </DialogClose>
+      <slot v-if="showContentClose" name="close">
+        <DialogClose>
+          <X :class="cn(dialogCloseDefaultClass, closeClass)" />
+          <span class="sr-only">Close</span>
+        </DialogClose>
+      </slot>
     </DialogContent>
   </DialogPortal>
 </template>

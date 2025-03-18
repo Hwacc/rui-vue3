@@ -11,6 +11,7 @@ import RadioExample from './radio/index.vue';
 import SliderExample from './slider/index.vue';
 import TabsExample from './tabs/index.vue';
 import CollapsibleExample from './collapsible/index.vue';
+import DialogExample from './dialog/index.vue';
 
 import { ref } from 'vue';
 const compSize = ref<'default' | 'sm' | 'lg'>('default');
@@ -37,6 +38,7 @@ const compSize = ref<'default' | 'sm' | 'lg'>('default');
       <SliderExample />
       <TabsExample />
       <CollapsibleExample />
+      <DialogExample />
     </div>
   </TooltipProvider>
 </template>
