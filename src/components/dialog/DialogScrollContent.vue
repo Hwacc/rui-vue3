@@ -28,6 +28,7 @@ const {
   class: propsClass,
   closeClass,
   showClose = true,
+  autoFocus = false,
   overlay = {},
   portal = {},
   ...props
@@ -78,6 +79,12 @@ const forwarded = useForwardPropsEmits(props, emits);
       <DialogContent
         :class="classNames"
         v-bind="forwarded"
+        @open-auto-focus="
+          (event) => {
+            emits('openAutoFocus', event);
+            !autoFocus && event.preventDefault();
+          }
+        "
         @close-auto-focus="
           (event) => {
             emits('closeAutoFocus', event);

@@ -8,11 +8,17 @@ import {
   DialogFooter,
   DialogContentBody,
   DialogCloseFrom,
-  DialogScrollContent
+  DialogScrollContent,
 } from '@/components/dialog';
+import { useDialog } from '@/hooks/useDialog';
 
 const onContentClose = ({ from }: { from: DialogCloseFrom | undefined }) => {
   console.log('on close from:', from);
+};
+
+const [open] = useDialog();
+const openDialog = () => {
+  open();
 };
 </script>
 
@@ -46,5 +52,6 @@ const onContentClose = ({ from }: { from: DialogCloseFrom | undefined }) => {
         <DialogFooter />
       </DialogScrollContent>
     </Dialog>
+    <Button @click="openDialog">Open Dialog by Function</Button>
   </div>
 </template>

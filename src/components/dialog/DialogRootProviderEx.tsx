@@ -1,5 +1,5 @@
 import { createContext, injectDialogRootContext } from 'reka-ui';
-import { defineComponent, ref, Ref, watch } from 'vue';
+import { defineComponent, ref, Ref } from 'vue';
 import { DialogCloseFrom } from '.';
 
 interface DialogRootContext {

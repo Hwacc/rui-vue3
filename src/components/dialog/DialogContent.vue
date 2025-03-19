@@ -2,6 +2,7 @@
 export interface DialogContentPropsImp extends DialogContentProps {
   class?: HTMLAttributes['class'];
   showClose?: boolean;
+  autoFocus?: boolean;
   closeClass?: HTMLAttributes['class'];
   overlay?: DialogOverlayProps & { class?: HTMLAttributes['class'] };
   portal?: DialogPortalProps;
@@ -18,7 +19,13 @@ import type {
 import type { HTMLAttributes } from 'vue';
 import { cn } from '@/lib/utils';
 import { X } from 'lucide-vue-next';
-import { DialogContent, DialogOverlay, DialogPortal, useForwardPropsEmits } from 'reka-ui';
+import {
+  DialogContent,
+  DialogOverlay,
+  DialogPortal,
+  useForwardExpose,
+  useForwardPropsEmits,
+} from 'reka-ui';
 import { computed, useSlots, watch } from 'vue';
 import {
   dialogContentVariants,
@@ -36,6 +43,7 @@ const {
   class: propsClass,
   closeClass,
   showClose = true,
+  autoFocus = false,
   overlay = {},
   portal = {},
   ...props
@@ -82,6 +90,7 @@ const classNames = computed(() => {
   );
 });
 const forwarded = useForwardPropsEmits(props, emits);
+const { forwardRef } = useForwardExpose();
 </script>
 
 <template>
@@ -89,11 +98,20 @@ const forwarded = useForwardPropsEmits(props, emits);
     <DialogOverlay :class="overlayClassNames" />
     <DialogContent
       v-bind="forwarded"
+      :ref="forwardRef"
       :class="classNames"
-      @close-auto-focus="(event) => {
-        emits('closeAutoFocus', event);
-        event.preventDefault()
-      }"
+      @open-auto-focus="
+        (event) => {
+          emits('openAutoFocus', event);
+          !autoFocus && event.preventDefault();
+        }
+      "
+      @close-auto-focus="
+        (event) => {
+          emits('closeAutoFocus', event);
+          !autoFocus && event.preventDefault();
+        }
+      "
       @pointer-down-outside="onPointerDownOutside"
       @escape-key-down="
         (event) => {
