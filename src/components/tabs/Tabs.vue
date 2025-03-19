@@ -14,7 +14,7 @@ export type TabsContext = {
     el: HTMLElement;
   }>;
 };
-export const [injectTabsContext, provideTabsContext] = createContext<TabsContext>('TabsContext');
+export const [injectTabsContext, provideTabsContext] = createContext<TabsContext>('Tabs');
 </script>
 
 <script setup lang="ts">

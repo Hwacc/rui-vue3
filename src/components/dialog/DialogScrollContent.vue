@@ -1,58 +1,120 @@
 <script setup lang="ts">
-import type { DialogContentEmits, DialogContentProps } from 'reka-ui'
-import type { HTMLAttributes } from 'vue'
-import { cn } from '@/lib/utils'
-import { X } from 'lucide-vue-next'
+import type { DialogContentEmits } from 'reka-ui';
+import type { HTMLAttributes } from 'vue';
+import { cn } from '@/lib/utils';
+import { X } from 'lucide-vue-next';
 import {
-  DialogClose,
   DialogContent,
-
   DialogOverlay,
   DialogPortal,
+  DialogTitle,
+  DialogDescription,
   useForwardPropsEmits,
-} from 'reka-ui'
-import { computed } from 'vue'
+} from 'reka-ui';
+import { computed, useSlots, watch } from 'vue';
+import {
+  DialogCloseFrom,
+  DialogClose,
+  dialogOverlayVariants,
+  DialogScrollContentVariants,
+  dialogContentCloseDefaultClass,
+  dialogCloseDefaultClass,
+} from '.';
+import { DialogContentPropsImp } from './DialogContent.vue';
+import { injectDialogContext } from './DialogRootProviderEx';
 
-const props = defineProps<DialogContentProps & { class?: HTMLAttributes['class'] }>()
-const emits = defineEmits<DialogContentEmits>()
+const { open, closeFrom } = injectDialogContext();
+const {
+  class: propsClass,
+  closeClass,
+  showClose = true,
+  overlay = {},
+  portal = {},
+  ...props
+} = defineProps<DialogContentPropsImp & { class?: HTMLAttributes['class'] }>();
 
-const delegatedProps = computed(() => {
-  const { class: _, ...delegated } = props
+const emits = defineEmits<
+  DialogContentEmits & {
+    close: [{ from: DialogCloseFrom | undefined }];
+  }
+>();
 
-  return delegated
-})
+const slots = useSlots();
+const hasDialogHeader = () => {
+  if (!slots.default) return false;
+  const defaultSlot = slots.default();
+  return defaultSlot.some((vnode) => {
+    if ((vnode.type as any).__name === 'DialogHeader') return true;
+    return false;
+  });
+};
+const showContentClose = computed(() => {
+  return showClose && !hasDialogHeader();
+});
 
-const forwarded = useForwardPropsEmits(delegatedProps, emits)
+const onPointerDownOutside = (e: any) => {
+  emits('pointerDownOutside', e);
+  closeFrom.value = DialogCloseFrom.Overlay;
+};
+watch(open, (value) => {
+  if (!value) {
+    emits('close', { from: closeFrom.value });
+    closeFrom.value = undefined;
+  }
+});
+
+const classNames = computed(() => {
+  return cn(DialogScrollContentVariants(), propsClass);
+});
+const overlayClassNames = computed(() => {
+  return cn(dialogOverlayVariants(), 'overflow-y-auto webkit-scrollbar-self', overlay.class);
+});
+const forwarded = useForwardPropsEmits(props, emits);
 </script>
 
 <template>
-  <DialogPortal>
-    <DialogOverlay
-      class="fixed inset-0 z-50 grid place-items-center overflow-y-auto bg-black/80  data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0"
-    >
+  <DialogPortal v-bind="portal">
+    <DialogOverlay :class="overlayClassNames">
       <DialogContent
-        :class="
-          cn(
-            'relative z-50 grid w-full max-w-lg my-8 gap-4 border border-border bg-background p-6 shadow-lg duration-200 sm:rounded-lg md:w-full',
-            props.class,
-          )
-        "
+        :class="classNames"
         v-bind="forwarded"
+        @close-auto-focus="
+          (event) => {
+            emits('closeAutoFocus', event);
+            event.preventDefault();
+          }
+        "
         @pointer-down-outside="(event) => {
+          onPointerDownOutside(event);
           const originalEvent = event.detail.originalEvent;
           const target = originalEvent.target as HTMLElement;
           if (originalEvent.offsetX > target.clientWidth || originalEvent.offsetY > target.clientHeight) {
             event.preventDefault();
           }
         }"
+        @escape-key-down="
+          (event) => {
+            closeFrom = DialogCloseFrom.EscapeKey;
+            emits('escapeKeyDown', event);
+          }
+        "
       >
         <slot />
-        <DialogClose
-          class="absolute top-3 right-3 p-0.5 transition-colors rounded-md hover:bg-secondary"
-        >
-          <X class="w-4 h-4" />
-          <span class="sr-only">Close</span>
-        </DialogClose>
+        <slot v-if="showContentClose" name="close">
+          <DialogClose
+            :class="dialogContentCloseDefaultClass"
+            :close-from="DialogCloseFrom.CloseButton"
+          >
+            <X :class="cn(dialogCloseDefaultClass, closeClass)" />
+            <span class="sr-only">Close</span>
+          </DialogClose>
+        </slot>
+        <!-- for remove warning -->
+        <template v-if="!hasDialogHeader()">
+          <DialogTitle class="!hidden select-none"></DialogTitle>
+          <DialogDescription class="!hidden select-none"></DialogDescription>
+        </template>
+        <!-- ---end--- -->
       </DialogContent>
     </DialogOverlay>
   </DialogPortal>

@@ -196,6 +196,11 @@
     font-family: var(--font-roboto, --font-sans);
   }
 
+  *:focus-visible {
+    outline: 2px solid var(--color-rz-green);
+    outline-offset: 2px;
+  }
+
   @keyframes fade-down-out {
     from {
       opacity: 1;
@@ -254,4 +259,61 @@
 @utility uti-animate-fade-down-out {
   /* 只设置animation-name，便可以使用 tailwind-animated class 控制 */
   animation-name: fade-down-out;
+}
+
+@utility webkit-scrollbar{
+  ::-webkit-scrollbar {
+    @apply size-[6px];
+  }
+
+  ::-webkit-scrollbar-track-piece {
+    @apply bg-transparent rounded-[6px];
+  }
+
+  ::-webkit-scrollbar-thumb {
+    @apply h-[30px] bg-h58/40 rounded-[6px] hover:bg-rz-green active:bg-rz-green/70 focus:bg-rz-green/70;
+  }
+}
+
+@utility webkit-scrollbar-self{
+  &::-webkit-scrollbar {
+    @apply size-[6px];
+  }
+
+  &::-webkit-scrollbar-track-piece {
+    @apply bg-transparent rounded-[6px];
+  }
+
+  &::-webkit-scrollbar-thumb {
+    @apply h-[30px] bg-h58/40 rounded-[6px] hover:bg-rz-green active:bg-rz-green/70 focus:bg-rz-green/70;
+  }
+}
+
+
+@utility webkit-small-scrollbar {
+  ::-webkit-scrollbar {
+    @apply size-[3px]
+  }
+
+  ::-webkit-scrollbar-track-piece {
+    @apply bg-transparent rounded-[1px]
+  }
+
+  ::-webkit-scrollbar-thumb {
+    @apply h-[5px] bg-h58/40 rounded-[1px] hover:bg-rz-green active:bg-rz-green/70 focus:bg-rz-green/70;
+  } 
+}
+
+@utility webkit-small-scrollbar-self {
+  &::-webkit-scrollbar {
+    @apply size-[3px]
+  }
+
+  &::-webkit-scrollbar-track-piece {
+    @apply bg-transparent rounded-[1px]
+  }
+
+  &::-webkit-scrollbar-thumb {
+    @apply h-[5px] bg-h58/40 rounded-[1px] hover:bg-rz-green active:bg-rz-green/70 focus:bg-rz-green/70;
+  }
 }

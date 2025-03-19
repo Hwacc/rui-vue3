@@ -21,12 +21,12 @@ export const tabsTriggerVariants = cva(
     'whitespace-nowrap',
     'rounded',
     'transition-all',
-    'outline-none',
     'disabled:pointer-events-none',
     'disabled:opacity-50',
     'text-h88',
     'hover:text-hff',
     'data-[state=active]:text-hff',
+    'outline-offset-[-2px]'
   ],
   {
     variants: {
@@ -64,7 +64,7 @@ export const tabsIndicatorVariants = cva(
 export type TabsIndicatorVariantsProps = VariantProps<typeof tabsIndicatorVariants>;
 
 export const tabsContentVariants = cva(
-  ['mt-2', 'outline-none', 'data-[state=active]:animate-duration-200'],
+  ['mt-2', 'data-[state=active]:animate-duration-200'],
   {
     variants: {
       prev: {

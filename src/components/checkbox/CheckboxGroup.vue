@@ -6,7 +6,7 @@ interface CheckboxGroupContext {
   setCheckboxInstance: (instance: ComponentInternalInstance | null, isPrimary: boolean) => void;
 }
 export const [injectCheckboxGroupContext, provideCheckboxGroupContext] =
-  createContext<CheckboxGroupContext>('CheckboxGroupContext');
+  createContext<CheckboxGroupContext>('CheckboxGroup');
 </script>
 
 <script setup lang="ts">

@@ -9,6 +9,14 @@ export { default as DialogScrollContent } from './DialogScrollContent.vue';
 export { default as DialogTrigger } from './DialogTrigger.vue';
 export { default as DialogContentBody } from './DialogContentBody.vue';
 
+export enum DialogCloseFrom {
+  Overlay = 'overlay',
+  CloseButton = 'close-button',
+  OKButton = 'ok-button',
+  CancelButton = 'cancel-button',
+  EscapeKey = 'escape-key',
+}
+
 export const dialogOverlayVariants = cva([
   'fixed',
   'inset-0',
@@ -24,12 +32,18 @@ export type DialogOverlayVariantsProps = VariantProps<typeof dialogOverlayVarian
 export const dialogContentVariants = cva(
   [
     'fixed',
+    'flex',
+    'flex-col',
+    'max-h-[80%]',
+    'max-w-full',
+    'md:max-w-[80%]',
     'z-50',
     'outline-none',
     'border',
     'border-h00',
     'bg-h1a',
     'rounded',
+    'webkit-small-scrollbar',
     'animate-duration-300',
     'animate-ease-out',
     'animate-fill-both',
@@ -46,8 +60,28 @@ export const dialogContentVariants = cva(
 );
 export type DialogContentVariantsProps = VariantProps<typeof dialogContentVariants>;
 
+export const DialogScrollContentVariants = cva([
+  'relative',
+  'max-w-full',
+  'md:max-w-[80%]',
+  'mx-auto',
+  'my-8',
+  'z-50',
+  'outline-none',
+  'border',
+  'border-h00',
+  'bg-h1a',
+  'rounded',
+  'animate-duration-300',
+  'animate-ease-out',
+  'animate-fill-both',
+  'data-[state=open]:animate-fade-down',
+  'data-[state=closed]:uti-animate-fade-down-out',
+]);
+export type DialogScrollContentVariantsProps = VariantProps<typeof DialogScrollContentVariants>;
+
 export const dialogCloseDefaultClass = [
-  'size-3',
+  'size-4',
   'text-xs',
   'text-h88',
   'hover:text-hff',
@@ -55,7 +89,9 @@ export const dialogCloseDefaultClass = [
   'disabled:pointer-events-none',
 ];
 
-export const dialogContentBodyDefaultClass = ['p-6'];
+export const dialogContentCloseDefaultClass = ['absolute', 'pr-2', 'pt-2', 'right-0', 'top-0', 'group'];
+
+export const dialogContentBodyDefaultClass = ['flex-1', 'p-6', 'overflow-y-auto'];
 
 export const dialogHeaderClass = [
   'flex',

@@ -4,7 +4,7 @@ import { cn } from '@/lib/utils';
 import { Check, Minus } from 'lucide-vue-next';
 import { CheckboxIndicator, CheckboxRoot, useForwardPropsEmits } from 'reka-ui';
 import { computed, getCurrentInstance, ref, watch, type HTMLAttributes } from 'vue';
-import { checkboxVariants, CheckboxVariantsProps } from '.';
+import { checkboxVariants, CheckboxVariantsProps, checkboxLabelVariants } from '.';
 import { injectCheckboxGroupContext } from './CheckboxGroup.vue';
 
 /**
@@ -63,19 +63,16 @@ defineExpose({
   setChecked: (value: boolean | 'indeterminate' | null) => (innerModelValue.value = value),
 });
 
+const labelClassName = computed(() =>
+  cn(checkboxLabelVariants({ disabled: props.disabled }), labelClass)
+);
 const checkboxRootClassName = computed(() => cn(checkboxVariants({ size })));
 const forwarded = useForwardPropsEmits(props, emits);
 </script>
 
 <template>
   <label
-    :class="
-      cn(
-        ['flex', 'items-center', 'gap-2.5', 'cursor-pointer', 'text-hcc', 'hover:text-hff'],
-        props.disabled && ['opacity-30', 'cursor-not-allowed', 'hover:text-hcc'],
-        labelClass
-      )
-    "
+    :class="labelClassName"
   >
     <CheckboxRoot v-model="innerModelValue" v-bind="forwarded" :class="checkboxRootClassName">
       <CheckboxIndicator class="flex h-full w-full items-center justify-center text-current">

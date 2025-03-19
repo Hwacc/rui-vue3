@@ -3,6 +3,17 @@ import { cva, VariantProps } from 'class-variance-authority';
 export { default as Checkbox } from './Checkbox.vue';
 export { default as CheckboxGroup } from './CheckboxGroup.vue';
 
+export const checkboxLabelVariants = cva(
+  ['flex', 'items-center', 'gap-2.5', 'cursor-pointer', 'text-hcc', 'hover:text-hff'],
+  {
+    variants: {
+      disabled: {
+        true: ['opacity-30', 'cursor-not-allowed', 'hover:text-hcc'],
+      },
+    },
+  }
+);
+
 export const checkboxVariants = cva(
   [
     'peer',
@@ -20,7 +31,7 @@ export const checkboxVariants = cva(
     'data-[state=indeterminate]:border-rz-green',
     'disabled:hover:border-h55',
     'disabled:active:bg-transparent',
-    'disabled:cursor-not-allowed'
+    'disabled:cursor-not-allowed',
   ],
   {
     variants: {

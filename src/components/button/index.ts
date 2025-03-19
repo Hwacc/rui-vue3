@@ -21,7 +21,7 @@ export const buttonVariants = cva(
     'disabled:opacity-30',
     '[&_svg]:pointer-events-none',
     '[&_svg]:size-3.5',
-    '[&_svg]:shrink-0',
+    '[&_svg]:shrink-0'
   ],
   {
     variants: {
