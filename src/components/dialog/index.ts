@@ -8,7 +8,7 @@ export { default as DialogHeader } from './DialogHeader.vue';
 export { default as DialogScrollContent } from './DialogScrollContent.vue';
 export { default as DialogTrigger } from './DialogTrigger.vue';
 export { default as DialogContentBody } from './DialogContentBody.vue';
-export { openDialog } from './FunctionalDialog';
+export { dialog } from './use-dialog';
 
 export enum DialogCloseFrom {
   Overlay = 'overlay',
@@ -45,9 +45,8 @@ export const dialogContentVariants = cva(
     'bg-h1a',
     'rounded',
     'webkit-small-scrollbar',
-    'animate-duration-300',
+    'animate-duration-200',
     'animate-ease-out',
-    'animate-fill-both',
     'data-[state=open]:animate-fade-down',
     'data-[state=closed]:uti-animate-fade-down-out',
   ],
@@ -73,7 +72,7 @@ export const DialogScrollContentVariants = cva([
   'border-h00',
   'bg-h1a',
   'rounded',
-  'animate-duration-300',
+  'animate-duration-200',
   'animate-ease-out',
   'animate-fill-both',
   'data-[state=open]:animate-fade-down',

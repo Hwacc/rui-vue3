@@ -97,6 +97,7 @@ const forwarded = useForwardPropsEmits(props, emits);
       <DialogContent
         :class="classNames"
         v-bind="forwarded"
+        :inert="!open"
         :ref="
           (ref) => {
             forwardRef(ref);

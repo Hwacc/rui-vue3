@@ -20,6 +20,7 @@ const [injectDialogContext, provideDialogContext] = createContext<
     closeFrom: Ref<DialogCloseFrom | undefined>;
   }
 >('DialogRoot');
+
 export { injectDialogContext };
 export default defineComponent({
   name: 'DialogRootProvider',

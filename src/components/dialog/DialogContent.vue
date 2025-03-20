@@ -83,18 +83,15 @@ const onPointerDownOutside = (e: any) => {
   closeFrom.value = DialogCloseFrom.Overlay;
 };
 
-watch(open, (value) => {
-  if (value) {
-    originContentRef.value?.$el?.addEventListener('animationend', () => {
-      emits('opened');
-    });
-    emits('open');
-  } else {
-    originContentRef.value?.$el?.addEventListener('animationend', () => {
-      emits('closed', { from: closeFrom.value });
-    });
-    emits('close', { from: closeFrom.value });
-  }
+watch(open, (value, _, onCleanup) => {
+  value ? emits('open') : emits('close', { from: closeFrom.value });
+  const _onAnimationEnd = () => {
+    value ? emits('opened') : emits('closed', { from: closeFrom.value });
+  };
+  originContentRef.value?.$el?.addEventListener('animationend', _onAnimationEnd);
+  onCleanup(() => {
+    originContentRef.value?.$el?.removeEventListener('animationend', _onAnimationEnd);
+  });
 });
 
 const overlayClassNames = computed(() => {
@@ -116,6 +113,7 @@ const forwarded = useForwardPropsEmits(props, emits);
     <DialogOverlay :class="overlayClassNames" />
     <DialogContent
       v-bind="forwarded"
+      :inert="!open"
       :ref="
         (ref) => {
           forwardRef(ref);

@@ -1,0 +1,154 @@
+import type { ToastRootProps } from 'reka-ui';
+import type { HTMLAttributes } from 'vue';
+
+export { default as Toast } from './Toast.vue';
+export { default as ToastAction } from './ToastAction.vue';
+export { default as ToastClose } from './ToastClose.vue';
+export { default as ToastDescription } from './ToastDescription.vue';
+export { default as Toaster } from './Toaster.vue';
+export { default as ToastProvider } from './ToastProvider.vue';
+export { default as ToastTitle } from './ToastTitle.vue';
+export { default as ToastViewport } from './ToastViewport.vue';
+export { toast, useToast } from './use-toast';
+
+import type { VariantProps } from 'class-variance-authority';
+import { cva } from 'class-variance-authority';
+
+export type SwipeDirection = 'up' | 'down' | 'left' | 'right';
+export type ToastPosition =
+  | 'top-left'
+  | 'top-center'
+  | 'top-right'
+  | 'bottom-left'
+  | 'bottom-center'
+  | 'bottom-right'
+  | 'center';
+
+export const toastViewportVariants = cva<{ position: Partial<Record<ToastPosition, any>> }>(
+  [
+    'fixed',
+    'z-[100]',
+    'flex',
+    'flex-col-reverse',
+    'p-6',
+    'max-h-screen',
+    'w-full',
+    'sm:max-w-[26.25rem]',
+  ],
+  {
+    variants: {
+      position: {
+        center: ['top-1/2', 'left-1/2', '-translate-1/2'],
+        'top-left': ['top-0', 'left-0'],
+        'top-center': ['top-0', 'left-1/2', '-translate-x-1/2'],
+        'top-right': ['top-0', 'right-0'],
+        'bottom-left': ['bottom-0', 'left-0'],
+        'bottom-center': ['bottom-0', 'left-1/2', '-translate-x-1/2'],
+        'bottom-right': ['bottom-0', 'right-0'],
+      },
+    },
+    defaultVariants: {
+      position: 'center',
+    },
+  }
+);
+export type ToastViewportVariants = VariantProps<typeof toastViewportVariants>;
+
+const toastEdgeAnimate = {
+  top: [
+    'data-[state=open]:animate-in',
+    'data-[state=open]:slide-in-from-top-full',
+    'data-[state=closed]:animate-out',
+    'data-[state=closed]:fade-out-80',
+    'data-[state=closed]:slide-out-to-top-full',
+  ],
+  bottom: [
+    'data-[state=open]:animate-in',
+    'data-[state=open]:slide-in-from-bottom-full',
+    'data-[state=closed]:animate-out',
+    'data-[state=closed]:fade-out-80',
+    'data-[state=closed]:slide-out-to-bottom-full',
+  ],
+};
+const toastSwipe = {
+  horizontal: [
+    'data-[swipe=cancel]:translate-x-0',
+    'data-[swipe=move]:translate-x-(--reka-toast-swipe-move-x)',
+    'data-[swipe=move]:transition-none',
+    'data-[swipe=end]:animate-out',
+    'data-[swipe=end]:translate-x-(--reka-toast-swipe-end-x)',
+  ],
+  vertical: [
+    'data-[swipe=cancel]:translate-y-0',
+    'data-[swipe=move]:translate-y-(--reka-toast-swipe-move-y)',
+    'data-[swipe=move]:transition-none',
+    'data-[swipe=end]:animate-out',
+    'data-[swipe=end]:translate-y-(--reka-toast-swipe-end-y)',
+  ],
+  none: [],
+};
+
+export const toastVariants = cva<{
+  position: Partial<Record<ToastPosition, any>>;
+  swipeDirection: Partial<Record<SwipeDirection, any>>;
+}>(
+  [
+    'group',
+    'pointer-events-auto',
+    'relative',
+    'flex',
+    'w-full',
+    'items-center',
+    'justify-between',
+    'space-x-4',
+    'overflow-hidden',
+    'rounded-md',
+    'border',
+    'p-6',
+    'pr-8',
+    'shadow-lg',
+    'transition-all',
+  ],
+  {
+    variants: {
+      swipeDirection: {},
+      position: {
+        center: [
+          'animate-duration-200',
+          'animate-ease-out',
+          'data-[state=open]:animate-fade-down',
+          'data-[state=closed]:uti-animate-fade-down-out',
+        ],
+      },
+    },
+    compoundVariants: [
+      {
+        position: ['top-left', 'top-center', 'top-right'],
+        swipeDirection: ['up'],
+        class: [...toastEdgeAnimate.top, ...toastSwipe.vertical],
+      },
+      {
+        position: ['bottom-left', 'bottom-center', 'bottom-right'],
+        swipeDirection: ['down'],
+        class: [...toastEdgeAnimate.bottom, ...toastSwipe.vertical],
+      },
+      {
+        position: 'center',
+        swipeDirection: ['left', 'right', 'up', 'down'],
+        class: [...toastSwipe.none],
+      },
+    ],
+    defaultVariants: {
+      position: 'center',
+      swipeDirection: 'up',
+    },
+  }
+);
+
+type ToastVariants = VariantProps<typeof toastVariants>;
+
+export interface ToastProps extends ToastRootProps {
+  class?: HTMLAttributes['class'];
+
+  onOpenChange?: ((value: boolean) => void) | undefined;
+}

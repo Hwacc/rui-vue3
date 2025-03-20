@@ -26,7 +26,7 @@ type DialogOptions = {
   onCancel?: () => void;
 };
 
-export const openDialog = ({
+export const dialog = ({
   type = 'default',
   dialogContentProps = {},
   title,

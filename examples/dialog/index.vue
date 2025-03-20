@@ -9,7 +9,7 @@ import {
   DialogContentBody,
   DialogCloseFrom,
   DialogScrollContent,
-  openDialog,
+  dialog,
 } from '@/components/dialog';
 import DialogClose from '@/components/dialog/DialogClose.vue';
 
@@ -18,7 +18,7 @@ const onContentClose = ({ from }: { from: DialogCloseFrom | undefined }) => {
 };
 
 const onOpenDialogClick = () => {
-  openDialog({
+  dialog({
     title: 'Dialog Title',
     content: () => {
       return (
@@ -42,7 +42,7 @@ const onOpenDialogClick = () => {
             class='min-w-22.5 uppercase'
             size='sm'
             onClick={() => {
-              openDialog({
+              dialog({
                 title: 'New Dialog Title',
                 content: () => {
                   return <div>New Dialog Content</div>;
