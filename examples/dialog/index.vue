@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<script setup lang="tsx">
 import { Button } from '@/components/button';
 import {
   Dialog,
@@ -9,16 +9,55 @@ import {
   DialogContentBody,
   DialogCloseFrom,
   DialogScrollContent,
+  openDialog,
 } from '@/components/dialog';
-import { useDialog } from '@/hooks/useDialog';
+import DialogClose from '@/components/dialog/DialogClose.vue';
 
 const onContentClose = ({ from }: { from: DialogCloseFrom | undefined }) => {
   console.log('on close from:', from);
 };
 
-const [open] = useDialog();
-const openDialog = () => {
-  open();
+const onOpenDialogClick = () => {
+  openDialog({
+    title: 'Dialog Title',
+    content: () => {
+      return (
+        <div class='h-[2000px]'>
+          <p>Really long dialog content.</p>
+        </div>
+      );
+    },
+    onClose: ({ from }) => {
+      console.log('on close from:', from);
+    },
+    footer: () => {
+      return (
+        <>
+          <DialogClose closeFrom={DialogCloseFrom.CancelButton}>
+            <Button class='min-w-22.5 uppercase' type='text' size='sm'>
+              Cancel
+            </Button>
+          </DialogClose>
+          <Button
+            class='min-w-22.5 uppercase'
+            size='sm'
+            onClick={() => {
+              openDialog({
+                title: 'New Dialog Title',
+                content: () => {
+                  return <div>New Dialog Content</div>;
+                },
+                onClose: ({ from }) => {
+                  console.log('on close from:', from);
+                },
+              });
+            }}>
+            OK
+          </Button>
+        </>
+      );
+    },
+  });
 };
 </script>
 
@@ -52,6 +91,6 @@ const openDialog = () => {
         <DialogFooter />
       </DialogScrollContent>
     </Dialog>
-    <Button @click="openDialog">Open Dialog by Function</Button>
+    <Button @click="onOpenDialogClick">Open Dialog by Function</Button>
   </div>
 </template>

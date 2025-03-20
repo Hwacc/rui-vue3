@@ -17,9 +17,9 @@ const emits = defineEmits<{
   <div :class="cn(dialogFooterClass, props.class)">
     <slot>
       <DialogClose :close-from="DialogCloseFrom.CancelButton">
-        <Button class="min-w-22.5 uppercase" type="text" size="sm" @click="() => emits('cancel')"
-          >Cancel</Button
-        >
+        <Button class="min-w-22.5 uppercase" type="text" size="sm" @click="() => emits('cancel')">
+          Cancel
+        </Button>
       </DialogClose>
       <DialogClose :close-from="DialogCloseFrom.OKButton">
         <Button class="min-w-22.5 uppercase" size="sm" @click="() => emits('ok')">OK</Button>

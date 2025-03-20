@@ -8,6 +8,7 @@ export { default as DialogHeader } from './DialogHeader.vue';
 export { default as DialogScrollContent } from './DialogScrollContent.vue';
 export { default as DialogTrigger } from './DialogTrigger.vue';
 export { default as DialogContentBody } from './DialogContentBody.vue';
+export { openDialog } from './FunctionalDialog';
 
 export enum DialogCloseFrom {
   Overlay = 'overlay',

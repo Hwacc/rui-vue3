@@ -10,8 +10,9 @@ import {
   DialogTitle,
   DialogDescription,
   useForwardPropsEmits,
+  useForwardExpose,
 } from 'reka-ui';
-import { computed, useSlots, watch } from 'vue';
+import { computed, ref, useSlots, watch } from 'vue';
 import {
   DialogCloseFrom,
   DialogClose,
@@ -34,9 +35,15 @@ const {
   ...props
 } = defineProps<DialogContentPropsImp & { class?: HTMLAttributes['class'] }>();
 
+const { forwardRef } = useForwardExpose();
+const originContentRef = ref<{ $el?: HTMLDivElement } | null>(null);
+
 const emits = defineEmits<
   DialogContentEmits & {
+    open: [];
+    opened: [];
     close: [{ from: DialogCloseFrom | undefined }];
+    closed: [{ from: DialogCloseFrom | undefined }];
   }
 >();
 
@@ -44,10 +51,14 @@ const slots = useSlots();
 const hasDialogHeader = () => {
   if (!slots.default) return false;
   const defaultSlot = slots.default();
-  return defaultSlot.some((vnode) => {
-    if ((vnode.type as any).__name === 'DialogHeader') return true;
+  const checkVNode = (vnode: any): boolean => {
+    if ((vnode.type as any)?.__name === 'DialogHeader') return true;
+    if (vnode.children) {
+      return vnode.children?.some?.((child: any) => checkVNode(child));
+    }
     return false;
-  });
+  };
+  return defaultSlot?.some?.((vnode) => checkVNode(vnode));
 };
 const showContentClose = computed(() => {
   return showClose && !hasDialogHeader();
@@ -58,9 +69,16 @@ const onPointerDownOutside = (e: any) => {
   closeFrom.value = DialogCloseFrom.Overlay;
 };
 watch(open, (value) => {
-  if (!value) {
+  if (value) {
+    originContentRef.value?.$el?.addEventListener('animationend', () => {
+      emits('opened');
+    });
+    emits('open');
+  } else {
+    originContentRef.value?.$el?.addEventListener('animationend', () => {
+      emits('closed', { from: closeFrom.value });
+    });
     emits('close', { from: closeFrom.value });
-    closeFrom.value = undefined;
   }
 });
 
@@ -79,6 +97,12 @@ const forwarded = useForwardPropsEmits(props, emits);
       <DialogContent
         :class="classNames"
         v-bind="forwarded"
+        :ref="
+          (ref) => {
+            forwardRef(ref);
+            originContentRef = ref as any;
+          }
+        "
         @open-auto-focus="
           (event) => {
             emits('openAutoFocus', event);

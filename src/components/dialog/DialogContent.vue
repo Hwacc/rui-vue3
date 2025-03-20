@@ -26,7 +26,7 @@ import {
   useForwardExpose,
   useForwardPropsEmits,
 } from 'reka-ui';
-import { computed, useSlots, watch } from 'vue';
+import { computed, ref, useSlots, watch } from 'vue';
 import {
   dialogContentVariants,
   dialogOverlayVariants,
@@ -51,17 +51,28 @@ const {
 
 const emits = defineEmits<
   DialogContentEmits & {
+    open: [];
+    opened: [];
     close: [{ from: DialogCloseFrom | undefined }];
+    closed: [{ from: DialogCloseFrom | undefined }];
   }
 >();
+
+const { forwardRef } = useForwardExpose();
+const originContentRef = ref<{ $el?: HTMLDivElement } | null>(null);
 
 const slots = useSlots();
 const hasDialogHeader = () => {
   if (!slots.default) return false;
   const defaultSlot = slots.default();
-  return defaultSlot.some((vnode) => {
-    return (vnode.type as any).__name === 'DialogHeader';
-  });
+  const checkVNode = (vnode: any): boolean => {
+    if ((vnode.type as any)?.__name === 'DialogHeader') return true;
+    if (vnode.children) {
+      return vnode.children?.some?.((child: any) => checkVNode(child));
+    }
+    return false;
+  };
+  return defaultSlot?.some?.((vnode) => checkVNode(vnode));
 };
 const showContentClose = computed(() => {
   return showClose && !hasDialogHeader();
@@ -71,10 +82,18 @@ const onPointerDownOutside = (e: any) => {
   emits('pointerDownOutside', e);
   closeFrom.value = DialogCloseFrom.Overlay;
 };
+
 watch(open, (value) => {
-  if (!value) {
+  if (value) {
+    originContentRef.value?.$el?.addEventListener('animationend', () => {
+      emits('opened');
+    });
+    emits('open');
+  } else {
+    originContentRef.value?.$el?.addEventListener('animationend', () => {
+      emits('closed', { from: closeFrom.value });
+    });
     emits('close', { from: closeFrom.value });
-    closeFrom.value = undefined;
   }
 });
 
@@ -90,7 +109,6 @@ const classNames = computed(() => {
   );
 });
 const forwarded = useForwardPropsEmits(props, emits);
-const { forwardRef } = useForwardExpose();
 </script>
 
 <template>
@@ -98,7 +116,12 @@ const { forwardRef } = useForwardExpose();
     <DialogOverlay :class="overlayClassNames" />
     <DialogContent
       v-bind="forwarded"
-      :ref="forwardRef"
+      :ref="
+        (ref) => {
+          forwardRef(ref);
+          originContentRef = ref as any;
+        }
+      "
       :class="classNames"
       @open-auto-focus="
         (event) => {
