@@ -14,7 +14,7 @@ const { class: propsClass, ...props } = defineProps<
 const { position } = injectToastProviderContextEx();
 
 const classNames = computed(() => {
-  return cn(toastViewportVariants({ position }), propsClass);
+  return cn(toastViewportVariants({ position: position.value }), propsClass);
 });
 </script>
 

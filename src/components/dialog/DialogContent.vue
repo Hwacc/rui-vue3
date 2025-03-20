@@ -113,7 +113,6 @@ const forwarded = useForwardPropsEmits(props, emits);
     <DialogOverlay :class="overlayClassNames" />
     <DialogContent
       v-bind="forwarded"
-      :inert="!open"
       :ref="
         (ref) => {
           forwardRef(ref);

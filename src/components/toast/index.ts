@@ -1,16 +1,5 @@
 import type { ToastRootProps } from 'reka-ui';
 import type { HTMLAttributes } from 'vue';
-
-export { default as Toast } from './Toast.vue';
-export { default as ToastAction } from './ToastAction.vue';
-export { default as ToastClose } from './ToastClose.vue';
-export { default as ToastDescription } from './ToastDescription.vue';
-export { default as Toaster } from './Toaster.vue';
-export { default as ToastProvider } from './ToastProvider.vue';
-export { default as ToastTitle } from './ToastTitle.vue';
-export { default as ToastViewport } from './ToastViewport.vue';
-export { toast, useToast } from './use-toast';
-
 import type { VariantProps } from 'class-variance-authority';
 import { cva } from 'class-variance-authority';
 
@@ -23,6 +12,16 @@ export type ToastPosition =
   | 'bottom-center'
   | 'bottom-right'
   | 'center';
+
+export { default as Toast } from './Toast.vue';
+export { default as ToastAction } from './ToastAction.vue';
+export { default as ToastClose } from './ToastClose.vue';
+export { default as ToastDescription } from './ToastDescription.vue';
+export { default as Toaster } from './Toaster.vue';
+export { default as ToastProvider } from './ToastProvider.vue';
+export { default as ToastTitle } from './ToastTitle.vue';
+export { default as ToastViewport } from './ToastViewport.vue';
+export { toast, useToast } from './use-toast';
 
 export const toastViewportVariants = cva<{ position: Partial<Record<ToastPosition, any>> }>(
   [
@@ -87,7 +86,41 @@ const toastSwipe = {
   ],
   none: [],
 };
-
+const getToastCompoundVariants = () => {
+  const positions = [
+    'top-left',
+    'top-center',
+    'top-right',
+    'bottom-left',
+    'bottom-center',
+    'bottom-right',
+    'center',
+  ] as const;
+  return positions.map((position) => {
+    const _split = position.split('-');
+    const _edge = _split[0] === 'center' ? [] : toastEdgeAnimate[_split[0] as 'bottom' | 'top'];
+    let _swipe: any[] = [];
+    let _deriction: string | string[] = ['up', 'down', 'left', 'right'];
+    switch (_split[1]) {
+      case 'left':
+      case 'right':
+        _swipe = toastSwipe.horizontal;
+        _deriction = _split[1];
+        break;
+      case 'center':
+        _swipe = toastSwipe.vertical;
+        _deriction = _split[0] === 'top' ? 'up' : 'down';
+        break;
+      default:
+        break;
+    }
+    return {
+      position: position,
+      swipeDirection: _deriction,
+      class: [..._edge, ..._swipe],
+    };
+  });
+};
 export const toastVariants = cva<{
   position: Partial<Record<ToastPosition, any>>;
   swipeDirection: Partial<Record<SwipeDirection, any>>;
@@ -100,12 +133,14 @@ export const toastVariants = cva<{
     'w-full',
     'items-center',
     'justify-between',
+    'py-4',
+    'px-6',
+    'bg-h22',
     'space-x-4',
     'overflow-hidden',
     'rounded-md',
-    'border',
-    'p-6',
-    'pr-8',
+    'border-l-[.1875rem]',
+    'border-l-rz-orange',
     'shadow-lg',
     'transition-all',
   ],
@@ -121,32 +156,14 @@ export const toastVariants = cva<{
         ],
       },
     },
-    compoundVariants: [
-      {
-        position: ['top-left', 'top-center', 'top-right'],
-        swipeDirection: ['up'],
-        class: [...toastEdgeAnimate.top, ...toastSwipe.vertical],
-      },
-      {
-        position: ['bottom-left', 'bottom-center', 'bottom-right'],
-        swipeDirection: ['down'],
-        class: [...toastEdgeAnimate.bottom, ...toastSwipe.vertical],
-      },
-      {
-        position: 'center',
-        swipeDirection: ['left', 'right', 'up', 'down'],
-        class: [...toastSwipe.none],
-      },
-    ],
+    compoundVariants: getToastCompoundVariants() as any,
     defaultVariants: {
       position: 'center',
       swipeDirection: 'up',
     },
   }
 );
-
 type ToastVariants = VariantProps<typeof toastVariants>;
-
 export interface ToastProps extends ToastRootProps {
   class?: HTMLAttributes['class'];
 

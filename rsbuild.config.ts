@@ -10,7 +10,12 @@ export default defineConfig({
       index: './examples/index.ts',
     },
   },
-  output: {},
+  output: {
+    sourceMap: {
+      js: 'source-map',
+      css: false,
+    },
+  },
   resolve: {
     alias: {
       '@': './src',

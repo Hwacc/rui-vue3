@@ -1,7 +1,7 @@
 <script lang="ts">
 import type { ToastProviderProps } from 'reka-ui';
 import { createContext, injectToastProviderContext } from 'reka-ui';
-import { computed, defineComponent, reactive, Ref, useSlots, watch, watchEffect } from 'vue';
+import { defineComponent, reactive, Ref, toRefs, useSlots, watchEffect } from 'vue';
 import { SwipeDirection, ToastPosition } from '.';
 
 export interface ToastProviderPropsEx extends ToastProviderProps {
@@ -19,7 +19,7 @@ export interface ToastProviderContextEx {
   onToastRemove: () => void;
   isFocusedToastEscapeKeyDownRef: Ref<boolean>;
   isClosePausedRef: Ref<boolean>;
-  position: ToastPosition;
+  position: Ref<ToastPosition>;
 }
 
 const [injectToastProviderContextEx, provideToastProviderContextEx] =
@@ -35,13 +35,13 @@ export const ToastPostitionProvider = defineComponent({
     },
   },
   setup(props) {
+    const { position } = toRefs(props);
     const slots = useSlots();
     const providerContext = injectToastProviderContext();
-    console.log('position:', props.position);
 
     provideToastProviderContextEx({
       ...providerContext,
-      position: props.position,
+      position,
     });
     return () => slots.default?.();
   },
@@ -53,31 +53,44 @@ import { ToastProvider } from 'reka-ui';
 
 const {
   position = 'center',
-  swipeDirection,
+  swipeDirection = 'up',
   swipeThreshold = 50,
   ...props
 } = defineProps<ToastProviderPropsEx>();
 
-const options = reactive({
-  swipeDirection,
-  swipeThreshold,
+const swipeOptions = reactive({
+  direction: swipeDirection,
+  threshold: swipeThreshold,
 });
 
 watchEffect(() => {
-  if (position.includes('top')) {
-    options.swipeDirection = 'up';
-  } else if (position.includes('bottom')) {
-    options.swipeDirection = 'down';
-  } else if (position === 'center') {
-    options.swipeThreshold = Infinity;
+  const _split = position.split('-');
+  const _edge = _split[0];
+  const _align = _split[1];
+  swipeOptions.threshold = swipeThreshold;
+  switch (_align) {
+    case 'left':
+      swipeOptions.direction = 'left';
+      break;
+    case 'right':
+      swipeOptions.direction = 'right';
+      break;
+    case 'center': {
+      _edge === 'top' ? (swipeOptions.direction = 'up') : (swipeOptions.direction = 'down');
+      break;
+    }
+    default:
+      swipeOptions.direction = 'up';
+      swipeOptions.threshold = Infinity;
+      break;
   }
 });
 </script>
 
 <template>
   <ToastProvider
-    :swipe-direction="options.swipeDirection"
-    :swipe-threshold="options.swipeThreshold"
+    :swipe-direction="swipeOptions.direction"
+    :swipe-threshold="swipeOptions.threshold"
     v-bind="props"
   >
     <ToastPostitionProvider :position="position">

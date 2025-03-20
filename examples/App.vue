@@ -1,7 +1,7 @@
-<script lang="tsx" setup>
+<script lang="ts" setup>
 import { Button } from '@/components/button';
 import { TooltipProvider } from '@/components/tooltip';
-import { Toaster } from '@/components/toast';
+import { Toaster, ToastPosition } from '@/components/toast';
 
 import ButtonExample from './buttons/index.vue';
 import VTitleExample from './v-title/index.vue';
@@ -14,9 +14,10 @@ import TabsExample from './tabs/index.vue';
 import CollapsibleExample from './collapsible/index.vue';
 import DialogExample from './dialog/index.vue';
 import ToastExample from './toast/index.vue';
-
 import { ref } from 'vue';
+
 const compSize = ref<'default' | 'sm' | 'lg'>('default');
+const toastPosition = ref<ToastPosition>('bottom-right');
 </script>
 
 <template>
@@ -41,10 +42,10 @@ const compSize = ref<'default' | 'sm' | 'lg'>('default');
       <TabsExample />
       <CollapsibleExample />
       <DialogExample />
-      <ToastExample />
+      <ToastExample v-model="toastPosition" />
     </div>
   </TooltipProvider>
-  <Toaster position="center"/>
+  <Toaster :position="toastPosition" />
 </template>
 
 <style scoped>
