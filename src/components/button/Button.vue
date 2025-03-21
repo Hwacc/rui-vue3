@@ -4,6 +4,7 @@ import type {
   TooltipContentProps,
   TooltipRootProps,
   TooltipArrowProps,
+  TooltipProviderProps,
 } from 'reka-ui';
 import type { HTMLAttributes } from 'vue';
 import type { TooltipContentVariants } from '../tooltip';
@@ -18,6 +19,7 @@ interface Props extends PrimitiveProps {
   checked?: boolean;
   tooltip?: string;
   tooltipTheme?: TooltipContentVariants['theme'];
+  tooltipProviderProps?: TooltipProviderProps;
   tooltipRootProps?: TooltipRootProps;
   tooltipContentClass?: HTMLAttributes['class'];
   tooltipContentProps?: TooltipContentProps;
@@ -31,7 +33,7 @@ import { computed } from 'vue';
 import { cn } from '@/lib/utils';
 import { Primitive } from 'reka-ui';
 import { buttonVariants } from '.';
-import { Tooltip, TooltipTrigger, TooltipContent, TooltipArrow } from '../tooltip';
+import { Tooltip, TooltipTrigger, TooltipContent, TooltipArrow, TooltipProvider } from '../tooltip';
 
 const {
   as = 'button',
@@ -43,6 +45,11 @@ const {
   checked = false,
   tooltip,
   tooltipTheme = 'default',
+  tooltipProviderProps = {
+    delayDuration: 0,
+    disableHoverableContent: true,
+    ignoreNonKeyboardFocus: true,
+  },
   tooltipRootProps = {
     delayDuration: 0,
   },
@@ -80,37 +87,36 @@ const buttonClass = computed(() =>
 </script>
 
 <template>
-  <Tooltip
-    v-if="tooltip || slots.tooltip"
-    v-bind="{ ...tooltipRootProps, disabled}"
-  >
-    <TooltipTrigger
-      :as="as"
-      :asChild="asChild"
-      :class="buttonClass"
-      :disabled="disabled"
-      :checked="checked"
-      @click="emits('click')"
-    >
-      <slot />
-    </TooltipTrigger>
-    <TooltipContent
-      v-bind="tooltipContentProps"
-      :class="tooltipContentClass"
-      :theme="tooltipTheme"
-      :data-theme="tooltipTheme"
-    >
-      <slot name="tooltip">
-        {{ tooltip }}
-      </slot>
-      <TooltipArrow
-        :class="tooltipArrowClass"
-        force
+  <TooltipProvider v-if="tooltip || slots.tooltip" v-bind="tooltipProviderProps">
+    <Tooltip v-bind="{ ...tooltipRootProps, disabled }">
+      <TooltipTrigger
+        :as="as"
+        :asChild="asChild"
+        :class="buttonClass"
+        :disabled="disabled"
+        :checked="checked"
+        @click="emits('click')"
+      >
+        <slot />
+      </TooltipTrigger>
+      <TooltipContent
+        v-bind="tooltipContentProps"
+        :class="tooltipContentClass"
         :theme="tooltipTheme"
-        v-bind="tooltipArrowProps"
-      />
-    </TooltipContent>
-  </Tooltip>
+        :data-theme="tooltipTheme"
+      >
+        <slot name="tooltip">
+          {{ tooltip }}
+        </slot>
+        <TooltipArrow
+          :class="tooltipArrowClass"
+          force
+          :theme="tooltipTheme"
+          v-bind="tooltipArrowProps"
+        />
+      </TooltipContent>
+    </Tooltip>
+  </TooltipProvider>
   <Primitive
     v-else
     :as="as"

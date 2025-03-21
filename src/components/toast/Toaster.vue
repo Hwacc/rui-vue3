@@ -14,22 +14,27 @@ const { toasts } = useToast();
   <ToastProvider v-bind="props">
     <Toast v-for="toast in toasts" :key="toast.id" v-bind="toast">
       <div class="w-full flex items-center gap-4">
-        <CircleCheck
-          v-if="toast.variant === 'success'"
-          class="size-5 fill-rz-green stroke-h22 [&>circle]:stroke-rz-green"
-        />
-        <CircleAlert
-          v-if="toast.variant === 'warning'"
-          class="size-5 fill-rz-orange stroke-h22 [&>circle]:stroke-rz-orange"
-        />
-        <Info
-          v-if="toast.variant === 'info'"
-          class="size-5 fill-h88 stroke-h22 [&>circle]:stroke-h88"
-        />
-        <CircleX
-          v-if="toast.variant === 'error'"
-          class="size-5 fill-rz-red stroke-h22 [&>circle]:stroke-rz-red"
-        />
+        <template v-if="!toast.icon">
+          <CircleCheck
+            v-if="toast.variant === 'success'"
+            class="size-5 fill-rz-green stroke-h22 [&>circle]:stroke-rz-green"
+          />
+          <CircleAlert
+            v-if="toast.variant === 'warning'"
+            class="size-5 fill-rz-orange stroke-h22 [&>circle]:stroke-rz-orange"
+          />
+          <Info
+            v-if="toast.variant === 'info'"
+            class="size-5 fill-h88 stroke-h22 [&>circle]:stroke-h88"
+          />
+          <CircleX
+            v-if="toast.variant === 'error'"
+            class="size-5 fill-rz-red stroke-h22 [&>circle]:stroke-rz-red"
+          />
+        </template>
+        <template v-else-if="isVNode(toast.icon) || isFunction(toast.icon)">
+          <component :is="toast.icon" />
+        </template>
         <div class="grid gap-1 flex-1">
           <ToastTitle v-if="toast.title">
             {{ toast.title }}

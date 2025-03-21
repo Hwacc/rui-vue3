@@ -76,6 +76,7 @@
   --color-h44: oklch(38.67% 0 0);
   --color-h22: oklch(25.2% 0 0);
   --color-h16: oklch(20.02% 0 0);
+  --color-h11: oklch(15.26% 0 0);
 
   /* Shadows */
   --shadow-glory: 0 0 1.5625rem 0 oklch(86.64% 0.294827 141.32 / 47%);

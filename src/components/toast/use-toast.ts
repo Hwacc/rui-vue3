@@ -11,6 +11,7 @@ type ToasterToast = ToastProps & {
   id: string;
   title?: string;
   description?: StringOrVNode;
+  icon?: VNode | (() => VNode);
   action?: Component;
 };
 

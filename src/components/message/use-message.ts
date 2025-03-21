@@ -1,5 +1,5 @@
 import type { MessageProps } from '.';
-import { computed, ref } from 'vue';
+import { computed, ref, VNode } from 'vue';
 
 const MESSAGE_LIMIT = 1;
 const MESSAGE_REMOVE_DELAY = 200;
@@ -7,6 +7,7 @@ const MESSAGE_REMOVE_DELAY = 200;
 type MessagerToast = MessageProps & {
   id: string;
   title?: string;
+  icon?: VNode | (() => VNode);
 };
 
 const actionTypes = {

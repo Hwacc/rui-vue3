@@ -17,6 +17,7 @@ const {
   labelClass,
   label = '',
   modelValue = false,
+  stopPropagation = false,
   ...props
 } = defineProps<
   CheckboxRootProps & {
@@ -25,6 +26,7 @@ const {
     label?: string;
     class?: HTMLAttributes['class'];
     size?: CheckboxVariantsProps['size'];
+    stopPropagation?: boolean; // 有时checkbox作为checkable-item的子组件，需要阻止事件冒泡
   }
 >();
 const emits = defineEmits<CheckboxRootEmits>();
@@ -73,6 +75,11 @@ const forwarded = useForwardPropsEmits(props, emits);
 <template>
   <label
     :class="labelClassName"
+    @click="
+      (event) => {
+        stopPropagation && event.stopPropagation();
+      }
+    "
   >
     <CheckboxRoot v-model="innerModelValue" v-bind="forwarded" :class="checkboxRootClassName">
       <CheckboxIndicator class="flex h-full w-full items-center justify-center text-current">

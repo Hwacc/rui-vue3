@@ -3,6 +3,7 @@ import { Button } from '@/components/button';
 import { RadioGroup, RadioGroupItem } from '@/components/radio-group';
 import { toast, ToastPosition } from '@/components/toast';
 import { message } from '@/components/message';
+import { Smile } from 'lucide-vue-next';
 
 const { modelValue } = defineProps<{
   modelValue: ToastPosition;
@@ -23,7 +24,7 @@ const onOpenRenderToastClick = () => {
   toast({
     variant: 'success',
     title: 'Toast Title',
-    description: () => <p>This is a render function desc</p>,
+    description: () => <p>The VNode Description</p>,
   });
 };
 
@@ -33,6 +34,14 @@ const onOpenMessageClick = () => {
     title: 'Message Content',
   });
 };
+
+const onOpenCustomMessageClick = () => {
+  message({
+    variant: 'success',
+    title: 'Custom Message Content',
+    icon: () => <Smile class={'size-5'} />,
+  }) 
+}
 </script>
 
 <template>
@@ -55,6 +64,7 @@ const onOpenMessageClick = () => {
       <Button @click="onOpenToastClick">Open a Toast</Button>
       <Button @click="onOpenRenderToastClick">Open a Render Toast</Button>
       <Button @click="onOpenMessageClick">Open a Message</Button>
+      <Button @click="onOpenCustomMessageClick">Open a CustomIcon Message</Button>
     </div>
   </div>
 </template>
