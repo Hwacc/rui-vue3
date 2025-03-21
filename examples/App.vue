@@ -2,6 +2,7 @@
 import { Button } from '@/components/button';
 import { TooltipProvider } from '@/components/tooltip';
 import { Toaster, ToastPosition } from '@/components/toast';
+import { Messager } from '@/components/message';
 
 import ButtonExample from './buttons/index.vue';
 import VTitleExample from './v-title/index.vue';
@@ -45,7 +46,8 @@ const toastPosition = ref<ToastPosition>('bottom-right');
       <ToastExample v-model="toastPosition" />
     </div>
   </TooltipProvider>
-  <Toaster :position="toastPosition" />
+  <Toaster :position="toastPosition" :duration="5000" />
+  <Messager :duration="2000" />
 </template>
 
 <style scoped>

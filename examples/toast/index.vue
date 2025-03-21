@@ -2,6 +2,7 @@
 import { Button } from '@/components/button';
 import { RadioGroup, RadioGroupItem } from '@/components/radio-group';
 import { toast, ToastPosition } from '@/components/toast';
+import { message } from '@/components/message';
 
 const { modelValue } = defineProps<{
   modelValue: ToastPosition;
@@ -25,6 +26,13 @@ const onOpenRenderToastClick = () => {
     description: () => <p>This is a render function desc</p>,
   });
 };
+
+const onOpenMessageClick = () => {
+  message({
+    variant: 'info',
+    title: 'Message Content',
+  });
+};
 </script>
 
 <template>
@@ -46,6 +54,7 @@ const onOpenRenderToastClick = () => {
     <div class="flex gap-2">
       <Button @click="onOpenToastClick">Open a Toast</Button>
       <Button @click="onOpenRenderToastClick">Open a Render Toast</Button>
+      <Button @click="onOpenMessageClick">Open a Message</Button>
     </div>
   </div>
 </template>

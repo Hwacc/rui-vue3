@@ -19,7 +19,11 @@ export { default as ToastAction } from './ToastAction.vue';
 export { default as ToastClose } from './ToastClose.vue';
 export { default as ToastDescription } from './ToastDescription.vue';
 export { default as Toaster } from './Toaster.vue';
-export { default as ToastProvider } from './ToastProvider.vue';
+export {
+  default as ToastProvider,
+  type ToastProviderPropsEx,
+  type ToastProviderContextEx,
+} from './ToastProvider.vue';
 export { default as ToastTitle } from './ToastTitle.vue';
 export { default as ToastViewport } from './ToastViewport.vue';
 export { toast, useToast } from './use-toast';
@@ -55,7 +59,7 @@ export const toastViewportVariants = cva<{ position: Partial<Record<ToastPositio
 );
 export type ToastViewportVariants = VariantProps<typeof toastViewportVariants>;
 
-const toastEdgeAnimate: Partial<Record<ToastPosition, any>> = {
+export const toastEdgeAnimate: Partial<Record<ToastPosition, any>> = {
   'top-center': [
     'data-[state=open]:slide-in-from-top-full',
     'data-[state=closed]:slide-out-to-top-full',
@@ -81,7 +85,7 @@ const toastEdgeAnimate: Partial<Record<ToastPosition, any>> = {
     'data-[state=closed]:slide-out-to-right-full',
   ],
 };
-const toastSwipe = {
+export const toastSwipe = {
   horizontal: [
     'data-[swipe=cancel]:translate-x-0',
     'data-[swipe=move]:translate-x-(--reka-toast-swipe-move-x)',
@@ -190,7 +194,7 @@ export const toastVariants = cva<{
     },
   }
 );
-type ToastVariants = VariantProps<typeof toastVariants>;
+export type ToastVariants = VariantProps<typeof toastVariants>;
 export interface ToastProps extends ToastRootProps {
   class?: HTMLAttributes['class'];
   variant?: ToastVariants['variant'];

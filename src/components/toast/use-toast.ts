@@ -3,7 +3,7 @@ import type { ToastProps } from '.';
 import { computed, ref } from 'vue';
 
 const TOAST_LIMIT = 1;
-const TOAST_REMOVE_DELAY = 5000;
+const TOAST_REMOVE_DELAY = 200;
 
 export type StringOrVNode = string | VNode | (() => VNode);
 
@@ -55,6 +55,7 @@ interface State {
 const toastTimeouts = new Map<string, ReturnType<typeof setTimeout>>();
 
 function addToRemoveQueue(toastId: string) {
+  console.log('add to remove queue')
   if (toastTimeouts.has(toastId)) return;
 
   const timeout = setTimeout(() => {
