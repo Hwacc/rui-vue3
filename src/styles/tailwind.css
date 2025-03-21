@@ -199,7 +199,8 @@
   }
 
   *:focus-visible {
-    outline: var(--outline)
+    outline: var(--outline);
+    outline-offset: 2px;
   }
 
   @keyframes fade-down-out {

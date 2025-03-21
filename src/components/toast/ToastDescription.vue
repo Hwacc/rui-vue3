@@ -5,17 +5,16 @@ import { cn } from '@/lib/utils';
 import { ToastDescription } from 'reka-ui';
 import { computed } from 'vue';
 
-const props = defineProps<ToastDescriptionProps & { class?: HTMLAttributes['class'] }>();
-
-const delegatedProps = computed(() => {
-  const { class: _, ...delegated } = props;
-
-  return delegated;
+const { class: propsClass, ...props } = defineProps<
+  ToastDescriptionProps & { class?: HTMLAttributes['class'] }
+>();
+const classNames = computed(() => {
+  return cn('text-sm text-h88', propsClass);
 });
 </script>
 
 <template>
-  <ToastDescription :class="cn('text-sm opacity-90', props.class)" v-bind="delegatedProps">
+  <ToastDescription :class="classNames" v-bind="props">
     <slot />
   </ToastDescription>
 </template>

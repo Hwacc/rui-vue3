@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<script setup lang="tsx">
 import { Button } from '@/components/button';
 import { RadioGroup, RadioGroupItem } from '@/components/radio-group';
 import { toast, ToastPosition } from '@/components/toast';
@@ -12,9 +12,17 @@ const emits = defineEmits<{
 
 const onOpenToastClick = () => {
   toast({
+    variant: 'error',
     title: 'Toast Title',
     description: 'Toast Description',
-    duration: 0,
+  });
+};
+
+const onOpenRenderToastClick = () => {
+  toast({
+    variant: 'success',
+    title: 'Toast Title',
+    description: () => <p>This is a render function desc</p>,
   });
 };
 </script>
@@ -35,6 +43,9 @@ const onOpenToastClick = () => {
       <RadioGroupItem value="bottom-center" label="Bottom Center" />
       <RadioGroupItem value="bottom-right" label="Bottom Right" />
     </RadioGroup>
-    <Button @click="onOpenToastClick">Open a Toast</Button>
+    <div class="flex gap-2">
+      <Button @click="onOpenToastClick">Open a Toast</Button>
+      <Button @click="onOpenRenderToastClick">Open a Render Toast</Button>
+    </div>
   </div>
 </template>

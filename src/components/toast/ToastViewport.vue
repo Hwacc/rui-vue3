@@ -20,5 +20,5 @@ const classNames = computed(() => {
 </script>
 
 <template>
-  <ToastViewport v-bind="props" :class="classNames" :hotkey="[]" :aria-hidden="true" />
+  <ToastViewport v-bind="props" :class="classNames" :hotkey="hotkey" :aria-hidden="true" />
 </template>

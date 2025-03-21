@@ -12,6 +12,7 @@ export type ToastPosition =
   | 'bottom-center'
   | 'bottom-right'
   | 'center';
+export type ToastVariant = 'success' | 'error' | 'warning' | 'info';
 
 export { default as Toast } from './Toast.vue';
 export { default as ToastAction } from './ToastAction.vue';
@@ -33,7 +34,7 @@ export const toastViewportVariants = cva<{ position: Partial<Record<ToastPositio
     'max-h-screen',
     'w-full',
     'sm:max-w-[26.25rem]',
-    'outline-none'
+    'outline-none',
   ],
   {
     variants: {
@@ -54,20 +55,30 @@ export const toastViewportVariants = cva<{ position: Partial<Record<ToastPositio
 );
 export type ToastViewportVariants = VariantProps<typeof toastViewportVariants>;
 
-const toastEdgeAnimate = {
-  top: [
-    'data-[state=open]:animate-in',
+const toastEdgeAnimate: Partial<Record<ToastPosition, any>> = {
+  'top-center': [
     'data-[state=open]:slide-in-from-top-full',
-    'data-[state=closed]:animate-out',
-    'data-[state=closed]:fade-out-80',
     'data-[state=closed]:slide-out-to-top-full',
   ],
-  bottom: [
-    'data-[state=open]:animate-in',
+  'top-left': [
+    'data-[state=open]:slide-in-from-top-full',
+    'data-[state=closed]:slide-out-to-left-full',
+  ],
+  'top-right': [
+    'data-[state=open]:slide-in-from-top-full',
+    'data-[state=closed]:slide-out-to-right-full',
+  ],
+  'bottom-center': [
     'data-[state=open]:slide-in-from-bottom-full',
-    'data-[state=closed]:animate-out',
-    'data-[state=closed]:fade-out-80',
     'data-[state=closed]:slide-out-to-bottom-full',
+  ],
+  'bottom-left': [
+    'data-[state=open]:slide-in-from-bottom-full',
+    'data-[state=closed]:slide-out-to-left-full',
+  ],
+  'bottom-right': [
+    'data-[state=open]:slide-in-from-bottom-full',
+    'data-[state=closed]:slide-out-to-right-full',
   ],
 };
 const toastSwipe = {
@@ -99,7 +110,15 @@ const getToastCompoundVariants = () => {
   ] as const;
   return positions.map((position) => {
     const _split = position.split('-');
-    const _edge = _split[0] === 'center' ? [] : toastEdgeAnimate[_split[0] as 'bottom' | 'top'];
+    const _edge =
+      _split[0] === 'center'
+        ? []
+        : [
+            'data-[state=open]:animate-in',
+            'data-[state=closed]:animate-out',
+            'data-[state=closed]:fade-out-80',
+            ...toastEdgeAnimate[position],
+          ];
     let _swipe: any[] = [];
     let _deriction: string | string[] = ['up', 'down', 'left', 'right'];
     switch (_split[1]) {
@@ -118,13 +137,14 @@ const getToastCompoundVariants = () => {
     return {
       position: position,
       swipeDirection: _deriction,
-      class: [..._edge, ..._swipe],
+      class: [[..._edge], ..._swipe],
     };
   });
 };
 export const toastVariants = cva<{
   position: Partial<Record<ToastPosition, any>>;
   swipeDirection: Partial<Record<SwipeDirection, any>>;
+  variant: Partial<Record<ToastVariant, any>>;
 }>(
   [
     'group',
@@ -156,6 +176,12 @@ export const toastVariants = cva<{
           'data-[state=closed]:uti-animate-fade-down-out',
         ],
       },
+      variant: {
+        success: 'border-l-rz-green',
+        error: 'border-l-rz-red',
+        warning: 'border-l-rz-orange',
+        info: 'border-l-h88',
+      },
     },
     compoundVariants: getToastCompoundVariants() as any,
     defaultVariants: {
@@ -167,6 +193,6 @@ export const toastVariants = cva<{
 type ToastVariants = VariantProps<typeof toastVariants>;
 export interface ToastProps extends ToastRootProps {
   class?: HTMLAttributes['class'];
-
+  variant?: ToastVariants['variant'];
   onOpenChange?: ((value: boolean) => void) | undefined;
 }
