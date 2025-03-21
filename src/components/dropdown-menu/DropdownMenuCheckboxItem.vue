@@ -17,9 +17,7 @@ const emits = defineEmits<DropdownMenuCheckboxItemEmits>();
 const innerModelValue = ref(modelValue);
 watch(
   () => modelValue,
-  (val) => {
-    innerModelValue.value = val;
-  },
+  (val) => (innerModelValue.value = val),
   { immediate: true }
 );
 watch(innerModelValue, (val) => emits('update:modelValue', val as boolean));
