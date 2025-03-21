@@ -13,7 +13,6 @@ export const radioGroupItemVariants = cva(
     'active:border-rz-green',
     'active:bg-h28',
     'disabled:opacity-30',
-    'disabled:cursor-not-allowed',
     'disabled:hover:border-h70',
     'disabled:active:bg-transparent',
   ],

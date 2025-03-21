@@ -21,7 +21,6 @@ export const readMoreTriggerClass = [
   'absolute',
   'bottom-0',
   'right-0',
-  'cursor-pointer',
   'pl-[2.5rem]',
   'bg-linear-[90deg,transparent_0%,var(--color-h1a)_27%]',
 ];

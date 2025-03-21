@@ -66,7 +66,7 @@ const { forwardRef } = useForwardExpose();
       @blur="
         (e: Event) => {
           isFocus = false;
-          emits('blur-sm', e);
+          emits('blur', e);
         }
       "
       @input="(e: Event) => emits('input', e, modelValue)"
@@ -82,7 +82,6 @@ const { forwardRef } = useForwardExpose();
           ],
           'fill-h58',
           'stroke-black',
-          'cursor-pointer',
           'hover:fill-white',
         ]"
       />

@@ -39,7 +39,7 @@ const forwardedProps = useForwardProps(props);
 
 const wrapClassName = computed(() => {
   return cn(
-    ['flex items-center gap-2.5 cursor-pointer', props.disabled && 'cursor-not-allowed'],
+    ['flex items-center gap-2.5'],
     wrapClass
   );
 });
@@ -52,8 +52,8 @@ const radioGroupItemInnerClassName = computed(() => {
 const labelClassName = computed(() => {
   return cn(
     [
-      'text-hcc text-sm hover:text-hff cursor-pointer',
-      props.disabled && ['opacity-30', 'cursor-not-allowed', 'hover:text-hcc'],
+      'text-hcc text-sm hover:text-hff',
+      props.disabled && ['opacity-30', 'hover:text-hcc'],
       size === 'sm' && 'text-xs',
       size === 'lg' && 'text-base',
     ],

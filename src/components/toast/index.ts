@@ -195,6 +195,16 @@ export const toastVariants = cva<{
   }
 );
 export type ToastVariants = VariantProps<typeof toastVariants>;
+
+export const toastActionClass = [
+  'inline-flex',
+  'shrink-0',
+  'items-center',
+  'justify-center',
+  'transition-colors',
+  'disabled:pointer-events-none',
+  'disabled:opacity-30',
+] as const;
 export interface ToastProps extends ToastRootProps {
   class?: HTMLAttributes['class'];
   variant?: ToastVariants['variant'];
