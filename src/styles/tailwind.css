@@ -178,6 +178,8 @@
   --font-rz-medium: RazerF5-Medium, var(--font-sans);
   --font-rz-bold: RazerF5-Bold, var(--font-sans);
   --font-rz-black: RazerF5-Black, var(--font-sans);
+
+  --outline: 2px solid var(--color-rz-green);
 }
 
 @theme static {}
@@ -197,8 +199,7 @@
   }
 
   *:focus-visible {
-    outline: 2px solid var(--color-rz-green);
-    outline-offset: 2px;
+    outline: var(--outline)
   }
 
   @keyframes fade-down-out {

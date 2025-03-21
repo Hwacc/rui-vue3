@@ -8,7 +8,6 @@ export const radioGroupItemVariants = cva(
     'aspect-square',
     'rounded-full',
     'border',
-    'outline-hidden',
     'border-h70',
     'hover:border-rz-green',
     'active:border-rz-green',

@@ -20,7 +20,7 @@
     "tailwindcss-animate": "^1.0.7",
     "tailwindcss-animated": "^1.1.2",
     "vue": "^3.5.13",
-    "vue-3-slider-component": "^1.0.1"
+    "vue-3-slider-component": "^1.0.2"
   },
   "peerDependencies": {
     "@floating-ui/vue": "^1.1.6",
@@ -34,11 +34,12 @@
     "tailwindcss-animate": "^1.0.7",
     "tailwindcss-animated": "^1.1.2",
     "vue": "^3.5.13",
-    "vue-3-slider-component": "^1.0.1"
+    "vue-3-slider-component": "^1.0.2"
   },
   "devDependencies": {
     "@rsbuild/core": "1.2.12",
     "@rsbuild/plugin-babel": "^1.0.3",
+    "@rsbuild/plugin-sass": "^1.2.2",
     "@rsbuild/plugin-vue": "^1.0.5",
     "@rsbuild/plugin-vue-jsx": "^1.1.0",
     "@tailwindcss/postcss": "^4.0.9",

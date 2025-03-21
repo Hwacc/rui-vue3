@@ -59,8 +59,7 @@ const tSliderPropsChange = () => {
           <Slider
             v-model="sliderState"
             wrap-class="w-full"
-            :contained="true"
-            tooltip="always"
+            tooltip="focus"
             tooltip-placement="top"
           />
         </div>

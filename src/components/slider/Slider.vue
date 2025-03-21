@@ -480,7 +480,7 @@ const getFloatingTooltipContent = (value: number | string) => {
         emits('dragEnd', index);
       }"
     >
-      <template #dot="{ index, ...rest }">
+      <template #dot="{ index, focus, ...rest }">
         <div class="w-full h-full" ref="floatingReferenceRef">
           <slot name="dot" v-bind="{ index, ...rest }">
             <div
@@ -489,6 +489,7 @@ const getFloatingTooltipContent = (value: number | string) => {
                   [
                     'w-full h-full rounded-full bg-h00 border-[.125rem] border-rz-green transition-transform',
                   ],
+                  [focus && 'bg-white'],
                   [size === 'sm' && 'border-[.0625rem]'],
                   [size === 'lg' && 'border-[.25rem]'],
                   [index === dotDragIndex && dotDragStart && 'scale-125']
@@ -583,7 +584,10 @@ const getFloatingTooltipContent = (value: number | string) => {
 </template>
 
 <style lang="css" scoped>
-@reference "../../styles/tailwind.css";
+::v-deep(.vue-slider-dot:focus-visible) {
+  outline: var(--outline);
+}
+
 .vue-slider-default-tooltip {
   &:after {
     content: '';

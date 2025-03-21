@@ -7,17 +7,18 @@ import { computed } from 'vue';
 import { injectToastProviderContextEx } from './ToastProvider.vue';
 import { toastViewportVariants } from '.';
 
-const { class: propsClass, ...props } = defineProps<
-  ToastViewportProps & { class?: HTMLAttributes['class'] }
->();
+const {
+  class: propsClass,
+  hotkey = [],
+  ...props
+} = defineProps<ToastViewportProps & { class?: HTMLAttributes['class'] }>();
 
 const { position } = injectToastProviderContextEx();
-
 const classNames = computed(() => {
   return cn(toastViewportVariants({ position: position.value }), propsClass);
 });
 </script>
 
 <template>
-  <ToastViewport v-bind="props" :class="classNames" />
+  <ToastViewport v-bind="props" :class="classNames" :hotkey="[]" :aria-hidden="true" />
 </template>

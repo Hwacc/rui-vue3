@@ -33,6 +33,7 @@ export const toastViewportVariants = cva<{ position: Partial<Record<ToastPositio
     'max-h-screen',
     'w-full',
     'sm:max-w-[26.25rem]',
+    'outline-none'
   ],
   {
     variants: {
