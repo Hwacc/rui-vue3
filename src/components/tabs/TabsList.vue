@@ -67,7 +67,7 @@ watchEffect(
     ) {
       console.log('partial right');
       tabsTriggers[curIndex]?.el?.parentElement?.scrollBy({
-        left: nextRect ? parentRect.width - deltaX + nextRect.width / 2 : curRect.width,
+        left: nextRect ? deltaX + curRect.width - parentRect.width + nextRect.width / 2 : curRect.width,
         behavior: 'smooth',
       });
     }
