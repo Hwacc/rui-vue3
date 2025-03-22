@@ -14,3 +14,10 @@ export const rem2px = (rem: number) => {
   const base = parseFloat(window.getComputedStyle(document.documentElement).fontSize || '16px');
   return rem * base;
 };
+
+export const timexSpace = (time: number) => {
+  const spacing = parseFloat(
+    getComputedStyle(document.documentElement).getPropertyValue('--spacing') || '.25rem'
+  );
+  return time * rem2px(spacing);
+};

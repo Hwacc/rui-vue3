@@ -47,13 +47,7 @@ export const radioGroupItemInnerVariants = cva([], {
       lg: ['size-2'],
     },
     type: {
-      default: [
-        'fill-rz-green',
-        'stroke-rz-green',
-        'animate-jump-in',
-        'animate-once',
-        'animate-duration-200',
-      ],
+      default: ['fill-rz-green', 'stroke-rz-green', 'animate-in', 'zoom-in-1'],
       checkbox: ['size-full', 'text-h00', 'stroke-[.125rem]', '[&_path]:check-dash-animate'],
     },
   },

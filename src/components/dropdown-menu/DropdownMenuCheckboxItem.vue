@@ -9,9 +9,14 @@ import { Checkbox } from '@/components/checkbox';
 const {
   class: propsClass,
   modelValue,
-
+  prevent = true,
   ...props
-} = defineProps<DropdownMenuCheckboxItemProps & { class?: HTMLAttributes['class'] }>();
+} = defineProps<
+  DropdownMenuCheckboxItemProps & {
+    class?: HTMLAttributes['class'];
+    prevent?: boolean;
+  }
+>();
 const emits = defineEmits<DropdownMenuCheckboxItemEmits>();
 
 const innerModelValue = ref(modelValue);
@@ -33,7 +38,7 @@ const forwarded = useForwardPropsEmits(props, emits);
     @update:model-value="(val) => (innerModelValue = val)"
     @select="
       (event) => {
-        event.preventDefault();
+        prevent && event.preventDefault();
         emits('select', event);
       }
     "

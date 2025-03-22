@@ -62,7 +62,7 @@ const onOpenDialogClick = () => {
 </script>
 
 <template>
-  <div class="container flex items-center gap-4">
+  <div class="container flex justify-center items-center gap-4">
     <Dialog>
       <DialogTrigger><Button>Open Dialog</Button></DialogTrigger>
       <DialogContent class="w-[400px]" @close="onContentClose">

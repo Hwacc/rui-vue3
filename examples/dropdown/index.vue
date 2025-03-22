@@ -7,16 +7,23 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuItem,
-  DropdownMenuCheckboxItem
+  DropdownMenuCheckboxItem,
+  DropdownMenuRadioGroup,
+  DropdownMenuRadioItem,
+  DropdownMenuSub,
+  DropdownMenuPortal,
+  DropdownMenuSubTrigger,
+  DropdownMenuSubContent
 } from '@/components/dropdown-menu';
 import { Plus } from 'lucide-vue-next';
-import { reactive } from 'vue';
+import { reactive, ref } from 'vue';
 
 const checkboxData = reactive({
   showStatusBar: false,
   showActivityBar: true,
   showPanel: false,
 });
+const position = ref<string>('top');
 </script>
 
 <template>
@@ -56,7 +63,7 @@ const checkboxData = reactive({
         <DropdownMenuTrigger>
           <Button> Open a Checkbox Menu </Button>
         </DropdownMenuTrigger>
-        <DropdownMenuContent class="w-56">
+        <DropdownMenuContent>
           <DropdownMenuLabel>Appearance</DropdownMenuLabel>
           <DropdownMenuSeparator />
           <DropdownMenuCheckboxItem v-model="checkboxData.showStatusBar">
@@ -68,6 +75,42 @@ const checkboxData = reactive({
           <DropdownMenuCheckboxItem v-model="checkboxData.showPanel">
             Panel
           </DropdownMenuCheckboxItem>
+        </DropdownMenuContent>
+      </DropdownMenu>
+
+      <DropdownMenu>
+        <DropdownMenuTrigger>
+          <Button> Open a Radio Menu </Button>
+        </DropdownMenuTrigger>
+        <DropdownMenuContent>
+          <DropdownMenuLabel>Panel Position</DropdownMenuLabel>
+          <DropdownMenuSeparator />
+          <DropdownMenuRadioGroup v-model="position">
+            <DropdownMenuRadioItem value="top"> Top </DropdownMenuRadioItem>
+            <DropdownMenuRadioItem value="bottom"> Bottom </DropdownMenuRadioItem>
+            <DropdownMenuRadioItem value="right"> Right </DropdownMenuRadioItem>
+          </DropdownMenuRadioGroup>
+        </DropdownMenuContent>
+      </DropdownMenu>
+
+      <DropdownMenu>
+        <DropdownMenuTrigger>
+          <Button> Open a Sub Menu </Button>
+        </DropdownMenuTrigger>
+        <DropdownMenuContent>
+          <DropdownMenuSub>
+            <DropdownMenuSubTrigger>Settings</DropdownMenuSubTrigger>
+            <DropdownMenuPortal>
+              <DropdownMenuSubContent>
+                <DropdownMenuItem>Sub menu item</DropdownMenuItem>
+                <DropdownMenuItem>Sub menu item</DropdownMenuItem>
+              </DropdownMenuSubContent>
+            </DropdownMenuPortal>
+          </DropdownMenuSub>
+
+          <DropdownMenuItem>Billing</DropdownMenuItem>
+          <DropdownMenuItem>Team</DropdownMenuItem>
+          <DropdownMenuItem>Subscription</DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>
     </div>
