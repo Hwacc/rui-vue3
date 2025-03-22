@@ -21,3 +21,7 @@ export const timexSpace = (time: number) => {
   );
   return time * rem2px(spacing);
 };
+
+export const getCssColor = (colorName: string, fallback?: string) => {
+  return getComputedStyle(document.documentElement).getPropertyValue(`--color-${colorName}`) || fallback;
+};

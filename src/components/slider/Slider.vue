@@ -288,7 +288,7 @@ import {
   Teleport,
 } from 'vue';
 import { isNil, merge, omit, isNumber, isObject } from 'lodash-es';
-import { rem2px } from '@/lib/utils';
+import { getCssColor, rem2px } from '@/lib/utils';
 import { cn } from '@/lib/utils';
 
 const {
@@ -360,7 +360,7 @@ const model = defineModel<number | string | number[] | string[]>();
 const mergedRailStyle = computed(() => {
   return merge(
     {
-      backgroundColor: '#333',
+      backgroundColor: getCssColor('h33'),
     },
     railStyle
   );
@@ -368,7 +368,7 @@ const mergedRailStyle = computed(() => {
 const mergedProcessStyle = computed(() => {
   return merge(
     {
-      backgroundColor: '#44d62c',
+      backgroundColor: getCssColor('rz-green'),
     },
     processStyle
   );
