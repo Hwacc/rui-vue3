@@ -138,6 +138,7 @@ const DEFAULT_FLOATING_TOOLTIP_OPTIONS: FloatingTooltipOptions = {
     mainAxis: true,
     crossAxis: false,
     boundary: undefined,
+    rootBoundary: 'document',
   },
   arrow: {
     element: undefined,
@@ -164,6 +165,7 @@ export const useFloatingTooltip = (options: MaybeRef<FloatingTooltipOptions>) =>
 
   const updateMiddleware = () => {
     let boundary: any = innerOptions.shift?.value?.boundary;
+    const rootBoundary = innerOptions.shift?.value?.rootBoundary ?? 'document';
     if (isNil(boundary)) {
       if (floatingBoundaryRef.value instanceof HTMLElement) {
         boundary = floatingBoundaryRef.value;
@@ -171,12 +173,12 @@ export const useFloatingTooltip = (options: MaybeRef<FloatingTooltipOptions>) =>
         boundary = floatingBoundaryRef.value.$el;
       }
     }
-    console.log('updateMiddleware', innerOptions.arrow?.value?.padding);
     middleware.value = [
       offset(innerOptions.offset?.value),
       shift({
         ...(unref(innerOptions.shift) ?? {}),
         boundary,
+        rootBoundary,
       }),
       arrow({
         element: innerOptions.arrow?.value?.element || floatingArrowRef.value,
