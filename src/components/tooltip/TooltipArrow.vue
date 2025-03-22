@@ -2,12 +2,14 @@
 import { TooltipArrow, type TooltipArrowProps } from 'reka-ui';
 import { computed, HTMLAttributes, ref, watch } from 'vue';
 import { toolTipArrowVariants, ToolTipArrowVariants } from '.';
-import { cn } from '@/lib/utils';
+import { cn, rem2px } from '@/lib/utils';
 
 const {
   force = false,
   theme = 'default',
   type = 'css',
+  width = rem2px(0.4375),
+  height = rem2px(0.1875),
   class: propsClass,
   ...props
 } = defineProps<
@@ -32,8 +34,8 @@ watch(arrowRef, () => {
 
 const style = computed(() => {
   return {
-    '--rui-tooltip-arrow-width': `${props.width}px`,
-    '--rui-tooltip-arrow-height': `${props.height}px`,
+    '--reka-tooltip-arrow-width': `${width}px`,
+    '--reka-tooltip-arrow-height': `${height}px`,
   };
 });
 
@@ -55,6 +57,8 @@ const classNames = computed(() =>
     :as="type === 'css' ? 'span' : 'svg'"
     :class="classNames"
     :style="style"
+    :width="width"
+    :height="height"
   >
     <span v-if="type === 'css'"></span>
   </TooltipArrow>

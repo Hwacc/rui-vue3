@@ -9,13 +9,13 @@ import { Input } from '@/components/input';
     <div class="flex gap-4 items-center">
       <Input class="w-[12.5rem]" placeholder="Default Input" clearable>
         <template #prefix>
-          <Tooltip :delayDuration="0">
+          <Tooltip :delay-duration="0">
             <TooltipTrigger>
               <Star class="size-3" />
             </TooltipTrigger>
-            <TooltipContent>
+            <TooltipContent align="start">
               Prefix Star
-              <TooltipArrow></TooltipArrow>
+              <TooltipArrow force></TooltipArrow>
             </TooltipContent>
           </Tooltip>
         </template>

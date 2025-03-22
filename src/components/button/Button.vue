@@ -110,9 +110,9 @@ const buttonClass = computed(() =>
         </slot>
         <TooltipArrow
           :class="tooltipArrowClass"
-          force
           :theme="tooltipTheme"
           v-bind="tooltipArrowProps"
+          force
         />
       </TooltipContent>
     </Tooltip>

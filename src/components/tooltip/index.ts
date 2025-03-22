@@ -49,8 +49,8 @@ export const toolTipArrowVariants = cva('', {
       svg: '',
       css: [
         'relative',
-        'w-[var(--rui-tooltip-arrow-width)]',
-        'h-[var(--rui-tooltip-arrow-height)]',
+        'w-[var(--reka-tooltip-arrow-width)]',
+        'h-[var(--reka-tooltip-arrow-height)]',
         'animate-fade',
         'animate-duration-100',
         [
@@ -59,8 +59,8 @@ export const toolTipArrowVariants = cva('', {
           'before:bottom-0',
           'before:w-0',
           'before:h-0',
-          'before:border-r-(length:--rui-tooltip-arrow-height) before:border-r-transparent',
-          'before:border-l-(length:--rui-tooltip-arrow-height) before:border-l-transparent',
+          'before:border-r-(length:--reka-tooltip-arrow-height) before:border-r-transparent',
+          'before:border-l-(length:--reka-tooltip-arrow-height) before:border-l-transparent',
         ],
         [
           'after:absolute',
@@ -68,8 +68,8 @@ export const toolTipArrowVariants = cva('', {
           'after:bottom-[.0625rem]',
           'after:w-0',
           'after:h-0',
-          'after:border-r-(length:--rui-tooltip-arrow-height) after:border-r-transparent',
-          'after:border-l-(length:--rui-tooltip-arrow-height) after:border-l-transparent',
+          'after:border-r-(length:--reka-tooltip-arrow-height) after:border-r-transparent',
+          'after:border-l-(length:--reka-tooltip-arrow-height) after:border-l-transparent',
         ],
       ],
     },
