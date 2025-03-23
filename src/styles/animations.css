@@ -1,0 +1,116 @@
+@import 'tailwindcss';
+@import './animation-easing.css';
+
+@plugin 'tailwindcss-animate';
+@plugin 'tailwindcss-animated';
+
+@theme {
+  --animate-accordion-down: accordion-down var(--animate-duration) ease-out;
+  --animate-accordion-up: accordion-up var(--animate-duration) ease-out;
+  --animate-collapsible-down: collapsible-down var(--animate-duration) ease-in-out;
+  --animate-collapsible-up: collapsible-up var(--animate-duration) ease-in-out;
+  --animate-quick-squeeze-x: squeeze-x 0.1s ease-in-out;
+
+  /* Keyframes */
+  @keyframes accordion-down {
+    from {
+      height: 0px;
+    }
+
+    to {
+      height: var(--reka-accordion-content-height, 0px);
+    }
+  }
+
+  @keyframes accordion-up {
+    from {
+      height: var(--reka-accordion-content-height, 0px);
+    }
+
+    to {
+      height: 0px;
+    }
+  }
+
+  @keyframes collapsible-down {
+    from {
+      height: 0px;
+    }
+
+    to {
+      height: var(--reka-collapsible-content-height, 0px);
+    }
+  }
+
+  @keyframes collapsible-up {
+    from {
+      height: var(--reka-collapsible-content-height, 0px);
+    }
+
+    to {
+      height: 0px;
+    }
+  }
+
+  @keyframes squeeze-x {
+    from {
+      transform: scaleX(1);
+    }
+
+    50% {
+      transform: scaleX(1.15);
+    }
+
+    to {
+      transform: scaleX(1);
+    }
+  }
+
+  @keyframes path-dash {
+    to {
+      stroke-dashoffset: 0;
+    }
+  }
+
+  @keyframes fade-down-out {
+    from {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    to {
+      opacity: 0;
+      transform: translateY(-2rem);
+    }
+  }
+
+  @keyframes blur-in {
+    from {
+      filter: blur(1rem);
+    }
+
+    to {
+      filter: blur(0);
+    }
+  }
+}
+
+@utility animate-check-dash {
+  stroke-dasharray: 50;
+  stroke-dashoffset: -50;
+  animation: path-dash var(--tw-animate-duration, 0.2s) var(--tw-animate-easing, ease-out) forwards;
+}
+
+@utility animate-indeterminate-dash {
+  stroke-dasharray: 50;
+  stroke-dashoffset: 50;
+  animation: path-dash var(--tw-animate-duration, 0.2s) linear forwards;
+}
+
+@utility animate-fade-down-in {
+  @apply animate-fade-down;
+}
+
+@utility animate-fade-down-out {
+  animation: fade-down-out var(--tw-animate-duration, 0.2s) var(--tw-animate-easing, ease-out) forwards;
+}

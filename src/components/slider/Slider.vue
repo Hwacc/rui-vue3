@@ -360,7 +360,7 @@ const model = defineModel<number | string | number[] | string[]>();
 const mergedRailStyle = computed(() => {
   return merge(
     {
-      backgroundColor: getCssColor('h33'),
+      backgroundColor: getCssColor('h33', '#333'),
     },
     railStyle
   );
@@ -368,7 +368,7 @@ const mergedRailStyle = computed(() => {
 const mergedProcessStyle = computed(() => {
   return merge(
     {
-      backgroundColor: getCssColor('rz-green'),
+      backgroundColor: getCssColor('rz-green', '#44D62C'),
     },
     processStyle
   );

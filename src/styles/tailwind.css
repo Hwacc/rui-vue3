@@ -1,9 +1,7 @@
 @import 'tailwindcss';
-
 @config '../../tailwind.config.ts';
 
-@plugin 'tailwindcss-animate';
-@plugin 'tailwindcss-animated';
+@import './animations.css';
 
 @theme {
   /* Spacing */
@@ -96,76 +94,6 @@
   --font-rz-light: var(--font-rz-light);
   --font-rz-med: var(--font-rz-medium);
   --font-rz-bold: var(--font-rz-bold);
-
-  /* Animations */
-  --animate-accordion-down: accordion-down 0.2s ease-out;
-  --animate-accordion-up: accordion-up 0.2s ease-out;
-  --animate-collapsible-down: collapsible-down 0.2s ease-in-out;
-  --animate-collapsible-up: collapsible-up 0.2s ease-in-out;
-  --animate-quick-squeeze-x: squeeze-x 0.1s ease-in-out;
-  --animate-path-dash: path-dash 0.2s linear forwards;
-  --animate-fade-down-out: animate-fade-down-out ease-out;
-
-  /* Keyframes */
-  @keyframes accordion-down {
-    from {
-      height: 0px;
-    }
-
-    to {
-      height: var(--radix-accordion-content-height, 0px);
-    }
-  }
-
-  @keyframes accordion-up {
-    from {
-      height: var(--radix-accordion-content-height, 0px);
-    }
-
-    to {
-      height: 0px;
-    }
-  }
-
-  @keyframes collapsible-down {
-    from {
-      height: 0px;
-    }
-
-    to {
-      height: var(--radix-collapsible-content-height, 0px);
-    }
-  }
-
-  @keyframes collapsible-up {
-    from {
-      height: var(--radix-collapsible-content-height, 0px);
-    }
-
-    to {
-      height: 0px;
-    }
-  }
-
-  @keyframes squeeze-x {
-    from {
-      transform: scaleX(1);
-    }
-
-    50% {
-      transform: scaleX(1.15);
-    }
-
-    to {
-      transform: scaleX(1);
-    }
-  }
-
-  @keyframes path-dash {
-    to {
-      stroke-dashoffset: 0;
-    }
-  }
 }
 
 @theme inline {
@@ -179,14 +107,12 @@
   --font-rz-medium: RazerF5-Medium, var(--font-sans);
   --font-rz-bold: RazerF5-Bold, var(--font-sans);
   --font-rz-black: RazerF5-Black, var(--font-sans);
-
   --outline: 2px solid var(--color-rz-green);
 }
 
 @theme static {}
 
 @layer base {
-
   *,
   ::after,
   ::before,
@@ -202,18 +128,6 @@
   *:focus-visible {
     outline: var(--outline);
     outline-offset: 2px;
-  }
-
-  @keyframes fade-down-out {
-    from {
-      opacity: 1;
-      transform: translateY(0);
-    }
-
-    to {
-      opacity: 0;
-      transform: translateY(-2rem);
-    }
   }
 }
 
@@ -247,24 +161,7 @@
   }
 }
 
-@utility check-dash-animate {
-  stroke-dasharray: 50;
-  stroke-dashoffset: -50;
-  @apply animate-path-dash;
-}
-
-@utility check-indeterminate-dash-animate {
-  stroke-dasharray: 50;
-  stroke-dashoffset: 50;
-  @apply animate-path-dash;
-}
-
-@utility uti-animate-fade-down-out {
-  /* 只设置animation-name，便可以使用 tailwind-animated class 控制 */
-  animation-name: fade-down-out;
-}
-
-@utility webkit-scrollbar{
+@utility webkit-scrollbar {
   ::-webkit-scrollbar {
     @apply size-[6px];
   }
@@ -278,7 +175,7 @@
   }
 }
 
-@utility webkit-scrollbar-self{
+@utility webkit-scrollbar-self {
   &::-webkit-scrollbar {
     @apply size-[6px];
   }
@@ -304,7 +201,7 @@
 
   ::-webkit-scrollbar-thumb {
     @apply h-[5px] bg-h58/40 rounded-[1px] hover:bg-rz-green active:bg-rz-green/70 focus:bg-rz-green/70;
-  } 
+  }
 }
 
 @utility webkit-small-scrollbar-self {

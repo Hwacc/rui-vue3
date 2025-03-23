@@ -23,10 +23,11 @@ export const dialogOverlayVariants = cva([
   'inset-0',
   'z-50',
   'bg-black/80',
+  'duration-200',
   'data-[state=open]:animate-in',
+  'data-[state=open]:fade-in',
   'data-[state=closed]:animate-out',
-  'data-[state=closed]:fade-out-0',
-  'data-[state=open]:fade-in-0',
+  'data-[state=closed]:fade-out',
 ]);
 export type DialogOverlayVariantsProps = VariantProps<typeof dialogOverlayVariants>;
 
@@ -45,10 +46,8 @@ export const dialogContentVariants = cva(
     'bg-h1a',
     'rounded',
     'webkit-small-scrollbar',
-    'animate-duration-200',
-    'animate-ease-out',
-    'data-[state=open]:animate-fade-down',
-    'data-[state=closed]:uti-animate-fade-down-out',
+    'data-[state=open]:animate-fade-down-in',
+    'data-[state=closed]:animate-fade-down-out',
   ],
   {
     variants: {
@@ -72,11 +71,8 @@ export const DialogScrollContentVariants = cva([
   'border-h00',
   'bg-h1a',
   'rounded',
-  'animate-duration-200',
-  'animate-ease-out',
-  'animate-fill-both',
-  'data-[state=open]:animate-fade-down',
-  'data-[state=closed]:uti-animate-fade-down-out',
+  'data-[state=open]:animate-fade-down-in',
+  'data-[state=closed]:animate-fade-down-out',
 ]);
 export type DialogScrollContentVariantsProps = VariantProps<typeof DialogScrollContentVariants>;
 

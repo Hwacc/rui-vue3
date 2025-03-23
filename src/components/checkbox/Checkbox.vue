@@ -86,11 +86,11 @@ const forwarded = useForwardPropsEmits(props, emits);
         <slot name="indicator">
           <Check
             v-if="innerModelValue !== 'indeterminate'"
-            class="size-full stroke-black stroke-[.125rem] [&_path]:check-dash-animate"
+            class="size-full stroke-black stroke-[.125rem] [&_path]:animate-check-dash"
           />
           <Minus
             v-if="innerModelValue === 'indeterminate'"
-            class="size-full stroke-black stroke-[.125rem] [&_path]:check-indeterminate-dash-animate"
+            class="size-full stroke-black stroke-[.125rem] [&_path]:animate-indeterminate-dash"
           />
         </slot>
       </CheckboxIndicator>

@@ -16,7 +16,10 @@ export {
   DropdownMenuRadioGroup,
   DropdownMenuSub,
 } from 'reka-ui';
-export type { DropdownMenuRootProps as DropdownMenuProps } from 'reka-ui';
+export type {
+  DropdownMenuRootProps as DropdownMenuProps,
+  DropdownMenuRootEmits as DropdownMenuEmits,
+} from 'reka-ui';
 
 export const dropdownMenuContentClass = [
   'z-50',
