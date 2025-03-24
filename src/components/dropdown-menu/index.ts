@@ -33,6 +33,7 @@ export const dropdownMenuContentClass = [
   'py-1.5',
   'text-hcc',
   'shadow-md',
+  'duration-2000',
   'data-[state=open]:animate-in',
   'data-[state=closed]:animate-out',
   'data-[state=closed]:fade-out-0',

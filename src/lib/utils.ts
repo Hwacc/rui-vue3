@@ -22,6 +22,10 @@ export const timexSpace = (time: number) => {
   return time * rem2px(spacing);
 };
 
+export const getCssVar = <T>(variableName: string, fallback?: T) => {
+  return getComputedStyle(document.documentElement).getPropertyValue(variableName) || fallback;
+};
+
 export const getCssColor = (colorName: string, fallback?: string) => {
-  return getComputedStyle(document.documentElement).getPropertyValue(`--color-${colorName}`) || fallback;
+  return getCssVar(`--color-${colorName}`, fallback);
 };

@@ -2,6 +2,7 @@
 import {
   Select,
   SelectTrigger,
+  SelectMouseTrigger,
   SelectValue,
   SelectContent,
   SelectGroup,
@@ -30,11 +31,10 @@ const multiSelected = ref<string[]>([]);
           </SelectGroup>
         </SelectContent>
       </Select>
-
       <Select v-model="multiSelected" multiple>
-        <SelectTrigger>
+        <SelectMouseTrigger>
           <SelectValue placeholder="Select a fruit" />
-        </SelectTrigger>
+        </SelectMouseTrigger>
         <SelectContent>
           <SelectGroup>
             <SelectLabel>Fruits</SelectLabel>
