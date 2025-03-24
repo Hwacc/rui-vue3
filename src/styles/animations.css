@@ -98,13 +98,13 @@
 @utility animate-check-dash {
   stroke-dasharray: 50;
   stroke-dashoffset: -50;
-  animation: path-dash var(--tw-animate-duration, 0.2s) var(--tw-animate-easing, ease-out) forwards;
+  animation: path-dash var(--tw-animate-duration, 150ms) var(--tw-animate-easing, ease-out) forwards;
 }
 
 @utility animate-indeterminate-dash {
   stroke-dasharray: 50;
   stroke-dashoffset: 50;
-  animation: path-dash var(--tw-animate-duration, 0.2s) linear forwards;
+  animation: path-dash var(--tw-animate-duration, 150ms) linear forwards;
 }
 
 @utility animate-fade-down-in {
@@ -112,5 +112,5 @@
 }
 
 @utility animate-fade-down-out {
-  animation: fade-down-out var(--tw-animate-duration, 0.2s) var(--tw-animate-easing, ease-out) forwards;
+  animation: fade-down-out var(--tw-animate-duration, 150ms) var(--tw-animate-easing, ease-out) forwards;
 }

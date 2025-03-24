@@ -4,6 +4,8 @@ import type { HTMLAttributes } from 'vue';
 import { cn } from '@/lib/utils';
 import { DropdownMenuContent, DropdownMenuPortal, useForwardPropsEmits } from 'reka-ui';
 import { dropdownMenuContentClass } from '.';
+import { AnimatePresence } from 'motion-v';
+import { DropdownMenuContentMotion } from '@/components/motion/DropdownMenuContentMotion';
 
 const {
   class: propsClass,
@@ -26,8 +28,12 @@ const forwarded = useForwardPropsEmits(
 
 <template>
   <DropdownMenuPortal>
-    <DropdownMenuContent v-bind="forwarded" :class="cn(dropdownMenuContentClass, propsClass)">
-      <slot />
-    </DropdownMenuContent>
+    <AnimatePresence>
+      <DropdownMenuContent v-bind="forwarded">
+        <DropdownMenuContentMotion :class="cn(dropdownMenuContentClass, propsClass)">
+          <slot />
+        </DropdownMenuContentMotion>
+      </DropdownMenuContent>
+    </AnimatePresence>
   </DropdownMenuPortal>
 </template>

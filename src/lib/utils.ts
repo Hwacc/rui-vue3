@@ -15,11 +15,11 @@ export const rem2px = (rem: number) => {
   return rem * base;
 };
 
-export const timexSpace = (time: number) => {
+export const spaceTimes = (times: number) => {
   const spacing = parseFloat(
     getComputedStyle(document.documentElement).getPropertyValue('--spacing') || '.25rem'
   );
-  return time * rem2px(spacing);
+  return times * rem2px(spacing);
 };
 
 export const getCssVar = <T>(variableName: string, fallback?: T) => {

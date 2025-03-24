@@ -34,8 +34,8 @@
   --tw-in-out-quart: cubic-bezier(.77, 0, .175, 1);
   --tw-in-out-back: cubic-bezier(0.68,-0.55,0.27,1.55);
 
-  --tw-animate-duration: 200ms;
+  --tw-animate-duration: 150ms;
   --tw-animate-easing: var(--tw-out-quart);
-  --tw-duration: 200ms;
+  --tw-duration: 150ms;
   --tw-ease: var(--tw-out-quad);
 }
