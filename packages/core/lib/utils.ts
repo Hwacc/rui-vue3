@@ -16,9 +16,7 @@ export const rem2px = (rem: number) => {
 };
 
 export const spaceTimes = (times: number) => {
-  const spacing = parseFloat(
-    getComputedStyle(document.documentElement).getPropertyValue('--spacing') || '.25rem'
-  );
+  const spacing = parseFloat(getCssVar('--spacing') || '.25rem');
   return times * rem2px(spacing);
 };
 
