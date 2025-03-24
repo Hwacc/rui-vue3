@@ -8,7 +8,7 @@ import { pluginSass } from '@rsbuild/plugin-sass';
 export default defineConfig({
   source: {
     entry: {
-      index: './examples/index.ts',
+      index: './index.ts',
     },
   },
   output: {
@@ -19,7 +19,7 @@ export default defineConfig({
   },
   resolve: {
     alias: {
-      '@': './src',
+      '@': '../core',
     },
   },
   plugins: [

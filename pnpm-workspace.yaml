@@ -1,0 +1,5 @@
+packages:
+  - packages/*
+  - histoire
+onlyBuiltDependencies:
+  - esbuild

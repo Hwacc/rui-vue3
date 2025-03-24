@@ -1,13 +1,13 @@
 {
   "compilerOptions": {
-    "rootDir": ".",
+    "tsBuildInfoFile": "./node_modules/.tmp/tsconfig.node.tsbuildinfo",
     "target": "ES2022",
     "lib": ["ES2023"],
     "module": "ESNext",
     "skipLibCheck": true,
 
     /* Bundler mode */
-    "moduleResolution": "Bundler",
+    "moduleResolution": "bundler",
     "allowImportingTsExtensions": true,
     "isolatedModules": true,
     "moduleDetection": "force",
@@ -20,10 +20,5 @@
     "noFallthroughCasesInSwitch": true,
     "noUncheckedSideEffectImports": true
   },
-  "include": [
-    "rsbuild.config.ts",
-    "build/**/*.ts",
-    "postcss.config.ts",
-    "examples/rsbuild.config.ts"
-  ]
+  "include": ["vite.config.ts"]
 }

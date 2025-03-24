@@ -2,8 +2,7 @@
   "compilerOptions": {},
   "files": [],
   "references": [
-    { "path": "./tsconfig.app.json" },
-    { "path": "./tsconfig.node.json" }
+    { "path": "./packages/core/tsconfig.json" },
+    { "path": "./packages/examples/tsconfig.json" }
   ]
 }
-

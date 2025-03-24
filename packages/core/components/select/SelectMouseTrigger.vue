@@ -22,7 +22,8 @@ export interface SelectTriggerProps extends PopperAnchorProps {
 <script setup lang="ts">
 import { computed, HTMLAttributes, onMounted, unref } from 'vue';
 import { injectSelectRootContext, Primitive, useForwardExpose, useId, SelectIcon } from 'reka-ui';
-import { _ as PopperAnchor } from 'node_modules/reka-ui/dist/Popper/PopperAnchor.js';
+//@ts-ignore
+import { _ as PopperAnchor } from '../../node_modules/reka-ui/dist/Popper/PopperAnchor.js';
 
 defineOptions({
   name: 'SelectMouseTrigger',
@@ -79,7 +80,7 @@ onMounted(() => {
         }
       "
       @keydown="
-        (event) => {
+        (event: any) => {
           const isModifierKey = event.ctrlKey || event.altKey || event.metaKey;
           if (!isModifierKey && event.key.length === 1) if (event.key === ' ') return;
           if (OPEN_KEYS.includes(event.key)) {

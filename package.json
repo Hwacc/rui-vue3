@@ -1,41 +1,17 @@
 {
   "name": "rui-vue3",
-  "private": true,
   "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
   "scripts": {
-    "dev": "rsbuild dev --open",
-    "build": "rsbuild build",
-    "preview": "rsbuild preview"
+    "dev": "pnpm --filter examples run dev"
   },
-  "main": "./src/index.ts",
   "dependencies": {
-    "@floating-ui/vue": "^1.1.6",
     "@vueuse/core": "^12.8.2",
-    "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
-    "lodash-es": "^4.17.21",
-    "lucide-vue-next": "^0.469.0",
-    "motion-v": "^0.13.1",
-    "reka-ui": "^2.1.1",
-    "tailwind-merge": "^3.0.2",
-    "tailwindcss-animate": "^1.0.7",
-    "tailwindcss-animated": "^1.1.2",
     "vue": "^3.5.13",
-    "vue-3-slider-component": "^1.0.2"
-  },
-  "peerDependencies": {
-    "@floating-ui/vue": "^1.1.6",
-    "@vueuse/core": "^12.4.0",
-    "class-variance-authority": "^0.7.1",
-    "clsx": "^2.1.1",
     "lodash-es": "^4.17.21",
-    "lucide-vue-next": "0.483.0",
-    "reka-ui": "^2.1.0",
-    "tailwind-merge": "^3.0.2",
-    "tailwindcss-animate": "^1.0.7",
-    "tailwindcss-animated": "^1.1.2",
-    "vue": "^3.5.13",
-    "vue-3-slider-component": "^1.0.2"
+    "lucide-vue-next": "^0.469.0"
   },
   "devDependencies": {
     "@rsbuild/core": "1.2.12",
@@ -52,11 +28,8 @@
     "tailwindcss": "^4.0.15",
     "typescript": "^5.8.2"
   },
-  "packageManager": "pnpm@10.6.5",
-  "pnpm": {
-    "ignoredBuiltDependencies": [
-      "core-js",
-      "vue-demi"
-    ]
-  }
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "packageManager": "pnpm@10.6.5"
 }
