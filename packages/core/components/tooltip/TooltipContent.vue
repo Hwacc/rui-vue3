@@ -25,12 +25,7 @@ const emits = defineEmits<TooltipContentEmits>();
 const forwarded = useForwardPropsEmits(props, emits);
 
 const classNames = computed(() => {
-  return cn(
-    tooltipContentVariants({
-      theme,
-    }),
-    propsClass
-  );
+  return cn(tooltipContentVariants({ theme }), propsClass);
 });
 </script>
 

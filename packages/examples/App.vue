@@ -17,6 +17,8 @@ import DialogExample from './dialog/index.vue';
 import ToastExample from './toast/index.vue';
 import DropdownExample from './dropdown/index.vue';
 import SelectExample from './select/index.vue';
+import PopoverExample from './popover/index.vue';
+
 import { ref } from 'vue';
 
 const compSize = ref<'default' | 'sm' | 'lg'>('default');
@@ -48,6 +50,7 @@ const toastPosition = ref<ToastPosition>('bottom-right');
       <ToastExample v-model="toastPosition" />
       <DropdownExample />
       <SelectExample />
+      <PopoverExample />
     </div>
   </TooltipProvider>
   <Toaster :position="toastPosition" :duration="5000" />

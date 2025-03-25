@@ -5,7 +5,7 @@ import { cn } from '@/lib/utils';
 import { DropdownMenuContent, DropdownMenuPortal, useForwardPropsEmits } from 'reka-ui';
 import { dropdownMenuContentClass } from '.';
 import { AnimatePresence } from 'motion-v';
-import { DropdownMenuContentMotion } from '@/components/motion/DropdownMenuContentMotion';
+import { PopoverContentMotion } from '@/components/motion/PopoverContentMotion';
 
 const {
   class: propsClass,
@@ -30,9 +30,9 @@ const forwarded = useForwardPropsEmits(
   <DropdownMenuPortal>
     <AnimatePresence>
       <DropdownMenuContent v-bind="forwarded">
-        <DropdownMenuContentMotion :class="cn(dropdownMenuContentClass, propsClass)">
+        <PopoverContentMotion :class="cn(dropdownMenuContentClass, propsClass)">
           <slot />
-        </DropdownMenuContentMotion>
+        </PopoverContentMotion>
       </DropdownMenuContent>
     </AnimatePresence>
   </DropdownMenuPortal>

@@ -6,7 +6,7 @@ import { SelectContent, SelectPortal, SelectViewport, useForwardPropsEmits } fro
 import { computed } from 'vue';
 import { selectContentVariants, SelectScrollDownButton, SelectScrollUpButton } from '.';
 import { AnimatePresence } from 'motion-v';
-import { DropdownMenuContentMotion } from '@/components/motion/DropdownMenuContentMotion';
+import { PopoverContentMotion } from '@/components/motion/PopoverContentMotion';
 
 defineOptions({
   inheritAttrs: false,
@@ -38,7 +38,7 @@ const forwarded = useForwardPropsEmits(props, emits);
   <SelectPortal>
     <AnimatePresence>
       <SelectContent v-bind="{ ...forwarded, position, side, align, ...$attrs }" class="test">
-        <DropdownMenuContentMotion :class="classNames" :side="side">
+        <PopoverContentMotion :class="classNames" :side="side">
           <!-- without scrollbar -->
           <div v-if="scrollButton">
             <SelectScrollUpButton />
@@ -51,7 +51,7 @@ const forwarded = useForwardPropsEmits(props, emits);
           <div v-else class="w-full max-h-46 overflow-y-scroll webkit-small-scrollbar-self">
             <slot />
           </div>
-        </DropdownMenuContentMotion>
+        </PopoverContentMotion>
       </SelectContent>
     </AnimatePresence>
   </SelectPortal>

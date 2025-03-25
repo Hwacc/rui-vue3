@@ -33,7 +33,7 @@ import { computed } from 'vue';
 import { cn } from '@/lib/utils';
 import { Primitive } from 'reka-ui';
 import { buttonVariants } from '.';
-import { Tooltip, TooltipTrigger, TooltipContent, TooltipArrow, TooltipProvider } from '../tooltip';
+import { Tooltip, TooltipTrigger, TooltipContent, TooltipArrow } from '../tooltip';
 
 const {
   as = 'button',
@@ -45,13 +45,10 @@ const {
   checked = false,
   tooltip,
   tooltipTheme = 'default',
-  tooltipProviderProps = {
+  tooltipRootProps = {
     delayDuration: 0,
     disableHoverableContent: true,
     ignoreNonKeyboardFocus: true,
-  },
-  tooltipRootProps = {
-    delayDuration: 0,
   },
   tooltipContentClass,
   tooltipContentProps = {
@@ -87,36 +84,34 @@ const buttonClass = computed(() =>
 </script>
 
 <template>
-  <TooltipProvider v-if="tooltip || slots.tooltip" v-bind="tooltipProviderProps">
-    <Tooltip v-bind="{ ...tooltipRootProps, disabled }">
-      <TooltipTrigger
-        :as="as"
-        :asChild="asChild"
-        :class="buttonClass"
-        :disabled="disabled"
-        :checked="checked"
-        @click="emits('click')"
-      >
-        <slot />
-      </TooltipTrigger>
-      <TooltipContent
-        v-bind="tooltipContentProps"
-        :class="tooltipContentClass"
+  <Tooltip v-if="tooltip || slots.tooltip" v-bind="{ ...tooltipRootProps, disabled }">
+    <TooltipTrigger
+      :as="as"
+      :asChild="asChild"
+      :class="buttonClass"
+      :disabled="disabled"
+      :checked="checked"
+      @click="emits('click')"
+    >
+      <slot />
+    </TooltipTrigger>
+    <TooltipContent
+      v-bind="tooltipContentProps"
+      :class="tooltipContentClass"
+      :theme="tooltipTheme"
+      :data-theme="tooltipTheme"
+    >
+      <slot name="tooltip">
+        {{ tooltip }}
+      </slot>
+      <TooltipArrow
+        :class="tooltipArrowClass"
         :theme="tooltipTheme"
-        :data-theme="tooltipTheme"
-      >
-        <slot name="tooltip">
-          {{ tooltip }}
-        </slot>
-        <TooltipArrow
-          :class="tooltipArrowClass"
-          :theme="tooltipTheme"
-          v-bind="tooltipArrowProps"
-          force
-        />
-      </TooltipContent>
-    </Tooltip>
-  </TooltipProvider>
+        v-bind="tooltipArrowProps"
+        force
+      />
+    </TooltipContent>
+  </Tooltip>
   <Primitive
     v-else
     :as="as"

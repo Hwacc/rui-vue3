@@ -8,8 +8,8 @@ import { computed, defineComponent, toRefs } from 'vue';
 import { motion } from 'motion-v';
 import { spaceTimes } from '@/lib/utils';
 
-export const DropdownMenuContentMotion = defineComponent({
-  name: 'DropdownMenuContentMotion',
+export const PopoverContentMotion = defineComponent({
+  name: 'PopoverContentMotion',
   props: {
     side: {
       type: String as () => 'bottom' | 'top' | 'left' | 'right',

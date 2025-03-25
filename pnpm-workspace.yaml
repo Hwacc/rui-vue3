@@ -3,3 +3,6 @@ packages:
   - histoire
 onlyBuiltDependencies:
   - esbuild
+  - vue-demi
+ignoredBuiltDependencies:
+  - core-js
