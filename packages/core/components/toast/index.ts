@@ -174,10 +174,10 @@ export const toastVariants = cva<{
       swipeDirection: {},
       position: {
         center: [
-          'animate-duration-200',
+          'animate-duration-150',
           'animate-ease-out',
           'data-[state=open]:animate-fade-down',
-          'data-[state=closed]:uti-animate-fade-down-out',
+          'data-[state=closed]:animate-fade-down-out',
         ],
       },
       variant: {

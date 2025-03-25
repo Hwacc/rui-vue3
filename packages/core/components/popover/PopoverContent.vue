@@ -9,13 +9,14 @@ import {
   useForwardExpose,
   useForwardPropsEmits,
 } from 'reka-ui';
-import { nextTick, ref, unref, watch, watchEffect, type HTMLAttributes } from 'vue';
+import { ref, type HTMLAttributes } from 'vue';
 import { popoverClass } from '.';
 import { AnimatePresence } from 'motion-v';
 import { PopoverContentMotion } from '../motion/PopoverContentMotion';
 
 //@ts-ignore
 import { u as useGraceArea } from '../../node_modules/reka-ui/dist/shared/useGraceArea.js';
+import { injectPopoverRootContextEx } from './PopoverProviderEx.jsx';
 
 defineOptions({
   inheritAttrs: false,
@@ -29,31 +30,19 @@ const {
   ...props
 } = defineProps<PopoverContentProps & { class?: HTMLAttributes['class'] }>();
 
+const { triggerElement } = injectPopoverRootContext();
+const rootContextEx = injectPopoverRootContextEx();
+
 const contentRef = ref<any>(null);
-
-watch(contentRef, (r) => {
-  nextTick(() => {
-    console.log('content ref', r);
-  });
-});
-const { triggerElement, open } = injectPopoverRootContext();
-const { forwardRef, currentElement } = useForwardExpose();
 const { isPointerInTransit, onPointerExit } = useGraceArea(triggerElement, contentRef);
-;
 
-watch(isPointerInTransit, (v) => {
-  console.log('isPointerInTransit', v)
-})
-watchEffect(() => {
-  console.log('isOpen', open.value);
-  nextTick(() => {
-    console.log('currentElement', currentElement.value);
-    console.log('contentRef', contentRef.value);
-  });
+rootContextEx.isPointerInTransitRef = isPointerInTransit;
+onPointerExit(() => {
+  !rootContextEx.disableHoverableContent.value && rootContextEx.onClose();
 });
 
 const emits = defineEmits<PopoverContentEmits>();
-
+const { forwardRef } = useForwardExpose();
 const forwarded = useForwardPropsEmits(props, emits);
 </script>
 
@@ -64,13 +53,10 @@ const forwarded = useForwardPropsEmits(props, emits);
         <PopoverContentMotion
           :class="cn(popoverClass, propsClass)"
           :side="side"
-          :ref="
-          (r: any) => {
-            console.log('content ref inner --->', r);
+          :ref="(r: any) => {
             contentRef = r?.$el;
             forwardRef(r);
-          }
-        "
+          }"
         >
           <slot />
         </PopoverContentMotion>

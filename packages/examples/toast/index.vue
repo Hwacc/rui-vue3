@@ -40,6 +40,7 @@ const onOpenCustomMessageClick = () => {
     variant: 'success',
     title: 'Custom Message Content',
     icon: () => <Smile class={'size-5'} />,
+    duration: 0
   }) 
 }
 </script>
@@ -47,7 +48,7 @@ const onOpenCustomMessageClick = () => {
 <template>
   <div class="container flex flex-col items-center gap-4">
     <RadioGroup
-      class="flex gap-2"
+      class="flex-c flex-wrap gap-2"
       :model-value="modelValue"
       @update:model-value="(val) => emits('update:modelValue', val as ToastPosition)"
     >
@@ -60,7 +61,7 @@ const onOpenCustomMessageClick = () => {
       <RadioGroupItem value="bottom-center" label="Bottom Center" />
       <RadioGroupItem value="bottom-right" label="Bottom Right" />
     </RadioGroup>
-    <div class="flex gap-2">
+    <div class="flex-c flex-wrap items-center gap-2">
       <Button @click="onOpenToastClick">Open a Toast</Button>
       <Button @click="onOpenRenderToastClick">Open a Render Toast</Button>
       <Button @click="onOpenMessageClick">Open a Message</Button>

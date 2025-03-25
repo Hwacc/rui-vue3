@@ -28,7 +28,7 @@ const position = ref<string>('top');
 
 <template>
   <div class="container flex flex-col items-center gap-4">
-    <div class="flex gap-2">
+    <div class="flex-c flex-wrap gap-2">
       <DropdownMenu>
         <DropdownMenuTrigger>
           <Button>Open Dropdown</Button>

@@ -15,24 +15,26 @@ import {
   injectPopoverRootContext,
 } from 'reka-ui';
 import { injectPopoverRootContextEx } from './PopoverProviderEx';
-import { computed, onMounted, ref } from 'vue';
+import { computed, HTMLAttributes, onMounted, ref } from 'vue';
+import { cn } from '@/lib/utils';
 
 const {
+  class: propsClass,
   as = 'button',
   asChild = false,
   trigger = 'click',
   mode = 'mouse-only',
-} = defineProps<PopoverTriggerProps>();
+} = defineProps<PopoverTriggerProps & { class?: HTMLAttributes['class'] }>();
 
 const rootContex = injectPopoverRootContext();
 const {
   disabled,
   open,
   isPointerInTransitRef,
+  disableHoverableContent,
   disableClosingTrigger,
-  onOpenToggle,
-  onTriggerLeave,
-  onTriggerEnter,
+  onOpen,
+  onClose,
 } = injectPopoverRootContextEx();
 
 const isPointerDown = ref(false);
@@ -47,7 +49,7 @@ const handlePointerDown = () => {
         // 模拟点击
         isPointerDown.value = false;
         if (open.value && disableClosingTrigger.value) return;
-        onOpenToggle();
+        open.value ? onClose() : onOpen();
       });
     },
     { once: true }
@@ -58,12 +60,12 @@ const handlePointerDown = () => {
 const handlePointerMove = (event: PointerEvent) => {
   if (event.pointerType === 'touch') return;
   if (!hasPointerMoveOpened.value && !isPointerInTransitRef.value) {
-    onTriggerEnter();
+    onOpen();
     hasPointerMoveOpened.value = true;
   }
 };
 const handlePointerLeave = () => {
-  onTriggerLeave();
+  disableHoverableContent.value && onClose();
   hasPointerMoveOpened.value = false;
 };
 
@@ -74,10 +76,12 @@ const triggerListeners = computed(() => {
       return {
         mouseenter: () => {
           if (!isPointerInTransitRef.value) {
-            onTriggerEnter();
+            onOpen();
           }
         },
-        mouseleave: onTriggerLeave,
+        mouseleave: () => {
+          disableHoverableContent.value && onClose();
+        },
       };
     } else if (mode === 'touch-simulate') {
       return {
@@ -91,7 +95,7 @@ const triggerListeners = computed(() => {
       return {
         click: () => {
           if (open.value && disableClosingTrigger.value) return;
-          onOpenToggle();
+          open.value ? onClose() : onOpen();
         },
       };
     } else if (mode === 'touch-simulate') {
@@ -99,7 +103,7 @@ const triggerListeners = computed(() => {
         pointerdown: handlePointerDown,
         click: (event: any) => {
           if (!isPointerDown.value && (event.target as HTMLElement).matches?.(':focus-visible')) {
-            onOpenToggle();
+            open.value ? onClose() : onOpen();
           }
         },
       };
@@ -117,6 +121,7 @@ const { forwardRef, currentElement: triggerElement } = useForwardExpose();
 <template>
   <PopoverAnchor as-child>
     <Primitive
+      :class="cn('outline-none', propsClass)"
       :id="rootContex.triggerId"
       :ref="forwardRef"
       :type="as === 'button' ? 'button' : undefined"

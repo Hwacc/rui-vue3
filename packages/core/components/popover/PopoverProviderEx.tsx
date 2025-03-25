@@ -19,16 +19,11 @@ export interface PopoverRootContextEx extends PopoverRootContext {
   disabled: Ref<boolean | undefined>;
   disableHoverableContent: Ref<boolean | undefined>;
   ignoreNonKeyboardFocus: Ref<boolean | undefined>;
-  skipDelayDuration: Ref<number | undefined>;
 
   isPointerInTransitRef: Ref<boolean>;
   isOpenDelayed: Ref<boolean>;
   onOpen: () => void;
   onClose: () => void;
-  onSkipOpen: () => void;
-  onSkipClose: () => void;
-  onTriggerEnter: () => void;
-  onTriggerLeave: () => void;
 }
 const [injectPopoverRootContextEx, providePopoverRootContextEx] =
   createContext<PopoverRootContextEx>('PopoverProviderEx');
@@ -40,7 +35,6 @@ export interface PopoverProviderExProps {
   disabled?: boolean;
   disableHoverableContent?: boolean;
   ignoreNonKeyboardFocus?: boolean;
-  skipDelayDuration?: number;
 }
 
 export const PopoverProviderEx = defineComponent<PopoverProviderExProps>({
@@ -85,17 +79,13 @@ export const PopoverProviderEx = defineComponent<PopoverProviderExProps>({
       propsRefs.delayDuration as Ref<number>,
       { immediate: false }
     );
-    const { start: startSkipTimer, stop: clearSkipTimer } = useTimeoutFn(
-      () => {
-        isOpenDelayed.value = true;
-      },
-      propsRefs.skipDelayDuration as Ref<number>,
-      { immediate: false }
-    );
 
     const handleOpen = () => {
-      clearOpenTimer();
-      popoverRootContext.onOpenChange(true);
+      if (isOpenDelayed.value) {
+        startOpenTimer();
+      } else {
+        popoverRootContext.onOpenChange(true);
+      }
     };
     const handleClose = () => {
       clearOpenTimer();
@@ -109,25 +99,6 @@ export const PopoverProviderEx = defineComponent<PopoverProviderExProps>({
       isPointerInTransitRef,
       onOpen: handleOpen,
       onClose: handleClose,
-      onSkipOpen: () => {
-        clearSkipTimer();
-        isOpenDelayed.value = false;
-      },
-      onSkipClose: () => {
-        startSkipTimer();
-      },
-      onTriggerEnter: () => {
-        if (isOpenDelayed.value) startOpenTimer();
-        else handleOpen();
-      },
-      onTriggerLeave() {
-        if (propsRefs.disableHoverableContent.value) handleClose();
-        else {
-          // Clear the timer in case the pointer leaves the trigger before the tooltip is opened.
-          clearOpenTimer();
-          handleClose();
-        }
-      },
     });
     return () => slots.default?.();
   },
