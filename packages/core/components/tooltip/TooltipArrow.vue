@@ -8,8 +8,8 @@ const {
   force = false,
   theme = 'default',
   type = 'css',
-  width = rem2px(0.4375),
-  height = rem2px(0.1875),
+  width = 6,
+  height = 6,
   class: propsClass,
   ...props
 } = defineProps<
@@ -36,6 +36,8 @@ const style = computed(() => {
   return {
     '--reka-tooltip-arrow-width': `${width}px`,
     '--reka-tooltip-arrow-height': `${height}px`,
+    '--reka-tooltip-arrow-border-width': `${width / 2}px`,
+    '--reka-tooltip-arrow-border-height': `${height / 2}px`,
   };
 });
 

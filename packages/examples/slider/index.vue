@@ -1,8 +1,7 @@
 <script setup lang="tsx">
-import { Slider } from '@/components/slider';
+import { Slider, type FloatingTooltipOptions } from '@/components/slider';
 import { Switch } from '@/components/switch';
 import { Button } from '@/components/button';
-import { FloatingTooltipOptions } from '@/components/slider/Slider.vue';
 import { reactive, ref } from 'vue';
 
 const sliderState = ref(30);
@@ -38,10 +37,6 @@ const sliderVerticalOpts = reactive<FloatingTooltipOptions>({
 const tSliderPropsChange = () => {
   sliderOpts.placement = 'bottom';
   sliderVerticalOpts.placement = 'right';
-  if (sliderOpts.shift && sliderVerticalOpts.shift) {
-    sliderOpts.shift.boundary = window.document.body;
-    sliderVerticalOpts.shift.boundary = window.document.body;
-  }
 };
 </script>
 

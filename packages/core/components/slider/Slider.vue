@@ -22,6 +22,7 @@ import {
   arrow,
   Strategy,
 } from '@floating-ui/vue';
+import { useForwardPropsEmits } from 'reka-ui';
 type SliderProps = {
   adsorb?: boolean;
   clickable?: boolean;
@@ -124,6 +125,7 @@ export type FloatingTooltipOptions = Partial<
   arrowClass?: HTMLAttributes['class'];
   teleport?: boolean;
 };
+
 const DEFAULT_FLOATING_TOOLTIP_OPTIONS: FloatingTooltipOptions = {
   open: true,
   placement: 'bottom',
@@ -272,7 +274,6 @@ export const useFloatingTooltip = (options: MaybeRef<FloatingTooltipOptions>) =>
 
 <script setup lang="ts">
 import Slider from 'vue-3-slider-component';
-import { Primitive, useForwardPropsEmits, type PrimitiveProps } from 'reka-ui';
 import {
   ComponentPublicInstance,
   computed,
@@ -292,10 +293,7 @@ import { getCssColor, rem2px } from '@/lib/utils';
 import { cn } from '@/lib/utils';
 
 const {
-  wrapClass,
   class: propsClass,
-  as,
-  asChild,
   direction = 'ltr',
   railStyle,
   processStyle,
@@ -307,15 +305,15 @@ const {
   floatingTooltip,
   ...props
 } = defineProps<
-  PrimitiveProps &
-    SliderProps & {
-      wrapClass?: HTMLAttributes['class'];
-      class?: HTMLAttributes['class'];
-      size?: 'default' | 'sm' | 'lg' | 'custom';
-      floatingTooltip?: FloatingTooltipOptions | boolean | undefined;
-    }
+  SliderProps & {
+    class?: HTMLAttributes['class'];
+    size?: 'default' | 'sm' | 'lg' | 'custom';
+    floatingTooltip?: FloatingTooltipOptions | boolean | undefined;
+  }
 >();
-
+// default model
+const model = defineModel<number | string | number[] | string[]>();
+// slots
 defineSlots<{
   dot?: (dotProps: SliderSlotDotProps) => any;
   label?: (labelProps: SliderSlotLabelProps) => any;
@@ -346,6 +344,8 @@ defineSlots<{
     }
   ) => any;
 }>();
+
+// emits
 const emits = defineEmits<{
   change: [value: number | string | number[] | string[], index: number];
   dragEnd: [index: number];
@@ -353,8 +353,8 @@ const emits = defineEmits<{
   dragging: [value: number | string | number[] | string[], index: number];
   error: [type: SLIDER_ERROR_TYPE, message: string];
 }>();
+
 const forwarded = useForwardPropsEmits(props, emits);
-const model = defineModel<number | string | number[] | string[]>();
 
 // styles
 const mergedRailStyle = computed(() => {
@@ -450,138 +450,132 @@ const getFloatingTooltipContent = (value: number | string) => {
 </script>
 
 <template>
-  <Primitive :class="wrapClass" :as="as" :asChild="asChild">
-    <Slider
-      v-model="model"
-      ref="floatingBoundaryRef"
-      :class="propsClass"
-      :direction="direction"
-      :width="computedWidth"
-      :height="computedHeight"
-      :style="{
-        display: 'flex',
-        alignItems: 'center',
-      }"
-      :railStyle="mergedRailStyle"
-      :processStyle="mergedProcessStyle"
-      :dotSize="computedDotSize"
-      :tooltipPlacement="tooltipPlacement"
-      v-bind="forwarded"
-      @drag-start="(index: number) => {
+  <Slider
+    v-bind="forwarded"
+    v-model="model"
+    ref="floatingBoundaryRef"
+    :class="propsClass"
+    :direction="direction"
+    :width="computedWidth"
+    :height="computedHeight"
+    :railStyle="mergedRailStyle"
+    :processStyle="mergedProcessStyle"
+    :dotSize="computedDotSize"
+    :tooltipPlacement="tooltipPlacement"
+    @drag-start="(index: number) => {
         dotDragIndex = index;
         dotDragStart = true;
         emits('dragStart', index);
       }"
-      @dragging="(value: number | string | number[] | string[], index: number) => {
+    @dragging="(value: number | string | number[] | string[], index: number) => {
         floatingTooltip && updateFloatingTooltip();
         emits('dragging', value, index);
       }"
-      @drag-end="(index: number) => {
+    @drag-end="(index: number) => {
         dotDragStart = false;
         dotDragIndex = -1;
         emits('dragEnd', index);
       }"
-    >
-      <template #dot="{ index, ...rest }">
-        <div class="w-full h-full" ref="floatingReferenceRef">
-          <slot name="dot" v-bind="{ index, ...rest }">
-            <div
-              :class="
-                cn(
-                  [
-                    'w-full h-full rounded-full bg-h00 border-[.125rem] border-rz-green transition-transform',
-                  ],
-                  [size === 'sm' && 'border-[.0625rem]'],
-                  [size === 'lg' && 'border-[.25rem]'],
-                  [index === dotDragIndex && dotDragStart && 'scale-125']
-                )
-              "
+  >
+    <template #dot="{ index, ...rest }">
+      <div class="w-full h-full" ref="floatingReferenceRef">
+        <slot name="dot" v-bind="{ index, ...rest }">
+          <div
+            :class="
+              cn(
+                [
+                  'w-full h-full rounded-full bg-h00 border-[.125rem] border-rz-green transition-transform',
+                ],
+                [size === 'sm' && 'border-[.0625rem]'],
+                [size === 'lg' && 'border-[.25rem]'],
+                [index === dotDragIndex && dotDragStart && 'scale-125']
+              )
+            "
+          />
+        </slot>
+      </div>
+    </template>
+    <template #label="labelProps">
+      <slot name="label" v-bind="labelProps" />
+    </template>
+    <template #mark="markProps">
+      <slot name="mark" v-bind="markProps" />
+    </template>
+    <template #process="processProps">
+      <slot name="process" v-bind="processProps" />
+    </template>
+    <template #step="stepProps">
+      <slot name="step" v-bind="stepProps" />
+    </template>
+    <template #tooltip="tooltipProps">
+      <slot
+        v-if="floatingTooltip"
+        name="floatingTooltip"
+        v-bind="{
+          ...tooltipProps,
+          floatingTooltipOptions,
+          floatingTooltipStyles,
+          floatingTooltipArrowStyles,
+        }"
+      >
+        <Component :is="floatingTooltipOptions.teleport ? Teleport : 'div'" to="body">
+          <div
+            :class="
+              cn(
+                'flex px-2 py-1 bg-rz-green rounded text-h00 text-xs',
+                floatingTooltipOptions.class
+              )
+            "
+            :style="floatingTooltipStyles"
+            ref="floatingTooltipRef"
+          >
+            <Component
+              v-if="isObject(getFloatingTooltipContent(tooltipProps.value))"
+              :is="getFloatingTooltipContent(tooltipProps.value)"
             />
-          </slot>
-        </div>
-      </template>
-      <template #label="labelProps">
-        <slot name="label" v-bind="labelProps" />
-      </template>
-      <template #mark="markProps">
-        <slot name="mark" v-bind="markProps" />
-      </template>
-      <template #process="processProps">
-        <slot name="process" v-bind="processProps" />
-      </template>
-      <template #step="stepProps">
-        <slot name="step" v-bind="stepProps" />
-      </template>
-      <template #tooltip="tooltipProps">
-        <slot
-          v-if="floatingTooltip"
-          name="floatingTooltip"
-          v-bind="{
-            ...tooltipProps,
-            floatingTooltipOptions,
-            floatingTooltipStyles,
-            floatingTooltipArrowStyles,
-          }"
-        >
-          <Component :is="floatingTooltipOptions.teleport ? Teleport : 'div'" to="body">
-            <div
-              :class="
-                cn(
-                  'flex px-2 py-1 bg-rz-green rounded text-h00 text-xs',
-                  floatingTooltipOptions.class
-                )
-              "
-              :style="floatingTooltipStyles"
-              ref="floatingTooltipRef"
-            >
-              <Component
-                v-if="isObject(getFloatingTooltipContent(tooltipProps.value))"
-                :is="getFloatingTooltipContent(tooltipProps.value)"
-              />
-              <div v-else>
-                {{ getFloatingTooltipContent(tooltipProps.value) }}
-              </div>
-              <svg
-                v-if="/(top|bottom)/.test(floatingTooltipOptions.placement as string)"
-                :class="cn([
+            <div v-else>
+              {{ getFloatingTooltipContent(tooltipProps.value) }}
+            </div>
+            <svg
+              v-if="/(top|bottom)/.test(floatingTooltipOptions.placement as string)"
+              :class="cn([
                 'absolute w-1.5 h-0.75 fill-rz-green',
                 /(top)/.test(floatingTooltipOptions.placement as string) && 'rotate-180',
               ], floatingTooltipOptions.arrowClass)"
-                viewBox="0 0 10 5"
-                ref="floatingArrowRef"
-                :style="floatingTooltipArrowStyles"
-              >
-                <path d="M5,0 L0,5 L10,5 Z" />
-              </svg>
-              <svg
-                v-else="/(left|right)/.test(floatingTooltipOptions.placement as string)"
-                :class="cn([
+              viewBox="0 0 10 5"
+              ref="floatingArrowRef"
+              :style="floatingTooltipArrowStyles"
+            >
+              <path d="M5,0 L0,5 L10,5 Z" />
+            </svg>
+            <svg
+              v-else="/(left|right)/.test(floatingTooltipOptions.placement as string)"
+              :class="cn([
                 'absolute w-0.75 h-1.5 fill-rz-green',
                 /(left)/.test(floatingTooltipOptions.placement as string) && 'rotate-180',
               ], floatingTooltipOptions.arrowClass)"
-                viewBox="0 0 5 10"
-                ref="floatingArrowRef"
-                :style="floatingTooltipArrowStyles"
-              >
-                <path d="M5,0 L0,5 L5,10 Z" />
-              </svg>
-            </div>
-          </Component>
-        </slot>
-        <slot v-else name="tooltip" v-bind="tooltipProps">
-          <div
-            :class="[
-              'flex px-2 py-1 bg-rz-green rounded text-h00 text-xs',
-              'vue-slider-default-tooltip',
-            ]"
-            :data-placement="tooltipPlacement"
-          >
-            {{ tooltipProps.value }}
+              viewBox="0 0 5 10"
+              ref="floatingArrowRef"
+              :style="floatingTooltipArrowStyles"
+            >
+              <path d="M5,0 L0,5 L5,10 Z" />
+            </svg>
           </div>
-        </slot>
-      </template>
-    </Slider>
-  </Primitive>
+        </Component>
+      </slot>
+      <slot v-else name="tooltip" v-bind="tooltipProps">
+        <div
+          :class="[
+            'flex px-2 py-1 bg-rz-green rounded text-h00 text-xs',
+            'vue-slider-default-tooltip',
+          ]"
+          :data-placement="tooltipPlacement"
+        >
+          {{ tooltipProps.value }}
+        </div>
+      </slot>
+    </template>
+  </Slider>
 </template>
 
 <style lang="css" scoped>

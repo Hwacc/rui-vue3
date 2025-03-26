@@ -58,8 +58,8 @@ const {
   },
   tooltipArrowClass,
   tooltipArrowProps = {
-    width: 7,
-    height: 3,
+    width: 6,
+    height: 6
   },
 } = defineProps<Props>();
 

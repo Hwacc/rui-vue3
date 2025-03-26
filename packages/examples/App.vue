@@ -18,6 +18,7 @@ import ToastExample from './toast/index.vue';
 import DropdownExample from './dropdown/index.vue';
 import SelectExample from './select/index.vue';
 import PopoverExample from './popover/index.vue';
+import SliderRekaExample from './slider-reka/index.vue';
 
 import { ref } from 'vue';
 
@@ -44,6 +45,7 @@ const toastPosition = ref<ToastPosition>('bottom-right');
       <CheckboxExample />
       <RadioExample />
       <SliderExample />
+      <SliderRekaExample />
       <TabsExample />
       <CollapsibleExample />
       <DialogExample />
