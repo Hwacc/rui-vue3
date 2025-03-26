@@ -32,7 +32,7 @@ export const dropdownMenuContentClass = [
   'px-2',
   'py-1.5',
   'text-hcc',
-  'shadow-md'
+  'shadow-black'
 ];
 
 export const dropdownMenuItemClass = [
@@ -128,6 +128,6 @@ export const dropdownMenuSubContentClass = [
   'px-2',
   'py-1.5',
   'text-hcc',
-  'shadow-lg',
+  'shadow-black-md',
   'overflow-hidden',
 ];

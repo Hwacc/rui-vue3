@@ -18,7 +18,7 @@ export const messageVariants = cva(
     'space-x-4',
     'overflow-hidden',
     'rounded-md',
-    'shadow-lg',
+    'shadow-black',
     'transition-all',
     'border-l-0',
     'px-4',

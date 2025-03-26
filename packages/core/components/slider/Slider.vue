@@ -302,6 +302,7 @@ const {
   width,
   height,
   size = 'default',
+  duration = 0.15,
   floatingTooltip,
   ...props
 } = defineProps<
@@ -458,6 +459,7 @@ const getFloatingTooltipContent = (value: number | string) => {
     :direction="direction"
     :width="computedWidth"
     :height="computedHeight"
+    :duration="duration"
     :railStyle="mergedRailStyle"
     :processStyle="mergedProcessStyle"
     :dotSize="computedDotSize"

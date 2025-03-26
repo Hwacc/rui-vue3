@@ -2,7 +2,7 @@
 import type { SliderRootEmits, SliderRootProps } from 'reka-ui';
 import { cn } from '@/lib/utils';
 import { SliderRange, SliderRoot, SliderThumb, SliderTrack, useForwardPropsEmits } from 'reka-ui';
-import { computed, type HTMLAttributes } from 'vue';
+import { type HTMLAttributes } from 'vue';
 import { sliderClass, sliderRangeClass, sliderTrackClass, sliderThumbClass } from '.';
 
 const { class: propsClass, ...props } = defineProps<

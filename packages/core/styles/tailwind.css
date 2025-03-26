@@ -41,6 +41,9 @@
   --color-rz-green-border: oklch(45.35% 0.117 141.32);
   --color-rz-green-border-hover: oklch(70.57% 0.1369 141.32);
   --color-rz-green-border-active: oklch(45.88% 0.1354 141.32);
+  --color-rz-green-progress-1: oklch(80.82% 0.2508 141.32);
+  --color-rz-green-progress-2: oklch(76.9% 0.2358 141.32);
+  --color-test: oklch(80.82% 0.2508 141.32 / 40%);
 
   --color-rz-orange: oklch(80.16% 0.1705 73.27);
   --color-rz-red: oklch(62.32% 0.2121 25.89);
@@ -79,6 +82,8 @@
 
   /* Shadows */
   --shadow-glory: 0 0 1.5625rem 0 oklch(86.64% 0.294827 141.32 / 47%);
+  --shadow-black: 0 0 0.625rem 0 oklch(0% 0 0 / 80%);
+  --shadow-black-md: 0 0 0.9375rem 0 oklch(0% 0 0 / 80%);
 
   /* Fonts */
   --font-roboto: var(--font-roboto);
@@ -217,4 +222,13 @@
   &::-webkit-scrollbar-thumb {
     @apply h-[5px] bg-h58/40 rounded-[1px] hover:bg-rz-green active:bg-rz-green/70 focus:bg-rz-green/70;
   }
+}
+
+@utility progress-indicator{
+  --block1: var(--color-rz-green-progress-1);
+  --block2: var(--color-rz-green-progress-2);
+  background-image: linear-gradient(45deg, var(--block1) 25%, var(--block2) 25%, var(--block2) 50%, var(--block1) 50%, var(--block1) 75%, var(--block2) 75%, var(--block2));
+  background-size: 6px 6px;
+  background-repeat: repeat-x;
+  animation: pogress-left-to-right 0.6s linear infinite;
 }

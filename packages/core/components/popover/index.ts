@@ -19,7 +19,6 @@ export const popoverContentClass = [
   'bg-h2a',
   'rounded-lg',
   'p-2.5',
-  'shadow-md',
   'outline-none',
   'shadow-[0_.25rem_.375rem_-1px_rgba(0,0,0,1)]',
 ];

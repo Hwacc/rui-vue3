@@ -65,7 +65,7 @@ export const selectContentVariants = cva(
     'bg-h1a',
     'p-0',
     'text-hcc',
-    'shadow-md'
+    'shadow-black'
   ],
   {
     variants: {

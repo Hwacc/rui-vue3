@@ -93,6 +93,12 @@
       filter: blur(0);
     }
   }
+
+  @keyframes pogress-left-to-right {
+    to {
+      background-position: .375rem 0;
+    }
+  }
 }
 
 @utility animate-check-dash {

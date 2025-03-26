@@ -166,7 +166,7 @@ export const toastVariants = cva<{
     'rounded-md',
     'border-l-[.1875rem]',
     'border-l-rz-orange',
-    'shadow-lg',
+    'shadow-black-md',
     'transition-all',
   ],
   {

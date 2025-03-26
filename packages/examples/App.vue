@@ -19,6 +19,7 @@ import DropdownExample from './dropdown/index.vue';
 import SelectExample from './select/index.vue';
 import PopoverExample from './popover/index.vue';
 import SliderRekaExample from './slider-reka/index.vue';
+import ProgressExample from './progress/index.vue';
 
 import { ref } from 'vue';
 
@@ -53,6 +54,7 @@ const toastPosition = ref<ToastPosition>('bottom-right');
       <DropdownExample />
       <SelectExample />
       <PopoverExample />
+      <ProgressExample />
     </div>
   </TooltipProvider>
   <Toaster :position="toastPosition" :duration="5000" />
