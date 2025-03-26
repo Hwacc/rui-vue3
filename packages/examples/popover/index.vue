@@ -12,7 +12,7 @@ import {
   <div class="container flex flex-col items-center gap-4">
     <div class="flex gap-2">
       <Popover>
-        <PopoverTrigger trigger="hover" mode="mouse-only">
+        <PopoverTrigger trigger="click" mode="mouse-only" >
           <Button as="div">Trigger</Button>
         </PopoverTrigger>
         <PopoverContent :side-offset="20">

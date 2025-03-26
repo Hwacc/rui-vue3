@@ -15,7 +15,7 @@ import {
   injectPopoverRootContext,
 } from 'reka-ui';
 import { injectPopoverRootContextEx } from './PopoverProviderEx';
-import { computed, HTMLAttributes, onMounted, ref } from 'vue';
+import { computed, HTMLAttributes, onMounted, ref, watch } from 'vue';
 import { cn } from '@/lib/utils';
 
 const {
@@ -30,12 +30,23 @@ const rootContex = injectPopoverRootContext();
 const {
   disabled,
   open,
+  triggerType,
+  triggerMode,
   isPointerInTransitRef,
   disableHoverableContent,
   disableClosingTrigger,
   onOpen,
   onClose,
 } = injectPopoverRootContextEx();
+
+watch(
+  () => [trigger, mode],
+  ([t, m]) => {
+    triggerType.value = t as 'click' | 'hover' | 'manual';
+    triggerMode.value = m as 'mouse-only' | 'touch-simulate';
+  },
+  { immediate: true }
+);
 
 const isPointerDown = ref(false);
 const hasPointerMoveOpened = ref(false);

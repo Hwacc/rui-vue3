@@ -22,6 +22,8 @@ export interface PopoverRootContextEx extends PopoverRootContext {
 
   isPointerInTransitRef: Ref<boolean>;
   isOpenDelayed: Ref<boolean>;
+  triggerType: Ref<'hover' | 'click' | 'manual'>;
+  triggerMode: Ref<'mouse-only' | 'touch-simulate'>;
   onOpen: () => void;
   onClose: () => void;
 }
@@ -68,6 +70,8 @@ export const PopoverProviderEx = defineComponent<PopoverProviderExProps>({
   setup(props, { slots }) {
     const propsRefs = toRefs(props);
     const popoverRootContext = injectPopoverRootContext();
+    const triggerType = ref<'hover' | 'click' | 'manual'>('click');
+    const triggerMode = ref<'mouse-only' | 'touch-simulate'>('mouse-only');
     const isOpenDelayed = ref(true);
     // Reset the inTransit state if idle/scrolled.
     const isPointerInTransitRef = ref(false);
@@ -95,6 +99,8 @@ export const PopoverProviderEx = defineComponent<PopoverProviderExProps>({
     providePopoverRootContextEx({
       ...popoverRootContext,
       ...propsRefs,
+      triggerType,
+      triggerMode,
       isOpenDelayed,
       isPointerInTransitRef,
       onOpen: handleOpen,

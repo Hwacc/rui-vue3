@@ -8,7 +8,7 @@ export { PopoverAnchor } from 'reka-ui';
 //@ts-ignore
 export {u as useGraceArea} from '../../node_modules/reka-ui/dist/shared/useGraceArea.js';
 
-export const popoverClass = [
+export const popoverContentClass = [
   'z-50',
   'rounded',
   'min-w-(--reka-popover-trigger-width)',

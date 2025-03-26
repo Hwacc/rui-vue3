@@ -9,8 +9,8 @@ import {
   useForwardExpose,
   useForwardPropsEmits,
 } from 'reka-ui';
-import { ref, type HTMLAttributes } from 'vue';
-import { popoverClass } from '.';
+import { ref, watchEffect, type HTMLAttributes } from 'vue';
+import { popoverContentClass } from '.';
 import { AnimatePresence } from 'motion-v';
 import { PopoverContentMotion } from '../motion/PopoverContentMotion';
 
@@ -38,11 +38,34 @@ const { isPointerInTransit, onPointerExit } = useGraceArea(triggerElement, conte
 
 rootContextEx.isPointerInTransitRef = isPointerInTransit;
 onPointerExit(() => {
-  !rootContextEx.disableHoverableContent.value && rootContextEx.onClose();
+  if (rootContextEx.triggerType.value === 'hover' && !rootContextEx.disableHoverableContent.value) {
+    rootContextEx.onClose();
+  }
+});
+
+const { forwardRef, currentElement } = useForwardExpose();
+watchEffect((onCleanup) => {
+  const triggerType = rootContextEx.triggerType.value;
+  const triggerMode = rootContextEx.triggerMode.value;
+  if ((triggerType === 'click' || triggerType === 'manual') && currentElement.value) {
+    if (rootContextEx.disableHoverableContent.value) {
+      if (triggerMode === 'mouse-only') {
+        currentElement.value.addEventListener('mouseenter', rootContextEx.onClose);
+      } else if (triggerMode === 'touch-simulate') {
+        currentElement.value.addEventListener('pointerenter', rootContextEx.onClose);
+      }
+      onCleanup(() => {
+        if (triggerMode === 'mouse-only') {
+          currentElement.value?.removeEventListener('mouseenter', rootContextEx.onClose);
+        } else if (triggerMode === 'touch-simulate') {
+          currentElement.value?.removeEventListener('pointerenter', rootContextEx.onClose);
+        }
+      });
+    }
+  }
 });
 
 const emits = defineEmits<PopoverContentEmits>();
-const { forwardRef } = useForwardExpose();
 const forwarded = useForwardPropsEmits(props, emits);
 </script>
 
@@ -51,7 +74,7 @@ const forwarded = useForwardPropsEmits(props, emits);
     <AnimatePresence>
       <PopoverContent v-bind="{ ...forwarded, side, align, sideOffset, ...$attrs }">
         <PopoverContentMotion
-          :class="cn(popoverClass, propsClass)"
+          :class="cn(popoverContentClass, propsClass)"
           :side="side"
           :ref="(r: any) => {
             contentRef = r?.$el;
