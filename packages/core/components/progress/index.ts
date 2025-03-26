@@ -16,6 +16,6 @@ export const progressIndicatorClass = [
   'flex-1',
   'rounded-full',
   'transition-all',
-  'bg-rz-green',
-  'progress-indicator',
+  'data-[type=default]:bg-progress-indicator-default',
+  'data-[type=robbin]:progress-indicator-robbin',
 ];

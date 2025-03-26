@@ -38,6 +38,68 @@ export const colorHex2RgbObject = (
   const g = parseInt(match[2], 10);
   const b = parseInt(match[3], 10);
   const a = match[4] ? parseFloat(match[4]) : undefined;
+  // rgba
   return { r, g, b, a };
 };
 
+// ... existing code ...
+
+export const detectCssColorType = (
+  cssColor: string
+): { type: 'rgb' | 'rgba' | 'hex' | 'hexa' | 'lab' | 'unknown'; value: any } => {
+  // HEX 颜色格式检测
+  const hexRegex = /^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3}|[A-Fa-f0-9]{8}|[A-Fa-f0-9]{4})$/;
+  if (hexRegex.test(cssColor)) {
+    const length = cssColor.replace('#', '').length;
+    return {
+      type: length === 8 || length === 4 ? 'hexa' : 'hex',
+      value: cssColor,
+    };
+  }
+
+  // RGB/RGBA 颜色格式检测
+  const rgbRegex =
+    /^rgba?\(\s*(\d{1,3}%?)\s*,\s*(\d{1,3}%?)\s*,\s*(\d{1,3}%?)\s*(?:,\s*([\d.]+)\s*)?\)$/;
+  const rgbMatch = cssColor.match(rgbRegex);
+  if (rgbMatch) {
+    return {
+      type: rgbMatch[4] ? 'rgba' : 'rgb',
+      value: {
+        r: parseInt(rgbMatch[1]),
+        g: parseInt(rgbMatch[2]),
+        b: parseInt(rgbMatch[3]),
+        a: rgbMatch[4] ? parseFloat(rgbMatch[4]) : undefined,
+      },
+    };
+  }
+
+  // LAB 颜色格式检测
+  const labRegex = /^lab\(\s*([\d.]+%?)\s+(-?[\d.]+%?)\s+(-?[\d.]+%?)\s*(?:\/\s*([\d.]+%?)\s*)?\)$/;
+  const labMatch = cssColor.match(labRegex);
+  if (labMatch) {
+    // 处理百分数
+    // const parsePercent = (value: string) => {
+    //   return
+    //     ? parseFloat(value) / 100
+    //     : parseFloat(value);
+    // };
+
+    return {
+      type: 'lab',
+      value: {
+        l: parseFloat(labMatch[1]),
+        a: parseFloat(labMatch[2]),
+        b: parseFloat(labMatch[3]),
+        alpha: labMatch[4] ? parseFloat(labMatch[4]) : undefined,
+      },
+    };
+  }
+
+  // 未知颜色格式
+  return {
+    type: 'unknown',
+    value: cssColor,
+  };
+};
+
+// ... existing code ...
