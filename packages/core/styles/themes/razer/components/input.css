@@ -1,0 +1,19 @@
+@layer utilities {
+  .rui-input {
+    @apply border-h55 text-hbb hover:border-h66 hover:ring-h4c;
+
+    &[data-state="focus"]{
+      @apply border-rz-green ring-rz-green-border 
+      hover:border-rz-green 
+      hover:ring-rz-green-border;
+    }
+  }
+
+  .rui-input-inner{
+    @apply placeholder:italic placeholder:text-h55 selection:bg-[#204C19] selection:text-[#97C390];
+  }
+
+  .rui-input-clearable{
+    @apply fill-h58 stroke-black hover:fill-white;
+  }
+}

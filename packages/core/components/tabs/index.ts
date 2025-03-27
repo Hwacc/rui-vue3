@@ -22,7 +22,7 @@ export const tabsTriggerVariants = cva(
     'rounded',
     'transition-all',
     'disabled:pointer-events-none',
-    'disabled:opacity-30',
+    'disabled:opacity-(--disabled-opacity)',
     'text-h88',
     'hover:text-hff',
     'data-[state=active]:text-hff',

@@ -1,7 +1,10 @@
-import { cva, type VariantProps } from 'class-variance-authority';
+import { PREFIX } from '@/lib/constants';
+// import { cva, type VariantProps } from 'class-variance-authority';
+import { cva, type VariantProps } from '@/lib/cva';
 
 export { default as Button } from './Button.vue';
 
+const prefix = `${PREFIX}-btn`;
 export const buttonVariants = cva(
   [
     'inline-flex',
@@ -18,7 +21,7 @@ export const buttonVariants = cva(
     'ring',
     'ring-transparent',
     'disabled:pointer-events-none',
-    'disabled:opacity-30',
+    'disabled:opacity-(--disabled-opacity)',
     '[&_svg]:pointer-events-none',
     '[&_svg]:size-3.5',
     '[&_svg]:shrink-0',
@@ -26,18 +29,18 @@ export const buttonVariants = cva(
   {
     variants: {
       type: {
-        default: 'btn-default',
-        normal: 'btn-nomal',
-        outline: 'btn-outline',
-        text: 'btn-text',
-        icon: ['px-0', 'aspect-square', 'border-none', 'btn-icon'],
+        default: '',
+        normal: `${prefix}_normal`,
+        outline: `${prefix}_outline`,
+        text: `${prefix}_text`,
+        icon: ['px-0', 'aspect-square', 'border-none', `${prefix}_icon`],
         switcher: [
           'justify-start',
           'gap-[.6875rem]',
           'px-3',
           'text-xs',
           '[&_svg]:size-[.625rem]',
-          'btn-switcher',
+          `${prefix}_switcher`,
         ],
       },
       size: {
@@ -48,11 +51,13 @@ export const buttonVariants = cva(
       limitWidth: {
         true: 'min-w-[5.625rem]',
       },
-      checked: {
-        true: '',
-      },
     },
     compoundVariants: [
+      {
+        type: 'default',
+        ruiPrefix: true,
+        className: `${prefix}_default`,
+      },
       {
         type: 'icon',
         size: 'lg',
@@ -67,11 +72,6 @@ export const buttonVariants = cva(
         type: 'switcher',
         limitWidth: true,
         className: 'min-w-[8.875rem]',
-      },
-      {
-        type: 'switcher',
-        checked: true,
-        className: 'btn-switcher-checked',
       },
       {
         type: 'switcher',

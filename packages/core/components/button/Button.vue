@@ -59,7 +59,7 @@ const {
   tooltipArrowClass,
   tooltipArrowProps = {
     width: 6,
-    height: 6
+    height: 6,
   },
 } = defineProps<Props>();
 
@@ -76,7 +76,7 @@ const buttonClass = computed(() =>
       type,
       size,
       limitWidth: type === 'icon' ? false : limitWidth,
-      checked,
+      ruiPrefix: false
     }),
     propsClass
   )
@@ -90,7 +90,8 @@ const buttonClass = computed(() =>
       :asChild="asChild"
       :class="buttonClass"
       :disabled="disabled"
-      :checked="checked"
+      :data-type="type"
+      :data-checked="type === 'switcher' ? checked : undefined"
       @click="emits('click')"
     >
       <slot />
@@ -118,7 +119,8 @@ const buttonClass = computed(() =>
     :as-child="asChild"
     :class="buttonClass"
     :disabled="disabled"
-    :checked="checked"
+    :data-type="type"
+    :data-checked="type === 'switcher' ? checked : undefined"
     @click="emits('click')"
   >
     <slot />

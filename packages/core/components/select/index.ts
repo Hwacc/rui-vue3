@@ -34,7 +34,7 @@ export const selectTriggerVariants = cva(
     'data-[state=open]:border-rz-green',
     'outline-none',
     'disabled:pointer-events-none',
-    'disabled:opacity-30',
+    'disabled:opacity-(--disabled-opacity)',
     'transition-colors',
     '[&>span]:flex-1',
     '[&>span]:truncate',
@@ -96,7 +96,7 @@ export const selectItemVariants = cva(
     'hover:bg-h28',
     'data-[state=checked]:text-rz-green',
     'data-[disabled]:pointer-events-none',
-    'data-[disabled]:opacity-30',
+    'data-[disabled]:opacity-(--disabled-opacity)',
   ],
   {
     variants: {

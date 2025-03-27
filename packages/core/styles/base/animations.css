@@ -1,15 +1,14 @@
-@import 'tailwindcss';
 @import './animation-easing.css';
 
 @plugin 'tailwindcss-animate';
 @plugin 'tailwindcss-animated';
 
 @theme {
-  --animate-accordion-down: accordion-down var(--animate-duration) ease-out;
-  --animate-accordion-up: accordion-up var(--animate-duration) ease-out;
-  --animate-collapsible-down: collapsible-down var(--animate-duration) ease-in-out;
-  --animate-collapsible-up: collapsible-up var(--animate-duration) ease-in-out;
-  --animate-quick-squeeze-x: squeeze-x 0.1s ease-in-out;
+  --animate-accordion-down: accordion-down var(--tw-animate-duration, 150ms) ease-out;
+  --animate-accordion-up: accordion-up var(--tw-animate-duration, 150ms) ease-out;
+  --animate-collapsible-down: collapsible-down var(--tw-animate-duration, 150ms) ease-in-out;
+  --animate-collapsible-up: collapsible-up var(--tw-animate-duration, 150ms) ease-in-out;
+  --animate-quick-squeeze-x: squeeze-x var(--tw-animate-duration, 150ms) ease-in-out;
 
   /* Keyframes */
   @keyframes accordion-down {

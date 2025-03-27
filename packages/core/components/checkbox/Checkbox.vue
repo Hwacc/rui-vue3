@@ -75,6 +75,7 @@ const forwarded = useForwardPropsEmits(props, emits);
 <template>
   <label
     :class="labelClassName"
+    :disabled="props.disabled || undefined"
     @click="
       (event) => {
         stopPropagation && event.stopPropagation();

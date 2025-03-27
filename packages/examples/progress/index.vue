@@ -1,5 +1,5 @@
 <script setup lang="tsx">
-import { Progress } from '@/components/progress';
+import { Progress, CircleProgress } from '@/components/progress';
 import { onMounted, ref } from 'vue';
 
 const progressValue = ref(0);
@@ -19,5 +19,15 @@ onMounted(() => {
     <Progress class="w-100" :modelValue="progressValue" indicatorType="default" />
     <Progress class="w-100" :modelValue="progressValue" indicatorType="robbin" />
     <Progress class="w-100" :modelValue="progressValue" indicatorType="transfer" />
+    <div class="flex-c gap-4">
+      <CircleProgress :modelValue="progressValue" />
+      <CircleProgress type="arc" :modelValue="progressValue" />
+      <CircleProgress
+        type="arc"
+        :strokeWidth="4"
+        indicatorType="transfer"
+        :modelValue="progressValue"
+      />
+    </div>
   </div>
 </template>

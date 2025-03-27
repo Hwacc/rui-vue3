@@ -28,6 +28,12 @@ export const colorHex2Rgb = (hex: string): string => {
 };
 
 export const colorHex2RgbObject = (
+  hex: string
+): { r: number; g: number; b: number; a?: number } => {
+  return colorRgbStr2RgbObject(colorHex2Rgb(hex));
+};
+
+export const colorRgbStr2RgbObject = (
   rgba: string
 ): { r: number; g: number; b: number; a?: number } => {
   const match = rgba.match(/^rgba?\((\d+),\s*(\d+),\s*(\d+)(?:,\s*([\d.]+))?\)$/i);

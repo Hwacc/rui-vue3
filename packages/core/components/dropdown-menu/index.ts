@@ -1,3 +1,6 @@
+import { PREFIX } from '@/lib/constants';
+import { cva } from 'class-variance-authority';
+
 export { default as DropdownMenuCheckboxItem } from './DropdownMenuCheckboxItem.vue';
 export { default as DropdownMenuContent } from './DropdownMenuContent.vue';
 export { default as DropdownMenuItem } from './DropdownMenuItem.vue';
@@ -21,18 +24,16 @@ export type {
   DropdownMenuRootEmits as DropdownMenuEmits,
 } from 'reka-ui';
 
+const prefix = `${PREFIX}-dropdown-menu`;
 export const dropdownMenuContentClass = [
   'z-50',
   'min-w-(--reka-dropdown-menu-trigger-width)',
   'overflow-hidden',
   'rounded',
   'border',
-  'border-h11',
-  'bg-h1a',
   'px-2',
   'py-1.5',
-  'text-hcc',
-  'shadow-black'
+  `${prefix}-content`,
 ];
 
 export const dropdownMenuItemClass = [
@@ -48,14 +49,11 @@ export const dropdownMenuItemClass = [
   'text-sm',
   'outline-none',
   'transition-colors',
-  'hover:bg-hff/10',
-  'hover:text-hff',
-  'focus:bg-hff/10',
-  'focus:text-hff',
   'data-[disabled]:pointer-events-none',
-  'data-[disabled]:opacity-50',
+  'data-[disabled]:opacity-(--disabled-opacity)',
   '[&>svg]:size-4',
   '[&>svg]:shrink-0',
+  `${prefix}-item`,
 ];
 
 export const dropdownMenuCheckboxItemClass = [
@@ -72,12 +70,9 @@ export const dropdownMenuCheckboxItemClass = [
   'text-sm',
   'outline-none',
   'transition-colors',
-  'hover:bg-hff/10',
-  'hover:text-hff',
-  'focus:bg-hff/10',
-  'focus:text-hff',
   'data-[disabled]:pointer-events-none',
-  'data-[disabled]:opacity-30',
+  'data-[disabled]:opacity-(--disabled-opacity)',
+  `${prefix}-item_checkbox`,
 ];
 
 export const dropdownMenuRadioItemClass = [
@@ -93,12 +88,9 @@ export const dropdownMenuRadioItemClass = [
   'text-sm',
   'outline-none',
   'transition-colors',
-  'hover:bg-hff/10',
-  'hover:text-hff',
-  'focus:bg-hff/10',
-  'focus:text-hff',
   'data-[disabled]:pointer-events-none',
-  'data-[disabled]:opacity-30',
+  'data-[disabled]:opacity-(--disabled-opacity)',
+  `${prefix}-item_radio`,
 ];
 
 export const dropdownMenuSubTriggerClass = [
@@ -111,23 +103,29 @@ export const dropdownMenuSubTriggerClass = [
   'py-1.5',
   'text-sm',
   'outline-none',
-  'hover:bg-hff/10',
-  'hover:text-hff',
-  'focus:bg-hff/10',
-  'focus:text-hff',
-  'data-[state=open]:bg-hff/10',
+  `${prefix}-sub-trigger`
 ];
 
 export const dropdownMenuSubContentClass = [
   'z-50',
   'min-w-(--reka-dropdown-menu-trigger-width)',
-  'rounded',
-  'border',
-  'border-h11',
-  'bg-h1a',
   'px-2',
   'py-1.5',
-  'text-hcc',
-  'shadow-black-md',
+  'rounded',
+  'border',
   'overflow-hidden',
+  `${prefix}-sub-content`
 ];
+
+export const dropdownMenuLabelVariant = cva(
+  ['px-2', 'py-1.5', 'text-base', `${prefix}-label`],
+  {
+    variants: {
+      inset: {
+        true: 'pl-8'
+      } 
+    }
+  }
+);
+
+export const dropdownMenuSeparatorClass = [ '-mx-2 my-1.5 h-px', `${prefix}-separator` ];

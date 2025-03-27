@@ -1,5 +1,7 @@
+import { PREFIX } from '@/lib/constants';
 import { cva, VariantProps } from 'class-variance-authority';
 
+const prefix = `${PREFIX}-input`;
 export const inputVariants = cva(
   [
     'flex',
@@ -9,16 +11,13 @@ export const inputVariants = cva(
     'px-2',
     'gap-2',
     'border',
-    'border-h55',
-    'text-hbb',
     'rounded',
     'ring',
     'ring-transparent',
     'transition-all',
-    'hover:border-h66',
-    'hover:ring-h4c',
     'disabled:pointer-events-none',
-    'disabled:opacity-30',
+    'disabled:opacity-(--disabled-opacity)',
+    prefix
   ],
   {
     variants: {
@@ -28,12 +27,7 @@ export const inputVariants = cva(
         lg: ['text-base'],
       },
       focus: {
-        true: [
-          'border-rz-green', 
-          'ring-rz-green-border', 
-          'hover:border-rz-green',
-          'hover:ring-rz-green-border',
-        ],
+        true: '',
       },
     },
     defaultVariants: {
@@ -51,10 +45,7 @@ export const inputInnerVariants = cva(
     'outline-hidden',
     'border-none',
     'bg-transparent',
-    'placeholder:text-h55',
-    'placeholder:italic',
-    'selection:bg-[#204C19]',
-    'selection:text-[#97C390]',
+    `${prefix}-inner`
   ],
   {
     variants: {
@@ -74,5 +65,11 @@ export const inputInnerVariants = cva(
   }
 );
 export type InputInnerVariants = VariantProps<typeof inputInnerVariants>;
+
+export const inputClearableVariants = cva([`${prefix}-clearable`], { variants: {
+  size: {
+    default: 'size-3.5', sm: 'size-3', lg: 'size-4'
+  }
+} });
 
 export { default as Input } from './Input.vue';

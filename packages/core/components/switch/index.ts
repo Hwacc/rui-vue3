@@ -12,7 +12,7 @@ export const switchVariants = cva(
     'border-2',
     'border-transparent',
     'transition-colors',
-    'disabled:opacity-30',
+    'disabled:opacity-(--disabled-opacity)',
     'data-[state=checked]:bg-rz-green',
     'data-[state=checked]:hover:bg-rz-green-light',
     'data-[state=unchecked]:hover:bg-h78/80',

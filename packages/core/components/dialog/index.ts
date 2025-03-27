@@ -1,3 +1,4 @@
+import { PREFIX } from '@/lib/constants';
 import { cva, VariantProps } from 'class-variance-authority';
 
 export { default as Dialog } from './Dialog.vue';
@@ -18,16 +19,16 @@ export enum DialogCloseFrom {
   EscapeKey = 'escape-key',
 }
 
+const prefix = `${PREFIX}-dialog`;
 export const dialogOverlayVariants = cva([
   'fixed',
   'inset-0',
   'z-50',
-  'bg-black/80',
-  'duration-200',
   'data-[state=open]:animate-in',
   'data-[state=open]:fade-in',
   'data-[state=closed]:animate-out',
   'data-[state=closed]:fade-out',
+  `${prefix}-overlay`,
 ]);
 export type DialogOverlayVariantsProps = VariantProps<typeof dialogOverlayVariants>;
 
@@ -42,12 +43,10 @@ export const dialogContentVariants = cva(
     'z-50',
     'outline-none',
     'border',
-    'border-h00',
-    'bg-h1a',
     'rounded',
-    'webkit-small-scrollbar',
     'data-[state=open]:animate-fade-down-in',
     'data-[state=closed]:animate-fade-down-out',
+    `${prefix}-content`,
   ],
   {
     variants: {
@@ -68,26 +67,31 @@ export const DialogScrollContentVariants = cva([
   'z-50',
   'outline-none',
   'border',
-  'border-h00',
-  'bg-h1a',
   'rounded',
   'data-[state=open]:animate-fade-down-in',
   'data-[state=closed]:animate-fade-down-out',
+  `${prefix}-content_scroll`,
 ]);
 export type DialogScrollContentVariantsProps = VariantProps<typeof DialogScrollContentVariants>;
 
 export const dialogCloseDefaultClass = [
   'size-4',
   'text-xs',
-  'text-h88',
-  'hover:text-hff',
-  'group-hover:text-hff',
   'disabled:pointer-events-none',
+  `${prefix}-close`,
 ];
 
-export const dialogContentCloseDefaultClass = ['absolute', 'pr-2', 'pt-2', 'right-0', 'top-0', 'group'];
+export const dialogContentCloseDefaultClass = [
+  'absolute',
+  'pr-2',
+  'pt-2',
+  'right-0',
+  'top-0',
+  'group',
+  `${prefix}-close_content`,
+];
 
-export const dialogContentBodyDefaultClass = ['flex-1', 'p-6', 'overflow-y-auto'];
+export const dialogContentBodyDefaultClass = ['flex-1', 'p-6', 'overflow-y-auto', `${prefix}-body`];
 
 export const dialogHeaderClass = [
   'flex',
@@ -95,9 +99,15 @@ export const dialogHeaderClass = [
   'justify-between',
   'py-2.5',
   'px-5',
-  'bg-h22',
-  'font-rob-bold',
   'text-sm',
+  `${prefix}-header`,
 ];
 
-export const dialogFooterClass = ['flex', 'items-center', 'justify-end', 'gap-5', 'p-4', 'bg-h16'];
+export const dialogFooterClass = [
+  'flex',
+  'items-center',
+  'justify-end',
+  'gap-5',
+  'p-4',
+  `${prefix}-footer`,
+];

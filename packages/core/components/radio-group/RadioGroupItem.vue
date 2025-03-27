@@ -53,7 +53,7 @@ const labelClassName = computed(() => {
   return cn(
     [
       'text-hcc text-sm hover:text-hff',
-      props.disabled && ['opacity-30', 'hover:text-hcc'],
+      props.disabled && ['opacity-(--disabled-opacity)', 'hover:text-hcc'],
       size === 'sm' && 'text-xs',
       size === 'lg' && 'text-base',
     ],

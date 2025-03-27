@@ -1,0 +1,33 @@
+@layer utilities {
+  .rui-dropdown-menu-content {
+    @apply border-h11 bg-h1a text-hcc shadow-black;
+  }
+
+  .rui-dropdown-menu-item{
+    @apply hover:bg-hff/10 hover:text-hff focus:bg-hff/10 focus:text-hff;
+  }
+
+  .rui-dropdown-menu-item_checkbox{
+    @apply hover:bg-hff/10 hover:text-hff focus:bg-hff/10 focus:text-hff;
+  }
+
+  .rui-dropdown-menu-item_radio{
+    @apply hover:bg-hff/10 hover:text-hff focus:bg-hff/10 focus:text-hff;
+  }
+
+  .rui-dropdown-menu-sub-trigger{
+    @apply hover:bg-hff/10 hover:text-hff focus:bg-hff/10 focus:text-hff data-[state=open]:bg-hff/10;
+  }
+
+  .rui-dropdown-menu-sub-content{
+    @apply border-h11 bg-h1a text-hcc shadow-black-md;
+  }
+
+  .rui-dropdown-menu-label{
+    @apply text-hff font-rob-bold;
+  }
+
+  .rui-dropdown-menu-separator{
+    @apply bg-h88;
+  }
+}

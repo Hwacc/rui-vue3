@@ -1,0 +1,16 @@
+
+
+@layer utilities {
+  .rui-checkbox-root{
+    @apply text-hcc hover:text-hff;
+    &[disabled]{
+      @apply hover:text-hcc;
+    }
+  }
+  .rui-checkbox {
+    @apply border-h55 hover:border-rz-green bg-transparent active:border-rz-green-dark-hover active:bg-rz-green-dark-hover;
+    @apply data-[state=checked]:bg-rz-green data-[state=checked]:border-rz-green;
+    @apply data-[state=indeterminate]:bg-rz-green data-[state=indeterminate]:border-rz-green;
+    @apply disabled:hover:border-h55 disabled:active:bg-transparent;
+  }
+}

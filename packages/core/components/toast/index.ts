@@ -203,7 +203,7 @@ export const toastActionClass = [
   'justify-center',
   'transition-colors',
   'disabled:pointer-events-none',
-  'disabled:opacity-30',
+  'disabled:opacity-(--disabled-opacity)',
 ] as const;
 export interface ToastProps extends ToastRootProps {
   class?: HTMLAttributes['class'];

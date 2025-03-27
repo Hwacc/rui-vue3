@@ -19,3 +19,6 @@ export const progressIndicatorClass = [
   'data-[type=default]:bg-progress-indicator-default',
   'data-[type=robbin]:progress-indicator-robbin',
 ];
+
+export const circleProgressClass = ['size-12.5'];
+export const circleProgressIndicatorClass = ['size-full'];

@@ -42,6 +42,6 @@ export const sliderThumbClass = [
   'transition-colors',
   'focus-visible:outline-none',
   'disabled:pointer-events-none',
-  'disabled:opacity-30',
+  'disabled:opacity-(--disabled-opacity)',
 ]
 

@@ -1,0 +1,28 @@
+@layer utilities {
+  .rui-dialog-overlay {
+    @apply bg-h00/80;
+  }
+
+  .rui-dialog-content {
+    @apply border-h00 bg-h1a webkit-small-scrollbar;
+  }
+  .rui-dialog-content_scroll {
+    @apply border-h00 bg-h1a;
+  }
+
+  .rui-dialog-close {
+    @apply text-h88 hover:text-hff group-hover:text-hff;
+  }
+  .rui-dialog-close_content {}
+
+  /* in dialog content */
+  .rui-dialog-header{
+    @apply bg-h22 font-rob-bold;
+  }
+
+  .rui-dialog-body {}
+
+  .rui-dialog-footer{
+    @apply bg-h16;
+  }
+}

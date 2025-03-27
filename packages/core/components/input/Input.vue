@@ -16,7 +16,7 @@ import { computed, ref, type HTMLAttributes } from 'vue';
 import { cn } from '@/lib/utils';
 import { useVModel } from '@vueuse/core';
 import { PrimitiveProps, useForwardExpose } from 'reka-ui';
-import { inputInnerVariants, inputVariants } from './index';
+import { inputInnerVariants, inputVariants, inputClearableVariants } from '.';
 import { CircleX } from 'lucide-vue-next';
 
 const {
@@ -50,13 +50,14 @@ const { forwardRef } = useForwardExpose();
 </script>
 
 <template>
-  <div :class="className">
+  <div :class="className" :data-state="isFocus ? 'focus' : 'blur'">
     <slot name="prefix"></slot>
     <input
       :class="innerClassName"
       v-model="modelValue"
       :ref="forwardRef"
       :placeholder="props.placeholder"
+      :data-state="isFocus ? 'focus' : 'blur'"
       @focus="
         (e: Event) => {
           isFocus = true;
@@ -73,18 +74,7 @@ const { forwardRef } = useForwardExpose();
       @change="(e: Event) => emits('change', e, modelValue)"
     />
     <div v-if="clearable && modelValue" class="flex-c" @click="modelValue = ''">
-      <CircleX
-        :class="[
-          [
-            size === 'default' && 'size-3.5',
-            size === 'sm' && 'size-3',
-            size === 'lg' && 'size-4',
-          ],
-          'fill-h58',
-          'stroke-black',
-          'hover:fill-white',
-        ]"
-      />
+      <CircleX :class="inputClearableVariants({ size })" />
     </div>
     <slot name="suffix"></slot>
   </div>

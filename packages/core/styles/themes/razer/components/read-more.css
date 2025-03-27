@@ -1,0 +1,6 @@
+/* @utility rui-readmore-content {} */
+/* @utility rui-readmore-root {} */
+
+@utility rui-readmore-trigger {
+  @apply bg-linear-[90deg,transparent_0%,var(--color-h1a)_27%]
+}
