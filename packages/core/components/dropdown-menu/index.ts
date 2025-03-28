@@ -1,5 +1,5 @@
 import { PREFIX } from '@/lib/constants';
-import { cva } from 'class-variance-authority';
+import { cva } from '@/lib/cva';
 
 export { default as DropdownMenuCheckboxItem } from './DropdownMenuCheckboxItem.vue';
 export { default as DropdownMenuContent } from './DropdownMenuContent.vue';
@@ -25,107 +25,110 @@ export type {
 } from 'reka-ui';
 
 const prefix = `${PREFIX}-dropdown-menu`;
-export const dropdownMenuContentClass = [
-  'z-50',
-  'min-w-(--reka-dropdown-menu-trigger-width)',
-  'overflow-hidden',
-  'rounded',
-  'border',
-  'px-2',
-  'py-1.5',
-  `${prefix}-content`,
-];
+export const dropdownMenuContentVariants = cva(
+  [
+    'z-50',
+    'min-w-(--reka-dropdown-menu-trigger-width)',
+    'overflow-hidden',
+    'rounded',
+    'border',
+    'px-2',
+    'py-1.5',
+  ],
+  undefined,
+  { className: `${prefix}-content` }
+);
 
-export const dropdownMenuItemClass = [
-  'relative',
-  'flex',
-  'cursor-default',
-  'select-none',
-  'items-center',
-  'rounded',
-  'gap-2',
-  'px-2',
-  'py-1.5',
-  'text-sm',
-  'outline-none',
-  'transition-colors',
-  'data-[disabled]:pointer-events-none',
-  'data-[disabled]:opacity-(--disabled-opacity)',
-  '[&>svg]:size-4',
-  '[&>svg]:shrink-0',
-  `${prefix}-item`,
-];
-
-export const dropdownMenuCheckboxItemClass = [
-  'relative',
-  'flex',
-  'cursor-default',
-  'select-none',
-  'items-center',
-  'rounded',
-  'gap-2',
-  'pr-2',
-  'pl-8',
-  'py-1.5',
-  'text-sm',
-  'outline-none',
-  'transition-colors',
-  'data-[disabled]:pointer-events-none',
-  'data-[disabled]:opacity-(--disabled-opacity)',
-  `${prefix}-item_checkbox`,
-];
-
-export const dropdownMenuRadioItemClass = [
-  'relative',
-  'flex',
-  'cursor-default',
-  'select-none',
-  'items-center',
-  'rounded-sm',
-  'py-1.5',
-  'pl-8',
-  'pr-2',
-  'text-sm',
-  'outline-none',
-  'transition-colors',
-  'data-[disabled]:pointer-events-none',
-  'data-[disabled]:opacity-(--disabled-opacity)',
-  `${prefix}-item_radio`,
-];
-
-export const dropdownMenuSubTriggerClass = [
-  'flex',
-  'cursor-default',
-  'select-none',
-  'items-center',
-  'rounded-sm',
-  'px-2',
-  'py-1.5',
-  'text-sm',
-  'outline-none',
-  `${prefix}-sub-trigger`
-];
-
-export const dropdownMenuSubContentClass = [
-  'z-50',
-  'min-w-(--reka-dropdown-menu-trigger-width)',
-  'px-2',
-  'py-1.5',
-  'rounded',
-  'border',
-  'overflow-hidden',
-  `${prefix}-sub-content`
-];
-
-export const dropdownMenuLabelVariant = cva(
-  ['px-2', 'py-1.5', 'text-base', `${prefix}-label`],
+export const dropdownMenuItemVariants = cva(
+  [
+    'relative',
+    'flex',
+    'cursor-default',
+    'select-none',
+    'items-center',
+    'rounded',
+    'gap-2',
+    'px-2',
+    'py-1.5',
+    'text-sm',
+    'outline-none',
+    'transition-colors',
+    'data-[disabled]:pointer-events-none',
+    'data-[disabled]:opacity-(--disabled-opacity)',
+  ],
   {
     variants: {
-      inset: {
-        true: 'pl-8'
-      } 
-    }
+      type: {
+        default: ['[&>svg]:size-4', '[&>svg]:shrink-0'],
+        checkbox: ['pr-2', 'pl-8'],
+        radio: ['pl-8', 'pr-2'],
+      },
+    },
+  },
+  {
+    compound: [
+      {
+        type: 'default',
+        className: `${prefix}-item`,
+      },
+      {
+        type: 'checkbox',
+        className: `${prefix}-item_checkbox`,
+      },
+      {
+        type: 'radio',
+        className: `${prefix}-item_radio`,
+      },
+    ],
   }
 );
 
-export const dropdownMenuSeparatorClass = [ '-mx-2 my-1.5 h-px', `${prefix}-separator` ];
+export const dropdownMenuSubTriggerVariants = cva(
+  [
+    'flex',
+    'cursor-default',
+    'select-none',
+    'items-center',
+    'rounded-sm',
+    'px-2',
+    'py-1.5',
+    'text-sm',
+    'outline-none',
+  ],
+  undefined,
+  {
+    className: `${prefix}-sub-trigger`,
+  }
+);
+
+export const dropdownMenuSubContentVariants = cva(
+  [
+    'z-50',
+    'min-w-(--reka-dropdown-menu-trigger-width)',
+    'px-2',
+    'py-1.5',
+    'rounded',
+    'border',
+    'overflow-hidden',
+  ],
+  undefined,
+  { className: `${prefix}-sub-content` }
+);
+
+export const dropdownMenuLabelVariants = cva(
+  ['px-2', 'py-1.5', 'text-base'],
+  {
+    variants: {
+      inset: {
+        true: 'pl-8',
+      },
+    },
+  },
+  {
+    className: `${prefix}-label`,
+  }
+);
+
+export const dropdownMenuSeparatorVariants = cva(['-mx-2 my-1.5 h-px'], undefined, {
+  className: `${prefix}-separator`,
+});

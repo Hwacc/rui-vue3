@@ -8,6 +8,7 @@ interface Props extends PrimitiveProps {
   innerClass?: HTMLAttributes['class'];
   placeholder?: string;
   clearable?: boolean;
+  disableRuiClass?: boolean;
 }
 </script>
 
@@ -24,6 +25,7 @@ const {
   innerClass,
   size = 'default',
   clearable = false,
+  disableRuiClass,
   ...props
 } = defineProps<Props>();
 const emits = defineEmits<{
@@ -41,9 +43,11 @@ const modelValue = useVModel(props, 'modelValue', emits, {
 
 const isFocus = ref(false);
 
-const className = computed(() => cn(inputVariants({ size, focus: isFocus.value }), propsClass));
+const className = computed(() =>
+  cn(inputVariants({ size, focus: isFocus.value, disableRuiClass }), propsClass)
+);
 const innerClassName = computed(() =>
-  cn(inputInnerVariants({ size, focus: isFocus.value }), innerClass)
+  cn(inputInnerVariants({ size, focus: isFocus.value, disableRuiClass }), innerClass)
 );
 
 const { forwardRef } = useForwardExpose();
@@ -73,8 +77,8 @@ const { forwardRef } = useForwardExpose();
       @input="(e: Event) => emits('input', e, modelValue)"
       @change="(e: Event) => emits('change', e, modelValue)"
     />
-    <div v-if="clearable && modelValue" class="flex-c" @click="modelValue = ''">
-      <CircleX :class="inputClearableVariants({ size })" />
+    <div v-if="clearable && modelValue" :class="inputClearableVariants({ size, disableRuiClass })" @click="modelValue = ''">
+      <CircleX />
     </div>
     <slot name="suffix"></slot>
   </div>

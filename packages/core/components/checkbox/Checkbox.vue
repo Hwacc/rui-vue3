@@ -18,6 +18,7 @@ const {
   label = '',
   modelValue = false,
   stopPropagation = false,
+  disableRuiClass,
   ...props
 } = defineProps<
   CheckboxRootProps & {
@@ -27,6 +28,7 @@ const {
     class?: HTMLAttributes['class'];
     size?: CheckboxVariantsProps['size'];
     stopPropagation?: boolean; // 有时checkbox作为checkable-item的子组件，需要阻止事件冒泡
+    disableRuiClass?: boolean;
   }
 >();
 const emits = defineEmits<CheckboxRootEmits>();
@@ -66,9 +68,9 @@ defineExpose({
 });
 
 const labelClassName = computed(() =>
-  cn(checkboxLabelVariants({ disabled: props.disabled }), labelClass)
+  cn(checkboxLabelVariants({ disabled: props.disabled, disableRuiClass }), labelClass)
 );
-const checkboxRootClassName = computed(() => cn(checkboxVariants({ size })));
+const checkboxRootClassName = computed(() => cn(checkboxVariants({ size, disableRuiClass })));
 const forwarded = useForwardPropsEmits(props, emits);
 </script>
 

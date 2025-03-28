@@ -1,4 +1,5 @@
 import { PREFIX } from '@/lib/constants';
+import { cva } from '@/lib/cva';
 
 export { default as Collapsible } from './Collapsible.vue';
 export { default as CollapsibleContent } from './CollapsibleContent.vue';
@@ -13,18 +14,23 @@ export const collapsibleContentClass = [
 ];
 
 const prefix = `${PREFIX}-readmore`;
-export const readMoreRootClass = ['relative', `${prefix}-root`];
-export const readMoreContentClass = [
-  'overflow-hidden',
-  'max-h-(--reka-readmore-max-height)',
-  'transition-[max-height]',
-  `${prefix}-content`,
-];
 
-export const readMoreTriggerClass = [
-  'absolute',
-  'bottom-0',
-  'right-0',
-  'pl-[2.5rem]',
-  `${prefix}-trigger`,
-];
+export const readMoreRootVariant = cva(['relative'], undefined , {
+  className: `${prefix}-root`,
+});
+
+export const readMoreContentVariant = cva(
+  ['overflow-hidden', 'max-h-(--reka-readmore-max-height)', 'transition-[max-height]'],
+  undefined,
+  {
+    className: `${prefix}-content`,
+  }
+);
+
+export const readMoreTriggerVariant = cva(
+  ['absolute', 'bottom-0', 'right-0', 'pl-[2.5rem]'],
+  undefined,
+  {
+    className: `${prefix}-trigger`,
+  }
+);

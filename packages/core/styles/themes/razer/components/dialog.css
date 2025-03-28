@@ -1,6 +1,6 @@
 @layer utilities {
   .rui-dialog-overlay {
-    @apply bg-h00/80;
+    @apply bg-h00/80 data-[type=scroll]:webkit-scrollbar-self;
   }
 
   .rui-dialog-content {
@@ -11,10 +11,8 @@
   }
 
   .rui-dialog-close {
-    @apply text-h88 hover:text-hff group-hover:text-hff;
+    @apply text-h88 hover:text-hff;
   }
-  .rui-dialog-close_content {}
-
   /* in dialog content */
   .rui-dialog-header{
     @apply bg-h22 font-rob-bold;

@@ -1,20 +1,20 @@
 <script setup lang="ts">
 import { useSlots, type HTMLAttributes } from 'vue';
 import { cn } from '@/lib/utils';
-import { dialogHeaderClass, DialogClose, dialogCloseDefaultClass, DialogCloseFrom } from '.';
+import { dialogHeaderVariants, DialogClose, DialogCloseFrom, dialogCloseVariants } from '.';
 import { DialogTitle, DialogDescription } from 'reka-ui';
 import { X } from 'lucide-vue-next';
 
-const props = defineProps<{
+const { class: propsClass, disableRuiClass } = defineProps<{
   class?: HTMLAttributes['class'];
-  closeClass?: HTMLAttributes['class'];
+  disableRuiClass?: boolean;
 }>();
 
 const slots = useSlots();
 </script>
 
 <template>
-  <div :class="cn(dialogHeaderClass, props.class)">
+  <div :class="cn(dialogHeaderVariants({ disableRuiClass }), propsClass)">
     <!-- for remove warning -->
     <DialogTitle class="!hidden select-none">
       <component :is="() => slots.default?.()" />
@@ -22,8 +22,12 @@ const slots = useSlots();
     <DialogDescription class="!hidden select-none"></DialogDescription>
     <!-- ---end--- -->
     <slot />
-    <DialogClose as="button" class="p-0.5 group" :close-from="DialogCloseFrom.CloseButton">
-      <X :class="cn(dialogCloseDefaultClass, props.closeClass)" />
+    <DialogClose
+      as="button"
+      :class="cn(dialogCloseVariants({ disableRuiClass }), 'p-0.5')"
+      :close-from="DialogCloseFrom.CloseButton"
+    >
+      <X class="size-4 text-xs disabled:pointer-events-none" />
       <span class="sr-only">Close</span>
     </DialogClose>
   </div>

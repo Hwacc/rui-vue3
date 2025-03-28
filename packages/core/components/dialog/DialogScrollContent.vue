@@ -18,8 +18,7 @@ import {
   DialogClose,
   dialogOverlayVariants,
   DialogScrollContentVariants,
-  dialogContentCloseDefaultClass,
-  dialogCloseDefaultClass,
+  dialogCloseVariants,
 } from '.';
 import { DialogContentPropsImp } from './DialogContent.vue';
 import { injectDialogContext } from './DialogRootProviderEx';
@@ -27,11 +26,11 @@ import { injectDialogContext } from './DialogRootProviderEx';
 const { open, closeFrom } = injectDialogContext();
 const {
   class: propsClass,
-  closeClass,
   showClose = true,
   autoFocus = false,
   overlay = {},
   portal = {},
+  disableRuiClass,
   ...props
 } = defineProps<DialogContentPropsImp & { class?: HTMLAttributes['class'] }>();
 
@@ -83,17 +82,28 @@ watch(open, (value) => {
 });
 
 const classNames = computed(() => {
-  return cn(DialogScrollContentVariants(), propsClass);
+  return cn(
+    DialogScrollContentVariants({
+      disableRuiClass,
+    }),
+    propsClass
+  );
 });
 const overlayClassNames = computed(() => {
-  return cn(dialogOverlayVariants(), 'overflow-y-auto webkit-scrollbar-self', overlay.class);
+  return cn(
+    dialogOverlayVariants({
+      disableRuiClass,
+    }),
+    'overflow-y-auto',
+    overlay.class
+  );
 });
 const forwarded = useForwardPropsEmits(props, emits);
 </script>
 
 <template>
   <DialogPortal v-bind="portal">
-    <DialogOverlay :class="overlayClassNames">
+    <DialogOverlay :class="overlayClassNames" data-type="scroll">
       <DialogContent
         :class="classNames"
         v-bind="forwarded"
@@ -133,10 +143,10 @@ const forwarded = useForwardPropsEmits(props, emits);
         <slot />
         <slot v-if="showContentClose" name="close">
           <DialogClose
-            :class="dialogContentCloseDefaultClass"
+            :class="dialogCloseVariants({ position: 'abs', disableRuiClass })"
             :close-from="DialogCloseFrom.CloseButton"
           >
-            <X :class="cn(dialogCloseDefaultClass, closeClass)" />
+            <X class="size-4 text-xs disabled:pointer-events-none" />
             <span class="sr-only">Close</span>
           </DialogClose>
         </slot>

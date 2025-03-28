@@ -3,10 +3,13 @@
 <script setup lang="ts">
 import type { HTMLAttributes } from 'vue';
 import { cn } from '@/lib/utils';
-import { dialogFooterClass, DialogClose, DialogCloseFrom } from '.';
+import { dialogFooterVariants, DialogClose, DialogCloseFrom } from '.';
 import { Button } from '@/components/button';
 
-const props = defineProps<{ class?: HTMLAttributes['class'] }>();
+const { class: propsClass, disableRuiClass } = defineProps<{
+  class?: HTMLAttributes['class'];
+  disableRuiClass?: boolean;
+}>();
 const emits = defineEmits<{
   ok: [];
   cancel: [];
@@ -14,7 +17,7 @@ const emits = defineEmits<{
 </script>
 
 <template>
-  <div :class="cn(dialogFooterClass, props.class)">
+  <div :class="cn(dialogFooterVariants({ disableRuiClass }), propsClass)">
     <slot>
       <DialogClose :close-from="DialogCloseFrom.CancelButton">
         <Button class="min-w-22.5 uppercase" type="text" size="sm" @click="() => emits('cancel')">

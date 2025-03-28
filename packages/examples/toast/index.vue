@@ -30,14 +30,14 @@ const onOpenRenderToastClick = () => {
 
 const onOpenMessageClick = () => {
   message({
-    variant: 'info',
+    variant: 'success',
     title: 'Message Content',
+    duration: 0,
   });
 };
 
 const onOpenCustomMessageClick = () => {
   message({
-    variant: 'success',
     title: 'Custom Message Content',
     icon: () => <Smile class={'size-5'} />,
     duration: 0

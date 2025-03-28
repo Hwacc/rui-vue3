@@ -13,6 +13,9 @@
 
   .rui-dropdown-menu-item_radio{
     @apply hover:bg-hff/10 hover:text-hff focus:bg-hff/10 focus:text-hff;
+    & svg{
+      @apply fill-rz-green stroke-rz-green;
+    }
   }
 
   .rui-dropdown-menu-sub-trigger{
@@ -28,6 +31,6 @@
   }
 
   .rui-dropdown-menu-separator{
-    @apply bg-h88;
+    @apply bg-h00;
   }
 }

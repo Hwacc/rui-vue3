@@ -3,9 +3,9 @@ export interface DialogContentPropsImp extends DialogContentProps {
   class?: HTMLAttributes['class'];
   showClose?: boolean;
   autoFocus?: boolean;
-  closeClass?: HTMLAttributes['class'];
   overlay?: DialogOverlayProps & { class?: HTMLAttributes['class'] };
   portal?: DialogPortalProps;
+  disableRuiClass?: boolean;
 }
 </script>
 
@@ -30,8 +30,7 @@ import { computed, ref, useSlots, watch } from 'vue';
 import {
   dialogContentVariants,
   dialogOverlayVariants,
-  dialogContentCloseDefaultClass,
-  dialogCloseDefaultClass,
+  dialogCloseVariants,
   DialogCloseFrom,
   DialogClose,
 } from '.';
@@ -41,11 +40,11 @@ import { injectDialogContext } from './DialogRootProviderEx';
 const { open, closeFrom } = injectDialogContext();
 const {
   class: propsClass,
-  closeClass,
   showClose = true,
   autoFocus = false,
   overlay = {},
   portal = {},
+  disableRuiClass,
   ...props
 } = defineProps<DialogContentPropsImp>();
 
@@ -95,12 +94,13 @@ watch(open, (value, _, onCleanup) => {
 });
 
 const overlayClassNames = computed(() => {
-  return cn(dialogOverlayVariants(), overlay.class);
+  return cn(dialogOverlayVariants({ disableRuiClass }), overlay.class);
 });
 const classNames = computed(() => {
   return cn(
     dialogContentVariants({
       position: 'center',
+      disableRuiClass,
     }),
     propsClass
   );
@@ -143,10 +143,10 @@ const forwarded = useForwardPropsEmits(props, emits);
       <slot />
       <slot v-if="showContentClose" name="close">
         <DialogClose
-          :class="dialogContentCloseDefaultClass"
+          :class="dialogCloseVariants({ position: 'abs', disableRuiClass })"
           :close-from="DialogCloseFrom.CloseButton"
         >
-          <X :class="cn(dialogCloseDefaultClass, closeClass)" />
+          <X class="size-4 text-xs disabled:pointer-events-none" />
           <span class="sr-only">Close</span>
         </DialogClose>
       </slot>

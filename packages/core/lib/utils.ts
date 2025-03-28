@@ -20,7 +20,14 @@ export const spaceTimes = (times: number) => {
   return times * rem2px(spacing);
 };
 
-export const getNodeCssVar = <T>(node: HTMLElement, variableName: string, fallback?: T) => {
+export const getNodeCssVar = <T>(
+  node: HTMLElement | null | undefined,
+  variableName: string,
+  fallback?: T
+) => {
+  if (!node) {
+    return fallback;
+  }
   return getComputedStyle(node).getPropertyValue(variableName) || fallback;
 };
 

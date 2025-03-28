@@ -3,7 +3,7 @@ import type { DropdownMenuContentEmits, DropdownMenuContentProps } from 'reka-ui
 import type { HTMLAttributes } from 'vue';
 import { cn } from '@/lib/utils';
 import { DropdownMenuContent, DropdownMenuPortal, useForwardPropsEmits } from 'reka-ui';
-import { dropdownMenuContentClass } from '.';
+import { dropdownMenuContentVariants } from '.';
 import { AnimatePresence } from 'motion-v';
 import { PopoverContentMotion } from '@/components/motion/PopoverContentMotion';
 
@@ -11,8 +11,14 @@ const {
   class: propsClass,
   side = 'bottom',
   align = 'start',
+  disableRuiClass,
   ...props
-} = defineProps<DropdownMenuContentProps & { class?: HTMLAttributes['class'] }>();
+} = defineProps<
+  DropdownMenuContentProps & {
+    class?: HTMLAttributes['class'];
+    disableRuiClass?: boolean;
+  }
+>();
 
 const emits = defineEmits<DropdownMenuContentEmits>();
 
@@ -30,7 +36,9 @@ const forwarded = useForwardPropsEmits(
   <DropdownMenuPortal>
     <AnimatePresence>
       <DropdownMenuContent v-bind="forwarded">
-        <PopoverContentMotion :class="cn(dropdownMenuContentClass, propsClass)">
+        <PopoverContentMotion
+          :class="cn(dropdownMenuContentVariants({ disableRuiClass }), propsClass)"
+        >
           <slot />
         </PopoverContentMotion>
       </DropdownMenuContent>

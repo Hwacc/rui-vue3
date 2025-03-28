@@ -2,15 +2,17 @@
 import { cn } from '@/lib/utils';
 import { Primitive, PrimitiveProps } from 'reka-ui';
 import { HTMLAttributes } from 'vue';
-import { dialogContentBodyDefaultClass } from '.';
+import { dialogContentBodyVariants } from '.';
 
-const { class: propsClass, ...props } = defineProps<
-  PrimitiveProps & { class?: HTMLAttributes['class'] }
->();
+const {
+  class: propsClass,
+  disableRuiClass,
+  ...props
+} = defineProps<PrimitiveProps & { class?: HTMLAttributes['class']; disableRuiClass?: boolean }>();
 </script>
 
 <template>
-  <Primitive :class="cn(dialogContentBodyDefaultClass, propsClass)" v-bind="props">
+  <Primitive :class="cn(dialogContentBodyVariants({ disableRuiClass }), propsClass)" v-bind="props">
     <slot />
   </Primitive>
 </template>

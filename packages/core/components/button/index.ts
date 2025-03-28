@@ -30,18 +30,11 @@ export const buttonVariants = cva(
     variants: {
       type: {
         default: '',
-        normal: `${prefix}_normal`,
-        outline: `${prefix}_outline`,
-        text: `${prefix}_text`,
-        icon: ['px-0', 'aspect-square', 'border-none', `${prefix}_icon`],
-        switcher: [
-          'justify-start',
-          'gap-[.6875rem]',
-          'px-3',
-          'text-xs',
-          '[&_svg]:size-[.625rem]',
-          `${prefix}_switcher`,
-        ],
+        normal: '',
+        outline: '',
+        text: '',
+        icon: ['px-0', 'aspect-square', 'border-none'],
+        switcher: ['justify-start', 'gap-[.6875rem]', 'px-3', 'text-xs', '[&_svg]:size-[.625rem]'],
       },
       size: {
         default: 'h-[1.75rem]',
@@ -53,11 +46,6 @@ export const buttonVariants = cva(
       },
     },
     compoundVariants: [
-      {
-        type: 'default',
-        ruiPrefix: true,
-        className: `${prefix}_default`,
-      },
       {
         type: 'icon',
         size: 'lg',
@@ -84,6 +72,16 @@ export const buttonVariants = cva(
       size: 'default',
       limitWidth: true,
     },
+  },
+  {
+    compound: [
+      { type: 'default', disableRuiClass: false, className: `${prefix}_default` },
+      { type: 'normal', disableRuiClass: false, className: `${prefix}_normal` },
+      { type: 'outline', disableRuiClass: false, className: `${prefix}_outline` },
+      { type: 'text', disableRuiClass: false, className: `${prefix}_text` },
+      { type: 'icon', disableRuiClass: false, className: `${prefix}_icon` },
+      { type: 'switcher', disableRuiClass: false, className: `${prefix}_switcher` },
+    ],
   }
 );
 

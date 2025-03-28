@@ -1,10 +1,14 @@
-import { cva, VariantProps } from 'class-variance-authority';
+import { VariantProps } from 'class-variance-authority';
+import { cva } from '@/lib/cva';
 import { ToastRootProps } from 'reka-ui';
 import { HTMLAttributes } from 'vue';
 import { toastEdgeAnimate, toastSwipe } from '../toast';
+import { PREFIX } from '@/lib/constants';
 
 export { default as Messager } from './Messager.vue';
 export { message, useMessage } from './use-message';
+
+const prefix = `${PREFIX}-message`;
 export const messageVariants = cva(
   [
     'group',
@@ -14,11 +18,9 @@ export const messageVariants = cva(
     'w-full',
     'items-center',
     'justify-between',
-    'bg-h22',
     'space-x-4',
     'overflow-hidden',
     'rounded-md',
-    'shadow-black',
     'transition-all',
     'border-l-0',
     'px-4',
@@ -39,9 +41,35 @@ export const messageVariants = cva(
         info: '',
       },
     },
+  },
+  {
+    className: prefix,
+    compound: [
+      {
+        variant: 'success',
+        disableRuiClass: false,
+        className: `${prefix}_success`,
+      },
+      {
+        variant: 'error',
+        disableRuiClass: false,
+        className: `${prefix}_error`,
+      },
+      {
+        variant: 'warning',
+        disableRuiClass: false,
+        className: `${prefix}_warning`,
+      },
+      {
+        variant: 'info',
+        disableRuiClass: false,
+        className: `${prefix}_info`,
+      },
+    ],
   }
 );
 export type MessageVariants = VariantProps<typeof messageVariants>;
+
 export interface MessageProps extends ToastRootProps {
   class?: HTMLAttributes['class'];
   variant?: MessageVariants['variant'];

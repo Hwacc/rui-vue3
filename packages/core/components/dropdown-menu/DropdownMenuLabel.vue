@@ -4,10 +4,14 @@ import type { HTMLAttributes } from 'vue';
 import { cn } from '@/lib/utils';
 import { DropdownMenuLabel, useForwardProps } from 'reka-ui';
 import { computed } from 'vue';
-import { dropdownMenuLabelVariant } from '.';
+import { dropdownMenuLabelVariants } from '.';
 
 const props = defineProps<
-  DropdownMenuLabelProps & { class?: HTMLAttributes['class']; inset?: boolean }
+  DropdownMenuLabelProps & {
+    class?: HTMLAttributes['class'];
+    inset?: boolean;
+    disableRuiClass?: boolean;
+  }
 >();
 
 const delegatedProps = computed(() => {
@@ -22,7 +26,9 @@ const forwardedProps = useForwardProps(delegatedProps);
 <template>
   <DropdownMenuLabel
     v-bind="forwardedProps"
-    :class="cn(dropdownMenuLabelVariant({ inset }), props.class)"
+    :class="
+      cn(dropdownMenuLabelVariants({ inset, disableRuiClass: props.disableRuiClass }), props.class)
+    "
   >
     <slot />
   </DropdownMenuLabel>

@@ -25,6 +25,7 @@ interface Props extends PrimitiveProps {
   tooltipContentProps?: TooltipContentProps;
   tooltipArrowClass?: HTMLAttributes['class'];
   tooltipArrowProps?: TooltipArrowProps;
+  disableRuiClass?: boolean;
 }
 </script>
 
@@ -43,6 +44,7 @@ const {
   disabled,
   limitWidth = true,
   checked = false,
+  disableRuiClass,
   tooltip,
   tooltipTheme = 'default',
   tooltipRootProps = {
@@ -76,7 +78,7 @@ const buttonClass = computed(() =>
       type,
       size,
       limitWidth: type === 'icon' ? false : limitWidth,
-      ruiPrefix: false
+      disableRuiClass
     }),
     propsClass
   )

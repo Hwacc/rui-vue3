@@ -3,10 +3,18 @@ import type { DropdownMenuItemProps } from 'reka-ui';
 import type { HTMLAttributes } from 'vue';
 import { cn } from '@/lib/utils';
 import { DropdownMenuItem, useForwardProps } from 'reka-ui';
-import { dropdownMenuItemClass } from '.';
+import { dropdownMenuItemVariants } from '.';
 
-const { class: propsClass, ...props } = defineProps<
-  DropdownMenuItemProps & { class?: HTMLAttributes['class']; inset?: boolean }
+const {
+  class: propsClass,
+  disableRuiClass,
+  ...props
+} = defineProps<
+  DropdownMenuItemProps & {
+    class?: HTMLAttributes['class'];
+    inset?: boolean;
+    disableRuiClass?: boolean;
+  }
 >();
 
 const forwardedProps = useForwardProps(props);
@@ -15,7 +23,13 @@ const forwardedProps = useForwardProps(props);
 <template>
   <DropdownMenuItem
     v-bind="forwardedProps"
-    :class="cn(dropdownMenuItemClass, props.inset && 'pl-8', propsClass)"
+    :class="
+      cn(
+        dropdownMenuItemVariants({ type: 'default', disableRuiClass }),
+        props.inset && 'pl-8',
+        propsClass
+      )
+    "
   >
     <slot />
   </DropdownMenuItem>

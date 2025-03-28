@@ -10,12 +10,14 @@ const {
   type = 'css',
   width = rem2px(1),
   height = rem2px(0.75),
+  disableRuiClass,
   ...props
 } = defineProps<
   PopoverArrowProps & {
     class?: HTMLAttributes['class'];
     force?: boolean;
     type?: PopoverArrowVariants['type'];
+    disableRuiClass?: boolean;
   }
 >();
 
@@ -44,6 +46,7 @@ const classNames = computed(() =>
   cn(
     popoverArrowVariants({
       type,
+      disableRuiClass,
     }),
     propsClass
   )
@@ -58,6 +61,7 @@ const classNames = computed(() =>
     :style="style"
     :width="width"
     :height="height"
+    :data-type="type"
   >
     <span v-if="type === 'css'"></span>
   </PopoverArrow>

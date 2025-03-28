@@ -10,7 +10,7 @@ import {
   useForwardPropsEmits,
 } from 'reka-ui';
 import { ref, watchEffect, type HTMLAttributes } from 'vue';
-import { popoverContentClass } from '.';
+import { popoverContentVariants } from '.';
 import { AnimatePresence } from 'motion-v';
 import { PopoverContentMotion } from '../motion/PopoverContentMotion';
 
@@ -27,8 +27,11 @@ const {
   side = 'bottom',
   align = 'center',
   sideOffset = 4,
+  disableRuiClass,
   ...props
-} = defineProps<PopoverContentProps & { class?: HTMLAttributes['class'] }>();
+} = defineProps<
+  PopoverContentProps & { class?: HTMLAttributes['class']; disableRuiClass?: boolean }
+>();
 
 const { triggerElement } = injectPopoverRootContext();
 const rootContextEx = injectPopoverRootContextEx();
@@ -74,7 +77,7 @@ const forwarded = useForwardPropsEmits(props, emits);
     <AnimatePresence>
       <PopoverContent v-bind="{ ...forwarded, side, align, sideOffset, ...$attrs }">
         <PopoverContentMotion
-          :class="cn(popoverContentClass, propsClass)"
+          :class="cn(popoverContentVariants({ disableRuiClass }), propsClass)"
           :side="side"
           :ref="(r: any) => {
             contentRef = r?.$el;

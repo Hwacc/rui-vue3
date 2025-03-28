@@ -1,24 +1,31 @@
 <script setup lang="ts">
 import { cn, getCssVar } from '@/lib/utils';
 import { useForwardExpose } from 'reka-ui';
-import { computed, HTMLAttributes, watch } from 'vue';
-import { circleProgressClass, circleProgressIndicatorClass } from '.';
+import { computed, HTMLAttributes } from 'vue';
+import {
+  circleProgressVariants,
+  circleProgressIndicatorVariants,
+  CircleProgressVariants,
+  CircleProgressIndicatorVariants,
+} from '.';
 import { colorHex2RgbObject, detectCssColorType } from '@/lib/colors';
 
 const {
   class: propsClass,
   modelValue = 0,
   strokeWidth = 2,
-  type = 'full',
+  type = 'circle',
   indicatorClass,
-  indicatorType = 'normal',
+  indicatorType = 'default',
+  disableRuiClass,
 } = defineProps<{
   class?: HTMLAttributes['class'];
-  type?: 'arc' | 'full';
+  type?: CircleProgressVariants['type'];
   modelValue?: number;
   strokeWidth?: number;
   indicatorClass?: HTMLAttributes['class'];
-  indicatorType?: 'normal' | 'transfer';
+  indicatorType?: CircleProgressIndicatorVariants['type'];
+  disableRuiClass?: boolean;
 }>();
 
 const area = computed(() => {
@@ -85,20 +92,25 @@ const { forwardRef } = useForwardExpose();
 </script>
 
 <template>
-  <div :class="cn(circleProgressClass, propsClass)">
+  <div :class="cn(circleProgressVariants({ disableRuiClass }), propsClass)" :data-type="type">
     <div
       v-if="type === 'arc'"
-      :class="cn(circleProgressIndicatorClass, indicatorClass)"
+      :class="
+        cn(
+          circleProgressIndicatorVariants({ disableRuiClass, type: indicatorType }),
+          indicatorClass
+        )
+      "
       :data-type="indicatorType"
       :ref="forwardRef"
     >
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 56">
         <g fill="none">
           <circle
-            class="stroke-progress-bg"
             cx="24"
             cy="24"
             :r="24 - strokeWidth"
+            stroke="var(--progress-bg)"
             :stroke-width="strokeWidth"
             :stroke-dasharray="`${arc} 1000`"
             stroke-dashoffset="0"
@@ -109,7 +121,7 @@ const { forwardRef } = useForwardExpose();
             cy="24"
             :r="24 - strokeWidth"
             :stroke="
-              indicatorType === 'transfer' ? progressColor : 'var(--progress-indicator-default)'
+              indicatorType === 'transfer' ? progressColor : 'var(--progress-indicator)'
             "
             :stroke-width="strokeWidth"
             :stroke-dasharray="`${arc} 1000`"
@@ -129,14 +141,22 @@ const { forwardRef } = useForwardExpose();
       </svg>
       <slot />
     </div>
-    <div v-else :class="cn(circleProgressIndicatorClass, indicatorClass)">
+    <div
+      v-else
+      :class="
+        cn(
+          circleProgressIndicatorVariants({ disableRuiClass, type: indicatorType }),
+          indicatorClass
+        )
+      "
+    >
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 56">
         <g fill="none">
           <circle
-            class="stroke-progress-bg"
             cx="24"
             cy="24"
             :r="24 - strokeWidth"
+            stroke="var(--progress-bg)"
             :stroke-width="strokeWidth"
             stroke-dasharray="1000"
             stroke-dashoffset="0"
@@ -145,7 +165,7 @@ const { forwardRef } = useForwardExpose();
             cx="24"
             cy="24"
             :r="24 - strokeWidth"
-            stroke="#44D62C "
+            :stroke="indicatorType === 'transfer' ? progressColor : 'var(--progress-indicator)'"
             :stroke-width="strokeWidth"
             :stroke-dasharray="area"
             :stroke-dashoffset="progress"

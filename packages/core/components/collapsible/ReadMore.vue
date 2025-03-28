@@ -3,6 +3,7 @@ import { HTMLAttributes } from 'vue';
 import { CollapsibleRootProps, CollapsibleTriggerProps, createContext } from 'reka-ui';
 
 export interface ReadMoreProps extends CollapsibleRootProps {
+  disableRuiClass?: boolean;
   triggerProps?: CollapsibleTriggerProps & {
     class?: HTMLAttributes['class'];
     viewLessText?: string;
@@ -21,7 +22,7 @@ export const [injectReadMoreContext, provideReadMoreContext] =
 </script>
 
 <script setup lang="ts">
-import { Collapsible, CollapsibleTrigger, readMoreRootClass, readMoreTriggerClass } from '.';
+import { Collapsible, CollapsibleTrigger, readMoreRootVariant, readMoreTriggerVariant } from '.';
 import { default as ReadMoreContent, ReadMoreContentProps } from './ReadMoreContent.vue';
 import { useForwardPropsEmits, CollapsibleRootEmits } from 'reka-ui';
 import { cn } from '@/lib/utils';
@@ -31,6 +32,7 @@ const {
   triggerProps,
   contentProps,
   class: propsClass,
+  disableRuiClass,
   ...props
 } = defineProps<
   ReadMoreProps & {
@@ -63,7 +65,11 @@ provideReadMoreContext({
 </script>
 
 <template>
-  <Collapsible :class="cn(readMoreRootClass, propsClass)" v-bind="rootForwarded" v-slot="{ open }">
+  <Collapsible
+    :class="cn(readMoreRootVariant({ disableRuiClass }), propsClass)"
+    v-bind="rootForwarded"
+    v-slot="{ open }"
+  >
     <slot
       name="trigger"
       v-bind="{
@@ -75,7 +81,7 @@ provideReadMoreContext({
     >
       <CollapsibleTrigger
         v-if="showTrigger"
-        :class="cn(readMoreTriggerClass, triggerProps?.class)"
+        :class="cn(readMoreTriggerVariant({ disableRuiClass }), triggerProps?.class)"
         v-bind="delegateTriggerProps"
       >
         {{
@@ -85,7 +91,7 @@ provideReadMoreContext({
         }}
       </CollapsibleTrigger>
     </slot>
-    <ReadMoreContent v-bind="contentForwarded" @content-found="emits('contentFound')">
+    <ReadMoreContent v-bind="contentForwarded"  @content-found="emits('contentFound')">
       <template #default>
         <slot name="default" v-bind="{ open, showTrigger }"></slot>
       </template>

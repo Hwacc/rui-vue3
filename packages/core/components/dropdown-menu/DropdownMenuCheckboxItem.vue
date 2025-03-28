@@ -3,18 +3,20 @@ import type { DropdownMenuCheckboxItemEmits, DropdownMenuCheckboxItemProps } fro
 import { ref, watch, type HTMLAttributes } from 'vue';
 import { cn } from '@/lib/utils';
 import { DropdownMenuCheckboxItem, useForwardPropsEmits } from 'reka-ui';
-import { dropdownMenuCheckboxItemClass } from '.';
+import { dropdownMenuItemVariants } from '.';
 import { Checkbox } from '@/components/checkbox';
 
 const {
   class: propsClass,
   modelValue,
   prevent = true,
+  disableRuiClass,
   ...props
 } = defineProps<
   DropdownMenuCheckboxItemProps & {
     class?: HTMLAttributes['class'];
     prevent?: boolean;
+    disableRuiClass?: boolean;
   }
 >();
 const emits = defineEmits<DropdownMenuCheckboxItemEmits>();
@@ -33,7 +35,15 @@ const forwarded = useForwardPropsEmits(props, emits);
 <template>
   <DropdownMenuCheckboxItem
     v-bind="forwarded"
-    :class="cn(dropdownMenuCheckboxItemClass, propsClass)"
+    :class="
+      cn(
+        dropdownMenuItemVariants({
+          type: 'checkbox',
+          disableRuiClass,
+        }),
+        propsClass
+      )
+    "
     :model-value="innerModelValue"
     @update:model-value="(val) => (innerModelValue = val)"
     @select="

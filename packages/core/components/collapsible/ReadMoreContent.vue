@@ -2,6 +2,8 @@
 import type { PrimitiveProps } from 'reka-ui';
 
 export interface ReadMoreContentProps extends PrimitiveProps {
+  class?: HTMLAttributes['class'];
+  disableRuiClass?: boolean;
   collapsedHeight?: number;
   collapsedLine?: number;
 }
@@ -23,14 +25,15 @@ import {
 import { useEventListener, useResizeObserver } from '@vueuse/core';
 import { cn } from '@/lib/utils';
 import { injectReadMoreContext } from './ReadMore.vue';
-import { readMoreContentClass } from '.';
+import { readMoreContentVariant } from '.';
 
 const {
   class: propsClass,
   collapsedLine = 3,
   collapsedHeight = 80,
+  disableRuiClass,
   ...props
-} = defineProps<ReadMoreContentProps & { class?: HTMLAttributes['class'] }>();
+} = defineProps<ReadMoreContentProps >();
 const { showTrigger } = injectReadMoreContext({ showTrigger: ref(false) });
 const { forwardRef, currentElement } = useForwardExpose();
 const emits = defineEmits<ReadMoreContentEmits>();
@@ -86,7 +89,7 @@ const forwarded = useForwardPropsEmits(props, emits);
   <Primitive
     v-bind="forwarded"
     :ref="forwardRef"
-    :class="cn(readMoreContentClass, propsClass)"
+    :class="cn(readMoreContentVariant({ disableRuiClass }), propsClass)"
     :id="rootContext.contentId"
     :data-state="rootContext.open.value ? 'open' : 'closed'"
     :data-disabled="rootContext.disabled?.value ? '' : undefined"
