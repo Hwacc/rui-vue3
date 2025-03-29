@@ -1,0 +1,46 @@
+@layer components {
+  .rui-select-trigger{
+    @apply border-h00 
+    bg-h16 text-hbb 
+    data-[placeholder]:text-h55 
+    hover:border-rz-green 
+    focus:border-rz-green 
+    data-[state=open]:border-rz-green;
+  }
+
+  .rui-select-content{
+    @apply border-h11 bg-h1a text-hcc shadow-black;
+  }
+
+  .rui-select-item{
+    @apply text-hbb
+    focus:bg-h28
+    hover:bg-h28
+    data-[state=checked]:text-rz-green;
+  }
+
+  .rui-select-label{
+    @apply font-rob-bold;
+  }
+
+  .rui-select-icon{
+    &>svg{
+      @apply fill-current stroke-current group-hover:fill-hff group-hover:stroke-hff;
+    }
+    &[data-state=open]>svg{
+      @apply fill-hff stroke-hff;
+    }
+  }
+
+  .rui-select-value {
+    &>span{
+      @apply bg-h33 text-xs rounded-[.875rem];
+    }
+    & svg{
+      @apply hover:stroke-hff;
+    }
+  }
+
+  .rui-select-scroll-button_up{}
+  .rui-select-scroll-button_down{}
+}

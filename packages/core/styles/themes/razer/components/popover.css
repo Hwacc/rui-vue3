@@ -1,5 +1,5 @@
 
-@layer utilities {
+@layer components {
   .rui-popover-content{
     @apply border-h55 bg-h2a shadow-[0_.25rem_.375rem_-1px_rgba(0,0,0,1)];
   }

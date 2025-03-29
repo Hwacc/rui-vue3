@@ -1,6 +1,8 @@
-/* @utility rui-readmore-content {} */
-/* @utility rui-readmore-root {} */
 
-@utility rui-readmore-trigger {
-  @apply bg-linear-[90deg,transparent_0%,var(--color-h1a)_27%]
-}
+@layer components {
+  /* .rui-readmore-content {} */
+  /* .rui-readmore-root {} */
+  .rui-readmore-trigger {
+    @apply bg-linear-[90deg,transparent_0%,var(--color-h1a)_27%]
+  }
+} 

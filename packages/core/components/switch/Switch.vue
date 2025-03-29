@@ -10,11 +10,16 @@ import {
 import { computed, type HTMLAttributes } from 'vue';
 import { switchThumbVariants, switchVariants, SwitchVariantsProps } from '.';
 
-const { size = 'default', ...props } = defineProps<
+const {
+  size = 'default',
+  disableRuiClass,
+  ...props
+} = defineProps<
   SwitchRootProps & {
     class?: HTMLAttributes['class'];
     size?: SwitchVariantsProps['size'];
     thumbClass?: HTMLAttributes['class'];
+    disableRuiClass?: boolean;
   }
 >();
 const emits = defineEmits<SwitchRootEmits>();
@@ -24,6 +29,7 @@ const switchRootClassName = computed(() => {
   return cn(
     switchVariants({
       size,
+      disableRuiClass
     }),
     props.class
   );
@@ -32,6 +38,7 @@ const switchThumbClassName = computed(() => {
   return cn(
     switchThumbVariants({
       size,
+      disableRuiClass
     }),
     props.thumbClass
   );

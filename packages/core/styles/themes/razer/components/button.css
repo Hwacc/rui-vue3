@@ -1,4 +1,4 @@
-@layer utilities {
+@layer components {
   .rui-btn_default {
     @apply bg-rz-green text-h00 border-rz-green-border;
     @apply hover:bg-rz-green-light hover:border-rz-green-border-hover hover:ring-rz-green-border-hover;

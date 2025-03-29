@@ -18,7 +18,7 @@ onMounted(() => {
   <div class="container flex-col-c gap-4">
     <Progress class="w-100" :modelValue="progressValue" indicatorType="default" />
     <Progress class="w-100" :modelValue="progressValue" indicatorType="robbin" />
-    <Progress class="w-100" :modelValue="progressValue" indicatorType="transfer" />
+    <Progress class="w-100" :modelValue="progressValue" indicatorType="transfer" /> 
     <div class="flex-c gap-4">
       <CircleProgress :modelValue="progressValue" />
       <CircleProgress type="arc" :modelValue="progressValue" />

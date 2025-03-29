@@ -1,11 +1,11 @@
-import { cva, VariantProps } from 'class-variance-authority';
+import { VariantProps } from 'class-variance-authority';
+import { cva } from '@/lib/cva';
 export { default as Switch } from './Switch.vue';
 
 export const switchVariants = cva(
   [
     'peer',
     'inline-flex',
-    'bg-h78',
     'shrink-0',
     'items-center',
     'rounded-full',
@@ -13,9 +13,6 @@ export const switchVariants = cva(
     'border-transparent',
     'transition-colors',
     'disabled:opacity-(--disabled-opacity)',
-    'data-[state=checked]:bg-rz-green',
-    'data-[state=checked]:hover:bg-rz-green-light',
-    'data-[state=unchecked]:hover:bg-h78/80',
   ],
   {
     variants: {
@@ -25,6 +22,9 @@ export const switchVariants = cva(
         lg: ['w-[2.25rem]', 'h-5'],
       },
     },
+  },
+  {
+    className: 'rui-switch'
   }
 );
 
@@ -36,7 +36,6 @@ export const switchThumbVariants = cva(
     'block',
     'size-3.5',
     'rounded-full',
-    'bg-h00',
     'transition-transform',
     'origin-center',
     'data-[state=checked]:translate-x-[100%]',
@@ -50,6 +49,8 @@ export const switchThumbVariants = cva(
         lg: ['size-4'],
       },
     },
+  }, {
+    className: 'rui-switch-thumb'
   }
 );
 export type SwitchThumbVariantsProps = VariantProps<typeof switchThumbVariants>;

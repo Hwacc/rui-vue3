@@ -4,9 +4,14 @@ import type { HTMLAttributes } from 'vue';
 import { cn } from '@/lib/utils';
 import { ChevronUp } from 'lucide-vue-next';
 import { SelectScrollUpButton, useForwardProps } from 'reka-ui';
+import { selectScrollButtonVariants } from '.';
 
-const { class: propsClass, ...props } = defineProps<
-  SelectScrollUpButtonProps & { class?: HTMLAttributes['class'] }
+const {
+  class: propsClass,
+  disableRuiClass,
+  ...props
+} = defineProps<
+  SelectScrollUpButtonProps & { class?: HTMLAttributes['class']; disableRuiClass?: boolean }
 >();
 const forwardedProps = useForwardProps(props);
 </script>
@@ -14,7 +19,8 @@ const forwardedProps = useForwardProps(props);
 <template>
   <SelectScrollUpButton
     v-bind="forwardedProps"
-    :class="cn('flex cursor-default items-center justify-center py-1', propsClass)"
+    :class="cn(selectScrollButtonVariants({ dir: 'up', disableRuiClass }), propsClass)"
+    data-direction="up"
   >
     <slot>
       <ChevronUp class="size-4" />

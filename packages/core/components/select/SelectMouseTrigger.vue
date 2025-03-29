@@ -7,7 +7,7 @@ so we have the opportunity to capture mouse events internally.
 
 <script lang="ts">
 import type { PrimitiveProps, ReferenceElement } from 'reka-ui';
-import { selectTriggerVariants } from '.';
+import { selectTriggerVariants, selectIconVariants } from '.';
 import { cn } from '@/lib/utils';
 import { isEmpty } from 'lodash-es';
 const OPEN_KEYS = [' ', 'Enter', 'ArrowUp', 'ArrowDown'];
@@ -33,10 +33,12 @@ const {
   as = 'button',
   asChild,
   class: propsClass,
+  disableRuiClass,
   ...props
 } = defineProps<
   SelectTriggerProps & {
     class?: HTMLAttributes['class'];
+    disableRuiClass?: boolean;
   }
 >();
 
@@ -45,7 +47,7 @@ const { forwardRef, currentElement: triggerElement } = useForwardExpose();
 
 const isDisabled = computed(() => rootContext.disabled?.value || props.disabled);
 const classNames = computed(() => {
-  return cn(selectTriggerVariants(), propsClass);
+  return cn(selectTriggerVariants({ disableRuiClass }), propsClass);
 });
 
 rootContext.contentId ||= useId(undefined, 'reka-select-content');
@@ -56,7 +58,7 @@ onMounted(() => {
 </script>
 
 <template>
-  <PopperAnchor as-child :reference="reference">
+  <PopperAnchor as-child :reference="props.reference">
     <Primitive
       :class="classNames"
       :ref="forwardRef"
@@ -92,22 +94,19 @@ onMounted(() => {
     >
       <slot />
       <slot name="icon" :v-bind="{ open: unref(rootContext.open) }">
-        <SelectIcon as-child>
+        <SelectIcon
+          as="i"
+          :class="selectIconVariants({ disableRuiClass })"
+          :data-state="unref(rootContext.open) ? 'open' : 'closed'"
+        >
           <svg
             xmlns="http://www.w3.org/2000/svg"
             view-box="0 0 7 3"
             :class="[
               'w-[.5rem]',
               'h-[.25rem]',
-              'shrink-0',
-              'fill-current',
-              'stroke-current',
-              'group-hover:fill-hff',
-              'group-hover:stroke-hff',
               'transition-transform',
-              unref(rootContext.open)
-                ? ['animate-from', 'rotate-180', 'fill-hff', 'stroke-hff']
-                : ['rotate-0'],
+              unref(rootContext.open) ? ['animate-from', 'rotate-180'] : ['rotate-0'],
             ]"
           >
             <path d="M0 0 L3.5 3 L7 0 Z" />

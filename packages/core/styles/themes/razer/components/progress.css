@@ -1,4 +1,4 @@
-@layer utilities {
+@layer components {
   .rui-progress {
     @apply bg-rz-green/30;
   }
@@ -31,5 +31,15 @@
   .rui-circle-progress {
     --progress-bg: oklch(76.87% 0.2343 141.32 / 30%);
     --progress-indicator: oklch(76.87% 0.2343 141.32);
+  }
+
+  .rui-circle-progress-indicator{
+    &[data-type="transfer"] {
+      --transfer-from: #45d62e;
+      --transfer-to: #ffaa00;
+    }
+    & text {
+      @apply font-rob-bold fill-hff;
+    }
   }
 }

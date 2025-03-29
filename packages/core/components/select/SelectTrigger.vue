@@ -4,17 +4,21 @@ import type { HTMLAttributes } from 'vue';
 import { cn } from '@/lib/utils';
 import { injectSelectRootContext, SelectIcon, SelectTrigger, useForwardProps } from 'reka-ui';
 import { computed, nextTick, ref, watch } from 'vue';
-import { selectTriggerVariants } from '.';
+import { selectTriggerVariants, selectIconVariants } from '.';
 import { isEmpty } from 'lodash-es';
 
-const { class: propsClass, ...props } = defineProps<
-  SelectTriggerProps & { class?: HTMLAttributes['class'] }
+const {
+  class: propsClass,
+  disableRuiClass,
+  ...props
+} = defineProps<
+  SelectTriggerProps & { class?: HTMLAttributes['class']; disableRuiClass?: boolean }
 >();
 
 const { open, modelValue } = injectSelectRootContext();
 
 const classNames = computed(() => {
-  return cn(selectTriggerVariants(), propsClass);
+  return cn(selectTriggerVariants({ disableRuiClass }), propsClass);
 });
 
 const triggerRef = ref<{ $el: HTMLElement } | null>();
@@ -34,14 +38,14 @@ const forwardedProps = useForwardProps(props);
 </script>
 
 <template>
-  <SelectTrigger
-    v-bind="forwardedProps"
-    :class="classNames"
-    ref="triggerRef"
-  >
+  <SelectTrigger v-bind="forwardedProps" :class="classNames" ref="triggerRef">
     <slot />
     <slot name="icon" :v-bind="{ open }">
-      <SelectIcon as-child>
+      <SelectIcon
+        as="i"
+        :class="selectIconVariants({ disableRuiClass })"
+        :data-state="open ? 'open' : 'closed'"
+      >
         <svg
           xmlns="http://www.w3.org/2000/svg"
           view-box="0 0 7 3"
@@ -49,12 +53,8 @@ const forwardedProps = useForwardProps(props);
             'w-[.5rem]',
             'h-[.25rem]',
             'shrink-0',
-            'fill-current',
-            'stroke-current',
-            'group-hover:fill-hff',
-            'group-hover:stroke-hff',
             'transition-transform',
-            open && ['animate-from', 'rotate-180', 'fill-hff', 'stroke-hff'],
+            open && ['animate-from', 'rotate-180'],
             !open && ['rotate-0'],
           ]"
         >

@@ -241,3 +241,6 @@
 @import './components/message.css';
 @import './components/popover.css';
 @import './components/progress.css';
+@import './components//radio-group.css';
+@import './components/select.css';
+@import './components/switch.css';

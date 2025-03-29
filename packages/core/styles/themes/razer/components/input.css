@@ -1,4 +1,4 @@
-@layer utilities {
+@layer components {
   .rui-input {
     @apply border-h55 text-hbb hover:border-h66 hover:ring-h4c;
 

@@ -1,4 +1,4 @@
-@layer utilities {
+@layer components {
   .rui-dropdown-menu-content {
     @apply border-h11 bg-h1a text-hcc shadow-black;
   }

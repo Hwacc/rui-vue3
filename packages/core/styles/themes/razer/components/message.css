@@ -1,4 +1,4 @@
-@layer utilities {
+@layer components {
   .rui-message{
     @apply bg-h22 shadow-black;
 

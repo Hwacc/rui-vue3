@@ -1,0 +1,21 @@
+@layer components {
+  .rui-radio-group-item {
+    @apply border-h70 hover:border-rz-green active:border-rz-green active:bg-h28 disabled:hover:border-h70;
+  }
+  .rui-radio-group-item_checkbox{
+    @apply data-[state=checked]:bg-rz-green
+    data-[state=checked]:border-rz-green
+    data-[state=checked]:active:bg-rz-green-dark-active
+    data-[state=checked]:active:border-rz-green-dark-active
+    data-[state=checked]:hover:border-rz-green-light
+    data-[state=checked]:hover:bg-rz-green-light;
+  }
+
+  .rui-radio-group-item-inner{
+    @apply fill-rz-green stroke-rz-green;
+  }
+
+  .rui-radio-group-item-inner_checkbox{
+    @apply stroke-h00;
+  }
+}

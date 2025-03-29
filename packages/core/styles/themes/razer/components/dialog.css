@@ -1,4 +1,4 @@
-@layer utilities {
+@layer components {
   .rui-dialog-overlay {
     @apply bg-h00/80 data-[type=scroll]:webkit-scrollbar-self;
   }

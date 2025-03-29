@@ -23,6 +23,7 @@ const {
   size = 'default',
   label,
   type = 'default',
+  disableRuiClass,
   ...props
 } = defineProps<
   RadioGroupItemProps & {
@@ -33,21 +34,19 @@ const {
     class?: HTMLAttributes['class'];
     size?: RadioGroupItemVariants['size'];
     label?: string;
+    disableRuiClass?: RadioGroupItemInnerVariants['disableRuiClass'];
   }
 >();
 const forwardedProps = useForwardProps(props);
 
 const wrapClassName = computed(() => {
-  return cn(
-    ['flex items-center gap-2.5'],
-    wrapClass
-  );
+  return cn(['flex items-center gap-2.5'], wrapClass);
 });
 const radioGroupItemClassName = computed(() => {
-  return cn(radioGroupItemVariants({ type, size }), propsClass);
+  return cn(radioGroupItemVariants({ type, size, disableRuiClass }), propsClass);
 });
 const radioGroupItemInnerClassName = computed(() => {
-  return cn(radioGroupItemInnerVariants({ type, size }), innerClass);
+  return cn(radioGroupItemInnerVariants({ type, size, disableRuiClass }), innerClass);
 });
 const labelClassName = computed(() => {
   return cn(

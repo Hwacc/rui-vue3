@@ -1,36 +1,38 @@
 <script lang="tsx">
 import { filter, isEmpty } from 'lodash-es';
 import type { SelectValueProps, AcceptableValue } from 'reka-ui';
-import { injectSelectRootContext, SelectValue, useForwardProps } from 'reka-ui';
-import { defineComponent, getCurrentInstance, HTMLAttributes, toRefs, watch } from 'vue';
+import { injectSelectRootContext, SelectValue as RekaSelectValue } from 'reka-ui';
+import { defineComponent, HTMLAttributes, toRefs, watch } from 'vue';
 import { X } from 'lucide-vue-next';
+import { selectValueVariants } from '.';
+import { cn } from '@/lib/utils';
 
 export default defineComponent({
   name: 'SelectValue',
   components: {
-    RekaSelectValue: SelectValue,
+    RekaSelectValue,
   },
-  setup(props: SelectValueProps & { class?: HTMLAttributes['class'] }) {
+  setup(props: SelectValueProps & { class?: HTMLAttributes['class']; disableRuiClass?: boolean }) {
     const {
       multiple,
       triggerPointerDownPosRef,
       modelValue: rootModelValue,
     } = injectSelectRootContext();
-    const { class: propsClass, ...delegateProps } = toRefs(props);
-    const forwarded = useForwardProps(delegateProps);
-
-    const instance = getCurrentInstance();
-    console.log('instance', instance);
-
+    const { class: propsClass, placeholder, asChild, as, disableRuiClass } = toRefs(props);
 
     watch(triggerPointerDownPosRef, (val) => {
       console.log('triggerPointerDownPosRef', val);
     });
-
     return () => {
       return (
-        <reka-select-value
-          {...forwarded.value}
+        <RekaSelectValue
+          class={cn(
+            selectValueVariants({ disableRuiClass: disableRuiClass?.value }),
+            propsClass?.value
+          )}
+          as={as?.value}
+          asChild={asChild?.value}
+          placeholder={placeholder?.value}
           style={{
             pointerEvents: 'normal',
           }}>
@@ -42,35 +44,31 @@ export default defineComponent({
               selectedLabel: string | string[];
               modelValue: AcceptableValue | AcceptableValue[];
             }) => {
-              if (isEmpty(selectedLabel)) return delegateProps.placeholder?.value;
+              if (isEmpty(selectedLabel)) return placeholder?.value;
               if (!multiple.value) {
                 return selectedLabel;
               } else {
-                return (
-                  <div class='flex items-center gap-1 text-sm'>
-                    {(selectedLabel as AcceptableValue[]).map((label, index) => (
-                      <span
-                        key={index}
-                        class='relative bg-h33 text-xs rounded-[.875rem] py-0.5 pl-1 pr-5'>
-                        {label}
-                        <X
-                          class='absolute right-0.75 top-0.75 size-3 hover:stroke-hff'
-                          onClick={(event: any) => {
-                            event.stopPropagation();
-                            rootModelValue.value = filter(
-                              modelValue as AcceptableValue[],
-                              (_, key) => key !== index
-                            );
-                          }}
-                        />
-                      </span>
-                    ))}
-                  </div>
-                );
+                return (selectedLabel as AcceptableValue[]).map((label, index) => (
+                  <span
+                    key={index}
+                    class='relative py-0.5 pl-1 pr-5'>
+                    {label}
+                    <X
+                      class='absolute right-0.75 top-0.75 size-3'
+                      onClick={(event: any) => {
+                        event.stopPropagation();
+                        rootModelValue.value = filter(
+                          modelValue as AcceptableValue[],
+                          (_, key) => key !== index
+                        );
+                      }}
+                    />
+                  </span>
+                ));
               }
             },
           }}
-        </reka-select-value>
+        </RekaSelectValue>
       );
     };
   },

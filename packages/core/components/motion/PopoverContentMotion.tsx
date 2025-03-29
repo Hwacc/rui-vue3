@@ -6,7 +6,7 @@
  */
 import { computed, defineComponent, toRefs } from 'vue';
 import { motion } from 'motion-v';
-import { spaceTimes } from '@/lib/utils';
+import { getCssVar, spaceTimes } from '@/lib/utils';
 
 export const PopoverContentMotion = defineComponent({
   name: 'PopoverContentMotion',
@@ -18,6 +18,9 @@ export const PopoverContentMotion = defineComponent({
   },
   setup(props, { slots }) {
     const { side } = toRefs(props);
+
+    const animationDuration = parseFloat(getCssVar('--tw-duration') ?? '0.15');
+    const animationEase = getCssVar('--tw-ease') ?? 'cubic-bezier(0.165, 0.84, 0.44, 1)';
     const animation = computed(() => {
       const _anime: Array<Record<string, number>> = [
         {
@@ -66,8 +69,8 @@ export const PopoverContentMotion = defineComponent({
         animate={animation.value[1]}
         exit={animation.value[2]}
         transition={{
-          duration: 0.15,
-          easings: [0.165, 0.84, 0.44, 1],
+          duration: animationDuration,
+          easings: animationEase,
         }}>
         {{
           default: slots.default,

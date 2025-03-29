@@ -1,6 +1,6 @@
 
 
-@layer utilities {
+@layer components {
   .rui-checkbox-root{
     @apply text-hcc hover:text-hff;
     &[disabled]{

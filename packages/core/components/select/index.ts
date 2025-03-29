@@ -1,4 +1,5 @@
-import { cva, VariantProps } from 'class-variance-authority';
+import { VariantProps } from 'class-variance-authority';
+import { cva } from '@/lib/cva';
 
 export { default as SelectContent } from './SelectContent.vue';
 export { default as SelectItem } from './SelectItem.vue';
@@ -22,16 +23,9 @@ export const selectTriggerVariants = cva(
     'rounded',
     'gap-1.5',
     'border',
-    'border-h00',
-    'bg-h16',
     'px-2',
     'py-1.5',
     'text-start',
-    'text-hbb',
-    'data-[placeholder]:text-h55',
-    'hover:border-rz-green',
-    'focus:border-rz-green',
-    'data-[state=open]:border-rz-green',
     'outline-none',
     'disabled:pointer-events-none',
     'disabled:opacity-(--disabled-opacity)',
@@ -50,23 +44,15 @@ export const selectTriggerVariants = cva(
     defaultVariants: {
       size: 'default',
     },
+  },
+  {
+    className: 'rui-select-trigger',
   }
 );
 export type SelectTriggerVariants = VariantProps<typeof selectTriggerVariants>;
 
 export const selectContentVariants = cva(
-  [
-    'relative',
-    'z-50',
-    'min-w-(--reka-select-trigger-width)',
-    'rounded',
-    'border',
-    'border-h11',
-    'bg-h1a',
-    'p-0',
-    'text-hcc',
-    'shadow-black'
-  ],
+  ['relative', 'z-50', 'min-w-(--reka-select-trigger-width)', 'rounded', 'border', 'p-0'],
   {
     variants: {
       position: {
@@ -74,6 +60,9 @@ export const selectContentVariants = cva(
         'item-aligned': [],
       },
     },
+  },
+  {
+    className: 'rui-select-content',
   }
 );
 export type SelectContentVariants = VariantProps<typeof selectContentVariants>;
@@ -90,11 +79,7 @@ export const selectItemVariants = cva(
     'py-1.5',
     'px-2',
     'text-sm',
-    'text-hbb',
     'outline-none',
-    'focus:bg-h28',
-    'hover:bg-h28',
-    'data-[state=checked]:text-rz-green',
     'data-[disabled]:pointer-events-none',
     'data-[disabled]:opacity-(--disabled-opacity)',
   ],
@@ -104,5 +89,45 @@ export const selectItemVariants = cva(
         true: ['pl-8', 'pr-2'],
       },
     },
+  },
+  {
+    className: 'rui-select-item',
+  }
+);
+
+export const selectLabelVariants = cva(['py-1.5', 'px-2'], undefined, {
+  className: 'rui-select-label',
+});
+
+export const selectIconVariants = cva('shrink-0', undefined, { className: 'rui-select-icon' });
+
+export const selectValueVariants = cva(['flex', 'items-center', 'gap-1', 'text-sm'], undefined, {
+  className: 'rui-select-value',
+});
+
+export const selectSeparatorVariants = cva(['-mx-1', 'my-1', 'h-px'], undefined, {
+  className: 'rui-select-separator',
+});
+
+export const selectScrollButtonVariants = cva(
+  ['flex', 'cursor-default', 'items-center', 'justify-center', 'py-1'],
+  {
+    variants: {
+      dir: {
+        up: '',
+        down: '',
+      },
+    },
+  },
+  {
+    className: 'rui-select-scroll-button',
+    compound: [
+      {
+        dir: 'up',
+        disableRuiClass: false,
+        className: 'rui-select-scroll-button_up',
+      },
+      { dir: 'down', disableRuiClass: false, className: 'rui-select-scroll-button_down' },
+    ],
   }
 );

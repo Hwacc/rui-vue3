@@ -19,17 +19,19 @@ const {
   side = 'bottom',
   align = 'start',
   asChild = false,
+  disableRuiClass,
   ...props
 } = defineProps<
   SelectContentProps & {
     class?: HTMLAttributes['class'];
     scrollButton?: boolean;
+    disableRuiClass?: boolean;
   }
 >();
 const emits = defineEmits<SelectContentEmits>();
 
 const classNames = computed(() => {
-  return cn(selectContentVariants({ position }), propsClass);
+  return cn(selectContentVariants({ position, disableRuiClass }), propsClass);
 });
 const forwarded = useForwardPropsEmits(props, emits);
 </script>

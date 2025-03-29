@@ -4,9 +4,14 @@ import type { HTMLAttributes } from 'vue';
 import { cn } from '@/lib/utils';
 import { ChevronDown } from 'lucide-vue-next';
 import { SelectScrollDownButton, useForwardProps } from 'reka-ui';
+import { selectScrollButtonVariants } from '.';
 
-const { class: propsClass, ...props } = defineProps<
-  SelectScrollDownButtonProps & { class?: HTMLAttributes['class'] }
+const {
+  class: propsClass,
+  disableRuiClass,
+  ...props
+} = defineProps<
+  SelectScrollDownButtonProps & { class?: HTMLAttributes['class']; disableRuiClass?: boolean }
 >();
 const forwardedProps = useForwardProps(props);
 </script>
@@ -14,7 +19,8 @@ const forwardedProps = useForwardProps(props);
 <template>
   <SelectScrollDownButton
     v-bind="forwardedProps"
-    :class="cn('flex cursor-default items-center justify-center py-1', propsClass)"
+    :class="cn(selectScrollButtonVariants({ dir: 'down', disableRuiClass }), propsClass)"
+    data-direction="down"
   >
     <slot>
       <ChevronDown class="size-4" />
