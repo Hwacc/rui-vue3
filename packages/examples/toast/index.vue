@@ -17,6 +17,7 @@ const onOpenToastClick = () => {
     variant: 'error',
     title: 'Toast Title',
     description: 'Toast Description',
+    duration: 0,
   });
 };
 
@@ -32,7 +33,6 @@ const onOpenMessageClick = () => {
   message({
     variant: 'success',
     title: 'Message Content',
-    duration: 0,
   });
 };
 

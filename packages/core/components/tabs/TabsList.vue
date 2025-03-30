@@ -7,9 +7,11 @@ import { computed, onMounted, unref, watchEffect } from 'vue';
 import { tabsListVariants } from '.';
 import { injectTabsContext } from './Tabs.vue';
 
-const { class: propsClass, ...props } = defineProps<
-  TabsListProps & { class?: HTMLAttributes['class'] }
->();
+const {
+  class: propsClass,
+  disableRuiClass,
+  ...props
+} = defineProps<TabsListProps & { class?: HTMLAttributes['class']; disableRuiClass?: boolean }>();
 
 const { index, initTabList, tabsTriggers, orientation } = injectTabsContext();
 
@@ -62,7 +64,9 @@ watchEffect(
       curRect.width + curRect.x > parentRect.width + parentRect.x
     ) {
       tabsTriggers[curIndex]?.el?.parentElement?.scrollBy({
-        left: nextRect ? deltaX + curRect.width - parentRect.width + nextRect.width / 2 : curRect.width,
+        left: nextRect
+          ? deltaX + curRect.width - parentRect.width + nextRect.width / 2
+          : curRect.width,
         behavior: 'smooth',
       });
     }
@@ -84,7 +88,7 @@ watchEffect(
 );
 
 const classNames = computed(() => {
-  return cn(tabsListVariants(), propsClass);
+  return cn(tabsListVariants({ disableRuiClass }), propsClass);
 });
 </script>
 

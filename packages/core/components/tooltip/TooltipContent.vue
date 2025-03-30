@@ -17,15 +17,20 @@ defineOptions({
 const {
   class: propsClass,
   theme = 'default',
+  disableRuiClass,
   ...props
 } = defineProps<
-  TooltipContentProps & { class?: HTMLAttributes['class']; theme?: TooltipContentVariants['theme'] }
+  TooltipContentProps & {
+    class?: HTMLAttributes['class'];
+    theme?: TooltipContentVariants['theme'];
+    disableRuiClass?: boolean;
+  }
 >();
 const emits = defineEmits<TooltipContentEmits>();
 const forwarded = useForwardPropsEmits(props, emits);
 
 const classNames = computed(() => {
-  return cn(tooltipContentVariants({ theme }), propsClass);
+  return cn(tooltipContentVariants({ theme, disableRuiClass }), propsClass);
 });
 </script>
 

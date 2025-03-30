@@ -7,7 +7,7 @@ so we have the opportunity to capture mouse events internally.
 
 <script lang="ts">
 import type { PrimitiveProps, ReferenceElement } from 'reka-ui';
-import { selectTriggerVariants, selectIconVariants } from '.';
+import { selectTriggerVariants, selectTriangleVariants } from '.';
 import { cn } from '@/lib/utils';
 import { isEmpty } from 'lodash-es';
 const OPEN_KEYS = [' ', 'Enter', 'ArrowUp', 'ArrowDown'];
@@ -96,7 +96,7 @@ onMounted(() => {
       <slot name="icon" :v-bind="{ open: unref(rootContext.open) }">
         <SelectIcon
           as="i"
-          :class="selectIconVariants({ disableRuiClass })"
+          :class="selectTriangleVariants({ disableRuiClass, open: unref(rootContext.open) })"
           :data-state="unref(rootContext.open) ? 'open' : 'closed'"
         >
           <svg

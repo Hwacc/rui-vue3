@@ -9,8 +9,12 @@ import { injectTabsContext } from './Tabs.vue';
 
 const { index } = injectTabsContext();
 
-const { class: propsClass, ...props } = defineProps<
-  TabsContentProps & { class?: HTMLAttributes['class'] }
+const {
+  class: propsClass,
+  disableRuiClass,
+  ...props
+} = defineProps<
+  TabsContentProps & { class?: HTMLAttributes['class']; disableRuiClass?: boolean }
 >();
 
 const direction = ref(0);
@@ -23,6 +27,7 @@ const classNames = computed(() => {
     tabsContentVariants({
       prev: direction.value < 0,
       next: direction.value > 0,
+      disableRuiClass,
     }),
     propsClass
   );

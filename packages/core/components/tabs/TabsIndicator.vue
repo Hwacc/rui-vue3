@@ -8,24 +8,26 @@ import { tabsIndicatorVariants, TabsIndicatorVariantsProps } from '.';
 const {
   class: propsClass,
   size = 'default',
+  disableRuiClass,
   ...props
 } = defineProps<
   TabsIndicatorProps & {
     class?: HTMLAttributes['class'];
     size?: TabsIndicatorVariantsProps['size'];
+    disableRuiClass?: boolean;
   }
 >();
 const forwardedProps = useForwardProps(props);
 
 const classNames = computed(() => {
-  return cn(tabsIndicatorVariants({ size }), propsClass);
+  return cn(tabsIndicatorVariants({ size, disableRuiClass }), propsClass);
 });
 </script>
 
 <template>
   <TabsIndicator v-bind="forwardedProps" :class="classNames">
     <slot>
-      <div class="bg-rz-green w-full h-full" />
+      <div class="w-full h-full" />
     </slot>
   </TabsIndicator>
 </template>

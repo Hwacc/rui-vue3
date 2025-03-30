@@ -1,9 +1,12 @@
 @layer components {
   .rui-switch {
-    @apply bg-h78 data-[state=checked]:bg-rz-green data-[state=checked]:hover:bg-rz-green-light data-[state=unchecked]:hover:bg-h78/80;
-  }
+    --bg-color: var(--color-h78);
+    --bg-checked-color: var(--color-rz-green);
+    --bg-checked-hover-color: var(--color-rz-green-light);
+    --bg-unchecked-hover-color: var(--color-h78);
+    --border-color: transparent;
 
-  .rui-switch-thumb {
-    @apply bg-h00;
+    /* thumb*/
+    --thumb-bg-color: var(--color-h00);
   }
 }

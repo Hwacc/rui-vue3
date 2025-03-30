@@ -289,8 +289,9 @@ import {
   Teleport,
 } from 'vue';
 import { isNil, merge, omit, isNumber, isObject } from 'lodash-es';
-import { getCssColor, rem2px } from '@/lib/utils';
+import { getNodeCssVar, rem2px } from '@/lib/utils';
 import { cn } from '@/lib/utils';
+import { sliderVariants, sliderDotVariants, sliderTooltipVariants } from '.';
 
 const {
   class: propsClass,
@@ -304,26 +305,35 @@ const {
   size = 'default',
   duration = 0.15,
   floatingTooltip,
+  disableRuiClass,
   ...props
 } = defineProps<
   SliderProps & {
     class?: HTMLAttributes['class'];
     size?: 'default' | 'sm' | 'lg' | 'custom';
     floatingTooltip?: FloatingTooltipOptions | boolean | undefined;
+    disableRuiClass?: boolean;
   }
 >();
 // default model
 const model = defineModel<number | string | number[] | string[]>();
 // slots
 defineSlots<{
-  dot?: (dotProps: SliderSlotDotProps) => any;
-  label?: (labelProps: SliderSlotLabelProps) => any;
-  mark?: (markProps: SliderSlotMarkProps) => any;
-  process?: (processProps: SliderSlotProcessProps) => any;
-  step?: (stepProps: SliderSlotStepProps) => any;
-  tooltip?: (tooltipProps: SliderSlotTooltipProps) => any;
+  dot?: (dotProps: SliderSlotDotProps & { class: HTMLAttributes['class'] }) => any;
+  label?: (labelProps: SliderSlotLabelProps & { class: HTMLAttributes['class'] }) => any;
+  mark?: (markProps: SliderSlotMarkProps & { class: HTMLAttributes['class'] }) => any;
+  process?: (processProps: SliderSlotProcessProps & { class: HTMLAttributes['class'] }) => any;
+  step?: (stepProps: SliderSlotStepProps & { class: HTMLAttributes['class'] }) => any;
+  tooltip?: (
+    tooltipProps: SliderSlotTooltipProps & {
+      class: HTMLAttributes['class'];
+      type: 'default' | 'floating';
+    }
+  ) => any;
   floatingTooltip?: (
     tooltipProps: SliderSlotTooltipProps & {
+      class: HTMLAttributes['class'];
+      type: 'default' | 'floating';
       floatingTooltipStyles: Readonly<
         Ref<{
           position: Strategy;
@@ -357,11 +367,15 @@ const emits = defineEmits<{
 
 const forwarded = useForwardPropsEmits(props, emits);
 
+const sliderRef = ref<{ $el: HTMLElement }>();
+
 // styles
 const mergedRailStyle = computed(() => {
   return merge(
     {
-      backgroundColor: getCssColor('h33', '#333'),
+      backgroundColor: disableRuiClass
+        ? undefined
+        : getNodeCssVar(sliderRef.value?.$el, '--rail-bg-color', '#333'),
     },
     railStyle
   );
@@ -369,7 +383,9 @@ const mergedRailStyle = computed(() => {
 const mergedProcessStyle = computed(() => {
   return merge(
     {
-      backgroundColor: getCssColor('rz-green', '#44D62C'),
+      backgroundColor: disableRuiClass
+        ? undefined
+        : getNodeCssVar(sliderRef.value?.$el, '--process-bg-color', '#44D62C'),
     },
     processStyle
   );
@@ -454,8 +470,11 @@ const getFloatingTooltipContent = (value: number | string) => {
   <Slider
     v-bind="forwarded"
     v-model="model"
-    ref="floatingBoundaryRef"
-    :class="propsClass"
+    :ref="(r: any) => {
+      floatingBoundaryRef = r;
+      sliderRef = r;
+    }"
+    :class="cn(sliderVariants({ disableRuiClass }), propsClass)"
     :direction="direction"
     :width="computedWidth"
     :height="computedHeight"
@@ -481,16 +500,26 @@ const getFloatingTooltipContent = (value: number | string) => {
   >
     <template #dot="{ index, ...rest }">
       <div class="w-full h-full" ref="floatingReferenceRef">
-        <slot name="dot" v-bind="{ index, ...rest }">
+        <slot
+          name="dot"
+          v-bind="{
+            index,
+            class: sliderDotVariants({
+              size,
+              disableRuiClass,
+              scale: index === dotDragIndex && dotDragStart,
+            }),
+            ...rest,
+          }"
+        >
           <div
             :class="
               cn(
-                [
-                  'w-full h-full rounded-full bg-h00 border-[.125rem] border-rz-green transition-transform',
-                ],
-                [size === 'sm' && 'border-[.0625rem]'],
-                [size === 'lg' && 'border-[.25rem]'],
-                [index === dotDragIndex && dotDragStart && 'scale-125']
+                sliderDotVariants({
+                  size,
+                  disableRuiClass,
+                  scale: index === dotDragIndex && dotDragStart,
+                })
               )
             "
           />
@@ -498,16 +527,28 @@ const getFloatingTooltipContent = (value: number | string) => {
       </div>
     </template>
     <template #label="labelProps">
-      <slot name="label" v-bind="labelProps" />
+      <slot
+        name="label"
+        v-bind="{ ...labelProps, class: disableRuiClass ? '' : 'rui-vue-slider-label' }"
+      />
     </template>
     <template #mark="markProps">
-      <slot name="mark" v-bind="markProps" />
+      <slot
+        name="mark"
+        v-bind="{ ...markProps, class: disableRuiClass ? '' : 'rui-vue-slider-mark' }"
+      />
     </template>
     <template #process="processProps">
-      <slot name="process" v-bind="processProps" />
+      <slot
+        name="process"
+        v-bind="{ ...processProps, class: disableRuiClass ? '' : 'rui-vue-slider-process' }"
+      />
     </template>
     <template #step="stepProps">
-      <slot name="step" v-bind="stepProps" />
+      <slot
+        name="step"
+        v-bind="{ ...stepProps, class: disableRuiClass ? '' : 'rui-vue-slider-step' }"
+      />
     </template>
     <template #tooltip="tooltipProps">
       <slot
@@ -518,18 +559,30 @@ const getFloatingTooltipContent = (value: number | string) => {
           floatingTooltipOptions,
           floatingTooltipStyles,
           floatingTooltipArrowStyles,
+          class: cn(
+            sliderTooltipVariants({
+              type: 'floating',
+              disableRuiClass,
+            }),
+            floatingTooltipOptions.class
+          ),
+          type: 'floating',
         }"
       >
         <Component :is="floatingTooltipOptions.teleport ? Teleport : 'div'" to="body">
           <div
             :class="
               cn(
-                'flex px-2 py-1 bg-rz-green rounded text-h00 text-xs',
+                sliderTooltipVariants({
+                  type: 'floating',
+                  disableRuiClass,
+                }),
                 floatingTooltipOptions.class
               )
             "
             :style="floatingTooltipStyles"
             ref="floatingTooltipRef"
+            data-type="floating"
           >
             <Component
               v-if="isObject(getFloatingTooltipContent(tooltipProps.value))"
@@ -541,7 +594,7 @@ const getFloatingTooltipContent = (value: number | string) => {
             <svg
               v-if="/(top|bottom)/.test(floatingTooltipOptions.placement as string)"
               :class="cn([
-                'absolute w-1.5 h-0.75 fill-rz-green',
+                'absolute w-1.5 h-0.75',
                 /(top)/.test(floatingTooltipOptions.placement as string) && 'rotate-180',
               ], floatingTooltipOptions.arrowClass)"
               viewBox="0 0 10 5"
@@ -553,7 +606,7 @@ const getFloatingTooltipContent = (value: number | string) => {
             <svg
               v-else="/(left|right)/.test(floatingTooltipOptions.placement as string)"
               :class="cn([
-                'absolute w-0.75 h-1.5 fill-rz-green',
+                'absolute w-0.75 h-1.5',
                 /(left)/.test(floatingTooltipOptions.placement as string) && 'rotate-180',
               ], floatingTooltipOptions.arrowClass)"
               viewBox="0 0 5 10"
@@ -565,12 +618,28 @@ const getFloatingTooltipContent = (value: number | string) => {
           </div>
         </Component>
       </slot>
-      <slot v-else name="tooltip" v-bind="tooltipProps">
+      <slot
+        v-else
+        name="tooltip"
+        v-bind="{
+          class: sliderTooltipVariants({
+            type: 'default',
+            placement: tooltipPlacement,
+            disableRuiClass,
+          }),
+          type: 'default',
+          ...tooltipProps,
+        }"
+      >
         <div
-          :class="[
-            'flex px-2 py-1 bg-rz-green rounded text-h00 text-xs',
-            'vue-slider-default-tooltip',
-          ]"
+          :class="
+            sliderTooltipVariants({
+              type: 'default',
+              placement: tooltipPlacement,
+              disableRuiClass,
+            })
+          "
+          data-type="floating"
           :data-placement="tooltipPlacement"
         >
           {{ tooltipProps.value }}
@@ -583,54 +652,5 @@ const getFloatingTooltipContent = (value: number | string) => {
 <style lang="css" scoped>
 ::v-deep(.vue-slider-dot:focus-visible) {
   outline: var(--outline);
-}
-
-.vue-slider-default-tooltip {
-  &:after {
-    content: '';
-    position: absolute;
-    width: 0;
-    height: 0;
-  }
-  &[data-placement='top'] {
-    &:after {
-      border-left: 4px solid transparent;
-      border-right: 4px solid transparent;
-      border-top: 4px solid var(--color-rz-green);
-      bottom: 0px;
-      left: 50%;
-      transform: translate(-50%, 100%);
-    }
-  }
-  &[data-placement='bottom'] {
-    &:after {
-      border-left: 4px solid transparent;
-      border-right: 4px solid transparent;
-      border-bottom: 4px solid var(--color-rz-green);
-      top: 0px;
-      left: 50%;
-      transform: translate(-50%, -100%);
-    }
-  }
-  &[data-placement='left'] {
-    &:after {
-      border-left: 4px solid var(--color-rz-green);
-      border-top: 4px solid transparent;
-      border-bottom: 4px solid transparent;
-      top: 50%;
-      right: 0px;
-      transform: translate(100%, -50%);
-    }
-  }
-  &[data-placement='right'] {
-    &:after {
-      border-right: 4px solid var(--color-rz-green);
-      border-top: 4px solid transparent;
-      border-bottom: 4px solid transparent;
-      top: 50%;
-      left: 0px;
-      transform: translate(-100%, -50%);
-    }
-  }
 }
 </style>

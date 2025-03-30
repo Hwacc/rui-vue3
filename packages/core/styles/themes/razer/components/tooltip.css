@@ -1,0 +1,11 @@
+@layer components {
+  .rui-tooltip-content {
+    --bg-default-color: var(--color-hff);
+    --border-default-color: var(--color-h00);
+    --text-default-color: var(--color-h00);
+
+    --bg-dark-color: var(--color-h00);
+    --border-dark-color: var(--color-hff);
+    --text-dark-color: var(--color-hff);
+  }
+}

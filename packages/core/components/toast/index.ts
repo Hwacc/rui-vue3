@@ -1,7 +1,7 @@
 import type { ToastRootProps } from 'reka-ui';
 import type { HTMLAttributes } from 'vue';
 import type { VariantProps } from 'class-variance-authority';
-import { cva } from 'class-variance-authority';
+import { cva } from '@/lib/cva';
 
 export type SwipeDirection = 'up' | 'down' | 'left' | 'right';
 export type ToastPosition =
@@ -160,13 +160,10 @@ export const toastVariants = cva<{
     'justify-between',
     'py-4',
     'px-6',
-    'bg-h22',
     'space-x-4',
     'overflow-hidden',
     'rounded-md',
     'border-l-[.1875rem]',
-    'border-l-rz-orange',
-    'shadow-black-md',
     'transition-all',
   ],
   {
@@ -181,32 +178,176 @@ export const toastVariants = cva<{
         ],
       },
       variant: {
-        success: 'border-l-rz-green',
-        error: 'border-l-rz-red',
-        warning: 'border-l-rz-orange',
-        info: 'border-l-h88',
+        success: '',
+        error: '',
+        warning: '',
+        info: '',
       },
     },
-    compoundVariants: getToastCompoundVariants() as any,
+    compoundVariants: [
+      ...(getToastCompoundVariants() as any),
+      {
+        disableRuiClass: false,
+        className: 'bg-(--bg-color)',
+      },
+    ],
     defaultVariants: {
       position: 'center',
       swipeDirection: 'up',
     },
+  },
+  {
+    className: 'rui-toast',
+    compound: [
+      {
+        variant: 'success',
+        disableRuiClass: false,
+        className: ['border-l-(--success-color)', 'rui-toast_success'],
+      },
+      {
+        variant: 'error',
+        disableRuiClass: false,
+        className: ['border-l-(--error-color)', 'rui-toast_error'],
+      },
+      {
+        variant: 'warning',
+        disableRuiClass: false,
+        className: ['border-l-(--warning-color)', 'rui-toast_warning'],
+      },
+      {
+        variant: 'info',
+        disableRuiClass: false,
+        className: ['border-l-(--info-color)', 'rui-toast_info'],
+      },
+    ],
   }
 );
 export type ToastVariants = VariantProps<typeof toastVariants>;
 
-export const toastActionClass = [
-  'inline-flex',
-  'shrink-0',
-  'items-center',
-  'justify-center',
-  'transition-colors',
-  'disabled:pointer-events-none',
-  'disabled:opacity-(--disabled-opacity)',
-] as const;
+export const toastIconVariants = cva(
+  ['size-5'],
+  {
+    variants: {
+      variant: {
+        success: '',
+        error: '',
+        warning: '',
+        info: '',
+      },
+    },
+  },
+  {
+    className: 'rui-toast-icon',
+    compound: [
+      {
+        disableRuiClass: false,
+        className: 'stroke-(--bg-color)',
+      },
+      {
+        variant: 'success',
+        disableRuiClass: false,
+        className: [
+          'fill-(--success-color)',
+          '[&>circle]:stroke-(--success-color)',
+          'rui-toast-icon_success',
+        ],
+      },
+      {
+        variant: 'error',
+        disableRuiClass: false,
+        className: [
+          'fill-(--error-color)',
+          '[&>circle]:stroke-(--error-color)',
+          'rui-toast-icon_error',
+        ],
+      },
+      {
+        variant: 'warning',
+        disableRuiClass: false,
+        className: [
+          'fill-(--warning-color)',
+          '[&>circle]:stroke-(--warning-color)',
+          'rui-toast-icon_warning',
+        ],
+      },
+      {
+        variant: 'info',
+        disableRuiClass: false,
+        className: [
+          'fill-(--info-color)',
+          '[&>circle]:stroke-(--info-color)',
+          'rui-toast-icon_info',
+        ],
+      },
+    ],
+  }
+);
+export type ToastIconVariants = VariantProps<typeof toastIconVariants>;
+
+export const toastTitleVariants = cva(
+  ['text-base'],
+  {
+    variants: {},
+    compoundVariants: [{ disableRuiClass: false, className: 'text-(--title-color)' }],
+  },
+  {
+    className: 'rui-toast-title',
+  }
+);
+
+export const toastDescriptionVariants = cva(
+  ['text-sm'],
+  {
+    variants: {},
+    compoundVariants: [{ disableRuiClass: false, className: 'text-(--description-color)' }],
+  },
+  {
+    className: 'rui-toast-description',
+  }
+);
+
+export const toastCloseVariants = cva(
+  ['size-3'],
+  {
+    variants: {},
+    compoundVariants: [
+      {
+        disableRuiClass: false,
+        className: ['text-(--close-color)', 'hover:text-(--close-hover-color)'],
+      },
+    ],
+  },
+  {
+    className: 'rui-toast-close',
+  }
+);
+
+export const toastActionVariants = cva(
+  [
+    'inline-flex',
+    'shrink-0',
+    'items-center',
+    'justify-center',
+    'transition-colors',
+    'disabled:pointer-events-none',
+    'disabled:opacity-(--disabled-opacity)',
+  ],
+  {
+    variants: { variant: { success: '', error: '', warning: '', info: '' } },
+  },
+  {
+    className: 'rui-toast-action',
+    compound: [
+      { variant: 'success', disableRuiClass: false, className: 'rui-toast-action_success' },
+      { variant: 'error', disableRuiClass: false, className: 'rui-toast-action_error' },
+      { variant: 'warning', disableRuiClass: false, className: 'rui-toast-action_warning' },
+      { variant: 'info', disableRuiClass: false, className: 'rui-toast-action_info' },
+    ],
+  }
+);
 export interface ToastProps extends ToastRootProps {
   class?: HTMLAttributes['class'];
   variant?: ToastVariants['variant'];
+  disableRuiClass?: boolean;
   onOpenChange?: ((value: boolean) => void) | undefined;
 }

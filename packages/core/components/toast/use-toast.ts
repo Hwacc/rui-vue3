@@ -13,6 +13,7 @@ type ToasterToast = ToastProps & {
   description?: StringOrVNode;
   icon?: VNode | (() => VNode);
   action?: Component;
+  disableRuiClass?: boolean;
 };
 
 const actionTypes = {
@@ -56,7 +57,7 @@ interface State {
 const toastTimeouts = new Map<string, ReturnType<typeof setTimeout>>();
 
 function addToRemoveQueue(toastId: string) {
-  console.log('add to remove queue')
+  console.log('add to remove queue');
   if (toastTimeouts.has(toastId)) return;
 
   const timeout = setTimeout(() => {

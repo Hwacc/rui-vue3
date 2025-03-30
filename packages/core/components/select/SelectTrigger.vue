@@ -4,7 +4,7 @@ import type { HTMLAttributes } from 'vue';
 import { cn } from '@/lib/utils';
 import { injectSelectRootContext, SelectIcon, SelectTrigger, useForwardProps } from 'reka-ui';
 import { computed, nextTick, ref, watch } from 'vue';
-import { selectTriggerVariants, selectIconVariants } from '.';
+import { selectTriggerVariants, selectTriangleVariants } from '.';
 import { isEmpty } from 'lodash-es';
 
 const {
@@ -43,7 +43,7 @@ const forwardedProps = useForwardProps(props);
     <slot name="icon" :v-bind="{ open }">
       <SelectIcon
         as="i"
-        :class="selectIconVariants({ disableRuiClass })"
+        :class="selectTriangleVariants({ disableRuiClass, open })"
         :data-state="open ? 'open' : 'closed'"
       >
         <svg

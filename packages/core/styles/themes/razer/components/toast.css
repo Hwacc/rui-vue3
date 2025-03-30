@@ -1,0 +1,20 @@
+@layer components {
+  .rui-toast {
+    --bg-color: var(--color-h22);
+    --success-color: var(--color-rz-green);
+    --error-color: var(--color-rz-red);
+    --info-color: var(--color-h88);
+    --warning-color: var(--color-rz-orange);
+
+    --title-color: current;
+    --description-color: var(--color-h88);
+    --close-color: var(--color-h88);
+    --close-hover-color: var(--color-hff);
+
+    @apply shadow-black-md;
+  }
+
+  .rui-toast-title{
+    @apply font-rob-bold;
+  }
+}

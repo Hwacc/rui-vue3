@@ -4,12 +4,17 @@ import type { HTMLAttributes } from 'vue';
 import { cn } from '@/lib/utils';
 import { ToastDescription } from 'reka-ui';
 import { computed } from 'vue';
+import { toastDescriptionVariants } from '.';
 
-const { class: propsClass, ...props } = defineProps<
-  ToastDescriptionProps & { class?: HTMLAttributes['class'] }
+const {
+  class: propsClass,
+  disableRuiClass,
+  ...props
+} = defineProps<
+  ToastDescriptionProps & { class?: HTMLAttributes['class']; disableRuiClass?: boolean }
 >();
 const classNames = computed(() => {
-  return cn('text-sm text-h88', propsClass);
+  return cn(toastDescriptionVariants({ disableRuiClass }), propsClass);
 });
 </script>
 

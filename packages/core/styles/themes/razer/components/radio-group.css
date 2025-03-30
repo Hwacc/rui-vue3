@@ -1,21 +1,32 @@
 @layer components {
   .rui-radio-group-item {
-    @apply border-h70 hover:border-rz-green active:border-rz-green active:bg-h28 disabled:hover:border-h70;
+    --bg-color:transparent;
+    --bg-hover-color: transparent;
+    --bg-active-color: var(--color-h28);
+    --bg-checked-color: transparent;
+    --bg-disabled-hover-color: transparent;
+
+    --border-color: var(--color-h70);
+    --border-hover-color: var(--color-rz-green);
+    --border-active-color: var(--color-rz-green);
+    --border-checked-color: var(--color-h70);
+    --border-disabled-hover-color: var(--color-h70);
   }
   .rui-radio-group-item_checkbox{
-    @apply data-[state=checked]:bg-rz-green
-    data-[state=checked]:border-rz-green
-    data-[state=checked]:active:bg-rz-green-dark-active
-    data-[state=checked]:active:border-rz-green-dark-active
-    data-[state=checked]:hover:border-rz-green-light
-    data-[state=checked]:hover:bg-rz-green-light;
+    --bg-checked-color: var(--color-rz-green);
+    --bg-checked-hover-color: var(--color-rz-green-light);
+    --bg-checked-active-color: var(--color-rz-green-dark-active);
+
+    --border-checked-color: var(--color-rz-green);
+    --border-checked-hover-color: var(--color-rz-green-light);
+    --border-checked-active-color: var(--color-rz-green-dark-active);
   }
 
   .rui-radio-group-item-inner{
-    @apply fill-rz-green stroke-rz-green;
+    --checked-color: var(--color-rz-green);
   }
 
   .rui-radio-group-item-inner_checkbox{
-    @apply stroke-h00;
+    --checked-color: var(--color-h00);
   }
 }

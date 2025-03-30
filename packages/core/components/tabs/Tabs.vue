@@ -20,9 +20,22 @@ export const [injectTabsContext, provideTabsContext] = createContext<TabsContext
 <script setup lang="ts">
 import type { TabsRootEmits, TabsRootProps } from 'reka-ui';
 import { TabsRoot, useForwardPropsEmits } from 'reka-ui';
-import { computed, getCurrentInstance, nextTick, reactive, ref } from 'vue';
+import { computed, getCurrentInstance, HTMLAttributes, nextTick, reactive, ref } from 'vue';
+import { cn } from '@/lib/utils';
+import { tabsVariants } from '.';
 
-const { modelValue, defaultValue, ...props } = defineProps<TabsRootProps>();
+const {
+  modelValue,
+  defaultValue,
+  class: propsClass,
+  disableRuiClass,
+  ...props
+} = defineProps<
+  TabsRootProps & {
+    class?: HTMLAttributes['class'];
+    disableRuiClass?: boolean;
+  }
+>();
 const innerValue = ref<StringOrNumber | undefined>(modelValue ?? defaultValue);
 const emits = defineEmits<TabsRootEmits>();
 const onUpdateModelValue = (value: StringOrNumber) => {
@@ -66,7 +79,12 @@ const forwarded = useForwardPropsEmits(props, emits);
 </script>
 
 <template>
-  <TabsRoot v-bind="forwarded" :model-value="innerValue" @update:model-value="onUpdateModelValue">
+  <TabsRoot
+    :class="cn(tabsVariants(), propsClass)"
+    v-bind="forwarded"
+    :model-value="innerValue"
+    @update:model-value="onUpdateModelValue"
+  >
     <slot />
   </TabsRoot>
 </template>

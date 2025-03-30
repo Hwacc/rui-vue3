@@ -11,6 +11,7 @@ const {
   width = 6,
   height = 6,
   class: propsClass,
+  disableRuiClass,
   ...props
 } = defineProps<
   TooltipArrowProps & {
@@ -18,6 +19,7 @@ const {
     force?: boolean;
     theme?: ToolTipArrowVariants['theme'];
     type?: ToolTipArrowVariants['type'];
+    disableRuiClass?: boolean;
   }
 >();
 const arrowRef = ref<{ $el: HTMLElement } | null>(null);
@@ -46,6 +48,7 @@ const classNames = computed(() =>
     toolTipArrowVariants({
       theme,
       type,
+      disableRuiClass
     }),
     propsClass
   )
@@ -61,6 +64,8 @@ const classNames = computed(() =>
     :style="style"
     :width="width"
     :height="height"
+    :data-type="type"
+    :data-theme="theme"
   >
     <span v-if="type === 'css'"></span>
   </TooltipArrow>

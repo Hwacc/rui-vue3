@@ -53,8 +53,7 @@ const tSliderPropsChange = () => {
           <p class="pb-2">Normal Tooltip:</p>
           <Slider
             v-model="sliderState"
-            wrap-class="w-full"
-            tooltip="focus"
+            tooltip="always"
             tooltip-placement="top"
           />
         </div>
@@ -62,7 +61,6 @@ const tSliderPropsChange = () => {
           <p class="pb-2">Floating Tooltip:</p>
           <Slider
             v-model="sliderState"
-            wrap-class="w-full"
             :contained="true"
             tooltip="always"
             tooltip-placement="bottom"
@@ -74,7 +72,6 @@ const tSliderPropsChange = () => {
           <p class="pb-2">Teleport Floating Tooltip With Component:</p>
           <Slider
             v-model="sliderState"
-            wrap-class="w-full"
             :contained="true"
             tooltip="always"
             :floating-tooltip="sliderTeleportOpts"
@@ -85,7 +82,6 @@ const tSliderPropsChange = () => {
           <p class="pb-2">With Custom Marks:</p>
           <Slider
             v-model="sliderState"
-            wrap-class="w-full"
             :contained="true"
             tooltip="always"
             :interval="10"
@@ -125,7 +121,6 @@ const tSliderPropsChange = () => {
           <p class="pr-2" style="writing-mode: vertical-rl">Floating Tooltip:</p>
           <Slider
             v-model="sliderState"
-            wrap-class="w-full"
             :contained="true"
             :height="200"
             direction="ttb"

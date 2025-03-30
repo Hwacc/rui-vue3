@@ -4,13 +4,16 @@ import type { HTMLAttributes } from 'vue';
 import { cn } from '@/lib/utils';
 import { ToastTitle } from 'reka-ui';
 import { computed } from 'vue';
+import { toastTitleVariants } from '.';
 
-const { class: propsClass, ...props } = defineProps<
-  ToastTitleProps & { class?: HTMLAttributes['class'] }
->();
+const {
+  class: propsClass,
+  disableRuiClass,
+  ...props
+} = defineProps<ToastTitleProps & { class?: HTMLAttributes['class']; disableRuiClass?: boolean }>();
 
 const classNames = computed(() => {
-  return cn('text-base font-rob-bold', propsClass);
+  return cn(toastTitleVariants({ disableRuiClass }), propsClass);
 });
 </script>
 

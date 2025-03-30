@@ -26,7 +26,7 @@ export const getNodeCssVar = <T>(
   fallback?: T
 ) => {
   if (!node) {
-    return fallback;
+    return getComputedStyle(document.documentElement).getPropertyValue(variableName) || fallback;
   }
   return getComputedStyle(node).getPropertyValue(variableName) || fallback;
 };

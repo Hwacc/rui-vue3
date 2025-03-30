@@ -1,0 +1,19 @@
+@layer components {
+  .rui-vue-slider {
+    /* rail */
+    --rail-bg-color: var(--color-h33);
+    /* process */
+    --process-bg-color: var(--color-rz-green);
+    /* dot */
+    --dot-color: var(--color-h00);
+    --dot-border-color: var(--color-rz-green);
+    /* tooltip */
+    --tooltip-bg-color: var(--color-rz-green);
+    --tooltip-text-color: var(--color-h00);
+  }
+
+  .rui-vue-slider-tooltip_floating {
+    --tooltip-bg-color: var(--color-rz-green);
+    --tooltip-text-color: var(--color-h00);
+  }
+}

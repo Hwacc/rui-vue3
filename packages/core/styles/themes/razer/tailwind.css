@@ -244,3 +244,7 @@
 @import './components//radio-group.css';
 @import './components/select.css';
 @import './components/switch.css';
+@import './components/tabs.css';
+@import './components/toast.css';
+@import './components/tooltip.css';
+@import './components/vue-slider.css';

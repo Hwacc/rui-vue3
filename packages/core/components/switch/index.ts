@@ -10,7 +10,6 @@ export const switchVariants = cva(
     'items-center',
     'rounded-full',
     'border-2',
-    'border-transparent',
     'transition-colors',
     'disabled:opacity-(--disabled-opacity)',
   ],
@@ -22,9 +21,21 @@ export const switchVariants = cva(
         lg: ['w-[2.25rem]', 'h-5'],
       },
     },
+    compoundVariants: [
+      {
+        disableRuiClass: false,
+        class: [
+          'bg-(--bg-color)',
+          'data-[state=checked]:bg-(--bg-checked-color)',
+          'data-[state=checked]:hover:bg-(--bg-checked-hover-color)',
+          'data-[state=unchecked]:hover:bg-(--bg-unchecked-hover-color)/80',
+          'border-(--border-color)',
+        ],
+      },
+    ],
   },
   {
-    className: 'rui-switch'
+    className: 'rui-switch',
   }
 );
 
@@ -49,8 +60,15 @@ export const switchThumbVariants = cva(
         lg: ['size-4'],
       },
     },
-  }, {
-    className: 'rui-switch-thumb'
+    compoundVariants: [
+      {
+        disableRuiClass: false,
+        class: ['bg-(--thumb-bg-color)'],
+      },
+    ],
+  },
+  {
+    className: 'rui-switch-thumb',
   }
 );
 export type SwitchThumbVariantsProps = VariantProps<typeof switchThumbVariants>;
