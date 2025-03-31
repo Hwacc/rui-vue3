@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { cn } from '@/lib/utils';
-import { computed, HTMLAttributes, toRefs, watch } from 'vue';
+import { computed, HTMLAttributes, toRefs } from 'vue';
 import {
   circleProgressVariants,
   circleProgressIndicatorVariants,
@@ -67,7 +67,7 @@ const { indicatorRef, transferStyle } = useIndicatorTransfer(indicatorType, mode
             cx="24"
             cy="24"
             :r="24 - strokeWidth"
-            stroke="var(--progress-bg)"
+            stroke="var(--color-rui-progress)"
             :stroke-width="strokeWidth"
             :stroke-dasharray="`${arc} 1000`"
             stroke-dashoffset="0"
@@ -78,7 +78,9 @@ const { indicatorRef, transferStyle } = useIndicatorTransfer(indicatorType, mode
             cy="24"
             :r="24 - strokeWidth"
             :stroke="
-              indicatorType === 'transfer' ? transferStyle.background : 'var(--progress-indicator)'
+              indicatorType === 'transfer'
+                ? transferStyle.background
+                : 'var(--color-rui-progress-indicator)'
             "
             :stroke-width="strokeWidth"
             :stroke-dasharray="`${arc} 1000`"
@@ -115,7 +117,7 @@ const { indicatorRef, transferStyle } = useIndicatorTransfer(indicatorType, mode
             cx="24"
             cy="24"
             :r="24 - strokeWidth"
-            stroke="var(--progress-bg)"
+            stroke="var(--color-rui-progress)"
             :stroke-width="strokeWidth"
             stroke-dasharray="1000"
             stroke-dashoffset="0"
@@ -125,7 +127,9 @@ const { indicatorRef, transferStyle } = useIndicatorTransfer(indicatorType, mode
             cy="24"
             :r="24 - strokeWidth"
             :stroke="
-              indicatorType === 'transfer' ? transferStyle.background : 'var(--progress-indicator)'
+              indicatorType === 'transfer'
+                ? transferStyle.background
+                : 'var(--color-rui-progress-indicator)'
             "
             :stroke-width="strokeWidth"
             :stroke-dasharray="area"

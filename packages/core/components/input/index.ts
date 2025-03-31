@@ -39,6 +39,22 @@ export const inputVariants = cva(
   },
   {
     className: prefix,
+    compound: [
+      {
+        disableRuiClass: false,
+        className: [
+          'bg-rui-input',
+          'border-rui-input-border',
+          'hover:border-rui-input-border-hover',
+          'text-rui-input-text',
+        ],
+      },
+      {
+        disableRuiClass: false,
+        focus: true,
+        className: ['border-rui-input-border-focus', 'hover:border-rui-input-border-focus'],
+      },
+    ],
   }
 );
 export type InputVariants = VariantProps<typeof inputVariants>;
@@ -63,12 +79,23 @@ export const inputInnerVariants = cva(
   },
   {
     className: `${prefix}-inner`,
+    compound: [
+      {
+        disableRuiClass: false,
+        className: [
+          'placeholder:text-rui-input-placeholder',
+          'placeholder:italic',
+          'selection:bg-rui-input-selection',
+          'selection:text-rui-input-selection-text',
+        ],
+      },
+    ],
   }
 );
 export type InputInnerVariants = VariantProps<typeof inputInnerVariants>;
 
 export const inputClearableVariants = cva(
-  '',
+  'flex items-center justify-center',
   {
     variants: {
       size: {
@@ -80,5 +107,15 @@ export const inputClearableVariants = cva(
   },
   {
     className: `${prefix}-clearable`,
+    compound: [
+      {
+        disableRuiClass: false,
+        className: [
+          '[&_svg]:fill-rui-close',
+          '[&_svg]:stroke-black',
+          '[&_svg]:hover:fill-rui-close-hover',
+        ],
+      },
+    ],
   }
 );

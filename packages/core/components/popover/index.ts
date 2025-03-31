@@ -23,9 +23,15 @@ export const popoverContentVariants = cva(
     'p-2.5',
     'outline-none',
   ],
-  undefined,
+  { variants: {} },
   {
     className: `${prefix}-content`,
+    compound: [
+      {
+        disableRuiClass: false,
+        className: ['bg-rui-popover', 'border-rui-popover-border', 'shadow-rui-popover'],
+      },
+    ],
   }
 );
 
@@ -48,7 +54,6 @@ export const popoverArrowVariants = cva(
             'before:w-0',
             'before:h-0',
             'before:bottom-0',
-            'before:border-t-(--rui-popover-arrow-border-color)',
             'before:border-t-(length:--reka-popover-arrow-border-height)',
             'before:border-r-(length:--reka-popover-arrow-border-width)',
             'before:border-r-transparent',
@@ -63,7 +68,6 @@ export const popoverArrowVariants = cva(
             'after:bottom-[.0625rem]',
             'after:w-0',
             'after:h-0',
-            'after:border-t-(--rui-popover-arrow-color)',
             'after:border-t-(length:--reka-popover-arrow-border-height)',
             'after:border-r-(length:--reka-popover-arrow-border-width)',
             'after:border-r-transparent',
@@ -79,8 +83,20 @@ export const popoverArrowVariants = cva(
   {
     className: `${prefix}-arrow`,
     compound: [
-      { type: 'svg', disableRuiClass: false, className: `${prefix}-arrow_svg` },
-      { type: 'css', disableRuiClass: false, className: `${prefix}-arrow_css` },
+      {
+        type: 'svg',
+        disableRuiClass: false,
+        className: ['fill-rui-popover', 'stroke-rui-popover-border', `${prefix}-arrow_svg`],
+      },
+      {
+        type: 'css',
+        disableRuiClass: false,
+        className: [
+          'before:border-t-rui-popover-border',
+          'after:border-t-rui-popover',
+          `${prefix}-arrow_css`,
+        ],
+      },
     ],
   }
 );

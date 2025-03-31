@@ -4,6 +4,8 @@
 
 @import '../../base/animations.css';
 
+@custom-variant dark (&:where([data-theme=dark], [data-theme=dark] *));
+
 @theme {
   /* Spacing */
 
@@ -15,8 +17,8 @@
   --break-point-2xl: 3840px;
 
   /* Colors */
+  --color-*: initial;
   --color-tw-ring-color: transparent;
-
   --color-rz-green: oklch(76.87% 0.2343 141.32);
   --color-rz-green-dark: oklch(47.48% 0.1584 141.32);
   --color-rz-green-dark-hover: oklch(59.25% 0.1135 141.32);
@@ -79,50 +81,53 @@
   --shadow-black-md: 0 0 0.9375rem 0 oklch(0% 0 0 / 80%);
 
   /* Fonts */
-  --font-roboto: var(--font-roboto);
-  --font-rob: var(--font-roboto);
-  --font-roboto-regular: var(--font-roboto-regular);
-  --font-rob-reg: var(--font-roboto-regular);
-  --font-roboto-medium: var(--font-roboto-medium);
-  --font-rob-med: var(--font-roboto-medium);
-  --font-roboto-bold: var(--font-roboto-bold);
-  --font-rob-bold: var(--font-roboto-bold);
-  --font-roboto-black: var(--font-roboto-black);
-  --font-rob-black: var(--font-roboto-black);
-  --font-rz: var(--font-rz);
-  --font-rz-light: var(--font-rz-light);
-  --font-rz-med: var(--font-rz-medium);
-  --font-rz-bold: var(--font-rz-bold);
-
-  /* Border Radius */
-  --radius: 0.125rem;
-  --radius-md: calc(var(--radius) + 0.125rem);
-  --radius-lg: calc(var(--radius) + 0.25rem);
-
-  /* progress */
-  --color-progress-bg: oklch(80.82% 0.2508 141.32 / 40%);
-  --color-progress-indicator-default: var(--color-rz-green);
-}
-
-@theme inline {
-  --font-roboto: Roboto, var(--font-sans);
-  --font-roboto-regular: Roboto-Regular, var(--font-sans);
-  --font-roboto-medium: Roboto-Medium, var(--font-sans);
-  --font-roboto-bold: Roboto-Bold, var(--font-sans);
-  --font-roboto-black: Roboto-Black, var(--font-sans);
+  --font-rob: Roboto, var(--font-sans);
+  --font-rob-regular: Roboto-Regular, var(--font-sans);
+  --font-rob-medium: Roboto-Medium, var(--font-sans);
+  --font-rob-bold: Roboto-Bold, var(--font-sans);
+  --font-rob-black: Roboto-Black, var(--font-sans);
   --font-rz: RazerF5, var(--font-sans);
   --font-rz-light: RazerF5-Light, var(--font-sans);
   --font-rz-medium: RazerF5-Medium, var(--font-sans);
   --font-rz-bold: RazerF5-Bold, var(--font-sans);
   --font-rz-black: RazerF5-Black, var(--font-sans);
 
+  /* Border Radius */
+  --radius: 0.125rem;
+  --radius-md: calc(var(--radius) + 0.125rem);
+  --radius-lg: calc(var(--radius) + 0.25rem);
+
+  /* Other */
   --outline: 2px solid var(--color-rz-green);
   --disabled-opacity: var(--opacity-30, 0.3);
 
-  /* 进度条 */
-  --progress-indicator-transfer-from: var(--color-rz-green);
-  --progress-indicator-transfer-to: var(--color-rz-orange);
+  /* RUI Theme*/
+  --color-rui-parimary: var(--color-rz-green);
+  --color-rui-parimary-hover: var(--color-rz-green-dark-hover);
+  --color-rui-parimary-active: var(--color-rz-green-dark-active);
+    
+  --color-rui-border: var(--color-h54);
+    
+  --color-rui-toggle-text: var(--color-h88);
+  --color-rui-toggle-text-hover: var(--color-hff);
+  --color-rui-toggle-text-active: var(--color-hff);
+    
+  --color-rui-success: var(--color-rz-green);
+  --color-rui-error: var(--color-rz-red);
+  --color-rui-info: var(--color-h88);
+  --color-rui-warning: var(--color-rz-orange);
+    
+  --color-rui-close: var(--color-h88);
+  --color-rui-close-hover: var(--color-hff);
+
+  --color-rui-separator: var(--color-h00);
+
+  --font-rui-label: var(--font-rob-bold);
+
+  --shadow-rui-popper: 0 0.25rem 0.375rem 0 oklch(0% 0 0 / 80%);
 }
+
+@theme inline {}
 
 @theme static {}
 

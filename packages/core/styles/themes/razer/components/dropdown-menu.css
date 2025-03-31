@@ -1,36 +1,20 @@
-@layer components {
-  .rui-dropdown-menu-content {
-    @apply border-h11 bg-h1a text-hcc shadow-black;
-  }
+@theme{
+  /* Dropdown */
+  --color-rui-dropdown: var(--color-h1a);
+  --color-rui-dropdown-border: var(--color-h11);
+  --color-rui-dropdown-text: var(--color-hcc);
 
-  .rui-dropdown-menu-item{
-    @apply hover:bg-hff/10 hover:text-hff focus:bg-hff/10 focus:text-hff;
-  }
+  /* Dropdown item */
+  --color-rui-dropdown-item: transparent;
+  --color-rui-dropdown-item-hover: color-mix(in srgb, var(--color-hff) 10%, transparent);
+  --color-rui-dropdown-item-focus: color-mix(in srgb, var(--color-hff) 10%, transparent);
+  --color-rui-dropdown-item-text: inherit;
+  --color-rui-dropdown-item-text-hover: var(--color-hff);
+  --color-rui-dropdown-item-text-focus: var(--color-hff);
 
-  .rui-dropdown-menu-item_checkbox{
-    @apply hover:bg-hff/10 hover:text-hff focus:bg-hff/10 focus:text-hff;
-  }
+  /* Dropdown item radio */
+  --color-rui-dropdown-item-radio: var(--color-rz-green);
 
-  .rui-dropdown-menu-item_radio{
-    @apply hover:bg-hff/10 hover:text-hff focus:bg-hff/10 focus:text-hff;
-    & svg{
-      @apply fill-rz-green stroke-rz-green;
-    }
-  }
-
-  .rui-dropdown-menu-sub-trigger{
-    @apply hover:bg-hff/10 hover:text-hff focus:bg-hff/10 focus:text-hff data-[state=open]:bg-hff/10;
-  }
-
-  .rui-dropdown-menu-sub-content{
-    @apply border-h11 bg-h1a text-hcc shadow-black-md;
-  }
-
-  .rui-dropdown-menu-label{
-    @apply text-hff font-rob-bold;
-  }
-
-  .rui-dropdown-menu-separator{
-    @apply bg-h00;
-  }
+  /* Dropdown item label */
+  --color-rui-dropdown-item-label: var(--color-hff);
 }

@@ -375,7 +375,7 @@ const mergedRailStyle = computed(() => {
     {
       backgroundColor: disableRuiClass
         ? undefined
-        : getNodeCssVar(sliderRef.value?.$el, '--rail-bg-color', '#333'),
+        : getNodeCssVar(sliderRef.value?.$el, '--color-rui-slider-rail', '#000'),
     },
     railStyle
   );
@@ -385,7 +385,7 @@ const mergedProcessStyle = computed(() => {
     {
       backgroundColor: disableRuiClass
         ? undefined
-        : getNodeCssVar(sliderRef.value?.$el, '--process-bg-color', '#44D62C'),
+        : getNodeCssVar(sliderRef.value?.$el, '--color-rui-slider-progress', '#fff'),
     },
     processStyle
   );

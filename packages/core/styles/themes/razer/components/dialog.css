@@ -1,26 +1,10 @@
-@layer components {
-  .rui-dialog-overlay {
-    @apply bg-h00/80 data-[type=scroll]:webkit-scrollbar-self;
-  }
+@theme {
+  --color-rui-dialog-overlay: color-mix(in srgb, var(--color-h00), 80%, transparent);
 
-  .rui-dialog-content {
-    @apply border-h00 bg-h1a webkit-small-scrollbar;
-  }
-  .rui-dialog-content_scroll {
-    @apply border-h00 bg-h1a;
-  }
+  --color-rui-dialog: var(--color-h1a);
+  --color-rui-dialog-border: var(--color-h11);
 
-  .rui-dialog-close {
-    @apply text-h88 hover:text-hff;
-  }
-  /* in dialog content */
-  .rui-dialog-header{
-    @apply bg-h22 font-rob-bold;
-  }
+  --color-rui-dialog-header: var(--color-h22);
 
-  .rui-dialog-body {}
-
-  .rui-dialog-footer{
-    @apply bg-h16;
-  }
+  --color-rui-dialog-footer: var(--color-h16);
 }

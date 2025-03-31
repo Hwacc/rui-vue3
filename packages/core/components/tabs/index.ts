@@ -1,5 +1,6 @@
 import { VariantProps } from 'class-variance-authority';
 import { cva } from '@/lib/cva';
+import { PREFIX } from '@/lib/constants';
 
 export { default as Tabs } from './Tabs.vue';
 export { default as TabsContent } from './TabsContent.vue';
@@ -7,7 +8,8 @@ export { default as TabsList } from './TabsList.vue';
 export { default as TabsTrigger } from './TabsTrigger.vue';
 export { default as TabsIndicator } from './TabsIndicator.vue';
 
-export const tabsVariants = cva(undefined, { variants: {} }, { className: 'rui-tabs' });
+const prefix = `${PREFIX}-tabs`;
+export const tabsVariants = cva(undefined, { variants: {} }, { className: prefix });
 
 export const tabsListVariants = cva(
   ['flex', 'items-center', 'relative', 'border-b-1', 'overflow-hidden'],
@@ -16,12 +18,12 @@ export const tabsListVariants = cva(
     compoundVariants: [
       {
         disableRuiClass: false,
-        className: 'border-b-(--list-border-color)',
+        className: 'border-b-rui-border',
       },
     ],
   },
   {
-    className: 'rui-tabs-list',
+    className: `${prefix}-list`,
   }
 );
 
@@ -49,15 +51,15 @@ export const tabsTriggerVariants = cva(
       {
         disableRuiClass: false,
         className: [
-          'text-(--trigger-text-color)',
-          'hover:text-(--trigger-text-hover-color)',
-          'data-[state=active]:text-(--trigger-text-active-color)',
+          'text-rui-toggle-text',
+          'hover:text-rui-toggle-text-hover',
+          'data-[state=active]:text-rui-toggle-text-active',
         ],
       },
     ],
   },
   {
-    className: 'rui-tabs-trigger',
+    className: `${prefix}-trigger`,
   }
 );
 export type TabsTriggerVariantsProps = VariantProps<typeof tabsTriggerVariants>;
@@ -84,12 +86,12 @@ export const tabsIndicatorVariants = cva(
     compoundVariants: [
       {
         disableRuiClass: false,
-        className: '[&>div]:bg-(--indicator-bg-color)',
+        className: '[&>div]:bg-rui-tabs-indicator',
       },
     ],
   },
   {
-    className: 'rui-tabs-indicator',
+    className: `${prefix}-indicator`,
   }
 );
 export type TabsIndicatorVariantsProps = VariantProps<typeof tabsIndicatorVariants>;
@@ -107,7 +109,7 @@ export const tabsContentVariants = cva(
     },
   },
   {
-    className: 'rui-tabs-content',
+    className: `${prefix}-content`,
   }
 );
 export type TabsContentVariantsProps = VariantProps<typeof tabsContentVariants>;

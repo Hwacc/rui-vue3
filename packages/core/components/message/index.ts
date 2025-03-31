@@ -46,24 +46,48 @@ export const messageVariants = cva(
     className: prefix,
     compound: [
       {
+        disableRuiClass: false,
+        className: ['bg-rui-message', 'shadow-rui-popper'],
+      },
+      {
         variant: 'success',
         disableRuiClass: false,
-        className: `${prefix}_success`,
+        className: [
+          '[&_svg]:fill-rui-success',
+          '[&_svg]:stroke-rui-message',
+          '[&_circle]:stroke-rui-success',
+          `${prefix}_success`,
+        ],
       },
       {
         variant: 'error',
         disableRuiClass: false,
-        className: `${prefix}_error`,
+        className: [
+          '[&_svg]:fill-rui-error',
+          '[&_svg]:stroke-rui-message',
+          '[&_circle]:stroke-rui-error',
+          `${prefix}_error`,
+        ],
       },
       {
         variant: 'warning',
         disableRuiClass: false,
-        className: `${prefix}_warning`,
+        className: [
+          '[&_svg]:fill-rui-warning',
+          '[&_svg]:stroke-rui-message',
+          '[&_circle]:stroke-rui-warning',
+          `${prefix}_warning`,
+        ],
       },
       {
         variant: 'info',
         disableRuiClass: false,
-        className: `${prefix}_info`,
+        className: [
+          '[&_svg]:fill-rui-info',
+          '[&_svg]:stroke-rui-message',
+          '[&_circle]:stroke-rui-info',
+          `${prefix}_info`,
+        ],
       },
     ],
   }

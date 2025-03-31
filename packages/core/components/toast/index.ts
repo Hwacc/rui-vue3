@@ -2,6 +2,7 @@ import type { ToastRootProps } from 'reka-ui';
 import type { HTMLAttributes } from 'vue';
 import type { VariantProps } from 'class-variance-authority';
 import { cva } from '@/lib/cva';
+import { PREFIX } from '@/lib/constants';
 
 export type SwipeDirection = 'up' | 'down' | 'left' | 'right';
 export type ToastPosition =
@@ -145,6 +146,7 @@ const getToastCompoundVariants = () => {
     };
   });
 };
+const prefix = `${PREFIX}-toast`;
 export const toastVariants = cva<{
   position: Partial<Record<ToastPosition, any>>;
   swipeDirection: Partial<Record<SwipeDirection, any>>;
@@ -188,7 +190,7 @@ export const toastVariants = cva<{
       ...(getToastCompoundVariants() as any),
       {
         disableRuiClass: false,
-        className: 'bg-(--bg-color)',
+        className: ['bg-rui-toast', 'shadow-rui-popper'],
       },
     ],
     defaultVariants: {
@@ -197,27 +199,27 @@ export const toastVariants = cva<{
     },
   },
   {
-    className: 'rui-toast',
+    className: prefix,
     compound: [
       {
         variant: 'success',
         disableRuiClass: false,
-        className: ['border-l-(--success-color)', 'rui-toast_success'],
+        className: ['border-l-rui-success', 'rui-toast_success'],
       },
       {
         variant: 'error',
         disableRuiClass: false,
-        className: ['border-l-(--error-color)', 'rui-toast_error'],
+        className: ['border-l-rui-error', 'rui-toast_error'],
       },
       {
         variant: 'warning',
         disableRuiClass: false,
-        className: ['border-l-(--warning-color)', 'rui-toast_warning'],
+        className: ['border-l-rui-warning', 'rui-toast_warning'],
       },
       {
         variant: 'info',
         disableRuiClass: false,
-        className: ['border-l-(--info-color)', 'rui-toast_info'],
+        className: ['border-l-rui-info', 'rui-toast_info'],
       },
     ],
   }
@@ -237,47 +239,31 @@ export const toastIconVariants = cva(
     },
   },
   {
-    className: 'rui-toast-icon',
+    className: `${prefix}-icon`,
     compound: [
       {
         disableRuiClass: false,
-        className: 'stroke-(--bg-color)',
+        className: 'stroke-rui-toast',
       },
       {
         variant: 'success',
         disableRuiClass: false,
-        className: [
-          'fill-(--success-color)',
-          '[&>circle]:stroke-(--success-color)',
-          'rui-toast-icon_success',
-        ],
+        className: ['fill-rui-success', '[&>circle]:stroke-rui-success', `${prefix}-icon_success`],
       },
       {
         variant: 'error',
         disableRuiClass: false,
-        className: [
-          'fill-(--error-color)',
-          '[&>circle]:stroke-(--error-color)',
-          'rui-toast-icon_error',
-        ],
+        className: ['fill-rui-error', '[&>circle]:stroke-rui-error', `${prefix}-icon_error`],
       },
       {
         variant: 'warning',
         disableRuiClass: false,
-        className: [
-          'fill-(--warning-color)',
-          '[&>circle]:stroke-(--warning-color)',
-          'rui-toast-icon_warning',
-        ],
+        className: ['fill-rui-warning', '[&>circle]:stroke-rui-warning', `${prefix}-icon_warning`],
       },
       {
         variant: 'info',
         disableRuiClass: false,
-        className: [
-          'fill-(--info-color)',
-          '[&>circle]:stroke-(--info-color)',
-          'rui-toast-icon_info',
-        ],
+        className: ['fill-rui-info', '[&>circle]:stroke-rui-info', `${prefix}-icon_info`],
       },
     ],
   }
@@ -288,10 +274,10 @@ export const toastTitleVariants = cva(
   ['text-base'],
   {
     variants: {},
-    compoundVariants: [{ disableRuiClass: false, className: 'text-(--title-color)' }],
+    compoundVariants: [{ disableRuiClass: false, className: ['text-rui-toast-title', 'font-rob-bold'] }],
   },
   {
-    className: 'rui-toast-title',
+    className: `${prefix}-title`,
   }
 );
 
@@ -299,10 +285,10 @@ export const toastDescriptionVariants = cva(
   ['text-sm'],
   {
     variants: {},
-    compoundVariants: [{ disableRuiClass: false, className: 'text-(--description-color)' }],
+    compoundVariants: [{ disableRuiClass: false, className: 'text-rui-toast-description' }],
   },
   {
-    className: 'rui-toast-description',
+    className: `${prefix}-description`,
   }
 );
 
@@ -313,12 +299,12 @@ export const toastCloseVariants = cva(
     compoundVariants: [
       {
         disableRuiClass: false,
-        className: ['text-(--close-color)', 'hover:text-(--close-hover-color)'],
+        className: ['text-rui-close', 'hover:text-rui-close-hover'],
       },
     ],
   },
   {
-    className: 'rui-toast-close',
+    className: `${prefix}-close`,
   }
 );
 
@@ -336,12 +322,12 @@ export const toastActionVariants = cva(
     variants: { variant: { success: '', error: '', warning: '', info: '' } },
   },
   {
-    className: 'rui-toast-action',
+    className: `${prefix}-action`,
     compound: [
-      { variant: 'success', disableRuiClass: false, className: 'rui-toast-action_success' },
-      { variant: 'error', disableRuiClass: false, className: 'rui-toast-action_error' },
-      { variant: 'warning', disableRuiClass: false, className: 'rui-toast-action_warning' },
-      { variant: 'info', disableRuiClass: false, className: 'rui-toast-action_info' },
+      { variant: 'success', disableRuiClass: false, className: `${prefix}-action_success` },
+      { variant: 'error', disableRuiClass: false, className: `${prefix}-action_error` },
+      { variant: 'warning', disableRuiClass: false, className: `${prefix}-action_warning` },
+      { variant: 'info', disableRuiClass: false, className: `${prefix}-action_info` },
     ],
   }
 );

@@ -1,28 +1,3 @@
-@layer components {
-  .rui-message{
-    @apply bg-h22 shadow-black;
-
-    &[data-variant="success"] {
-      & svg {
-        @apply fill-rz-green stroke-h22 [&>circle]:stroke-rz-green;
-      }
-    }
-  
-    &[data-variant="error"] {
-      & svg {
-        @apply fill-rz-red stroke-h22 [&>circle]:stroke-rz-red;
-      }
-    }
-    &[data-variant="warning"] {
-      & svg {
-        @apply fill-rz-orange stroke-h22 [&>circle]:stroke-rz-orange;
-      }
-    }
-
-    &[data-variant="info"] {
-      & svg {
-        @apply fill-h88 stroke-h22 [&>circle]:stroke-h88;
-      }
-    }
-  }
+@theme {
+  --color-rui-message: var(--color-h22);
 }

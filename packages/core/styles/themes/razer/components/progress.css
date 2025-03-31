@@ -1,39 +1,31 @@
-@layer components {
-  .rui-progress {
-    @apply bg-rz-green/30;
-  }
+@theme {
+  /* Progress */
+  --color-rui-progress: oklch(76.87% 0.2343 141.32 / 30%);
+  --color-rui-progress-indicator: var(--color-rz-green);
 
-  .rui-progress-indicator {
-    &[data-type="default"] {
-      @apply bg-rz-green;
-    }
-    &[data-type="robbin"] {
-      --robbin-1: oklch(80.82% 0.2508 141.32);
-      --robbin-2: oklch(76.9% 0.2358 141.32);
-      background-image: linear-gradient(45deg, var(--robbin-1) 25%, var(--robbin-2) 25%, var(--robbin-2) 50%, var(--robbin-1) 50%, var(--robbin-1) 75%, var(--robbin-2) 75%, var(--robbin-2));
-      background-size: 6px 6px;
-      background-repeat: repeat-x;
-      animation: robbin-left-to-right 0.6s linear infinite;
-    }
-    &[data-type="transfer"] {
-      --transfer-from: #45d62e;
-      --transfer-to: #ffaa00;
-    }
-  }
-
+  /* Robbin anmation */
   @keyframes robbin-left-to-right {
     to {
       background-position: .375rem 0;
     }
   }
-
-
-  .rui-circle-progress {
-    --progress-bg: oklch(76.87% 0.2343 141.32 / 30%);
-    --progress-indicator: oklch(76.87% 0.2343 141.32);
+}
+@layer components {
+  .rui-progress-indicator_robbin {
+    --robbin-1: oklch(80.82% 0.2508 141.32);
+    --robbin-2: oklch(76.9% 0.2358 141.32);
+    background-image: linear-gradient(45deg, var(--robbin-1) 25%, var(--robbin-2) 25%, var(--robbin-2) 50%, var(--robbin-1) 50%, var(--robbin-1) 75%, var(--robbin-2) 75%, var(--robbin-2));
+    background-size: 6px 6px;
+    background-repeat: repeat-x;
+    animation: robbin-left-to-right 0.6s linear infinite;
   }
 
-  .rui-circle-progress-indicator{
+  .rui-progress-indicator_transfer {
+    --transfer-from: #45d62e;
+    --transfer-to: #ffaa00;
+  }
+
+  .rui-circle-progress-indicator {
     &[data-type="transfer"] {
       --transfer-from: #45d62e;
       --transfer-to: #ffaa00;

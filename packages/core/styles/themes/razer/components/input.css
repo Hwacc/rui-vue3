@@ -1,22 +1,12 @@
-@layer components {
-  .rui-input {
-    @apply border-h55 text-hbb hover:border-h66 hover:ring-h4c;
+@theme {
+  /* Input */
+  --color-rui-input: transparent;
+  --color-rui-input-border: var(--color-h55);
+  --color-rui-input-border-hover: var(--color-h66);
+  --color-rui-input-border-focus: var(--color-rz-green);
+  --color-rui-input-text: var(--color-hbb);
 
-    &[data-state="focus"]{
-      @apply border-rz-green ring-rz-green-border 
-      hover:border-rz-green 
-      hover:ring-rz-green-border;
-    }
-  }
-
-  .rui-input-inner{
-    @apply placeholder:italic placeholder:text-h55 selection:bg-[#204C19] selection:text-[#97C390];
-  }
-
-  .rui-input-clearable{
-    @apply flex-c;
-    & svg{
-      @apply fill-h58 stroke-black hover:fill-white;
-    }
-  }
+  --color-rui-input-placeholder: var(--color-h55);
+  --color-rui-input-selection: #204C19;
+  --color-rui-input-selection-text: #97C390;
 }

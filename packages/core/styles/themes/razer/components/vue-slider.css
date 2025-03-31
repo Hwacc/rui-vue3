@@ -1,19 +1,22 @@
-@layer components {
-  .rui-vue-slider {
-    /* rail */
-    --rail-bg-color: var(--color-h33);
-    /* process */
-    --process-bg-color: var(--color-rz-green);
-    /* dot */
-    --dot-color: var(--color-h00);
-    --dot-border-color: var(--color-rz-green);
-    /* tooltip */
-    --tooltip-bg-color: var(--color-rz-green);
-    --tooltip-text-color: var(--color-h00);
-  }
+@import './tooltip.css';
 
+@theme {
+  /* Slider */
+  --color-rui-slider-rail: var(--color-h33);
+  --color-rui-slider-progress: var(--color-rz-green);
+
+  /* slider dot */
+  --color-rui-slider-dot: var(--color-h00);
+  --color-rui-slider-dot-border: var(--color-rz-green);
+}
+
+@layer components {
+  .rui-vue-slider-tooltip{
+    --color-rui-tooltip: var(--color-rz-green);
+    --color-rui-tooltip-text: var(--color-h00);
+  }
   .rui-vue-slider-tooltip_floating {
-    --tooltip-bg-color: var(--color-rz-green);
-    --tooltip-text-color: var(--color-h00);
+    --color-rui-tooltip: var(--color-rz-green);
+    --color-rui-tooltip-text: var(--color-h00);
   }
 }

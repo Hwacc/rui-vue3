@@ -1,12 +1,11 @@
-@layer components {
-  .rui-switch {
-    --bg-color: var(--color-h78);
-    --bg-checked-color: var(--color-rz-green);
-    --bg-checked-hover-color: var(--color-rz-green-light);
-    --bg-unchecked-hover-color: var(--color-h78);
-    --border-color: transparent;
+@theme {
+  --color-rui-switch: var(--color-h78);
+  --color-rui-switch-hover: color-mix(in srgb, var(--color-h78) 80%, transparent);
 
-    /* thumb*/
-    --thumb-bg-color: var(--color-h00);
-  }
+  --color-rui-switch-checked: var(--color-rz-green);
+  --color-rui-switch-checked-hover: var(--color-rz-green-light);
+
+  --color-rui-switch-border: transparent;
+
+  --color-rui-switch-thumb: var(--color-h00);
 }

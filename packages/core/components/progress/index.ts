@@ -8,22 +8,22 @@ export { default as CircleProgress } from './CircleProgress.vue';
 const prefix = `${PREFIX}-progress`;
 export const progressVariants = cva(
   ['relative', 'h-1.5', 'w-full', 'overflow-hidden', 'rounded-full'],
-  undefined,
+  {
+    variants: {},
+    compoundVariants: [
+      {
+        disableRuiClass: false,
+        className: ['bg-rui-progress'],
+      },
+    ],
+  },
   {
     className: prefix,
   }
 );
 
 export const progressIndicatorVariants = cva(
-  [
-    'h-full',
-    'w-full',
-    'flex-1',
-    'rounded-full',
-    'transition-all',
-    'data-[type=default]:bg-progress-indicator-default',
-    'data-[type=robbin]:progress-indicator-robbin',
-  ],
+  ['h-full', 'w-full', 'flex-1', 'rounded-full', 'transition-all'],
   {
     variants: {
       type: {
@@ -36,6 +36,11 @@ export const progressIndicatorVariants = cva(
   {
     className: `${prefix}-indicator`,
     compound: [
+      {
+        type: 'default',
+        disableRuiClass: false,
+        className: ['bg-rui-progress-indicator', `${prefix}-indicator_default`],
+      },
       {
         type: 'robbin',
         disableRuiClass: false,
@@ -56,7 +61,13 @@ export const circleProgressVariants = cva(
   },
   {
     className: `${PREFIX}-circle-progress`,
-    compound: [{ type: 'arc', disableRuiClass: false, className: `${PREFIX}-circle-progress_arc` }],
+    compound: [
+      {
+        disableRuiClass: false,
+        className: '',
+      },
+      { type: 'arc', disableRuiClass: false, className: `${PREFIX}-circle-progress_arc` },
+    ],
   }
 );
 export type CircleProgressVariants = VariantProps<typeof circleProgressVariants>;

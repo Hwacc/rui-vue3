@@ -31,8 +31,16 @@ export const dialogOverlayVariants = cva(
     'data-[state=closed]:animate-out',
     'data-[state=closed]:fade-out',
   ],
-  undefined,
-  { className: `${prefix}-overlay` }
+  { variants: {} },
+  {
+    className: `${prefix}-overlay`,
+    compound: [
+      {
+        disableRuiClass: false,
+        className: ['bg-rui-dialog-overlay', 'data-[type=scroll]:webkit-scrollbar-self'],
+      },
+    ],
+  }
 );
 export type DialogOverlayVariantsProps = VariantProps<typeof dialogOverlayVariants>;
 
@@ -58,35 +66,64 @@ export const dialogContentVariants = cva(
       },
     },
   },
-  { className: `${prefix}-content` }
+  {
+    className: `${prefix}-content`,
+    compound: [
+      {
+        disableRuiClass: false,
+        className: ['bg-rui-dialog', 'border-rui-dialog-border', 'webkit-small-scrollbar'],
+      },
+    ],
+  }
 );
 export type DialogContentVariantsProps = VariantProps<typeof dialogContentVariants>;
 
-export const DialogScrollContentVariants = cva([
-  'relative',
-  'max-w-full',
-  'md:max-w-[80%]',
-  'mx-auto',
-  'my-8',
-  'z-50',
-  'outline-none',
-  'border',
-  'rounded',
-  'data-[state=open]:animate-fade-down-in',
-  'data-[state=closed]:animate-fade-down-out',
-  `${prefix}-content_scroll`,
-]);
+export const DialogScrollContentVariants = cva(
+  [
+    'relative',
+    'max-w-full',
+    'md:max-w-[80%]',
+    'mx-auto',
+    'my-8',
+    'z-50',
+    'outline-none',
+    'border',
+    'rounded',
+    'data-[state=open]:animate-fade-down-in',
+    'data-[state=closed]:animate-fade-down-out',
+  ],
+  { variants: {} },
+  {
+    className: `${prefix}-scroll-content`,
+    compound: [
+      {
+        disableRuiClass: false,
+        className: ['bg-rui-dialog', 'border-rui-dialog-border', `${prefix}-content_scroll`],
+      },
+    ],
+  }
+);
 export type DialogScrollContentVariantsProps = VariantProps<typeof DialogScrollContentVariants>;
 
-export const dialogCloseVariants = cva(['group'], {
-  variants: {
-    position: {
-      abs: ['absolute', 'pr-2', 'pt-2', 'right-0', 'top-0'],
+export const dialogCloseVariants = cva(
+  ['group'],
+  {
+    variants: {
+      position: {
+        abs: ['absolute', 'pr-2', 'pt-2', 'right-0', 'top-0'],
+      },
     },
   },
-}, {
-  className: `${prefix}-close`
-});
+  {
+    className: `${prefix}-close`,
+    compound: [
+      {
+        disableRuiClass: false,
+        className: ['text-rui-close', 'hover:text-rui-close-hover'],
+      },
+    ],
+  }
+);
 
 export const dialogContentBodyVariants = cva(['flex-1', 'p-6', 'overflow-y-auto'], undefined, {
   className: `${prefix}-body`,
@@ -94,16 +131,28 @@ export const dialogContentBodyVariants = cva(['flex-1', 'p-6', 'overflow-y-auto'
 
 export const dialogHeaderVariants = cva(
   ['flex', 'items-center', 'justify-between', 'py-2.5', 'px-5', 'text-sm'],
-  undefined,
+  { variants: {} },
   {
     className: `${prefix}-header`,
+    compound: [
+      {
+        disableRuiClass: false,
+        className: ['bg-rui-dialog-header', 'font-rob-bold'],
+      },
+    ],
   }
 );
 
 export const dialogFooterVariants = cva(
   ['flex', 'items-center', 'justify-end', 'gap-5', 'p-4'],
-  undefined,
+  { variants: {} },
   {
     className: `${prefix}-footer`,
+    compound: [
+      {
+        disableRuiClass: false,
+        className: ['bg-rui-dialog-footer'],
+      },
+    ],
   }
 );

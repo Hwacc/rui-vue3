@@ -2,16 +2,16 @@
 import { Progress, CircleProgress } from '@/components/progress';
 import { onMounted, ref } from 'vue';
 
-const progressValue = ref(0);
+const progressValue = ref(30);
 
-onMounted(() => {
-  setInterval(() => {
-    progressValue.value = progressValue.value + 5;
-    if (progressValue.value > 100) {
-      progressValue.value = 0;
-    }
-  }, 1000);
-});
+// onMounted(() => {
+//   setInterval(() => {
+//     progressValue.value = progressValue.value + 5;
+//     if (progressValue.value > 100) {
+//       progressValue.value = 0;
+//     }
+//   }, 1000);
+// });
 </script>
 
 <template>

@@ -1,11 +1,9 @@
-@layer components {
-  .rui-tooltip-content {
-    --bg-default-color: var(--color-hff);
-    --border-default-color: var(--color-h00);
-    --text-default-color: var(--color-h00);
+@theme {
+  --color-rui-tooltip: var(--color-hff);
+  --color-rui-tooltip-border: var(--color-h00);
+  --color-rui-tooltip-text: var(--color-h00);
 
-    --bg-dark-color: var(--color-h00);
-    --border-dark-color: var(--color-hff);
-    --text-dark-color: var(--color-hff);
-  }
+  --color-rui-tooltip-dark: var(--color-h00);
+  --color-rui-tooltip-border-dark: var(--color-hff);
+  --color-rui-tooltip-text-dark: var(--color-hff);
 }

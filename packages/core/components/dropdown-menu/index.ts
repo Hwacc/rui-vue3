@@ -35,8 +35,21 @@ export const dropdownMenuContentVariants = cva(
     'px-2',
     'py-1.5',
   ],
-  undefined,
-  { className: `${prefix}-content` }
+  { variants: {} },
+  {
+    className: `${prefix}-content`,
+    compound: [
+      {
+        disableRuiClass: false,
+        className: [
+          'bg-rui-dropdown',
+          'border-rui-dropdown-border',
+          'text-rui-dropdown-text',
+          'shadow-rui-popper',
+        ],
+      },
+    ],
+  }
 );
 
 export const dropdownMenuItemVariants = cva(
@@ -66,10 +79,18 @@ export const dropdownMenuItemVariants = cva(
     },
   },
   {
+    className: `${prefix}-item`,
     compound: [
       {
-        type: 'default',
-        className: `${prefix}-item`,
+        disableRuiClass: false,
+        className: [
+          'bg-rui-dropdown-item',
+          'text-rui-dropdown-item-text',
+          'hover:bg-rui-dropdown-item-hover',
+          'hover:text-rui-dropdown-item-text-hover',
+          'focus:bg-rui-dropdown-item-focus',
+          'focus:text-rui-dropdown-item-text-focus',
+        ],
       },
       {
         type: 'checkbox',
@@ -77,7 +98,11 @@ export const dropdownMenuItemVariants = cva(
       },
       {
         type: 'radio',
-        className: `${prefix}-item_radio`,
+        className: [
+          '[&_svg]:fill-rui-dropdown-item-radio',
+          '[&_svg]:stroke-rui-dropdown-item-radio',
+          `${prefix}-item_radio`,
+        ],
       },
     ],
   }
@@ -95,9 +120,24 @@ export const dropdownMenuSubTriggerVariants = cva(
     'text-sm',
     'outline-none',
   ],
-  undefined,
+  { variants: {} },
   {
     className: `${prefix}-sub-trigger`,
+    compound: [
+      {
+        disableRuiClass: false,
+        className: [
+          'bg-rui-dropdown-item',
+          'text-rui-dropdown-item-text',
+          'hover:bg-rui-dropdown-item-hover',
+          'hover:text-rui-dropdown-item-text-hover',
+          'focus:bg-rui-dropdown-item-focus',
+          'focus:text-rui-dropdown-item-text-focus',
+          'data-[state=open]:bg-rui-dropdown-item-focus',
+          'data-[state=open]:text-rui-dropdown-item-text-focus',
+        ],
+      },
+    ],
   }
 );
 
@@ -111,8 +151,21 @@ export const dropdownMenuSubContentVariants = cva(
     'border',
     'overflow-hidden',
   ],
-  undefined,
-  { className: `${prefix}-sub-content` }
+  { variants: {} },
+  {
+    className: `${prefix}-sub-content`,
+    compound: [
+      {
+        disableRuiClass: false,
+        className: [
+          'bg-rui-dropdown',
+          'border-rui-dropdown-border',
+          'text-rui-dropdown-text',
+          'shadow-rui-popper',
+        ],
+      },
+    ],
+  }
 );
 
 export const dropdownMenuLabelVariants = cva(
@@ -126,9 +179,25 @@ export const dropdownMenuLabelVariants = cva(
   },
   {
     className: `${prefix}-label`,
+    compound: [
+      {
+        disableRuiClass: false,
+        className: 'text-rui-label',
+      },
+    ],
   }
 );
 
-export const dropdownMenuSeparatorVariants = cva(['-mx-2 my-1.5 h-px'], undefined, {
-  className: `${prefix}-separator`,
-});
+export const dropdownMenuSeparatorVariants = cva(
+  ['-mx-2 my-1.5 h-px'],
+  { variants: {} },
+  {
+    className: `${prefix}-separator`,
+    compound: [
+      {
+        disableRuiClass: false,
+        className: 'bg-rui-separator',
+      },
+    ],
+  }
+);

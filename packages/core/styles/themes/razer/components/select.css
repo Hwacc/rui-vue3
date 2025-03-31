@@ -1,49 +1,37 @@
-@layer components {
-  .rui-select-trigger{
-    --bg-color: var(--color-h16);
-    --border-color: var(--color-h00);
-    --text-color: var(--color-hbb);
-    --placeholder-color: var(--color-h55);
-    --border-hover-color: var(--color-rz-green);
-    --border-focus-color: var(--color-rz-green);
-    --border-open-color: var(--color-rz-green);
-    
-  }
+@theme {
+  /* Trigger */
+  --color-rui-select-trigger: var(--color-h16);
+  --color-rui-select-trigger-text: var(--color-hbb);
+  --color-rui-select-trigger-placeholder: var(--color-h55);
 
-  .rui-select-content{
-    --bg-color: var(--color-h1a);
-    --border-color: var(--color-h11);
-    --text-color: var(--color-hcc);
-    @apply shadow-black;
-  }
+  /* Trigger border */
+  --color-rui-select-trigger-border: var(--color-h00);
+  --color-rui-select-trigger-border-hover: var(--color-rz-green);
+  --color-rui-select-trigger-border-focus: var(--color-rz-green);
+  --color-rui-select-trigger-border-open: var(--color-rz-green);
 
-  .rui-select-item{
-    --bg-color: transparent;
-    --bg-hover-color: var(--color-h28);
-    --bg-focus-color: var(--color-h28);
-    --text-color: var(--color-hbb);
-    --text-checked-color: var(--color-rz-green);
-  }
+  /* Content */
+  --color-rui-select-content: var(--color-h1a);
+  --color-rui-select-content-border: var(--color-h11);
+  --color-rui-select-content-text: var(--color-hcc);
 
-  .rui-select-label{
-    --bg-color: transparent;
-    --text-color: inhreit;
-    --font-family: var(--font-rob-bold);
-  }
+  /* Item */
+  --color-rui-select-item: transparent;
+  --color-rui-select-item-hover: var(--color-h28);
+  --color-rui-select-item-focus: var(--color-h28);
+  --color-rui-select-item-text: var(--color-hbb);
+  --color-rui-select-item-text-checked: var(--color-rz-green);
 
-  .rui-select-triangle{
-    --color: currentColor;
-    --hover-color: var(--color-hff);
-    --open-color: var(--color-hff);
-  }
+  /* Label */
+  --color-rui-select-label: transparent;
+  --color-rui-select-label-text: var(--color-hff);
 
-  .rui-select-value {
-    --bg-color: var(--color-h33);
-    --text-color: currentColor;
-    --close-color: currentColor;
-    --close-hover-color: var(--color-hff);
-  }
+  /* triangle */
+  --color-rui-select-triangle: currentColor;
+  --color-rui-select-triangle-hover: var(--color-hff);
+  --color-rui-select-triangle-open: var(--color-hff);
 
-  .rui-select-scroll-button_up{}
-  .rui-select-scroll-button_down{}
+  /* Value */
+  --color-rui-select-value: var(--color-h33);
+  --color-rui-select-value-text: inherit;
 }

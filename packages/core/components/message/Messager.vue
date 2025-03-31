@@ -27,7 +27,7 @@ const { messages } = useMessage();
       :key="message.id"
       v-bind="message"
       :class="messageVariants({ variant: message.variant, disableRuiClass: props.disableRuiClass })"
-      :data-variant="message.variant"
+      :data-type="message.variant"
     >
       <div class="w-full flex items-center gap-4">
         <template v-if="!message.icon">

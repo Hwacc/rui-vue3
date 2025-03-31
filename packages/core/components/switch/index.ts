@@ -1,7 +1,9 @@
 import { VariantProps } from 'class-variance-authority';
 import { cva } from '@/lib/cva';
+import { PREFIX } from '@/lib/constants';
 export { default as Switch } from './Switch.vue';
 
+const prefix = `${PREFIX}-switch`;
 export const switchVariants = cva(
   [
     'peer',
@@ -25,17 +27,19 @@ export const switchVariants = cva(
       {
         disableRuiClass: false,
         class: [
-          'bg-(--bg-color)',
-          'data-[state=checked]:bg-(--bg-checked-color)',
-          'data-[state=checked]:hover:bg-(--bg-checked-hover-color)',
-          'data-[state=unchecked]:hover:bg-(--bg-unchecked-hover-color)/80',
-          'border-(--border-color)',
+          'bg-rui-switch',
+          'data-[state=unchecked]:hover:bg-rui-switch-hover',
+          'data-[state=checked]:bg-rui-switch-checked',
+          'data-[state=checked]:hover:bg-rui-switch-checked-hover',
+          'disabled:!bg-rui-switch',
+          'disabled:hover:!bg-rui-switch',
+          'border-rui-switch-border',
         ],
       },
     ],
   },
   {
-    className: 'rui-switch',
+    className: prefix,
   }
 );
 
@@ -63,12 +67,12 @@ export const switchThumbVariants = cva(
     compoundVariants: [
       {
         disableRuiClass: false,
-        class: ['bg-(--thumb-bg-color)'],
+        class: 'bg-rui-switch-thumb',
       },
     ],
   },
   {
-    className: 'rui-switch-thumb',
+    className: `${prefix}-thumb`,
   }
 );
 export type SwitchThumbVariantsProps = VariantProps<typeof switchThumbVariants>;

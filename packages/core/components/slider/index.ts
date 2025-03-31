@@ -1,3 +1,4 @@
+import { PREFIX } from '@/lib/constants';
 import { cva } from '@/lib/cva';
 
 /**
@@ -8,8 +9,9 @@ import { cva } from '@/lib/cva';
 export { default as Slider, useFloatingTooltip } from './Slider.vue';
 export type { SLIDER_ERROR_TYPE, FloatingTooltipOptions } from './Slider.vue';
 
+const prefix = `${PREFIX}-vue-slider`;
 export const sliderVariants = cva([], undefined, {
-  className: 'rui-vue-slider',
+  className: prefix,
 });
 
 export const sliderDotVariants = cva(
@@ -29,15 +31,15 @@ export const sliderDotVariants = cva(
     compoundVariants: [
       {
         disableRuiClass: false,
-        class: ['bg-(--dot-color)', 'border-(--dot-border-color)'],
+        class: ['bg-rui-slider-dot', 'border-rui-slider-dot-border'],
       },
     ],
   },
-  { className: 'rui-vue-slider-dot' }
+  { className: `${prefix}-dot` }
 );
 
 export const sliderTooltipVariants = cva(
-  ['flex', 'px-2', 'py-1', 'rounded', 'text-xs'],
+  ['flex', 'px-2', 'py-1', 'rounded', 'text-xs', 'font-rob-bold'],
   {
     variants: {
       type: {
@@ -83,45 +85,45 @@ export const sliderTooltipVariants = cva(
       {
         disableRuiClass: false,
         class: [
-          'bg-(--tooltip-bg-color)',
-          'text-(--tooltip-text-color)',
-          '[&_svg]:fill-(--tooltip-bg-color)',
+          'bg-rui-tooltip',
+          'text-rui-tooltip-text',
+          '[&_svg]:fill-rui-tooltip',
         ],
       },
       {
         disableRuiClass: false,
         placement: 'top',
-        class: ['after:border-t-(--tooltip-bg-color)'],
+        class: ['after:border-t-rui-tooltip'],
       },
       {
         disableRuiClass: false,
         placement: 'bottom',
-        class: ['after:border-b-(--tooltip-bg-color)'],
+        class: ['after:border-b-rui-tooltip'],
       },
       {
         disableRuiClass: false,
         placement: 'left',
-        class: ['after:border-l-(--tooltip-bg-color)'],
+        class: ['after:border-l-rui-tooltip'],
       },
       {
         disableRuiClass: false,
         placement: 'right',
-        class: ['after:border-r-(--tooltip-bg-color)'],
+        class: ['after:border-r-rui-tooltip'],
       },
     ],
   },
   {
-    className: 'rui-vue-slider-tooltip',
+    className: `${prefix}-tooltip`,
     compound: [
       {
         type: 'floating',
         disableRuiClass: false,
-        className: 'rui-vue-slider-tooltip_floating',
+        className: `${prefix}-tooltip_floating`,
       },
       {
         type: 'default',
         disableRuiClass: false,
-        className: 'rui-vue-slider-tooltip_default',
+        className: `${prefix}-tooltip_default`,
       },
     ],
   }

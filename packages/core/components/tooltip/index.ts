@@ -7,8 +7,10 @@ import { type VariantProps } from 'class-variance-authority';
 import { cva } from '@/lib/cva';
 import TooltipArrow from './TooltipArrow.vue';
 import { TooltipArrowProps } from 'reka-ui';
+import { PREFIX } from '@/lib/constants';
 export { TooltipArrow, type TooltipArrowProps };
 
+const prefix = `${PREFIX}-tooltip`;
 export const tooltipContentVariants = cva(
   [
     'z-50',
@@ -41,20 +43,24 @@ export const tooltipContentVariants = cva(
         theme: 'default',
         disableRuiClass: false,
         class: [
-          'bg-(--bg-default-color)',
-          'border-(--border-default-color)',
-          'text-(--text-default-color)',
+          'bg-rui-tooltip',
+          'border-rui-tooltip-border',
+          'text-rui-tooltip-text',
         ],
       },
       {
         theme: 'dark',
         disableRuiClass: false,
-        class: ['bg-(--bg-dark-color)', 'border-(--border-dark-color)', 'text-(--text-dark-color)'],
+        class: [
+          'bg-rui-tooltip-dark',
+          'border-rui-tooltip-border-dark',
+          'text-rui-tooltip-text-dark',
+        ],
       },
     ],
   },
   {
-    className: 'rui-tooltip-content',
+    className: `${prefix}-content`,
   }
 );
 export type TooltipContentVariants = VariantProps<typeof tooltipContentVariants>;
@@ -112,40 +118,40 @@ export const toolTipArrowVariants = cva(
         type: 'svg',
         theme: 'default',
         disableRuiClass: false,
-        class: ['fill-(--bg-default-color)', 'stroke-(--border-default-color)'],
+        class: ['fill-rui-tooltip', 'stroke-rui-tooltip-border'],
       },
       {
         type: 'svg',
         theme: 'dark',
         disableRuiClass: false,
-        class: ['fill-(--bg-dark-color)', 'stroke-(--border-dark-color)'],
+        class: ['fill-rui-tooltip-dark', 'stroke-tooltip-border-dark'],
       },
       {
         type: 'css',
         theme: 'default',
         disableRuiClass: false,
-        class: ['before:border-t-(--border-default-color)', 'after:border-t-(--bg-default-color)'],
+        class: ['before:border-t-rui-tooltip-border', 'after:border-t-rui-tooltip'],
       },
       {
         type: 'css',
         theme: 'dark',
         disableRuiClass: false,
-        class: ['before:border-t-(--border-dark-color)', 'after:border-t-(--bg-dark-color)'],
+        class: ['before:border-t-rui-tooltip-border-dark', 'after:border-t-rui-tooltip-dark'],
       },
     ],
   },
   {
-    className: 'rui-tooltip-arrow',
+    className: `${prefix}-arrow`,
     compound: [
       {
         type: 'svg',
         disableRuiClass: false,
-        className: 'rui-tooltip-arrow_svg',
+        className: `${prefix}-arrow_svg`,
       },
       {
         type: 'css',
         disableRuiClass: false,
-        className: 'rui-tooltip-arrow_css',
+        className: `${prefix}-arrow_css`,
       },
     ],
   }
