@@ -1,16 +1,15 @@
+@theme {
+  
+  --color-rui-checkbox-text: var(--color-hcc);
+  --color-rui-checkbox-text-hover: var(--color-hff);
 
+  --color-rui-checkbox: transparent;
+  --color-rui-checkbox-active: var(--color-rz-green-dark-hover);
+  --color-rui-checkbox-border: var(--color-h55);
+  --color-rui-checkbox-border-hover: var(--color-rz-green);
+  --color-rui-checkbox-border-focus: var(--color-rz-green);
+  
 
-@layer components {
-  .rui-checkbox-root{
-    @apply text-hcc hover:text-hff;
-    &[disabled]{
-      @apply hover:text-hcc;
-    }
-  }
-  .rui-checkbox {
-    @apply border-h55 hover:border-rz-green bg-transparent active:border-rz-green-dark-hover active:bg-rz-green-dark-hover;
-    @apply data-[state=checked]:bg-rz-green data-[state=checked]:border-rz-green;
-    @apply data-[state=indeterminate]:bg-rz-green data-[state=indeterminate]:border-rz-green;
-    @apply disabled:hover:border-h55 disabled:active:bg-transparent;
-  }
+  --color-rui-checkbox-checked: var(--color-rz-green);
+  --color-rui-checkbox-border-checked: var(--color-rz-green);
 }

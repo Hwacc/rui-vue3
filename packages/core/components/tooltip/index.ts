@@ -38,26 +38,6 @@ export const tooltipContentVariants = cva(
         dark: '',
       },
     },
-    compoundVariants: [
-      {
-        theme: 'default',
-        disableRuiClass: false,
-        class: [
-          'bg-rui-tooltip',
-          'border-rui-tooltip-border',
-          'text-rui-tooltip-text',
-        ],
-      },
-      {
-        theme: 'dark',
-        disableRuiClass: false,
-        class: [
-          'bg-rui-tooltip-dark',
-          'border-rui-tooltip-border-dark',
-          'text-rui-tooltip-text-dark',
-        ],
-      },
-    ],
   },
   {
     className: `${prefix}-content`,
@@ -73,7 +53,7 @@ export const toolTipArrowVariants = cva(
         default: '',
         dark: '',
       },
-      type: {
+      variant: {
         svg: '',
         css: [
           'relative',
@@ -88,13 +68,10 @@ export const toolTipArrowVariants = cva(
             'before:w-0',
             'before:h-0',
             'before:bottom-0',
-            'before:border-t-(length:--reka-tooltip-arrow-border-height)',
-            'before:border-r-(length:--reka-tooltip-arrow-border-width)',
-            'before:border-r-transparent',
-            'before:border-l-(length:--reka-tooltip-arrow-border-width)',
-            'before:border-l-transparent',
-            'before:border-b-(length:--reka-tooltip-arrow-border-height)',
+            'before:border-y-(length:--reka-tooltip-arrow-border-height)',
             'before:border-b-transparent',
+            'before:border-x-(length:--reka-tooltip-arrow-border-width)',
+            'before:border-x-transparent',
           ],
           [
             'after:absolute',
@@ -102,58 +79,17 @@ export const toolTipArrowVariants = cva(
             'after:bottom-[.0625rem]',
             'after:w-0',
             'after:h-0',
-            'after:border-t-(length:--reka-tooltip-arrow-border-height)',
-            'after:border-r-(length:--reka-tooltip-arrow-border-width)',
-            'after:border-r-transparent',
-            'after:border-l-(length:--reka-tooltip-arrow-border-width)',
-            'after:border-l-transparent',
-            'after:border-b-(length:--reka-tooltip-arrow-border-height)',
+            'after:border-y-(length:--reka-tooltip-arrow-border-height)',
             'after:border-b-transparent',
+            'after:border-x-(length:--reka-tooltip-arrow-border-width)',
+            'after:border-x-transparent',
           ],
         ],
       },
     },
-    compoundVariants: [
-      {
-        type: 'svg',
-        theme: 'default',
-        disableRuiClass: false,
-        class: ['fill-rui-tooltip', 'stroke-rui-tooltip-border'],
-      },
-      {
-        type: 'svg',
-        theme: 'dark',
-        disableRuiClass: false,
-        class: ['fill-rui-tooltip-dark', 'stroke-tooltip-border-dark'],
-      },
-      {
-        type: 'css',
-        theme: 'default',
-        disableRuiClass: false,
-        class: ['before:border-t-rui-tooltip-border', 'after:border-t-rui-tooltip'],
-      },
-      {
-        type: 'css',
-        theme: 'dark',
-        disableRuiClass: false,
-        class: ['before:border-t-rui-tooltip-border-dark', 'after:border-t-rui-tooltip-dark'],
-      },
-    ],
   },
   {
     className: `${prefix}-arrow`,
-    compound: [
-      {
-        type: 'svg',
-        disableRuiClass: false,
-        className: `${prefix}-arrow_svg`,
-      },
-      {
-        type: 'css',
-        disableRuiClass: false,
-        className: `${prefix}-arrow_css`,
-      },
-    ],
   }
 );
 export type ToolTipArrowVariants = VariantProps<typeof toolTipArrowVariants>;

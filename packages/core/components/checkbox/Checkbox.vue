@@ -68,9 +68,23 @@ defineExpose({
 });
 
 const labelClassName = computed(() =>
-  cn(checkboxLabelVariants({ disabled: props.disabled, disableRuiClass }), labelClass)
+  cn(
+    checkboxLabelVariants({
+      disabled: props.disabled,
+      disableRuiClass,
+    }),
+    labelClass
+  )
 );
-const checkboxRootClassName = computed(() => cn(checkboxVariants({ size, disableRuiClass })));
+const checkboxClassName = computed(() =>
+  cn(
+    checkboxVariants({
+      size,
+      disabled: props.disabled,
+      disableRuiClass,
+    })
+  )
+);
 const forwarded = useForwardPropsEmits(props, emits);
 </script>
 
@@ -84,7 +98,7 @@ const forwarded = useForwardPropsEmits(props, emits);
       }
     "
   >
-    <CheckboxRoot v-model="innerModelValue" v-bind="forwarded" :class="checkboxRootClassName">
+    <CheckboxRoot v-model="innerModelValue" v-bind="forwarded" :class="checkboxClassName">
       <CheckboxIndicator class="flex h-full w-full items-center justify-center text-current">
         <slot name="indicator">
           <Check

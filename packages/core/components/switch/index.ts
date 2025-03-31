@@ -23,24 +23,8 @@ export const switchVariants = cva(
         lg: ['w-[2.25rem]', 'h-5'],
       },
     },
-    compoundVariants: [
-      {
-        disableRuiClass: false,
-        class: [
-          'bg-rui-switch',
-          'data-[state=unchecked]:hover:bg-rui-switch-hover',
-          'data-[state=checked]:bg-rui-switch-checked',
-          'data-[state=checked]:hover:bg-rui-switch-checked-hover',
-          'disabled:!bg-rui-switch',
-          'disabled:hover:!bg-rui-switch',
-          'border-rui-switch-border',
-        ],
-      },
-    ],
   },
-  {
-    className: prefix,
-  }
+  { className: prefix }
 );
 
 export type SwitchVariantsProps = VariantProps<typeof switchVariants>;

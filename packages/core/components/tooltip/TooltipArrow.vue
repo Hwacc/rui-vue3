@@ -7,7 +7,7 @@ import { cn } from '@/lib/utils';
 const {
   force = false,
   theme = 'default',
-  type = 'css',
+  variant = 'css',
   width = 6,
   height = 6,
   class: propsClass,
@@ -18,7 +18,7 @@ const {
     class?: HTMLAttributes['class'];
     force?: boolean;
     theme?: ToolTipArrowVariants['theme'];
-    type?: ToolTipArrowVariants['type'];
+    variant?: ToolTipArrowVariants['variant'];
     disableRuiClass?: boolean;
   }
 >();
@@ -47,8 +47,8 @@ const classNames = computed(() =>
   cn(
     toolTipArrowVariants({
       theme,
-      type,
-      disableRuiClass
+      variant,
+      disableRuiClass,
     }),
     propsClass
   )
@@ -59,14 +59,14 @@ const classNames = computed(() =>
   <TooltipArrow
     ref="arrowRef"
     v-bind="props"
-    :as="type === 'css' ? 'span' : 'svg'"
+    :as="variant === 'css' ? 'span' : 'svg'"
     :class="classNames"
     :style="style"
     :width="width"
     :height="height"
-    :data-type="type"
+    :data-arrow-variant="variant"
     :data-theme="theme"
   >
-    <span v-if="type === 'css'"></span>
+    <span v-if="variant === 'css'"></span>
   </TooltipArrow>
 </template>

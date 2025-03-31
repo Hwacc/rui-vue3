@@ -150,7 +150,6 @@ const prefix = `${PREFIX}-toast`;
 export const toastVariants = cva<{
   position: Partial<Record<ToastPosition, any>>;
   swipeDirection: Partial<Record<SwipeDirection, any>>;
-  variant: Partial<Record<ToastVariant, any>>;
 }>(
   [
     'group',
@@ -179,134 +178,31 @@ export const toastVariants = cva<{
           'data-[state=closed]:animate-fade-down-out',
         ],
       },
-      variant: {
-        success: '',
-        error: '',
-        warning: '',
-        info: '',
-      },
     },
-    compoundVariants: [
-      ...(getToastCompoundVariants() as any),
-      {
-        disableRuiClass: false,
-        className: ['bg-rui-toast', 'shadow-rui-popper'],
-      },
-    ],
+    compoundVariants: getToastCompoundVariants() as any,
     defaultVariants: {
       position: 'center',
       swipeDirection: 'up',
     },
   },
-  {
-    className: prefix,
-    compound: [
-      {
-        variant: 'success',
-        disableRuiClass: false,
-        className: ['border-l-rui-success', 'rui-toast_success'],
-      },
-      {
-        variant: 'error',
-        disableRuiClass: false,
-        className: ['border-l-rui-error', 'rui-toast_error'],
-      },
-      {
-        variant: 'warning',
-        disableRuiClass: false,
-        className: ['border-l-rui-warning', 'rui-toast_warning'],
-      },
-      {
-        variant: 'info',
-        disableRuiClass: false,
-        className: ['border-l-rui-info', 'rui-toast_info'],
-      },
-    ],
-  }
+  { className: prefix }
 );
 export type ToastVariants = VariantProps<typeof toastVariants>;
 
-export const toastIconVariants = cva(
-  ['size-5'],
-  {
-    variants: {
-      variant: {
-        success: '',
-        error: '',
-        warning: '',
-        info: '',
-      },
-    },
-  },
-  {
-    className: `${prefix}-icon`,
-    compound: [
-      {
-        disableRuiClass: false,
-        className: 'stroke-rui-toast',
-      },
-      {
-        variant: 'success',
-        disableRuiClass: false,
-        className: ['fill-rui-success', '[&>circle]:stroke-rui-success', `${prefix}-icon_success`],
-      },
-      {
-        variant: 'error',
-        disableRuiClass: false,
-        className: ['fill-rui-error', '[&>circle]:stroke-rui-error', `${prefix}-icon_error`],
-      },
-      {
-        variant: 'warning',
-        disableRuiClass: false,
-        className: ['fill-rui-warning', '[&>circle]:stroke-rui-warning', `${prefix}-icon_warning`],
-      },
-      {
-        variant: 'info',
-        disableRuiClass: false,
-        className: ['fill-rui-info', '[&>circle]:stroke-rui-info', `${prefix}-icon_info`],
-      },
-    ],
-  }
-);
+export const toastIconVariants = cva(['size-5'], undefined, { className: `${prefix}-icon` });
 export type ToastIconVariants = VariantProps<typeof toastIconVariants>;
 
-export const toastTitleVariants = cva(
-  ['text-base'],
-  {
-    variants: {},
-    compoundVariants: [{ disableRuiClass: false, className: ['text-rui-toast-title', 'font-rob-bold'] }],
-  },
-  {
-    className: `${prefix}-title`,
-  }
-);
+export const toastTitleVariants = cva(['text-base'], undefined, {
+  className: `${prefix}-title`,
+});
 
-export const toastDescriptionVariants = cva(
-  ['text-sm'],
-  {
-    variants: {},
-    compoundVariants: [{ disableRuiClass: false, className: 'text-rui-toast-description' }],
-  },
-  {
-    className: `${prefix}-description`,
-  }
-);
+export const toastDescriptionVariants = cva(['text-sm'], undefined, {
+  className: `${prefix}-description`,
+});
 
-export const toastCloseVariants = cva(
-  ['size-3'],
-  {
-    variants: {},
-    compoundVariants: [
-      {
-        disableRuiClass: false,
-        className: ['text-rui-close', 'hover:text-rui-close-hover'],
-      },
-    ],
-  },
-  {
-    className: `${prefix}-close`,
-  }
-);
+export const toastCloseVariants = cva(['size-3'], undefined, {
+  className: `${prefix}-close`,
+});
 
 export const toastActionVariants = cva(
   [
@@ -318,22 +214,12 @@ export const toastActionVariants = cva(
     'disabled:pointer-events-none',
     'disabled:opacity-(--disabled-opacity)',
   ],
-  {
-    variants: { variant: { success: '', error: '', warning: '', info: '' } },
-  },
-  {
-    className: `${prefix}-action`,
-    compound: [
-      { variant: 'success', disableRuiClass: false, className: `${prefix}-action_success` },
-      { variant: 'error', disableRuiClass: false, className: `${prefix}-action_error` },
-      { variant: 'warning', disableRuiClass: false, className: `${prefix}-action_warning` },
-      { variant: 'info', disableRuiClass: false, className: `${prefix}-action_info` },
-    ],
-  }
+  undefined,
+  { className: `${prefix}-action` }
 );
 export interface ToastProps extends ToastRootProps {
   class?: HTMLAttributes['class'];
-  variant?: ToastVariants['variant'];
+  variant?: StatusVariants;
   disableRuiClass?: boolean;
   onOpenChange?: ((value: boolean) => void) | undefined;
 }

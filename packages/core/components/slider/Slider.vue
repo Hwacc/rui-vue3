@@ -327,13 +327,13 @@ defineSlots<{
   tooltip?: (
     tooltipProps: SliderSlotTooltipProps & {
       class: HTMLAttributes['class'];
-      type: 'default' | 'floating';
+      variant: 'default' | 'floating';
     }
   ) => any;
   floatingTooltip?: (
     tooltipProps: SliderSlotTooltipProps & {
       class: HTMLAttributes['class'];
-      type: 'default' | 'floating';
+      variant: 'default' | 'floating';
       floatingTooltipStyles: Readonly<
         Ref<{
           position: Strategy;
@@ -375,7 +375,7 @@ const mergedRailStyle = computed(() => {
     {
       backgroundColor: disableRuiClass
         ? undefined
-        : getNodeCssVar(sliderRef.value?.$el, '--color-rui-slider-rail', '#000'),
+        : getNodeCssVar(sliderRef.value?.$el, '--rui-slider-rail', '#000'),
     },
     railStyle
   );
@@ -385,7 +385,7 @@ const mergedProcessStyle = computed(() => {
     {
       backgroundColor: disableRuiClass
         ? undefined
-        : getNodeCssVar(sliderRef.value?.$el, '--color-rui-slider-progress', '#fff'),
+        : getNodeCssVar(sliderRef.value?.$el, '--rui-slider-progress', '#fff'),
     },
     processStyle
   );
@@ -561,12 +561,12 @@ const getFloatingTooltipContent = (value: number | string) => {
           floatingTooltipArrowStyles,
           class: cn(
             sliderTooltipVariants({
-              type: 'floating',
+              variant: 'floating',
               disableRuiClass,
             }),
             floatingTooltipOptions.class
           ),
-          type: 'floating',
+          variant: 'floating',
         }"
       >
         <Component :is="floatingTooltipOptions.teleport ? Teleport : 'div'" to="body">
@@ -574,7 +574,7 @@ const getFloatingTooltipContent = (value: number | string) => {
             :class="
               cn(
                 sliderTooltipVariants({
-                  type: 'floating',
+                  variant: 'floating',
                   disableRuiClass,
                 }),
                 floatingTooltipOptions.class
@@ -582,7 +582,7 @@ const getFloatingTooltipContent = (value: number | string) => {
             "
             :style="floatingTooltipStyles"
             ref="floatingTooltipRef"
-            data-type="floating"
+            data-variant="floating"
           >
             <Component
               v-if="isObject(getFloatingTooltipContent(tooltipProps.value))"
@@ -623,23 +623,23 @@ const getFloatingTooltipContent = (value: number | string) => {
         name="tooltip"
         v-bind="{
           class: sliderTooltipVariants({
-            type: 'default',
+            variant: 'default',
             placement: tooltipPlacement,
             disableRuiClass,
           }),
-          type: 'default',
+          variant: 'default',
           ...tooltipProps,
         }"
       >
         <div
           :class="
             sliderTooltipVariants({
-              type: 'default',
+              variant: 'default',
               placement: tooltipPlacement,
               disableRuiClass,
             })
           "
-          data-type="floating"
+          data-variant="floating"
           :data-placement="tooltipPlacement"
         >
           {{ tooltipProps.value }}

@@ -1,9 +1,13 @@
-@theme {
-  --color-rui-tooltip: var(--color-hff);
-  --color-rui-tooltip-border: var(--color-h00);
-  --color-rui-tooltip-text: var(--color-h00);
+@layer components {
+  .rui-tooltip-content{
+    @apply bg-hff border-h00 text-h00;
+    @apply dark:bg-h00 dark:border-hff dark:text-hff;
+  }
 
-  --color-rui-tooltip-dark: var(--color-h00);
-  --color-rui-tooltip-border-dark: var(--color-hff);
-  --color-rui-tooltip-text-dark: var(--color-hff);
+  .rui-tooltip-arrow{
+    @apply arrow-css:before:border-t-h00 arrow-css:after:border-t-hff;
+    @apply dark:arrow-css:before:border-t-hff dark:arrow-css:after:border-t-h00;
+    @apply arrow-svg:fill-hff stroke-h00;
+    @apply dark:arrow-svg:fill-h00 dark:arrow-svg:stroke-hff;
+  }
 }

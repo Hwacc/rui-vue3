@@ -1,18 +1,18 @@
 @theme {
   /* radio item */
   --color-rui-radio: transparent;
-  --color-rui-radio-hover: transparent;
+  --color-rui-radio-hover:transparent;
   --color-rui-radio-active: var(--color-h28);
   --color-rui-radio-checked: transparent;
-  --color-rui-radio-checked-hover: transparent;
+  --color-rui-radio-checked-hover:transparent;
   --color-rui-radio-checked-active: var(--color-h28);
 
   /* radio border */
   --color-rui-radio-border: var(--color-h70);
-  --color-rui-radio-border-hover: var(--color-rz-green);
+  --color-rui-radio-border-hover:var(--color-rz-green);
   --color-rui-radio-border-active: var(--color-rz-green);
   --color-rui-radio-border-checked: var(--color-h70);
-  --color-rui-radio-border-checked-hover: var(--color-rz-green);
+  --color-rui-radio-border-checked-hover:var(--color-rz-green);
   --color-rui-radio-border-checked-active: var(--color-rz-green);
 
   /* radio inner */
@@ -20,17 +20,25 @@
 }
 
 @layer components {
-  .rui-radio-group-item_checkbox {
-    --color-rui-radio-checked: var(--color-rz-green);
-    --color-rui-radio-checked-hover: var(--color-rz-green-light);
-    --color-rui-radio-checked-active: var(--color-rz-green-dark-active);
+  .rui-radio-group-item {
+    @apply bg-transparent active:bg-h28 border-h70 
+         hover:border-rz-green active:border-rz-green 
+           disabled:hover:bg-transparent disabled:hover:border-h70;
 
-    --color-rui-radio-border-checked: var(--color-rz-green);
-    --color-rui-radio-border-checked-hover: var(--color-rz-green-light);
-    --color-rui-radio-border-checked-active: var(--color-rz-green-dark-active);
+    &[data-variant="checkbox"] {
+      @apply data-[state=checked]:bg-rz-green
+             data-[state=checked]:hover:bg-rz-green-light
+             data-[state=checked]:active:bg-rz-green-dark-active
+             data-[state=checked]:border-rz-green
+             data-[state=checked]:hover:border-rz-green-light
+             data-[state=checked]:active:border-rz-green-dark-active;
+    }
   }
 
-  .rui-radio-group-item-inner_checkbox {
-    --color-rui-radio-inner: var(--color-h00);
+  .rui-radio-group-item-inner {
+    @apply fill-rz-green stroke-rz-green;
+    &[data-variant="checkbox"] {
+      @apply fill-transparent stroke-h00;
+    }
   }
 }

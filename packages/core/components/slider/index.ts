@@ -28,12 +28,6 @@ export const sliderDotVariants = cva(
         true: 'scale-125',
       },
     },
-    compoundVariants: [
-      {
-        disableRuiClass: false,
-        class: ['bg-rui-slider-dot', 'border-rui-slider-dot-border'],
-      },
-    ],
   },
   { className: `${prefix}-dot` }
 );
@@ -42,7 +36,7 @@ export const sliderTooltipVariants = cva(
   ['flex', 'px-2', 'py-1', 'rounded', 'text-xs', 'font-rob-bold'],
   {
     variants: {
-      type: {
+      variant: {
         floating: [],
         default: ['after:absolute', 'after:content-[""]', 'after:w-0', 'after:h-0'],
       },
@@ -53,7 +47,8 @@ export const sliderTooltipVariants = cva(
           'after:translate-x-[-50%]',
           'after:translate-y-[100%]',
           'after:border-[.25rem]',
-          'after:border-transparent',
+          'after:border-x-transparent',
+          'after:border-b-transparent',
         ],
         bottom: [
           'after:top-0',
@@ -61,7 +56,8 @@ export const sliderTooltipVariants = cva(
           'after:translate-x-[-50%]',
           'after:translate-y-[-100%]',
           'after:border-[.25rem]',
-          'after:border-transparent',
+          'after:border-x-transparent',
+          'after:border-t-transparent',
         ],
         left: [
           'after:right-0',
@@ -69,7 +65,8 @@ export const sliderTooltipVariants = cva(
           'after:translate-x-[100%]',
           'after:translate-y-[-50%]',
           'after:border-[.25rem]',
-          'after:border-transparent',
+          'after:border-y-transparent',
+          'after:border-r-transparent',
         ],
         right: [
           'after:left-0',
@@ -77,54 +74,11 @@ export const sliderTooltipVariants = cva(
           'after:translate-x-[-100%]',
           'after:translate-y-[-50%]',
           'after:border-[.25rem]',
-          'after:border-transparent',
+          'after:border-y-transparent',
+          'after:border-l-transparent',
         ],
       },
     },
-    compoundVariants: [
-      {
-        disableRuiClass: false,
-        class: [
-          'bg-rui-tooltip',
-          'text-rui-tooltip-text',
-          '[&_svg]:fill-rui-tooltip',
-        ],
-      },
-      {
-        disableRuiClass: false,
-        placement: 'top',
-        class: ['after:border-t-rui-tooltip'],
-      },
-      {
-        disableRuiClass: false,
-        placement: 'bottom',
-        class: ['after:border-b-rui-tooltip'],
-      },
-      {
-        disableRuiClass: false,
-        placement: 'left',
-        class: ['after:border-l-rui-tooltip'],
-      },
-      {
-        disableRuiClass: false,
-        placement: 'right',
-        class: ['after:border-r-rui-tooltip'],
-      },
-    ],
   },
-  {
-    className: `${prefix}-tooltip`,
-    compound: [
-      {
-        type: 'floating',
-        disableRuiClass: false,
-        className: `${prefix}-tooltip_floating`,
-      },
-      {
-        type: 'default',
-        disableRuiClass: false,
-        className: `${prefix}-tooltip_default`,
-      },
-    ],
-  }
+  { className: `${prefix}-tooltip` }
 );

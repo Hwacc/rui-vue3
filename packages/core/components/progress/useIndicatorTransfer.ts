@@ -4,7 +4,7 @@ import { MaybeRef, reactive, ref, unref, watchEffect } from 'vue';
 import { ProgressIndicatorVariants } from '.';
 
 export const useIndicatorTransfer = (
-  indicatorType: MaybeRef<ProgressIndicatorVariants['type']>,
+  variant: MaybeRef<ProgressIndicatorVariants['variant']>,
   progress: MaybeRef<number | null | undefined>
 ) => {
   const indicatorRef = ref<any>(null);
@@ -14,7 +14,7 @@ export const useIndicatorTransfer = (
   });
   watchEffect(
     () => {
-      if (unref(indicatorType) === 'transfer') {
+      if (unref(variant) === 'transfer') {
         const indicatorEl = unref(indicatorRef).$el ? unref(indicatorRef).$el : unref(indicatorRef);
         transferStyle.transform = `translateX(-${100 - (unref(progress) ?? 0)}%)`;
         const { type: fromType, value: fromValue } = detectCssColorType(

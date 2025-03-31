@@ -7,28 +7,28 @@ import { useIndicatorTransfer } from './useIndicatorTransfer';
 
 const {
   class: propsClass,
-  indicatorType = 'default',
+  variant = 'default',
   disableRuiClass,
   ...props
 } = defineProps<
   ProgressRootProps & {
     class?: HTMLAttributes['class'];
-    indicatorType?: ProgressIndicatorVariants['type'];
+    variant?: ProgressIndicatorVariants['variant'];
     disableRuiClass?: boolean;
   }
 >();
 const { modelValue } = toRefs(props);
-const { indicatorRef, transferStyle } = useIndicatorTransfer(indicatorType, modelValue);
+const { indicatorRef, transferStyle } = useIndicatorTransfer(variant, modelValue);
 </script>
 
 <template>
   <ProgressRoot v-bind="props" :class="cn(progressVariants({ disableRuiClass }), propsClass)">
     <ProgressIndicator
-      :class="progressIndicatorVariants({ disableRuiClass, type: indicatorType })"
+      :class="progressIndicatorVariants({ disableRuiClass, variant })"
       ref="indicatorRef"
-      :data-type="indicatorType"
+      :data-variant="variant"
       :style="
-        indicatorType === 'transfer'
+        variant === 'transfer'
           ? transferStyle
           : `transform: translateX(-${100 - (modelValue ?? 0)}%);`
       "

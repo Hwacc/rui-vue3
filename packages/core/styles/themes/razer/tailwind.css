@@ -5,6 +5,12 @@
 @import '../../base/animations.css';
 
 @custom-variant dark (&:where([data-theme=dark], [data-theme=dark] *));
+@custom-variant success (&:where([data-variant=success], [data-variant=success] *));
+@custom-variant error (&:where([data-variant=error], [data-variant=error] *));
+@custom-variant warning (&:where([data-variant=warning], [data-variant=warning] *));
+@custom-variant info (&:where([data-variant=info], [data-variant=info] *));
+@custom-variant arrow-css (&:where([data-arrow-variant="css"]));
+@custom-variant arrow-svg (&:where([data-arrow-variant="svg"]));
 
 @theme {
   /* Spacing */

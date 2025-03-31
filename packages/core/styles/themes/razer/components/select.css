@@ -1,37 +1,43 @@
-@theme {
-  /* Trigger */
-  --color-rui-select-trigger: var(--color-h16);
-  --color-rui-select-trigger-text: var(--color-hbb);
-  --color-rui-select-trigger-placeholder: var(--color-h55);
 
-  /* Trigger border */
-  --color-rui-select-trigger-border: var(--color-h00);
-  --color-rui-select-trigger-border-hover: var(--color-rz-green);
-  --color-rui-select-trigger-border-focus: var(--color-rz-green);
-  --color-rui-select-trigger-border-open: var(--color-rz-green);
+@layer components {
+  .rui-select-trigger {
+    @apply bg-h16 text-hbb border-h00 hover:border-rz-green data-[state=open]:border-rz-green data-[placeholder]:text-h55;
+  }
 
-  /* Content */
-  --color-rui-select-content: var(--color-h1a);
-  --color-rui-select-content-border: var(--color-h11);
-  --color-rui-select-content-text: var(--color-hcc);
+  .rui-select-content {
+    @apply bg-h1a text-hcc border-h11 shadow-rui-popper;
+  }
 
-  /* Item */
-  --color-rui-select-item: transparent;
-  --color-rui-select-item-hover: var(--color-h28);
-  --color-rui-select-item-focus: var(--color-h28);
-  --color-rui-select-item-text: var(--color-hbb);
-  --color-rui-select-item-text-checked: var(--color-rz-green);
+  .rui-select-item {
+    @apply bg-transparent hover:bg-h28 focus:bg-h28 text-hbb data-[state=checked]:text-rz-green;
+  }
 
-  /* Label */
-  --color-rui-select-label: transparent;
-  --color-rui-select-label-text: var(--color-hff);
+  .rui-select-label {
+    @apply bg-transparent text-hff font-rob-bold;
+  }
 
-  /* triangle */
-  --color-rui-select-triangle: currentColor;
-  --color-rui-select-triangle-hover: var(--color-hff);
-  --color-rui-select-triangle-open: var(--color-hff);
+  .rui-select-triangle {
+    &>svg {
+      @apply fill-current stroke-current group-hover:fill-hff group-hover:stroke-hff;
+    }
 
-  /* Value */
-  --color-rui-select-value: var(--color-h33);
-  --color-rui-select-value-text: inherit;
+    &[data-state="open"]>svg {
+      @apply fill-hff stroke-hff;
+    }
+  }
+
+  .rui-select-value {
+    &>span {
+      @apply bg-h33 text-inherit;
+      & svg {
+        @apply stroke-rui-close hover:stroke-rui-close-hover;
+      }
+    }
+  }
+
+  .rui-select-separator {
+    @apply bg-h11;
+  }
+  .rui-select-scroll-button {}
+
 }

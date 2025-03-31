@@ -1,16 +1,22 @@
-@import './tooltip.css';
-
-@theme {
-  /* Slider */
-  --color-rui-slider-rail: var(--color-h33);
-  --color-rui-slider-progress: var(--color-rz-green);
-
-  /* slider dot */
-  --color-rui-slider-dot: var(--color-h00);
-  --color-rui-slider-dot-border: var(--color-rz-green);
+@custom-variant tooltip-floating {
+  &:where(.rui-vue-slider-tooltip[data-variant="floating"]) {
+    @slot
+  }
 }
-
 @layer components {
+  .rui-vue-slider{
+    --rui-slider-rail: var(--color-h33);
+    --rui-slider-progress: var(--color-rz-green);
+  }
+  .rui-vue-slider-dot{
+    @apply bg-h00 border-rz-green;
+  }
+  .rui-vue-slider-tooltip {
+    @apply bg-rz-green text-h00;
+    @apply data-[placement=top]:after:border-t-rz-green data-[placement=bottom]:after:border-b-rz-green;
+    @apply data-[placement=left]:after:border-l-rz-green data-[placement=right]:after:border-r-rz-green;
+    @apply tooltip-floating:[&_svg]:fill-rz-green;
+  }
   .rui-vue-slider-tooltip{
     --color-rui-tooltip: var(--color-rz-green);
     --color-rui-tooltip-text: var(--color-h00);

@@ -22,7 +22,6 @@ const classNames = computed(() => {
     toastVariants({
       position: unref(position),
       swipeDirection: unref(swipeDirection),
-      variant,
       disableRuiClass,
     }),
     propsClass
@@ -36,7 +35,7 @@ const forwarded = useForwardPropsEmits(props, emits);
     v-bind="forwarded"
     :class="classNames"
     @update:open="onOpenChange"
-    :data-type="variant"
+    :data-variant="variant"
   >
     <slot />
   </ToastRoot>

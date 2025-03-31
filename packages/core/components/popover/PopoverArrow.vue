@@ -7,7 +7,7 @@ import { cn, rem2px } from '@/lib/utils';
 const {
   class: propsClass,
   force = false,
-  type = 'css',
+  variant = 'css',
   width = rem2px(1),
   height = rem2px(0.75),
   disableRuiClass,
@@ -16,7 +16,7 @@ const {
   PopoverArrowProps & {
     class?: HTMLAttributes['class'];
     force?: boolean;
-    type?: PopoverArrowVariants['type'];
+    variant?: PopoverArrowVariants['variant'];
     disableRuiClass?: boolean;
   }
 >();
@@ -45,7 +45,7 @@ const style = computed(() => {
 const classNames = computed(() =>
   cn(
     popoverArrowVariants({
-      type,
+      variant,
       disableRuiClass,
     }),
     propsClass
@@ -56,13 +56,13 @@ const classNames = computed(() =>
   <PopoverArrow
     ref="arrowRef"
     v-bind="props"
-    :as="type === 'css' ? 'span' : 'svg'"
+    :as="variant === 'css' ? 'span' : 'svg'"
     :class="classNames"
     :style="style"
     :width="width"
     :height="height"
-    :data-type="type"
+    :data-arrow-variant="variant"
   >
-    <span v-if="type === 'css'"></span>
+    <span v-if="variant === 'css'"></span>
   </PopoverArrow>
 </template>

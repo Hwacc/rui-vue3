@@ -17,7 +17,7 @@ import { CircleCheck, CircleAlert, Info, CircleX } from 'lucide-vue-next';
 const props = defineProps<ToastProviderPropsEx>();
 const { toasts } = useToast();
 
-const toastIcons = {
+const toastIcons:Record<StatusVariants, any> = {
   success: CircleCheck,
   warning: CircleAlert,
   info: Info,
@@ -37,11 +37,9 @@ const toastIcons = {
         <template v-if="!toast.icon">
           <component
             v-if="toast.variant"
-            :is="toastIcons[toast.variant as unknown as keyof typeof toastIcons]"
-            :class="
-              toastIconVariants({ variant: toast.variant, disableRuiClass: toast.disableRuiClass })
-            "
-            :data-type="toast.variant"
+            :is="toastIcons[toast.variant]"
+            :class="toastIconVariants({ disableRuiClass: toast.disableRuiClass })"
+            :data-variant="toast.variant"
           />
         </template>
         <template v-else-if="isVNode(toast.icon) || isFunction(toast.icon)">

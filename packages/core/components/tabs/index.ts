@@ -12,19 +12,9 @@ const prefix = `${PREFIX}-tabs`;
 export const tabsVariants = cva(undefined, { variants: {} }, { className: prefix });
 
 export const tabsListVariants = cva(
-  ['flex', 'items-center', 'relative', 'border-b-1', 'overflow-hidden'],
-  {
-    variants: {},
-    compoundVariants: [
-      {
-        disableRuiClass: false,
-        className: 'border-b-rui-border',
-      },
-    ],
-  },
-  {
-    className: `${prefix}-list`,
-  }
+  ['flex', 'items-center', 'relative', 'overflow-hidden'],
+  undefined,
+  { className: `${prefix}-list` }
 );
 
 export const tabsTriggerVariants = cva(
@@ -47,20 +37,8 @@ export const tabsTriggerVariants = cva(
         lg: 'px-4.5 py-3 text-base',
       },
     },
-    compoundVariants: [
-      {
-        disableRuiClass: false,
-        className: [
-          'text-rui-toggle-text',
-          'hover:text-rui-toggle-text-hover',
-          'data-[state=active]:text-rui-toggle-text-active',
-        ],
-      },
-    ],
   },
-  {
-    className: `${prefix}-trigger`,
-  }
+  { className: `${prefix}-trigger` }
 );
 export type TabsTriggerVariantsProps = VariantProps<typeof tabsTriggerVariants>;
 
@@ -83,16 +61,8 @@ export const tabsIndicatorVariants = cva(
         lg: 'h-1.5',
       },
     },
-    compoundVariants: [
-      {
-        disableRuiClass: false,
-        className: '[&>div]:bg-rui-tabs-indicator',
-      },
-    ],
   },
-  {
-    className: `${prefix}-indicator`,
-  }
+  { className: `${prefix}-indicator` }
 );
 export type TabsIndicatorVariantsProps = VariantProps<typeof tabsIndicatorVariants>;
 

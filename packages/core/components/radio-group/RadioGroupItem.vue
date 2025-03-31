@@ -22,12 +22,12 @@ const {
   class: propsClass,
   size = 'default',
   label,
-  type = 'default',
+  variant = 'default',
   disableRuiClass,
   ...props
 } = defineProps<
   RadioGroupItemProps & {
-    type?: RadioGroupItemInnerVariants['type'];
+    variant?: RadioGroupItemInnerVariants['variant'];
     wrapClass?: HTMLAttributes['class'];
     innerClass?: HTMLAttributes['class'];
     labelClass?: HTMLAttributes['class'];
@@ -43,10 +43,10 @@ const wrapClassName = computed(() => {
   return cn(['flex items-center gap-2.5'], wrapClass);
 });
 const radioGroupItemClassName = computed(() => {
-  return cn(radioGroupItemVariants({ type, size, disableRuiClass }), propsClass);
+  return cn(radioGroupItemVariants({ size, disableRuiClass }), propsClass);
 });
 const radioGroupItemInnerClassName = computed(() => {
-  return cn(radioGroupItemInnerVariants({ type, size, disableRuiClass }), innerClass);
+  return cn(radioGroupItemInnerVariants({ variant, size, disableRuiClass }), innerClass);
 });
 const labelClassName = computed(() => {
   return cn(
@@ -67,10 +67,19 @@ const labelClassName = computed(() => {
       v-bind="forwardedProps"
       :id="forwardedProps.id || label"
       :class="radioGroupItemClassName"
+      :data-variant="variant"
     >
-      <RadioGroupIndicator :class="['flex items-center justify-center']">
-        <Circle v-if="type === 'default'" :class="radioGroupItemInnerClassName" />
-        <Check v-if="type === 'checkbox'" :class="radioGroupItemInnerClassName" />
+      <RadioGroupIndicator :class="['flex items-center justify-center']" :data-variant="variant">
+        <Circle
+          v-if="variant === 'default'"
+          :class="radioGroupItemInnerClassName"
+          :data-variant="variant"
+        />
+        <Check
+          v-if="variant === 'checkbox'"
+          :class="radioGroupItemInnerClassName"
+          :data-variant="variant"
+        />
       </RadioGroupIndicator>
     </RadioGroupItem>
     <slot name="label">

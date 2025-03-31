@@ -78,7 +78,7 @@ const buttonClass = computed(() =>
       type,
       size,
       limitWidth: type === 'icon' ? false : limitWidth,
-      disableRuiClass
+      disableRuiClass,
     }),
     propsClass
   )

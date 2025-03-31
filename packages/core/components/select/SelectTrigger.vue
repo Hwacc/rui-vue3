@@ -43,7 +43,7 @@ const forwardedProps = useForwardProps(props);
     <slot name="icon" :v-bind="{ open }">
       <SelectIcon
         as="i"
-        :class="selectTriangleVariants({ disableRuiClass, open })"
+        :class="selectTriangleVariants({ disableRuiClass })"
         :data-state="open ? 'open' : 'closed'"
       >
         <svg

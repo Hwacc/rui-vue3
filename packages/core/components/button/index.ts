@@ -74,6 +74,7 @@ export const buttonVariants = cva(
     },
   },
   {
+    className: prefix,
     compound: [
       { type: 'default', disableRuiClass: false, className: `${prefix}_default` },
       { type: 'normal', disableRuiClass: false, className: `${prefix}_normal` },

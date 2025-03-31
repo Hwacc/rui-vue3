@@ -14,7 +14,7 @@ const {
   strokeWidth = 2,
   type = 'circle',
   indicatorClass,
-  indicatorType = 'default',
+  variant = 'default',
   disableRuiClass,
   ...props
 } = defineProps<{
@@ -23,7 +23,7 @@ const {
   modelValue?: number;
   strokeWidth?: number;
   indicatorClass?: HTMLAttributes['class'];
-  indicatorType?: CircleProgressIndicatorVariants['type'];
+  variant?: CircleProgressIndicatorVariants['variant'];
   disableRuiClass?: boolean;
 }>();
 const area = computed(() => {
@@ -45,7 +45,7 @@ const progress = computed(() => {
     return area.value - ((modelValue.value ?? 0) / 100) * area.value;
   }
 });
-const { indicatorRef, transferStyle } = useIndicatorTransfer(indicatorType, modelValue);
+const { indicatorRef, transferStyle } = useIndicatorTransfer(variant, modelValue);
 </script>
 
 <template>
@@ -54,11 +54,11 @@ const { indicatorRef, transferStyle } = useIndicatorTransfer(indicatorType, mode
       v-if="type === 'arc'"
       :class="
         cn(
-          circleProgressIndicatorVariants({ disableRuiClass, type: indicatorType }),
+          circleProgressIndicatorVariants({ disableRuiClass, variant }),
           indicatorClass
         )
       "
-      :data-type="indicatorType"
+      :data-variant="variant"
       ref="indicatorRef"
     >
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 56">
@@ -67,7 +67,7 @@ const { indicatorRef, transferStyle } = useIndicatorTransfer(indicatorType, mode
             cx="24"
             cy="24"
             :r="24 - strokeWidth"
-            stroke="var(--color-rui-progress)"
+            stroke="var(--rui-progress)"
             :stroke-width="strokeWidth"
             :stroke-dasharray="`${arc} 1000`"
             stroke-dashoffset="0"
@@ -78,9 +78,9 @@ const { indicatorRef, transferStyle } = useIndicatorTransfer(indicatorType, mode
             cy="24"
             :r="24 - strokeWidth"
             :stroke="
-              indicatorType === 'transfer'
+              variant === 'transfer'
                 ? transferStyle.background
-                : 'var(--color-rui-progress-indicator)'
+                : 'var(--rui-progress-indicator)'
             "
             :stroke-width="strokeWidth"
             :stroke-dasharray="`${arc} 1000`"
@@ -104,11 +104,11 @@ const { indicatorRef, transferStyle } = useIndicatorTransfer(indicatorType, mode
       v-else
       :class="
         cn(
-          circleProgressIndicatorVariants({ disableRuiClass, type: indicatorType }),
+          circleProgressIndicatorVariants({ disableRuiClass, variant }),
           indicatorClass
         )
       "
-      :data-type="indicatorType"
+      :data-variant="variant"
       ref="indicatorRef"
     >
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 56">
@@ -117,7 +117,7 @@ const { indicatorRef, transferStyle } = useIndicatorTransfer(indicatorType, mode
             cx="24"
             cy="24"
             :r="24 - strokeWidth"
-            stroke="var(--color-rui-progress)"
+            stroke="var(--rui-progress)"
             :stroke-width="strokeWidth"
             stroke-dasharray="1000"
             stroke-dashoffset="0"
@@ -127,9 +127,9 @@ const { indicatorRef, transferStyle } = useIndicatorTransfer(indicatorType, mode
             cy="24"
             :r="24 - strokeWidth"
             :stroke="
-              indicatorType === 'transfer'
+              variant === 'transfer'
                 ? transferStyle.background
-                : 'var(--color-rui-progress-indicator)'
+                : 'var(--rui-progress-indicator)'
             "
             :stroke-width="strokeWidth"
             :stroke-dasharray="area"

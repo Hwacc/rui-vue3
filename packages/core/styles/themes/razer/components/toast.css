@@ -3,3 +3,32 @@
   --color-rui-toast-title: inherit;
   --color-rui-toast-description:var(--color-h88);
 }
+
+@layer components {
+  .rui-toast{
+    @apply bg-h22 shadow-rui-popper;
+    @apply success:border-l-rui-success error:border-l-rui-error warning:border-l-rui-warning info:border-l-rui-info;
+  }
+
+  .rui-toast-icon{
+    @apply stroke-h22;
+    @apply success:fill-rui-success success:[&>circle]:stroke-rui-success;
+    @apply error:fill-rui-error error:[&>circle]:stroke-rui-error;
+    @apply warning:fill-rui-warning warning:[&>circle]:stroke-rui-warning;
+    @apply info:fill-rui-info info:[&>circle]:stroke-rui-info;
+  }
+
+  .rui-toast-title{
+    @apply text-inherit font-rob-bold;
+  }
+
+  .rui-toast-discription{
+    @apply text-h88;
+  }
+
+  .rui-toast-close{
+    @apply text-rui-close hover:text-rui-close-hover;
+  }
+
+  .rui-toast-action{}
+}

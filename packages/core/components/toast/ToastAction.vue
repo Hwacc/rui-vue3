@@ -3,7 +3,7 @@ import type { ToastActionProps } from 'reka-ui';
 import type { HTMLAttributes } from 'vue';
 import { cn } from '@/lib/utils';
 import { ToastAction } from 'reka-ui';
-import { toastActionVariants, ToastVariants } from '.';
+import { toastActionVariants } from '.';
 
 const {
   class: propsClass,
@@ -13,7 +13,7 @@ const {
 } = defineProps<
   ToastActionProps & {
     class?: HTMLAttributes['class'];
-    variant: ToastVariants['variant'];
+    variant?: StatusVariants;
     disableRuiClass?: boolean;
   }
 >();
@@ -22,7 +22,8 @@ const {
 <template>
   <ToastAction
     v-bind="props"
-    :class="cn(toastActionVariants({ disableRuiClass, variant }), propsClass)"
+    :class="cn(toastActionVariants({ disableRuiClass }), propsClass)"
+    :data-variant="variant"
   >
     <slot />
   </ToastAction>

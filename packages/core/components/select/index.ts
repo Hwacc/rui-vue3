@@ -46,20 +46,6 @@ export const selectTriggerVariants = cva(
     defaultVariants: {
       size: 'default',
     },
-    compoundVariants: [
-      {
-        disableRuiClass: false,
-        className: [
-          'bg-rui-select-trigger',
-          'text-rui-select-trigger-text',
-          'border-rui-select-trigger-border',
-          'hover:border-rui-select-trigger-border-hover',
-          'focus:border-rui-select-trigger-border-focus',
-          'data-[state=open]:border-rui-select-trigger-border-open',
-          'data-[placeholder]:text-rui-select-trigger-placeholder',
-        ],
-      },
-    ],
   },
   {
     className: `${prefix}-trigger`,
@@ -72,21 +58,10 @@ export const selectContentVariants = cva(
   {
     variants: {
       position: {
-        popper: [],
-        'item-aligned': [],
+        popper: '',
+        'item-aligned': '',
       },
     },
-    compoundVariants: [
-      {
-        disableRuiClass: false,
-        className: [
-          'bg-rui-select-content',
-          'text-rui-select-content-text',
-          'border-rui-select-content-border',
-          'shadow-rui-popper',
-        ],
-      },
-    ],
   },
   {
     className: `${prefix}-content`,
@@ -116,90 +91,21 @@ export const selectItemVariants = cva(
         true: ['pl-8', 'pr-2'],
       },
     },
-    compoundVariants: [
-      {
-        disableRuiClass: false,
-        className: [
-          'bg-rui-select-item',
-          'hover:bg-rui-select-item-hover',
-          'focus:bg-rui-select-item-focus',
-          'text-rui-select-item-text',
-          'data-[state=checked]:text-rui-select-item-text-checked',
-        ],
-      },
-    ],
   },
-  {
-    className: `${prefix}-item`,
-  }
+  { className: `${prefix}-item` }
 );
 
-export const selectLabelVariants = cva(
-  ['py-1.5', 'px-2'],
-  {
-    variants: {},
-    compoundVariants: [
-      {
-        disableRuiClass: false,
-        className: ['bg-rui-select-label', 'text-rui-select-label-text', 'font-rob-bold'],
-      },
-    ],
-  },
-  {
-    className: `${prefix}-label`,
-  }
-);
+export const selectLabelVariants = cva(['py-1.5', 'px-2'], undefined, {
+  className: `${prefix}-label`,
+});
 
-export const selectTriangleVariants = cva(
-  'shrink-0',
-  {
-    variants: {
-      open: {
-        true: '',
-        false: '',
-      },
-    },
-    compoundVariants: [
-      {
-        disableRuiClass: false,
-        className: [
-          '[&>svg]:fill-rui-select-triangle',
-          '[&>svg]:stroke-rui-select-triangle',
-          '[&>svg]:group-hover:fill-rui-select-triangle-hover',
-          '[&>svg]:group-hover:stroke-rui-select-triangle-hover',
-        ],
-      },
-      {
-        disableRuiClass: false,
-        open: true,
-        className: [
-          '[&>svg]:fill-rui-select-triangle-open',
-          '[&>svg]:stroke-rui-select-triangle-open',
-        ],
-      },
-    ],
-  },
-  {
-    className: `${prefix}-triangle`,
-  }
-);
+export const selectTriangleVariants = cva('shrink-0', undefined, {
+  className: `${prefix}-triangle`,
+});
 
 export const selectValueVariants = cva(
   ['flex', 'items-center', 'gap-1', 'text-sm', '[&>span]:rounded-[.875rem]', '[&>span]:text-xs'],
-  {
-    variants: {},
-    compoundVariants: [
-      {
-        disableRuiClass: false,
-        className: [
-          '[&>span]:bg-rui-select-value',
-          '[&>span]:text-rui-select-value-text',
-          '[&_svg]:stroke-rui-close',
-          '[&_svg]:hover:stroke-rui-close-hover',
-        ],
-      },
-    ],
-  },
+  undefined,
   {
     className: `${prefix}-value`,
   }
@@ -221,13 +127,5 @@ export const selectScrollButtonVariants = cva(
   },
   {
     className: `${prefix}-scroll-button`,
-    compound: [
-      {
-        dir: 'up',
-        disableRuiClass: false,
-        className: `${prefix}-scroll-button_up`,
-      },
-      { dir: 'down', disableRuiClass: false, className: `${prefix}-scroll-button_down` },
-    ],
   }
 );
