@@ -2,7 +2,7 @@
 import type { ToastRootEmits } from 'reka-ui';
 import type { ToastProps } from '.';
 
-import { cn } from '@/lib/utils';
+import { cn } from '@/core/lib/utils';
 import { ToastRoot, useForwardPropsEmits } from 'reka-ui';
 import { computed, unref } from 'vue';
 import { toastVariants } from '.';

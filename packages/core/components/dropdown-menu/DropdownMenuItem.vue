@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type { DropdownMenuItemProps } from 'reka-ui';
 import type { HTMLAttributes } from 'vue';
-import { cn } from '@/lib/utils';
+import { cn } from '@/core/lib/utils';
 import { DropdownMenuItem, useForwardProps } from 'reka-ui';
 import { dropdownMenuItemVariants } from '.';
 

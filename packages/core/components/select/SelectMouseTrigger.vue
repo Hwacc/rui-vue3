@@ -8,7 +8,7 @@ so we have the opportunity to capture mouse events internally.
 <script lang="ts">
 import type { PrimitiveProps, ReferenceElement } from 'reka-ui';
 import { selectTriggerVariants, selectTriangleVariants } from '.';
-import { cn } from '@/lib/utils';
+import { cn } from '@/core/lib/utils';
 import { isEmpty } from 'lodash-es';
 const OPEN_KEYS = [' ', 'Enter', 'ArrowUp', 'ArrowDown'];
 interface PopperAnchorProps extends PrimitiveProps {

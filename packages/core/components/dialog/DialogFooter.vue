@@ -2,9 +2,9 @@
 
 <script setup lang="ts">
 import type { HTMLAttributes } from 'vue';
-import { cn } from '@/lib/utils';
+import { cn } from '@/core/lib/utils';
 import { dialogFooterVariants, DialogClose, DialogCloseFrom } from '.';
-import { Button } from '@/components/button';
+import { Button } from '@/core/components/button';
 
 const { class: propsClass, disableRuiClass } = defineProps<{
   class?: HTMLAttributes['class'];

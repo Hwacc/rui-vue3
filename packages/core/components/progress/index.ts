@@ -1,6 +1,6 @@
-import { PREFIX } from '@/lib/constants';
+import { PREFIX } from '@/core/lib/constants';
 import { type VariantProps } from 'class-variance-authority';
-import { cva } from '@/lib/cva';
+import { cva } from '@/core/lib/cva';
 
 export { default as Progress } from './Progress.vue';
 export { default as CircleProgress } from './CircleProgress.vue';

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { cn } from '@/lib/utils';
+import { cn } from '@/core/lib/utils';
 import { computed, HTMLAttributes, toRefs } from 'vue';
 import {
   circleProgressVariants,

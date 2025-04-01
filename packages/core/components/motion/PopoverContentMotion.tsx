@@ -6,7 +6,7 @@
  */
 import { computed, defineComponent, toRefs } from 'vue';
 import { motion } from 'motion-v';
-import { getCssVar, spaceTimes } from '@/lib/utils';
+import { getCssVar, spaceTimes } from '@/core/lib/utils';
 
 export const PopoverContentMotion = defineComponent({
   name: 'PopoverContentMotion',

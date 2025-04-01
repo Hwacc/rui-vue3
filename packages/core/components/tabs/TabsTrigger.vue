@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type { TabsTriggerProps } from 'reka-ui';
 import type { HTMLAttributes } from 'vue';
-import { cn } from '@/lib/utils';
+import { cn } from '@/core/lib/utils';
 import { TabsTrigger, useForwardProps } from 'reka-ui';
 import { computed, onMounted } from 'vue';
 import { tabsTriggerVariants, TabsTriggerVariantsProps } from '.';

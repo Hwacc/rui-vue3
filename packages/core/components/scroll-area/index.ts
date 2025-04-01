@@ -1,5 +1,5 @@
-import { PREFIX } from '@/lib/constants';
-import { cva, VariantProps } from '@/lib/cva';
+import { PREFIX } from '@/core/lib/constants';
+import { cva, VariantProps } from '@/core/lib/cva';
 
 export { default as ScrollArea } from './ScrollArea.vue';
 export { default as ScrollFloatingArea } from './ScrollFloatingArea.vue';

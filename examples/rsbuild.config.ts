@@ -19,9 +19,10 @@ export default defineConfig({
   },
   resolve: {
     alias: {
-      '@': '../core',
-      '@/core': '../core',
-      '@/extra': '../extra',
+      '@/core': '../packages/core',
+      '@core': '../packages/core',
+      '@/add-ons': '../packages/add-ons',
+      '@add-ons': '../packages/add-ons',
     },
   },
   plugins: [

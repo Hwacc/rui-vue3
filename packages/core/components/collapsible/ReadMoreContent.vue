@@ -23,7 +23,7 @@ import {
   useId,
 } from 'reka-ui';
 import { useEventListener, useResizeObserver } from '@vueuse/core';
-import { cn } from '@/lib/utils';
+import { cn } from '@/core/lib/utils';
 import { injectReadMoreContext } from './ReadMore.vue';
 import { readMoreContentVariant } from '.';
 

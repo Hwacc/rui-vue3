@@ -7,7 +7,7 @@ import {
   Toast,
   ToastTitle,
   ToastViewport,
-} from '@/components/toast';
+} from '@/core/components/toast';
 import { messageVariants } from '.';
 import { isVNode } from 'vue';
 import { isFunction } from 'lodash-es';

@@ -3,7 +3,7 @@ import type { DialogCloseProps } from 'reka-ui';
 import { DialogClose } from 'reka-ui';
 import { DialogCloseFrom } from '.';
 import { HTMLAttributes } from 'vue';
-import { cn } from '@/lib/utils';
+import { cn } from '@/core/lib/utils';
 import { injectDialogContext } from './DialogRootProviderEx';
 
 const {

@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type { ToastViewportProps } from 'reka-ui';
 import type { HTMLAttributes } from 'vue';
-import { cn } from '@/lib/utils';
+import { cn } from '@/core/lib/utils';
 import { ToastViewport } from 'reka-ui';
 import { computed } from 'vue';
 import { injectToastProviderContextEx } from './ToastProvider.vue';

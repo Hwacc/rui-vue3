@@ -1,6 +1,6 @@
 import { VariantProps } from 'class-variance-authority';
-import { cva } from '@/lib/cva';
-import { PREFIX } from '@/lib/constants';
+import { cva } from '@/core/lib/cva';
+import { PREFIX } from '@/core/lib/constants';
 
 export { default as RadioGroup } from './RadioGroup.vue';
 export { default as RadioGroupItem } from './RadioGroupItem.vue';

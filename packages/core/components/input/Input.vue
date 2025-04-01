@@ -14,7 +14,7 @@ interface Props extends PrimitiveProps {
 
 <script setup lang="ts">
 import { computed, ref, type HTMLAttributes } from 'vue';
-import { cn } from '@/lib/utils';
+import { cn } from '@/core/lib/utils';
 import { useVModel } from '@vueuse/core';
 import { PrimitiveProps, useForwardExpose } from 'reka-ui';
 import { inputInnerVariants, inputVariants, inputClearableVariants } from '.';

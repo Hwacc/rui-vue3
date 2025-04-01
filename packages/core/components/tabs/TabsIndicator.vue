@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import type { TabsIndicatorProps } from 'reka-ui';
 import { computed, type HTMLAttributes } from 'vue';
-import { cn } from '@/lib/utils';
+import { cn } from '@/core/lib/utils';
 import { TabsIndicator, useForwardProps } from 'reka-ui';
 import { tabsIndicatorVariants, TabsIndicatorVariantsProps } from '.';
 

@@ -2,8 +2,8 @@
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
-      "@/core/*": ["../core/*"],
-      "@/extra/*": ["../extra/*"]
+      "@/core/*": ["../packages/core/*"],
+      "@/add-ons/*": ["../packages/add-ons/*"]
     },
     "target": "ES2020",
     "useDefineForClassFields": true,

@@ -1,5 +1,5 @@
 <script setup lang="tsx">
-import { Slider, type FloatingTooltipOptions } from '@/core/components/slider';
+import { Slider, type FloatingTooltipOptions } from '@/add-ons/components/slider';
 import { Switch } from '@/core/components/switch';
 import { Button } from '@/core/components/button';
 import { reactive, ref } from 'vue';

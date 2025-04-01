@@ -1,12 +1,12 @@
 <script setup lang="ts">
 import type { SelectContentEmits, SelectContentProps } from 'reka-ui';
 import type { HTMLAttributes } from 'vue';
-import { cn } from '@/lib/utils';
+import { cn } from '@/core/lib/utils';
 import { SelectContent, SelectPortal, SelectViewport, useForwardPropsEmits } from 'reka-ui';
 import { computed } from 'vue';
 import { selectContentVariants, SelectScrollDownButton, SelectScrollUpButton } from '.';
 import { AnimatePresence } from 'motion-v';
-import { PopoverContentMotion } from '@/components/motion/PopoverContentMotion';
+import { PopoverContentMotion } from '@/core/components/motion/PopoverContentMotion';
 
 defineOptions({
   inheritAttrs: false,

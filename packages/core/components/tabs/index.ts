@@ -1,6 +1,6 @@
 import { VariantProps } from 'class-variance-authority';
-import { cva } from '@/lib/cva';
-import { PREFIX } from '@/lib/constants';
+import { cva } from '@/core/lib/cva';
+import { PREFIX } from '@/core/lib/constants';
 
 export { default as Tabs } from './Tabs.vue';
 export { default as TabsContent } from './TabsContent.vue';

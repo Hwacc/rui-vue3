@@ -25,7 +25,7 @@ export const [injectReadMoreContext, provideReadMoreContext] =
 import { Collapsible, CollapsibleTrigger, readMoreRootVariant, readMoreTriggerVariant } from '.';
 import { default as ReadMoreContent, ReadMoreContentProps } from './ReadMoreContent.vue';
 import { useForwardPropsEmits, CollapsibleRootEmits } from 'reka-ui';
-import { cn } from '@/lib/utils';
+import { cn } from '@/core/lib/utils';
 import { computed, Ref, ref } from 'vue';
 
 const {

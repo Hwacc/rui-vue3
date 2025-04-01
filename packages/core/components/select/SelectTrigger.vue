@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type { SelectTriggerProps } from 'reka-ui';
 import type { HTMLAttributes } from 'vue';
-import { cn } from '@/lib/utils';
+import { cn } from '@/core/lib/utils';
 import { injectSelectRootContext, SelectIcon, SelectTrigger, useForwardProps } from 'reka-ui';
 import { computed, nextTick, ref, watch } from 'vue';
 import { selectTriggerVariants, selectTriangleVariants } from '.';

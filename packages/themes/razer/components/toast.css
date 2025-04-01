@@ -1,9 +1,3 @@
-@theme {
-  --color-rui-toast: var(--color-h22);
-  --color-rui-toast-title: inherit;
-  --color-rui-toast-description:var(--color-h88);
-}
-
 @layer components {
   .rui-toast{
     @apply bg-h22 shadow-rui-popper;

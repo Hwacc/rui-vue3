@@ -1,8 +1,4 @@
-@import 'tailwindcss';
-
-@config '../../../tailwind.config.ts';
-
-@import '../../base/animations.css';
+@import '../base/animations.css';
 
 @custom-variant dark (&:where([data-theme=dark], [data-theme=dark] *));
 @custom-variant success (&:where([data-variant=success], [data-variant=success] *));

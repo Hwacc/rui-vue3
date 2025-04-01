@@ -1,5 +1,5 @@
-import { colorHex2RgbObject, detectCssColorType } from '@/lib/colors';
-import { getNodeCssVar } from '@/lib/utils';
+import { colorHex2RgbObject, detectCssColorType } from '@/core/lib/colors';
+import { getNodeCssVar } from '@/core/lib/utils';
 import { MaybeRef, reactive, ref, unref, watchEffect } from 'vue';
 import { ProgressIndicatorVariants } from '.';
 

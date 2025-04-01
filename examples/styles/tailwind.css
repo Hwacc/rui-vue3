@@ -1,12 +1,13 @@
 @import 'tailwindcss';
 
-@import '../../core/styles/themes/razer/tailwind.css';
-
 @config '../tailwind.config.ts';
 
-@theme{}
+@import '../../packages/themes/razer/index.css';
+
+@theme {}
 
 @layer base {
+
   html,
   body {
     @apply size-full mr-0 p-0;

@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { useSlots, type HTMLAttributes } from 'vue';
-import { cn } from '@/lib/utils';
+import { cn } from '@/core/lib/utils';
 import { dialogHeaderVariants, DialogClose, DialogCloseFrom, dialogCloseVariants } from '.';
 import { DialogTitle, DialogDescription } from 'reka-ui';
 import { X } from 'lucide-vue-next';

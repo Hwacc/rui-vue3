@@ -1,6 +1,6 @@
-import { PREFIX } from '@/lib/constants';
+import { PREFIX } from '@/core/lib/constants';
 import { VariantProps } from 'class-variance-authority';
-import { cva } from '@/lib/cva';
+import { cva } from '@/core/lib/cva';
 
 export { default as Checkbox } from './Checkbox.vue';
 export { default as CheckboxGroup } from './CheckboxGroup.vue';

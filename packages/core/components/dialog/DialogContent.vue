@@ -17,7 +17,7 @@ import type {
   DialogPortalProps,
 } from 'reka-ui';
 import type { HTMLAttributes } from 'vue';
-import { cn } from '@/lib/utils';
+import { cn } from '@/core/lib/utils';
 import { X } from 'lucide-vue-next';
 import {
   DialogContent,

@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type { ToastTitleProps } from 'reka-ui';
 import type { HTMLAttributes } from 'vue';
-import { cn } from '@/lib/utils';
+import { cn } from '@/core/lib/utils';
 import { ToastTitle } from 'reka-ui';
 import { computed } from 'vue';
 import { toastTitleVariants } from '.';

@@ -2,7 +2,7 @@
 import { PopoverArrow, type PopoverArrowProps } from 'reka-ui';
 import { computed, HTMLAttributes, ref, watch } from 'vue';
 import { popoverArrowVariants, PopoverArrowVariants } from '.';
-import { cn, rem2px } from '@/lib/utils';
+import { cn, rem2px } from '@/core/lib/utils';
 
 const {
   class: propsClass,

@@ -31,7 +31,7 @@ interface Props extends PrimitiveProps {
 
 <script setup lang="ts">
 import { computed } from 'vue';
-import { cn } from '@/lib/utils';
+import { cn } from '@/core/lib/utils';
 import { Primitive } from 'reka-ui';
 import { buttonVariants } from '.';
 import { Tooltip, TooltipTrigger, TooltipContent, TooltipArrow } from '../tooltip';

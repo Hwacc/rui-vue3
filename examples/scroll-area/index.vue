@@ -11,7 +11,7 @@ import { ScrollArea, ScrollFloatingArea } from '@/core/components/scroll-area';
           class="w-full h-20 flex items-center"
           :style="{ backgroundColor: `#${Math.floor(Math.random() * 16777215).toString(16)}` }"
         >
-          <div>Normal Scroll #{{ i }}</div>
+          <div>Reka-UI Scroll #{{ i }}</div>
         </div>
       </div>
     </ScrollArea>

@@ -4,10 +4,10 @@ export { default as TooltipProvider } from './TooltipProvider.vue';
 export { default as TooltipTrigger } from './TooltipTrigger.vue';
 
 import { type VariantProps } from 'class-variance-authority';
-import { cva } from '@/lib/cva';
+import { cva } from '@/core/lib/cva';
 import TooltipArrow from './TooltipArrow.vue';
 import { TooltipArrowProps } from 'reka-ui';
-import { PREFIX } from '@/lib/constants';
+import { PREFIX } from '@/core/lib/constants';
 export { TooltipArrow, type TooltipArrowProps };
 
 const prefix = `${PREFIX}-tooltip`;

@@ -1,6 +1,6 @@
-import { PREFIX } from '@/lib/constants';
+import { PREFIX } from '@/core/lib/constants';
 // import { cva, type VariantProps } from 'class-variance-authority';
-import { cva, type VariantProps } from '@/lib/cva';
+import { cva, type VariantProps } from '@/core/lib/cva';
 
 export { default as Button } from './Button.vue';
 

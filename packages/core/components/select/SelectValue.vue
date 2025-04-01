@@ -5,7 +5,7 @@ import { injectSelectRootContext, SelectValue as RekaSelectValue } from 'reka-ui
 import { defineComponent, HTMLAttributes, toRefs, watch } from 'vue';
 import { X } from 'lucide-vue-next';
 import { selectValueVariants } from '.';
-import { cn } from '@/lib/utils';
+import { cn } from '@/core/lib/utils';
 
 export default defineComponent({
   name: 'SelectValue',

@@ -1,9 +1,9 @@
 import { VariantProps } from 'class-variance-authority';
-import { cva } from '@/lib/cva';
+import { cva } from '@/core/lib/cva';
 import { ToastRootProps } from 'reka-ui';
 import { HTMLAttributes } from 'vue';
 import { toastEdgeAnimate, toastSwipe } from '../toast';
-import { PREFIX } from '@/lib/constants';
+import { PREFIX } from '@/core/lib/constants';
 
 export { default as Messager } from './Messager.vue';
 export { message, useMessage } from './use-message';

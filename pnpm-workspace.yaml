@@ -1,6 +1,7 @@
 packages:
   - packages/*
   - histoire
+  - examples
 onlyBuiltDependencies:
   - esbuild
   - vue-demi

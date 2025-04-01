@@ -2,7 +2,7 @@
 import type { CollapsibleContentProps } from 'reka-ui';
 import { CollapsibleContent } from 'reka-ui';
 import { collapsibleContentClass } from '.';
-import { cn } from '@/lib/utils';
+import { cn } from '@/core/lib/utils';
 import { computed, HTMLAttributes } from 'vue';
 
 const { class: propsClass, ...props } = defineProps<

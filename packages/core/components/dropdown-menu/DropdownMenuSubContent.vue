@@ -1,11 +1,11 @@
 <script setup lang="ts">
 import type { DropdownMenuSubContentEmits, DropdownMenuSubContentProps } from 'reka-ui';
 import type { HTMLAttributes } from 'vue';
-import { cn, spaceTimes } from '@/lib/utils';
+import { cn, spaceTimes } from '@/core/lib/utils';
 import { DropdownMenuSubContent, useForwardPropsEmits } from 'reka-ui';
 import { dropdownMenuSubContentVariants } from '.';
 import { AnimatePresence } from 'motion-v';
-import { PopoverContentMotion } from '@/components/motion/PopoverContentMotion';
+import { PopoverContentMotion } from '@/core/components/motion/PopoverContentMotion';
 
 const {
   class: propsClass,

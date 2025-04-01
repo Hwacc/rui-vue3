@@ -1,24 +1,3 @@
-@theme {
-  /* radio item */
-  --color-rui-radio: transparent;
-  --color-rui-radio-hover:transparent;
-  --color-rui-radio-active: var(--color-h28);
-  --color-rui-radio-checked: transparent;
-  --color-rui-radio-checked-hover:transparent;
-  --color-rui-radio-checked-active: var(--color-h28);
-
-  /* radio border */
-  --color-rui-radio-border: var(--color-h70);
-  --color-rui-radio-border-hover:var(--color-rz-green);
-  --color-rui-radio-border-active: var(--color-rz-green);
-  --color-rui-radio-border-checked: var(--color-h70);
-  --color-rui-radio-border-checked-hover:var(--color-rz-green);
-  --color-rui-radio-border-checked-active: var(--color-rz-green);
-
-  /* radio inner */
-  --color-rui-radio-inner: var(--color-rz-green);
-}
-
 @layer components {
   .rui-radio-group-item {
     @apply bg-transparent active:bg-h28 border-h70 

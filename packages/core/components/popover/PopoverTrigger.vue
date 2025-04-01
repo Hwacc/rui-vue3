@@ -16,7 +16,7 @@ import {
 } from 'reka-ui';
 import { injectPopoverRootContextEx } from './PopoverProviderEx';
 import { computed, HTMLAttributes, onMounted, ref, watch } from 'vue';
-import { cn } from '@/lib/utils';
+import { cn } from '@/core/lib/utils';
 
 const {
   class: propsClass,
