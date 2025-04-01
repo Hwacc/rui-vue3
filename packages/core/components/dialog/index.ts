@@ -31,25 +31,14 @@ export const dialogOverlayVariants = cva(
     'data-[state=closed]:animate-out',
     'data-[state=closed]:fade-out',
   ],
-  { variants: {} },
-  {
-    className: `${prefix}-overlay`,
-    compound: [
-      {
-        disableRuiClass: false,
-        className: ['bg-rui-dialog-overlay', 'data-[type=scroll]:webkit-scrollbar-self'],
-      },
-    ],
-  }
+  undefined,
+  { className: `${prefix}-overlay` }
 );
 export type DialogOverlayVariantsProps = VariantProps<typeof dialogOverlayVariants>;
 
 export const dialogContentVariants = cva(
   [
-    'fixed',
-    'flex',
-    'flex-col',
-    'max-h-[80%]',
+    'relative',
     'max-w-full',
     'md:max-w-[80%]',
     'z-50',
@@ -61,49 +50,33 @@ export const dialogContentVariants = cva(
   ],
   {
     variants: {
+      variant: {
+        default: ['fixed', 'flex', 'flex-col', 'max-h-[80%]'],
+        scroll: [],
+      },
       position: {
-        center: ['left-1/2', 'top-1/2', '-translate-x-1/2', '-translate-y-1/2'],
+        center: '',
       },
     },
-  },
-  {
-    className: `${prefix}-content`,
-    compound: [
+    defaultVariants: {
+      position: 'center',
+    },
+    compoundVariants: [
       {
-        disableRuiClass: false,
-        className: ['bg-rui-dialog', 'border-rui-dialog-border', 'webkit-small-scrollbar'],
+        variant: 'default',
+        position: 'center',
+        className: ['left-1/2', 'top-1/2', '-translate-x-1/2', '-translate-y-1/2'],
+      },
+      {
+        variant: 'scroll',
+        position: 'center',
+        className: ['mx-auto', 'my-8'],
       },
     ],
-  }
+  },
+  { className: `${prefix}-content` }
 );
 export type DialogContentVariantsProps = VariantProps<typeof dialogContentVariants>;
-
-export const DialogScrollContentVariants = cva(
-  [
-    'relative',
-    'max-w-full',
-    'md:max-w-[80%]',
-    'mx-auto',
-    'my-8',
-    'z-50',
-    'outline-none',
-    'border',
-    'rounded',
-    'data-[state=open]:animate-fade-down-in',
-    'data-[state=closed]:animate-fade-down-out',
-  ],
-  { variants: {} },
-  {
-    className: `${prefix}-scroll-content`,
-    compound: [
-      {
-        disableRuiClass: false,
-        className: ['bg-rui-dialog', 'border-rui-dialog-border', `${prefix}-content_scroll`],
-      },
-    ],
-  }
-);
-export type DialogScrollContentVariantsProps = VariantProps<typeof DialogScrollContentVariants>;
 
 export const dialogCloseVariants = cva(
   ['group'],
@@ -114,15 +87,7 @@ export const dialogCloseVariants = cva(
       },
     },
   },
-  {
-    className: `${prefix}-close`,
-    compound: [
-      {
-        disableRuiClass: false,
-        className: ['text-rui-close', 'hover:text-rui-close-hover'],
-      },
-    ],
-  }
+  { className: `${prefix}-close` }
 );
 
 export const dialogContentBodyVariants = cva(['flex-1', 'p-6', 'overflow-y-auto'], undefined, {
@@ -131,28 +96,12 @@ export const dialogContentBodyVariants = cva(['flex-1', 'p-6', 'overflow-y-auto'
 
 export const dialogHeaderVariants = cva(
   ['flex', 'items-center', 'justify-between', 'py-2.5', 'px-5', 'text-sm'],
-  { variants: {} },
-  {
-    className: `${prefix}-header`,
-    compound: [
-      {
-        disableRuiClass: false,
-        className: ['bg-rui-dialog-header', 'font-rob-bold'],
-      },
-    ],
-  }
+  undefined,
+  { className: `${prefix}-header` }
 );
 
 export const dialogFooterVariants = cva(
   ['flex', 'items-center', 'justify-end', 'gap-5', 'p-4'],
-  { variants: {} },
-  {
-    className: `${prefix}-footer`,
-    compound: [
-      {
-        disableRuiClass: false,
-        className: ['bg-rui-dialog-footer'],
-      },
-    ],
-  }
+  undefined,
+  { className: `${prefix}-footer` }
 );

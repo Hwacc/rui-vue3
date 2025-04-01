@@ -11,7 +11,7 @@ import type { TooltipContentVariants } from '../tooltip';
 import type { ButtonVariants } from '.';
 
 interface Props extends PrimitiveProps {
-  type?: ButtonVariants['type'];
+  variant?: ButtonVariants['variant'];
   size?: ButtonVariants['size'];
   class?: HTMLAttributes['class'];
   disabled?: boolean;
@@ -38,7 +38,7 @@ import { Tooltip, TooltipTrigger, TooltipContent, TooltipArrow } from '../toolti
 
 const {
   as = 'button',
-  type = 'default',
+  variant = 'default',
   size,
   class: propsClass,
   disabled,
@@ -75,9 +75,9 @@ const emits = defineEmits(['click']);
 const buttonClass = computed(() =>
   cn(
     buttonVariants({
-      type,
+      variant,
       size,
-      limitWidth: type === 'icon' ? false : limitWidth,
+      limitWidth: variant === 'icon' ? false : limitWidth,
       disableRuiClass,
     }),
     propsClass
@@ -87,13 +87,14 @@ const buttonClass = computed(() =>
 
 <template>
   <Tooltip v-if="tooltip || slots.tooltip" v-bind="{ ...tooltipRootProps, disabled }">
+    <!-- data-state 已被Tooltip占用, 故使用data-switch-state -->
     <TooltipTrigger
       :as="as"
       :asChild="asChild"
       :class="buttonClass"
       :disabled="disabled"
-      :data-type="type"
-      :data-checked="type === 'switcher' ? checked : undefined"
+      :data-variant="variant"
+      :data-switch-state="variant === 'switch' ? (checked ? 'checked' : 'unchecked') : undefined"
       @click="emits('click')"
     >
       <slot />
@@ -121,8 +122,8 @@ const buttonClass = computed(() =>
     :as-child="asChild"
     :class="buttonClass"
     :disabled="disabled"
-    :data-type="type"
-    :data-checked="type === 'switcher' ? checked : undefined"
+    :data-variant="variant"
+    :data-switch-state="variant === 'switch' ? (checked ? 'checked' : 'unchecked') : undefined"
     @click="emits('click')"
   >
     <slot />

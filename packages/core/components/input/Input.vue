@@ -43,11 +43,9 @@ const modelValue = useVModel(props, 'modelValue', emits, {
 
 const isFocus = ref(false);
 
-const className = computed(() =>
-  cn(inputVariants({ size, focus: isFocus.value, disableRuiClass }), propsClass)
-);
+const className = computed(() => cn(inputVariants({ size, disableRuiClass }), propsClass));
 const innerClassName = computed(() =>
-  cn(inputInnerVariants({ size, focus: isFocus.value, disableRuiClass }), innerClass)
+  cn(inputInnerVariants({ size, disableRuiClass }), innerClass)
 );
 
 const { forwardRef } = useForwardExpose();
@@ -77,7 +75,11 @@ const { forwardRef } = useForwardExpose();
       @input="(e: Event) => emits('input', e, modelValue)"
       @change="(e: Event) => emits('change', e, modelValue)"
     />
-    <div v-if="clearable && modelValue" :class="inputClearableVariants({ size, disableRuiClass })" @click="modelValue = ''">
+    <div
+      v-if="clearable && modelValue"
+      :class="inputClearableVariants({ size, disableRuiClass })"
+      @click="modelValue = ''"
+    >
       <CircleX />
     </div>
     <slot name="suffix"></slot>

@@ -28,34 +28,12 @@ export const inputVariants = cva(
         sm: ['text-xs'],
         lg: ['text-base'],
       },
-      focus: {
-        true: '',
-      },
     },
     defaultVariants: {
       size: 'default',
-      focus: false,
     },
   },
-  {
-    className: prefix,
-    compound: [
-      {
-        disableRuiClass: false,
-        className: [
-          'bg-rui-input',
-          'border-rui-input-border',
-          'hover:border-rui-input-border-hover',
-          'text-rui-input-text',
-        ],
-      },
-      {
-        disableRuiClass: false,
-        focus: true,
-        className: ['border-rui-input-border-focus', 'hover:border-rui-input-border-focus'],
-      },
-    ],
-  }
+  { className: prefix }
 );
 export type InputVariants = VariantProps<typeof inputVariants>;
 
@@ -68,29 +46,10 @@ export const inputInnerVariants = cva(
         sm: ['placeholder:text-xs'],
         lg: ['placeholder:text-base'],
       },
-      focus: {
-        true: '',
-      },
     },
-    defaultVariants: {
-      size: 'default',
-      focus: false,
-    },
+    defaultVariants: { size: 'default' },
   },
-  {
-    className: `${prefix}-inner`,
-    compound: [
-      {
-        disableRuiClass: false,
-        className: [
-          'placeholder:text-rui-input-placeholder',
-          'placeholder:italic',
-          'selection:bg-rui-input-selection',
-          'selection:text-rui-input-selection-text',
-        ],
-      },
-    ],
-  }
+  { className: `${prefix}-inner` }
 );
 export type InputInnerVariants = VariantProps<typeof inputInnerVariants>;
 
@@ -105,17 +64,5 @@ export const inputClearableVariants = cva(
       },
     },
   },
-  {
-    className: `${prefix}-clearable`,
-    compound: [
-      {
-        disableRuiClass: false,
-        className: [
-          '[&_svg]:fill-rui-close',
-          '[&_svg]:stroke-black',
-          '[&_svg]:hover:fill-rui-close-hover',
-        ],
-      },
-    ],
-  }
+  { className: `${prefix}-clearable` }
 );

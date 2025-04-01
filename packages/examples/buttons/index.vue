@@ -16,34 +16,34 @@ const switcherState = ref(false);
       <Button :limitWidth="false">B</Button>
     </div>
     <div class="flex items-center gap-4">
-      <Button type="normal">normal</Button>
-      <Button type="normal" size="lg">large</Button>
-      <Button type="normal" size="sm">small</Button>
-      <Button type="normal" disabled>Disable</Button>
+      <Button variant="normal">normal</Button>
+      <Button variant="normal" size="lg">large</Button>
+      <Button variant="normal" size="sm">small</Button>
+      <Button variant="normal" disabled>Disable</Button>
     </div>
     <div class="flex items-center gap-4">
-      <Button type="outline">outline</Button>
-      <Button type="outline" size="lg">large</Button>
-      <Button type="outline" size="sm">small</Button>
-      <Button type="outline" disabled>Disable</Button>
+      <Button variant="outline">outline</Button>
+      <Button variant="outline" size="lg">large</Button>
+      <Button variant="outline" size="sm">small</Button>
+      <Button variant="outline" disabled>Disable</Button>
     </div>
     <div class="flex items-center gap-4">
-      <Button type="text">text</Button>
-      <Button type="text" size="lg">large</Button>
-      <Button type="text" size="sm">small</Button>
-      <Button type="text" disabled>Disable</Button>
+      <Button variant="text">text</Button>
+      <Button variant="text" size="lg">large</Button>
+      <Button variant="text" size="sm">small</Button>
+      <Button variant="text" disabled>Disable</Button>
     </div>
     <div class="flex items-center gap-4">
-      <Button type="icon"><Camera /></Button>
-      <Button type="icon" size="lg"><Camera /></Button>
-      <Button type="icon" size="sm"><Camera /></Button>
-      <Button type="icon" disabled><Camera /></Button>
+      <Button variant="icon"><Camera /></Button>
+      <Button variant="icon" size="lg"><Camera /></Button>
+      <Button variant="icon" size="sm"><Camera /></Button>
+      <Button variant="icon" disabled><Camera /></Button>
     </div>
     <div class="flex items-center gap-4">
-      <Button type="icon" tooltip="camera">
+      <Button variant="icon" tooltip="camera">
         <Camera />
       </Button>
-      <Button type="icon" size="lg">
+      <Button variant="icon" size="lg">
         <template #default>
           <Camera />
         </template>
@@ -52,22 +52,22 @@ const switcherState = ref(false);
         </template>
       </Button>
       <Button
-        type="icon"
+        variant="icon"
         size="sm"
         tooltip="camera"
         :tooltipContentProps="{ align: 'end', side: 'bottom', sideOffset: 6 }"
       >
         <Camera />
       </Button>
-      <Button type="icon" disabled tooltip="camera"><Camera /></Button>
+      <Button variant="icon" disabled tooltip="camera"><Camera /></Button>
     </div>
     <div class="flex items-center gap-4">
-      <Button type="switcher" :checked="switcherState" @click="switcherState = !switcherState">
+      <Button variant="switch" :checked="switcherState" @click="switcherState = !switcherState">
         <Star :class="[switcherState && 'fill-hff']" />
         <span>Favorite</span>
       </Button>
       <Button
-        type="switcher"
+        variant="switch"
         size="lg"
         :checked="switcherState"
         @click="switcherState = !switcherState"
@@ -76,7 +76,7 @@ const switcherState = ref(false);
         <span>Favorite</span>
       </Button>
       <Button
-        type="switcher"
+        variant="switch"
         size="sm"
         :checked="switcherState"
         tooltip="Favorite"
@@ -85,7 +85,7 @@ const switcherState = ref(false);
         <Star :class="[switcherState && 'fill-hff']" />
         <span>Favorite</span>
       </Button>
-      <Button type="switcher" :checked="switcherState" disabled>
+      <Button variant="switch" :checked="switcherState" disabled>
         <Star :class="[switcherState && 'fill-hff']" />
         <span>Favorite</span>
       </Button>

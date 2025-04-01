@@ -25,11 +25,12 @@ const forwardedProps = useForwardProps(props);
     v-bind="forwardedProps"
     :class="
       cn(
-        dropdownMenuItemVariants({ type: 'default', disableRuiClass }),
+        dropdownMenuItemVariants({ variant: 'default', disableRuiClass }),
         props.inset && 'pl-8',
         propsClass
       )
     "
+    data-variant="default"
   >
     <slot />
   </DropdownMenuItem>

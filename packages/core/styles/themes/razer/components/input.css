@@ -1,12 +1,17 @@
-@theme {
-  /* Input */
-  --color-rui-input: transparent;
-  --color-rui-input-border: var(--color-h55);
-  --color-rui-input-border-hover: var(--color-h66);
-  --color-rui-input-border-focus: var(--color-rz-green);
-  --color-rui-input-text: var(--color-hbb);
+@layer components {
+  .rui-input {
+    @apply bg-transparent border-h55 text-hbb;
+    @apply hover:border-h66 focus:border-rz-green;
+    @apply data-[state=focus]:border-rz-green data-[state=focus]:hover:border-rz-green;
+  }
 
-  --color-rui-input-placeholder: var(--color-h55);
-  --color-rui-input-selection: #204C19;
-  --color-rui-input-selection-text: #97C390;
+  .rui-input-inner{
+    @apply placeholder:text-h55 placeholder:italic selection:bg-[#204C19] selection:text-[#97C390];
+  }
+
+  .rui-input-clearable{
+    @apply [&>svg]:fill-rui-close
+           [&>svg]:stroke-black
+           [&>svg]:hover:fill-rui-close-hover;
+  }
 }

@@ -17,7 +17,7 @@ import {
   DialogCloseFrom,
   DialogClose,
   dialogOverlayVariants,
-  DialogScrollContentVariants,
+  dialogContentVariants,
   dialogCloseVariants,
 } from '.';
 import { DialogContentPropsImp } from './DialogContent.vue';
@@ -82,12 +82,7 @@ watch(open, (value) => {
 });
 
 const classNames = computed(() => {
-  return cn(
-    DialogScrollContentVariants({
-      disableRuiClass,
-    }),
-    propsClass
-  );
+  return cn(dialogContentVariants({ variant: 'scroll', disableRuiClass }), propsClass);
 });
 const overlayClassNames = computed(() => {
   return cn(
@@ -103,10 +98,11 @@ const forwarded = useForwardPropsEmits(props, emits);
 
 <template>
   <DialogPortal v-bind="portal">
-    <DialogOverlay :class="overlayClassNames" data-type="scroll">
+    <DialogOverlay :class="overlayClassNames" data-variant="scroll">
       <DialogContent
         :class="classNames"
         v-bind="forwarded"
+        data-variant="scroll"
         :ref="
           (ref) => {
             forwardRef(ref);

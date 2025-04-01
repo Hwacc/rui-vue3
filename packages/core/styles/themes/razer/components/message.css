@@ -1,3 +1,17 @@
-@theme {
-  --color-rui-message: var(--color-h22);
+@layer components {
+  .rui-message{
+    @apply bg-h22 shadow-rui-popper
+      success:[&_svg]:fill-rui-success
+      success:[&_svg]:stroke-h22
+      success:[&_circle]:stroke-rui-success
+      error:[&_svg]:fill-rui-error
+      error:[&_svg]:stroke-h22
+      error:[&_circle]:stroke-rui-error
+      warning:[&_svg]:fill-rui-warning
+      warning:[&_svg]:stroke-h22
+      warning:[&_circle]:stroke-rui-warning
+      info:[&_svg]:fill-rui-info
+      info:[&_svg]:stroke-h22
+      info:[&_circle]:stroke-rui-info
+  }
 }

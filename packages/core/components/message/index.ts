@@ -32,70 +32,13 @@ export const messageVariants = cva(
     toastEdgeAnimate['top-center'],
     toastSwipe.vertical,
   ],
-  {
-    variants: {
-      variant: {
-        success: '',
-        error: '',
-        warning: '',
-        info: '',
-      },
-    },
-  },
-  {
-    className: prefix,
-    compound: [
-      {
-        disableRuiClass: false,
-        className: ['bg-rui-message', 'shadow-rui-popper'],
-      },
-      {
-        variant: 'success',
-        disableRuiClass: false,
-        className: [
-          '[&_svg]:fill-rui-success',
-          '[&_svg]:stroke-rui-message',
-          '[&_circle]:stroke-rui-success',
-          `${prefix}_success`,
-        ],
-      },
-      {
-        variant: 'error',
-        disableRuiClass: false,
-        className: [
-          '[&_svg]:fill-rui-error',
-          '[&_svg]:stroke-rui-message',
-          '[&_circle]:stroke-rui-error',
-          `${prefix}_error`,
-        ],
-      },
-      {
-        variant: 'warning',
-        disableRuiClass: false,
-        className: [
-          '[&_svg]:fill-rui-warning',
-          '[&_svg]:stroke-rui-message',
-          '[&_circle]:stroke-rui-warning',
-          `${prefix}_warning`,
-        ],
-      },
-      {
-        variant: 'info',
-        disableRuiClass: false,
-        className: [
-          '[&_svg]:fill-rui-info',
-          '[&_svg]:stroke-rui-message',
-          '[&_circle]:stroke-rui-info',
-          `${prefix}_info`,
-        ],
-      },
-    ],
-  }
+  undefined,
+  { className: prefix }
 );
 export type MessageVariants = VariantProps<typeof messageVariants>;
 
 export interface MessageProps extends ToastRootProps {
   class?: HTMLAttributes['class'];
-  variant?: MessageVariants['variant'];
+  variant?: StatusVariants;
   onOpenChange?: ((value: boolean) => void) | undefined;
 }

@@ -97,22 +97,17 @@ const overlayClassNames = computed(() => {
   return cn(dialogOverlayVariants({ disableRuiClass }), overlay.class);
 });
 const classNames = computed(() => {
-  return cn(
-    dialogContentVariants({
-      position: 'center',
-      disableRuiClass,
-    }),
-    propsClass
-  );
+  return cn(dialogContentVariants({ variant: 'default', disableRuiClass }), propsClass);
 });
 const forwarded = useForwardPropsEmits(props, emits);
 </script>
 
 <template>
   <DialogPortal v-bind="portal">
-    <DialogOverlay :class="overlayClassNames" />
+    <DialogOverlay :class="overlayClassNames" data-variant="default" />
     <DialogContent
       v-bind="forwarded"
+      data-variant="default"
       :ref="
         (ref) => {
           forwardRef(ref);

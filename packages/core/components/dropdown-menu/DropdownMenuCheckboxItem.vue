@@ -38,12 +38,13 @@ const forwarded = useForwardPropsEmits(props, emits);
     :class="
       cn(
         dropdownMenuItemVariants({
-          type: 'checkbox',
+          variant: 'checkbox',
           disableRuiClass,
         }),
         propsClass
       )
     "
+    data-variant="checkbox"
     :model-value="innerModelValue"
     @update:model-value="(val) => (innerModelValue = val)"
     @select="

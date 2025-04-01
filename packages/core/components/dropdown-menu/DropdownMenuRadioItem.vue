@@ -30,12 +30,13 @@ const forwarded = useForwardPropsEmits(props, emits);
     :class="
       cn(
         dropdownMenuItemVariants({
-          type: 'radio',
+          variant: 'radio',
           disableRuiClass,
         }),
         propsClass
       )
     "
+    data-variant="radio"
     @select="
       (event) => {
         prevent && event.preventDefault();
