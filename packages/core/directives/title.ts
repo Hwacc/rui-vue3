@@ -1,10 +1,11 @@
 import { DirectiveBinding } from 'vue';
 import { computePosition, flip, shift, offset, hide } from '@floating-ui/vue';
-import { cva } from 'class-variance-authority';
+import { cva } from '@/lib/cva';
 
 const titleTipVariants = cva(
   [
-    'fixed',
+    'absolute',
+    'max-w-[31.25rem]',
     'text-xs',
     'px-[.25rem]',
     'py-[.125rem]',
@@ -16,8 +17,8 @@ const titleTipVariants = cva(
   {
     variants: {
       theme: {
-        default: ['bg-hee', 'text-black', 'border-black', 'max-w-[31.25rem]'],
-        dark: ['bg-h44', 'text-hee', 'border-none'],
+        default: '',
+        dark: '',
       },
       hidden: {
         true: 'hidden',
@@ -33,7 +34,8 @@ const titleTipVariants = cva(
     defaultVariants: {
       theme: 'default',
     },
-  }
+  },
+  { className: 'rui-v-title' }
 );
 
 class TitleTooltip {
@@ -63,18 +65,22 @@ class TitleTooltip {
         this.titleTipNode.appendChild(this.titleTipTextNode);
         const getClassName = (hidden: boolean = false, visible: boolean = false) => {
           return titleTipVariants({
-            theme: (binding.arg as 'default' | 'dark') || 'default',
+            theme: (binding.arg as any) ?? 'default',
             size: binding.modifiers.big ? 'big' : undefined,
+            disableRuiClass: binding.modifiers.disableRuiClass,
             hidden,
             visible,
           });
         };
         this.titleTipNode.className = getClassName(false);
+        this.titleTipNode.dataset.theme = binding.arg ?? 'default';
+
         const { x, y, middlewareData } = await computePosition(el, this.titleTipNode, {
           placement: 'bottom',
           middleware: [flip(), shift(), offset(4), hide()],
         });
         if (!middlewareData.hide?.referenceHidden) {
+          console.log(x, y);
           Object.assign(this.titleTipNode.style, {
             left: `${x}px`,
             top: `${y}px`,
@@ -88,7 +94,7 @@ class TitleTooltip {
       }
     }, 500) as unknown as number;
   }
-  
+
   onMouseLeave() {
     if (this.showTimer) {
       clearTimeout(this.showTimer);

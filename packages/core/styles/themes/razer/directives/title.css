@@ -1,0 +1,7 @@
+
+@layer components {
+  .rui-v-title{
+    @apply bg-hee text-h00 border-h00;
+    @apply dark:bg-h44 dark:text-hee dark:border-none;
+  }
+}
