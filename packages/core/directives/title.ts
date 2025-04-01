@@ -33,6 +33,8 @@ const titleTipVariants = cva(
     },
     defaultVariants: {
       theme: 'default',
+      hidden: true,
+      visible: false,
     },
   },
   { className: 'rui-v-title' }

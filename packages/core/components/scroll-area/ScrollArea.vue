@@ -12,11 +12,13 @@ import { scrollAreaVariants } from '.';
 
 const {
   class: propsClass,
+  theme,
   disableRuiClass,
   ...props
 } = defineProps<
   ScrollAreaRootProps & {
     class?: HTMLAttributes['class'];
+    theme?: string;
     disableRuiClass?: boolean;
   }
 >();
@@ -25,6 +27,7 @@ const emits = defineEmits<{
   scroll: [event: Event];
   scrollEnd: [event: Event];
 }>();
+
 </script>
 
 <template>
@@ -40,8 +43,7 @@ const emits = defineEmits<{
     >
       <slot />
     </ScrollAreaViewport>
-    <ScrollBar orientation="vertical" :disable-rui-class="disableRuiClass" />
-    <ScrollBar orientation="horizontal" :disable-rui-class="disableRuiClass" />
+    <ScrollBar :theme="theme" orientation="vertical" :disable-rui-class="disableRuiClass" />
     <ScrollAreaCorner />
   </ScrollAreaRoot>
 </template>

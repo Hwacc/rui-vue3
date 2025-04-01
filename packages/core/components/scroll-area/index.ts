@@ -2,7 +2,6 @@ import { PREFIX } from '@/core/lib/constants';
 import { cva, VariantProps } from '@/core/lib/cva';
 
 export { default as ScrollArea } from './ScrollArea.vue';
-export { default as ScrollFloatingArea } from './ScrollFloatingArea.vue';
 export { default as ScrollBar } from './ScrollBar.vue';
 
 const prefix = `${PREFIX}-scroll-area`;
@@ -15,20 +14,9 @@ export const scrollBarVariants = cva(
   {
     variants: {
       orientation: {
-        vertical: ['h-full', 'w-2.5', 'border-l', 'border-l-transparent', 'p-px'],
-        horizontal: ['h-2.5', 'flex-col', 'border-t', 'border-t-transparent', 'p-px'],
+        vertical: ['h-full', 'p-px'],
+        horizontal: ['flex-col', 'p-px'],
       },
-    },
-  },
-  {
-    className: `${prefix}-track`,
-  }
-);
-
-export const scrollThumbVariants = cva(
-  ['relative', 'flex-1', 'rounded-full'],
-  {
-    variants: {
       size: {
         default: '',
         sm: '',
@@ -37,8 +25,13 @@ export const scrollThumbVariants = cva(
     },
   },
   {
-    className: `${prefix}-thumb`,
+    className: `${prefix}-track`,
   }
 );
+export type ScrollBarVariants = VariantProps<typeof scrollBarVariants>;
 
-export type ScrollThumbVariants = VariantProps<typeof scrollThumbVariants>;
+export const scrollThumbVariants = cva(['relative', 'flex-1', 'rounded-full'], undefined, {
+  className: `${prefix}-thumb`,
+});
+
+
