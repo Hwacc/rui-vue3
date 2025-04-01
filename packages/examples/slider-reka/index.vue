@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { Slider } from '@/components/slider-reka';
+import { Slider } from '@/core/components/slider-reka';
 import { ref } from 'vue';
 
 const modelValue = ref([50]);

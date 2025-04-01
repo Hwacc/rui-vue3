@@ -1,8 +1,8 @@
 <script lang="ts" setup>
-import { Button } from '@/components/button';
-import { TooltipProvider } from '@/components/tooltip';
-import { Toaster, ToastPosition } from '@/components/toast';
-import { Messager } from '@/components/message';
+import { Button } from '@/core/components/button';
+import { TooltipProvider } from '@/core/components/tooltip';
+import { Toaster, ToastPosition } from '@/core/components/toast';
+import { Messager } from '@/core/components/message';
 
 import ButtonExample from './buttons/index.vue';
 import VTitleExample from './v-title/index.vue';
@@ -20,6 +20,7 @@ import SelectExample from './select/index.vue';
 import PopoverExample from './popover/index.vue';
 import SliderRekaExample from './slider-reka/index.vue';
 import ProgressExample from './progress/index.vue';
+import ScrollAreaExample from './scroll-area/index.vue';
 
 import { ref } from 'vue';
 
@@ -55,6 +56,7 @@ const toastPosition = ref<ToastPosition>('bottom-right');
       <SelectExample />
       <PopoverExample />
       <ProgressExample />
+      <ScrollAreaExample />
     </div>
   </TooltipProvider>
   <Toaster :position="toastPosition" :duration="5000" />

@@ -1,6 +1,6 @@
 <script setup lang="tsx">
-import { Button } from '@/components/button';
-import { Popover, PopoverTrigger, PopoverContent, PopoverArrow } from '@/components/popover';
+import { Button } from '@/core/components/button';
+import { Popover, PopoverTrigger, PopoverContent, PopoverArrow } from '@/core/components/popover';
 </script>
 
 <template>

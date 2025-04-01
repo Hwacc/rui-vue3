@@ -1,5 +1,5 @@
 <script setup lang="tsx">
-import { Button } from '@/components/button';
+import { Button } from '@/core/components/button';
 import {
   Dialog,
   DialogTrigger,
@@ -10,8 +10,8 @@ import {
   DialogCloseFrom,
   DialogScrollContent,
   dialog,
-} from '@/components/dialog';
-import DialogClose from '@/components/dialog/DialogClose.vue';
+} from '@/core/components/dialog';
+import DialogClose from '@/core/components/dialog/DialogClose.vue';
 
 const onContentClose = ({ from }: { from: DialogCloseFrom | undefined }) => {
   console.log('on close from:', from);
@@ -34,7 +34,7 @@ const onOpenDialogClick = () => {
       return (
         <>
           <DialogClose closeFrom={DialogCloseFrom.CancelButton}>
-            <Button class='min-w-22.5 uppercase' type='text' size='sm'>
+            <Button class='min-w-22.5 uppercase' variant='text' size='sm'>
               Cancel
             </Button>
           </DialogClose>

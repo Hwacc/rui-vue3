@@ -1,0 +1,10 @@
+@layer components {
+  .rui-scroll-area {}
+
+  .rui-scroll-area-track{
+    @apply bg-h00;
+  }
+  .rui-scroll-area-thumb {
+    @apply bg-rz-green
+  }
+}

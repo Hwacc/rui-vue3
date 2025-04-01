@@ -20,6 +20,8 @@ export default defineConfig({
   resolve: {
     alias: {
       '@': '../core',
+      '@/core': '../core',
+      '@/extra': '../extra',
     },
   },
   plugins: [

@@ -1,6 +1,6 @@
 import { createApp } from 'vue';
 import App from './App.vue';
-import { vTitle } from '@/directives/title';
+import { vTitle } from '@/core/directives/title';
 
 import './styles/tailwind.css';
 import './styles/index.css';

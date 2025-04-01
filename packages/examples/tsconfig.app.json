@@ -2,9 +2,8 @@
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
-      "@/*": ["../core/*"],
-      "@/components/*": ["../core/components/*"],
-      "@/lib/*": ["../core/lib/*"]
+      "@/core/*": ["../core/*"],
+      "@/extra/*": ["../extra/*"]
     },
     "target": "ES2020",
     "useDefineForClassFields": true,

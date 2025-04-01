@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { RadioGroup, RadioGroupItem } from '@/components/radio-group';
+import { RadioGroup, RadioGroupItem } from '@/core/components/radio-group';
 import { ref } from 'vue';
 
 const radioGroupState = ref('1');

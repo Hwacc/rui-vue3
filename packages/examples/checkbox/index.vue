@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { Checkbox, CheckboxGroup } from '@/components/checkbox';
+import { Checkbox, CheckboxGroup } from '@/core/components/checkbox';
 import { ref } from 'vue';
 
 const checkboxState = ref(false);
