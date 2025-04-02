@@ -1,22 +1,19 @@
 <script setup lang="ts">
-import { cn } from '@/core/lib/utils'
-import { X } from 'lucide-vue-next'
-import { TagsInputItemDelete, type TagsInputItemDeleteProps, useForwardProps } from 'reka-ui'
-import { computed, type HTMLAttributes } from 'vue'
+import { cn } from '@/core/lib/utils';
+import { X } from 'lucide-vue-next';
+import { TagsInputItemDelete, type TagsInputItemDeleteProps, useForwardProps } from 'reka-ui';
+import { type HTMLAttributes } from 'vue';
 
-const props = defineProps<TagsInputItemDeleteProps & { class?: HTMLAttributes['class'] }>()
+const { class: propsClass, ...props } = defineProps<TagsInputItemDeleteProps & { class?: HTMLAttributes['class'] }>();
 
-const delegatedProps = computed(() => {
-  const { class: _, ...delegated } = props
-
-  return delegated
-})
-
-const forwardedProps = useForwardProps(delegatedProps)
+const forwardedProps = useForwardProps(props);
 </script>
 
 <template>
-  <TagsInputItemDelete v-bind="forwardedProps" :class="cn('flex rounded bg-transparent mr-1', props.class)">
+  <TagsInputItemDelete
+    v-bind="forwardedProps"
+    :class="cn('flex rounded bg-transparent mr-1', propsClass)"
+  >
     <slot>
       <X class="w-4 h-4" />
     </slot>

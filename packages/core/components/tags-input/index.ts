@@ -11,7 +11,7 @@ export const tagsInputVariants = cva(
   {
     variants: {
       size: {
-        default: ['text-sm'],
+        base: ['text-sm'],
         sm: ['text-xs'],
         lg: ['text-base'],
       },
@@ -32,7 +32,7 @@ export const tagsInputInnerVariants = cva(
   {
     variants: {
       size: {
-        default: ['text-sm'],
+        base: ['text-sm'],
         sm: ['text-xs'],
         lg: ['text-base'],
       },
@@ -49,7 +49,7 @@ export const tagsInputItemVariants = cva(
   {
     variants: {
       size: {
-        default: ['px-2'],
+        base: ['px-2'],
         sm: ['px-1.5'],
         lg: ['px-2.5'],
       },
@@ -66,7 +66,7 @@ export const tagsInputItemTextVariants = cva(
   {
     variants: {
       size: {
-        default: ['text-sm'],
+        base: ['text-sm'],
         sm: ['text-xs'],
         lg: ['text-base'],
       },
@@ -77,3 +77,19 @@ export const tagsInputItemTextVariants = cva(
   }
 );
 export type TagsInputItemTextVariants = VariantProps<typeof tagsInputItemTextVariants>;
+
+export const tagsInputItemDeleteVariants = cva(
+  ['size-3'],
+  {
+    variants: {
+      size: {
+        base: ['size-3.5'],
+        sm: ['size-3'],
+        lg: ['size-4'],
+      },
+    },
+  },
+  {
+    className: 'rui-tags-input-item-delete',
+  }
+);

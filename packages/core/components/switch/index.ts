@@ -18,7 +18,7 @@ export const switchVariants = cva(
   {
     variants: {
       size: {
-        default: ['w-8', 'h-[1.125rem]'],
+        base: ['w-8', 'h-[1.125rem]'],
         sm: ['w-[1.75rem]', 'h-4'],
         lg: ['w-[2.25rem]', 'h-5'],
       },
@@ -43,7 +43,7 @@ export const switchThumbVariants = cva(
   {
     variants: {
       size: {
-        default: ['size-3.5'],
+        base: ['size-3.5'],
         sm: ['size-3'],
         lg: ['size-4'],
       },

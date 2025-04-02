@@ -7,7 +7,7 @@ import { tabsIndicatorVariants, TabsIndicatorVariantsProps } from '.';
 
 const {
   class: propsClass,
-  size = 'default',
+  size = 'base',
   disableRuiClass,
   ...props
 } = defineProps<

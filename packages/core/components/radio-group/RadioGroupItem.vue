@@ -20,7 +20,7 @@ const {
   innerClass,
   labelClass,
   class: propsClass,
-  size = 'default',
+  size = 'base',
   label,
   variant = 'default',
   disableRuiClass,

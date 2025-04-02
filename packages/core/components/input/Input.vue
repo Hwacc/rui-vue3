@@ -25,7 +25,7 @@ import { CircleX } from 'lucide-vue-next';
 const {
   class: propsClass,
   innerClass,
-  size = 'default',
+  size = 'base',
   clearable = false,
   disableRuiClass,
   disabled,

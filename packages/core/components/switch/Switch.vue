@@ -11,7 +11,7 @@ import { computed, type HTMLAttributes } from 'vue';
 import { switchThumbVariants, switchVariants, SwitchVariantsProps } from '.';
 
 const {
-  size = 'default',
+  size = 'base',
   disableRuiClass,
   ...props
 } = defineProps<

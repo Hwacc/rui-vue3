@@ -19,7 +19,7 @@ import { TagsInputVariants, tagsInputVariants } from '.';
 
 const {
   class: propsClass,
-  size = 'default',
+  size = 'base',
   ...props
 } = defineProps<
   TagsInputRootProps & {

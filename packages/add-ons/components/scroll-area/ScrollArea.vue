@@ -30,7 +30,7 @@ const {
 } = defineProps<
   PerfectScrollBarOptions & {
     class?: string;
-    size?: 'default' | 'small' | 'tiny';
+    size?: 'base' | 'sm' | 'xs';
     disableRuiClass?: false;
   }
 >();

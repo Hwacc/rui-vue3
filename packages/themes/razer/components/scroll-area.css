@@ -5,11 +5,11 @@
     @apply bg-h00/30;
     
     &[data-orientation="vertical"] {
-      @apply data-[size=default]:w-2 data-[size=small]:w-1 data-[size=tiny]:w-0.5;
+      @apply data-[size=base]:w-2 data-[size=sm]:w-1 data-[size=xs]:w-0.5;
     }
 
     &[data-orientation="horizontal"] {
-      @apply data-[size=default]:h-2 data-[size=small]:h-1 data-[size=tiny]:h-0.5;
+      @apply data-[size=base]:h-2 data-[size=sm]:h-1 data-[size=xs]:h-0.5;
     }
   }
   .rui-scroll-area-thumb {

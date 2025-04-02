@@ -37,7 +37,7 @@ export const buttonVariants = cva(
         switch: ['justify-start', 'gap-[.6875rem]', 'px-3', 'text-xs', '[&_svg]:size-[.625rem]'],
       },
       size: {
-        default: 'h-[1.75rem]',
+        base: 'h-[1.75rem]',
         sm: 'h-[1.5rem] text-xs',
         lg: 'h-[2rem] text-base',
       },
@@ -69,7 +69,7 @@ export const buttonVariants = cva(
     ],
     defaultVariants: {
       variant: 'default',
-      size: 'default',
+      size: 'base',
       limitWidth: true,
     },
   },

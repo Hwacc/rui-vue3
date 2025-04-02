@@ -10,9 +10,9 @@ export const scrollAreaVariants = cva(
   {
     variants: {
       size: {
-        default: '',
-        small: '',
-        tiny: '',
+        base: '',
+        sm: '',
+        xs: '',
       },
     },
   },

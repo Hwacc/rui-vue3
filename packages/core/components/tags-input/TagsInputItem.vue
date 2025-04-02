@@ -8,7 +8,7 @@ import { injectTagsInputContext } from './TagsInput.vue';
 
 const {
   class: propsClass,
-  size = 'default',
+  size = 'base',
   ...props
 } = defineProps<
   TagsInputItemProps & { class?: HTMLAttributes['class']; size?: TagsInputItemVariants['size'] }

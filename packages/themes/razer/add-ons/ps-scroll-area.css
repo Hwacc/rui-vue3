@@ -1,7 +1,7 @@
 @layer components {
   .rui-ps-scroll-area {
 
-    &[data-size="default"]{
+    &[data-size="base"]{
       .ps__rail-y{
         @apply w-2;
       }
@@ -15,7 +15,7 @@
         @apply h-1.5
       }
     }
-    &[data-size="small"] {
+    &[data-size="sm"] {
       .ps__rail-y{
         @apply w-1.5;
       }
@@ -29,7 +29,7 @@
         @apply h-1
       }
     }
-    &[data-size="tiny"] {
+    &[data-size="xs"] {
       .ps__rail-y{
         @apply w-1;
       }

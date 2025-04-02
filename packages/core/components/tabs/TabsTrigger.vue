@@ -9,7 +9,7 @@ import { injectTabsContext } from './Tabs.vue';
 
 const {
   class: propsClass,
-  size = 'default',
+  size = 'base',
   disableRuiClass,
   ...props
 } = defineProps<

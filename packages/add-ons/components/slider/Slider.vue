@@ -302,7 +302,7 @@ const {
   dotSize,
   width,
   height,
-  size = 'default',
+  size = 'base',
   duration = 0.15,
   floatingTooltip,
   disableRuiClass,
@@ -310,7 +310,7 @@ const {
 } = defineProps<
   SliderProps & {
     class?: HTMLAttributes['class'];
-    size?: 'default' | 'sm' | 'lg' | 'custom';
+    size?: 'base' | 'sm' | 'lg' | 'custom';
     floatingTooltip?: FloatingTooltipOptions | boolean | undefined;
     disableRuiClass?: boolean;
   }
@@ -393,7 +393,7 @@ const mergedProcessStyle = computed(() => {
 const computedWidth = computed(() => {
   if (direction === 'ttb' || direction === 'btt') {
     switch (size) {
-      case 'default':
+      case 'base':
         return '.125rem';
       case 'sm':
         return '.0625rem';
@@ -411,7 +411,7 @@ const computedHeight = computed(() => {
     return height;
   } else if (direction === 'ltr' || direction === 'rtl') {
     switch (size) {
-      case 'default':
+      case 'base':
         return '.125rem';
       case 'sm':
         return '.0625rem';
@@ -424,7 +424,7 @@ const computedHeight = computed(() => {
 });
 const computedDotSize = computed(() => {
   switch (size) {
-    case 'default':
+    case 'base':
       return [rem2px(0.625), rem2px(0.625)];
     case 'sm':
       return [rem2px(0.5), rem2px(0.5)];

@@ -13,7 +13,7 @@ import { injectCheckboxGroupContext } from './CheckboxGroup.vue';
 const groupContext = injectCheckboxGroupContext(null);
 const {
   primary,
-  size = 'default',
+  size = 'base',
   labelClass,
   label = '',
   modelValue = false,

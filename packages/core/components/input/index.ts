@@ -22,13 +22,13 @@ export const inputVariants = cva(
   {
     variants: {
       size: {
-        default: ['text-sm'],
+        base: ['text-sm'],
         sm: ['text-xs'],
         lg: ['text-base'],
       },
     },
     defaultVariants: {
-      size: 'default',
+      size: 'base',
     },
   },
   { className: prefix }
@@ -40,12 +40,12 @@ export const inputInnerVariants = cva(
   {
     variants: {
       size: {
-        default: ['placeholder:text-sm'],
+        base: ['placeholder:text-sm'],
         sm: ['placeholder:text-xs'],
         lg: ['placeholder:text-base'],
       },
     },
-    defaultVariants: { size: 'default' },
+    defaultVariants: { size: 'base' },
   },
   { className: `${prefix}-inner` }
 );
@@ -56,7 +56,7 @@ export const inputClearableVariants = cva(
   {
     variants: {
       size: {
-        default: '[&_svg]:size-3.5',
+        base: '[&_svg]:size-3.5',
         sm: '[&_svg]:size-3',
         lg: '[&_svg]:size-4',
       },

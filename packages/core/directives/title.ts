@@ -28,7 +28,7 @@ const titleTipVariants = cva(
         false: 'invisible',
       },
       size: {
-        big: ['px-[.5rem]', 'py-[.3125rem]'],
+        lg: ['px-[.5rem]', 'py-[.3125rem]'],
       },
     },
     defaultVariants: {
@@ -68,7 +68,7 @@ class TitleTooltip {
         const getClassName = (hidden: boolean = false, visible: boolean = false) => {
           return titleTipVariants({
             theme: (binding.arg as any) ?? 'default',
-            size: binding.modifiers.big ? 'big' : undefined,
+            size: binding.modifiers.lg ? 'lg' : undefined,
             disableRuiClass: binding.modifiers.disableRuiClass,
             hidden,
             visible,

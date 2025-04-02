@@ -12,7 +12,7 @@ import { scrollBarVariants, ScrollBarVariants, scrollThumbVariants } from '.';
 const {
   class: propsClass,
   thumbClass,
-  size = 'default',
+  size = 'base',
   theme,
   orientation = 'vertical',
   disableRuiClass,

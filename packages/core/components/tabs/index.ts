@@ -32,7 +32,7 @@ export const tabsTriggerVariants = cva(
   {
     variants: {
       size: {
-        default: 'px-3.75 py-2.5 text-sm',
+        base: 'px-3.75 py-2.5 text-sm',
         sm: 'px-3 py-2 text-xs',
         lg: 'px-4.5 py-3 text-base',
       },
@@ -56,7 +56,7 @@ export const tabsIndicatorVariants = cva(
   {
     variants: {
       size: {
-        default: 'h-1',
+        base: 'h-1',
         sm: 'h-1',
         lg: 'h-1.5',
       },

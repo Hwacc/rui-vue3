@@ -18,7 +18,7 @@ export const scrollBarVariants = cva(
         horizontal: ['flex-col', 'p-px'],
       },
       size: {
-        default: '',
+        base: '',
         sm: '',
         tiny: '',
       },

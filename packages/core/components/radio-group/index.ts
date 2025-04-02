@@ -17,7 +17,7 @@ export const radioGroupItemVariants = cva(
   {
     variants: {
       size: {
-        default: ['size-3.5'],
+        base: ['size-3.5'],
         sm: ['size-3'],
         lg: ['size-4'],
       },
@@ -32,7 +32,7 @@ export const radioGroupItemInnerVariants = cva(
   {
     variants: {
       size: {
-        default: ['size-1.5'],
+        base: ['size-1.5'],
         sm: ['size-1'],
         lg: ['size-2'],
       },

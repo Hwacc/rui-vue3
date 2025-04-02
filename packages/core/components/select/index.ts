@@ -38,13 +38,13 @@ export const selectTriggerVariants = cva(
   {
     variants: {
       size: {
-        default: ['text-sm'],
+        base: ['text-sm'],
         sm: ['text-xs'],
         lg: ['text-base'],
       },
     },
     defaultVariants: {
-      size: 'default',
+      size: 'base',
     },
   },
   {

@@ -23,7 +23,7 @@ export const checkboxVariants = cva(
   {
     variants: {
       size: {
-        default: ['size-3.5'],
+        base: ['size-3.5'],
         sm: ['size-3'],
         lg: ['size-4'],
       },
