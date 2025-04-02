@@ -1,157 +1,105 @@
-<script setup lang="tsx">
+<script lang="ts">
+interface PerfectScrollBarOptions {
+  handlers?: string[];
+  maxScrollbarLength?: number;
+  minScrollbarLength?: number;
+  scrollingThreshold?: number;
+  scrollXMarginOffset?: number;
+  scrollYMarginOffset?: number;
+  suppressScrollX?: boolean;
+  suppressScrollY?: boolean;
+  swipeEasing?: boolean;
+  useBothWheelAxes?: boolean;
+  wheelPropagation?: boolean;
+  wheelSpeed?: number;
+}
+</script>
+
+<script setup lang="ts">
 import { ref, useId, watchEffect } from 'vue';
 import PerfectScrollbar from 'perfect-scrollbar';
 import { cn } from '@/core/lib/utils';
 import { scrollAreaVariants } from '.';
+import { defaults } from 'lodash-es';
 
-const { class: propsClass, ...props } = defineProps<{
-  class?: string;
+const {
+  class: propsClass,
+  size,
+  disableRuiClass,
+  ...props
+} = defineProps<
+  PerfectScrollBarOptions & {
+    class?: string;
+    size?: 'default' | 'small' | 'tiny';
+    disableRuiClass?: false;
+  }
+>();
+
+const scrollEvents = [
+  'ps-scroll-y',
+  'ps-scroll-x',
+  'ps-scroll-up',
+  'ps-scroll-down',
+  'ps-scroll-left',
+  'ps-scroll-right',
+  'ps-reach-y-start',
+  'ps-reach-y-end',
+  'ps-reach-x-start',
+  'ps-reach-x-end',
+];
+const emits = defineEmits<{
+  'ps-scroll-y': [ps: PerfectScrollbar];
+  'ps-scroll-x': [ps: PerfectScrollbar];
+  'ps-scroll-up': [ps: PerfectScrollbar];
+  'ps-scroll-down': [ps: PerfectScrollbar];
+  'ps-scroll-left': [ps: PerfectScrollbar];
+  'ps-scroll-right': [ps: PerfectScrollbar];
+  'ps-reach-y-start': [ps: PerfectScrollbar];
+  'ps-reach-y-end': [ps: PerfectScrollbar];
+  'ps-reach-x-start': [ps: PerfectScrollbar];
+  'ps-reach-x-end': [ps: PerfectScrollbar];
 }>();
+
 const id = useId();
 const containerRef = ref<HTMLElement>();
 watchEffect((cleanup) => {
-  let ps = null;
+  let ps: PerfectScrollbar | null = null;
+  const events = scrollEvents.map((name) => {
+    return [name, () => emits(name as any, ps as any)];
+  });
   if (containerRef.value) {
-    ps = new PerfectScrollbar(containerRef.value, {
-      wheelSpeed: 2,
-      wheelPropagation: true,
-      minScrollbarLength: 20,
-      suppressScrollX: true,
+    console.log('props', props);
+    ps = new PerfectScrollbar(
+      containerRef.value,
+      defaults({}, props, {
+        handlers: ['click-rail', 'drag-thumb', 'keyboard', 'wheel', 'touch'],
+        wheelSpeed: 1,
+        scrollXMarginOffset: 0,
+        scrollYMarginOffset: 0,
+        scrollingThreshold: 1000,
+        swipeEasing: true
+      })
+    );
+    events.forEach(([name, handler]) => {
+      containerRef.value?.addEventListener(name as any, handler as any);
     });
-    ps.update();
   }
   cleanup(() => {
-    ps && ps.destroy();
+    events.forEach(([name, handler]) => {
+      containerRef.value?.removeEventListener(name as any, handler as any);
+    });
+    ps?.destroy();
   });
 });
 </script>
 
 <template>
   <div
-    :class="cn(scrollAreaVariants(), propsClass)"
+    :class="cn(scrollAreaVariants({ size, disableRuiClass }), propsClass)"
     :id="`rui-scroll-area-${id}`"
     ref="containerRef"
-    v-bind="props"
+    :data-size="size"
   >
     <slot />
   </div>
 </template>
-
-<style scoped>
-/*
- * Container style
- */
-.ps {
-  overflow: hidden !important;
-  overflow-anchor: none;
-  -ms-overflow-style: none;
-  touch-action: auto;
-  -ms-touch-action: auto;
-}
-
-/*
- * Scrollbar rail styles
- */
-.ps__rail-x {
-  display: none;
-  opacity: 0;
-  transition: background-color 0.2s linear, opacity 0.2s linear;
-  -webkit-transition: background-color 0.2s linear, opacity 0.2s linear;
-  height: 15px;
-  /* there must be 'bottom' or 'top' for ps__rail-x */
-  bottom: 0px;
-  /* please don't change 'position' */
-  position: absolute;
-}
-
-.ps__rail-y {
-  display: none;
-  opacity: 0;
-  transition: background-color 0.2s linear, opacity 0.2s linear;
-  -webkit-transition: background-color 0.2s linear, opacity 0.2s linear;
-  width: 15px;
-  /* there must be 'right' or 'left' for ps__rail-y */
-  right: 0;
-  /* please don't change 'position' */
-  position: absolute;
-}
-
-.ps--active-x > .ps__rail-x,
-.ps--active-y > .ps__rail-y {
-  display: block;
-  background-color: transparent;
-}
-
-.ps:hover > .ps__rail-x,
-.ps:hover > .ps__rail-y,
-.ps--focus > .ps__rail-x,
-.ps--focus > .ps__rail-y,
-.ps--scrolling-x > .ps__rail-x,
-.ps--scrolling-y > .ps__rail-y {
-  opacity: 0.6;
-}
-
-.ps .ps__rail-x:hover,
-.ps .ps__rail-y:hover,
-.ps .ps__rail-x:focus,
-.ps .ps__rail-y:focus,
-.ps .ps__rail-x.ps--clicking,
-.ps .ps__rail-y.ps--clicking {
-  background-color: #eee;
-  opacity: 0.9;
-}
-
-/*
- * Scrollbar thumb styles
- */
-.ps__thumb-x {
-  background-color: #aaa;
-  border-radius: 6px;
-  transition: background-color 0.2s linear, height 0.2s ease-in-out;
-  -webkit-transition: background-color 0.2s linear, height 0.2s ease-in-out;
-  height: 6px;
-  /* there must be 'bottom' for ps__thumb-x */
-  bottom: 2px;
-  /* please don't change 'position' */
-  position: absolute;
-}
-
-.ps__thumb-y {
-  background-color: #aaa;
-  border-radius: 6px;
-  transition: background-color 0.2s linear, width 0.2s ease-in-out;
-  -webkit-transition: background-color 0.2s linear, width 0.2s ease-in-out;
-  width: 6px;
-  /* there must be 'right' for ps__thumb-y */
-  right: 2px;
-  /* please don't change 'position' */
-  position: absolute;
-}
-
-.ps__rail-x:hover > .ps__thumb-x,
-.ps__rail-x:focus > .ps__thumb-x,
-.ps__rail-x.ps--clicking .ps__thumb-x {
-  background-color: #999;
-  height: 11px;
-}
-
-.ps__rail-y:hover > .ps__thumb-y,
-.ps__rail-y:focus > .ps__thumb-y,
-.ps__rail-y.ps--clicking .ps__thumb-y {
-  background-color: #999;
-  width: 11px;
-}
-
-/* MS supports */
-@supports (-ms-overflow-style: none) {
-  .ps {
-    overflow: auto !important;
-  }
-}
-
-@media screen and (-ms-high-contrast: active), (-ms-high-contrast: none) {
-  .ps {
-    overflow: auto !important;
-  }
-}
-</style>

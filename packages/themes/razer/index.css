@@ -254,6 +254,7 @@
 @import './components/tabs.css';
 @import './components/toast.css';
 @import './components/tooltip.css';
-@import './components/vue-slider.css';
+@import './add-ons/vue-slider.css';
 @import './directives/title.css';
 @import './components/scroll-area.css';
+@import './add-ons/ps-scroll-area.css';

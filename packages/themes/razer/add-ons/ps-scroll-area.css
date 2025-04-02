@@ -1,0 +1,81 @@
+@layer components {
+  .rui-ps-scroll-area {
+
+    &[data-size="default"]{
+      .ps__rail-y{
+        @apply w-2;
+      }
+      .ps__thumb-y {
+        @apply w-1.5
+      }
+      .ps__rail-x{
+        @apply h-2;
+      }
+      .ps__thumb-x {
+        @apply h-1.5
+      }
+    }
+    &[data-size="small"] {
+      .ps__rail-y{
+        @apply w-1.5;
+      }
+      .ps__thumb-y {
+        @apply w-1;
+      }
+      .ps__rail-x{
+        @apply h-1.5;
+      }
+      .ps__thumb-x {
+        @apply h-1
+      }
+    }
+    &[data-size="tiny"] {
+      .ps__rail-y{
+        @apply w-1;
+      }
+      .ps__thumb-y {
+        @apply w-0.5;
+      }
+      .ps__rail-x{
+        @apply h-1;
+      }
+      .ps__thumb-x {
+        @apply h-0.5
+      }
+    }
+
+    /* scrollbar X */
+    .ps__rail-x {
+      @apply bg-h00/30 p-px;
+    }
+    .ps__thumb-x {
+      @apply bottom-[1px] bg-h58/40 rounded-full hover:bg-rz-green transition-colors;
+    }
+    .ps__rail-x:focus>.ps__thumb-x,
+    .ps__rail-x.ps--clicking .ps__thumb-x {
+      @apply bg-rz-green/80
+    }
+    &.ps--scrolling-x .ps__thumb-x {
+      @apply bg-rz-green/80
+    }
+
+    /* scrollbar Y */
+    .ps__rail-y {
+      @apply bg-h00/30 p-px;
+    }
+    .ps__thumb-y {
+      @apply right-[1px] bg-h58/40 rounded-full hover:bg-rz-green transition-colors;
+    }
+    .ps__rail-y:focus>.ps__thumb-y,
+    .ps__rail-y.ps--clicking .ps__thumb-y {
+      @apply bg-rz-green/80
+    }
+
+    &:hover,
+    &.ps--scrolling-y{
+      .ps__thumb-y {
+        @apply bg-rz-green/80
+      }
+    }
+  }
+}

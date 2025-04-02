@@ -1,7 +1,22 @@
 import { cva } from '@/core/lib/cva';
 
-export { default as PerfectScrollArea } from './ScrollArea.vue';
+// import ps css
+import './style.css';
 
-export const scrollAreaVariants = cva([], undefined, {
-  className: 'rui-perfect-scroll-area',
-});
+export { default as ScrollArea } from './ScrollArea.vue';
+
+export const scrollAreaVariants = cva(
+  ['relative'],
+  {
+    variants: {
+      size: {
+        default: '',
+        small: '',
+        tiny: '',
+      },
+    },
+  },
+  {
+    className: 'rui-ps-scroll-area',
+  }
+);
