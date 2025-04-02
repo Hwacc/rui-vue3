@@ -35,7 +35,11 @@ const forwarded = useForwardPropsEmits(props, emits);
 </script>
 
 <template>
-  <TagsInputRoot v-bind="forwarded" :class="cn(tagsInputVariants({ size }), propsClass)">
+  <TagsInputRoot
+    v-bind="forwarded"
+    :class="cn(tagsInputVariants({ size }), propsClass)"
+    :data-size="size"
+  >
     <slot />
   </TagsInputRoot>
 </template>

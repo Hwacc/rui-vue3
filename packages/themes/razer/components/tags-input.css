@@ -4,6 +4,19 @@
   .rui-tags-input {}
 
   .rui-tags-input-item{
-    @apply bg-h22 rounded-full data-[state=active]:bg-rz-blue data-[state=active]:text-hff;
+    @apply bg-h22 rounded-full hover:bg-h44 data-[state=active]:bg-rz-blue data-[state=active]:text-hff;
+  }
+
+  .rui-tags-input-item-delete{
+    @apply text-rui-close hover:text-rui-close-hover data-[state=active]:text-hff;
+    &[data-size="base"] {
+      @apply [&_svg]:size-3;
+    }
+    &[data-size="sm"] {
+      @apply [&_svg]:size-2.5;
+    }
+    &[data-size="lg"] {
+      @apply [&_svg]:size-3.5;
+    }
   }
 }

@@ -23,5 +23,6 @@ const forwardedProps = useForwardProps(props);
   <TagsInputItemText
     v-bind="forwardedProps"
     :class="cn(tagsInputItemTextVariants({ size: contextSize ?? size }), propsClass)"
+    :data-size="contextSize ?? size"
   />
 </template>

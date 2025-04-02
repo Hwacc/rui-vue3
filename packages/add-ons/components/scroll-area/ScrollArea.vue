@@ -68,7 +68,6 @@ watchEffect((cleanup) => {
     return [name, () => emits(name as any, ps as any)];
   });
   if (containerRef.value) {
-    console.log('props', props);
     ps = new PerfectScrollbar(
       containerRef.value,
       defaults({}, props, {

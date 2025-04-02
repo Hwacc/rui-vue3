@@ -13,6 +13,7 @@ const {
   TagsInputInputProps & { class?: HTMLAttributes['class']; size?: TagsInputInnerVariants['size'] }
 >();
 const { size: contextSize } = injectTagsInputContext();
+
 const forwardedProps = useForwardProps(props);
 </script>
 
@@ -20,13 +21,6 @@ const forwardedProps = useForwardProps(props);
   <TagsInputInput
     v-bind="forwardedProps"
     :class="cn(tagsInputInnerVariants({ size: contextSize ?? size }), propsClass)"
-    @focus="(e: Event) => {
-      console.log('focus', e);
-    }"
-    @blur="
-      () => {
-        console.log('blur');
-      }
-    "
+    :data-size="contextSize ?? size"
   />
 </template>

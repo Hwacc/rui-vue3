@@ -3,8 +3,17 @@ import { cn } from '@/core/lib/utils';
 import { X } from 'lucide-vue-next';
 import { TagsInputItemDelete, type TagsInputItemDeleteProps, useForwardProps } from 'reka-ui';
 import { type HTMLAttributes } from 'vue';
+import { tagsInputItemDeleteVariants, TagsInputItemDeleteVariants } from '.';
+import { injectTagsInputContext } from './TagsInput.vue';
 
-const { class: propsClass, ...props } = defineProps<TagsInputItemDeleteProps & { class?: HTMLAttributes['class'] }>();
+const { class: propsClass, ...props } = defineProps<
+  TagsInputItemDeleteProps & {
+    class?: HTMLAttributes['class'];
+    size?: TagsInputItemDeleteVariants['size'];
+  }
+>();
+
+const { size: contextSize } = injectTagsInputContext();
 
 const forwardedProps = useForwardProps(props);
 </script>
@@ -12,10 +21,11 @@ const forwardedProps = useForwardProps(props);
 <template>
   <TagsInputItemDelete
     v-bind="forwardedProps"
-    :class="cn('flex rounded bg-transparent mr-1', propsClass)"
+    :class="cn(tagsInputItemDeleteVariants({ size: contextSize ?? size }), propsClass)"
+    :data-size="contextSize ?? size"
   >
     <slot>
-      <X class="w-4 h-4" />
+      <X />
     </slot>
   </TagsInputItemDelete>
 </template>
