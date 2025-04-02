@@ -1,8 +1,17 @@
 @layer components {
   .rui-input {
-    @apply bg-transparent border-h55 text-hbb;
+    @apply bg-transparent border-h55 text-hbb transition-colors;
     @apply hover:border-h66 focus:border-rz-green;
-    @apply data-[state=focus]:border-rz-green data-[state=focus]:hover:border-rz-green;
+    @apply data-[state=focused]:border-rz-green 
+      data-[state=focused]:hover:border-rz-green 
+        data-[state=focused]:ring-2
+        data-[state=focused]:ring-rz-green/30;
+    @apply data-[state=disabled]:hover:border-h55 data-[state=disabled]:bg-h1d;
+    @apply data-[state=readonly]:bg-h1d;
+
+    &[data-focused] {
+      @apply border-rz-green hover:border-rz-green ring-2 ring-rz-green/30;
+    }
   }
 
   .rui-input-inner{

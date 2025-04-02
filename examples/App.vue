@@ -21,6 +21,7 @@ import PopoverExample from './popover/index.vue';
 import SliderRekaExample from './slider-reka/index.vue';
 import ProgressExample from './progress/index.vue';
 import ScrollAreaExample from './scroll-area/index.vue';
+import TagsInputExample from './tags-input/index.vue';
 
 import { ref } from 'vue';
 
@@ -57,6 +58,7 @@ const toastPosition = ref<ToastPosition>('bottom-right');
       <PopoverExample />
       <ProgressExample />
       <ScrollAreaExample />
+      <TagsInputExample />
     </div>
   </TooltipProvider>
   <Toaster :position="toastPosition" :duration="5000" />

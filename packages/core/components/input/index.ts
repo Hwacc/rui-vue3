@@ -15,11 +15,9 @@ export const inputVariants = cva(
     'gap-2',
     'border',
     'rounded',
-    'ring',
-    'ring-transparent',
     'transition-all',
-    'disabled:pointer-events-none',
-    'disabled:opacity-(--disabled-opacity)',
+    'data-[state=disabled]:pointer-events-none',
+    'data-[state=disabled]:opacity-(--disabled-opacity)',
   ],
   {
     variants: {

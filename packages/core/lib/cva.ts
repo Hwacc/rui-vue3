@@ -39,7 +39,7 @@ export const cva = <T>(
   base?: ClassValue,
   config?: Config<T>,
   ruiConfig?: {
-    className?: string;
+    className?: string | string[];
     compound?: Config<T>['compoundVariants'];
   }
 ): ((props?: Props<T>) => string) => {

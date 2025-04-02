@@ -32,6 +32,7 @@
 
   --color-rz-orange: oklch(80.16% 0.1705 73.27);
   --color-rz-red: oklch(62.32% 0.2121 25.89);
+  --color-rz-blue: oklch(69% 0.1282 229.93);
 
   --color-black: oklch(0% 0 0);
   --color-h00: oklch(0% 0 0);
@@ -64,6 +65,7 @@
   --color-h16: oklch(20.02% 0 0);
   --color-h11: oklch(15.26% 0 0);
   --color-h2a: oklch(22.22% 0 0);
+  --color-h1d: oklch(19.61% 0 0);
 
   /* Text */
   --text-xs: 0.75rem;
@@ -258,3 +260,4 @@
 @import './directives/title.css';
 @import './components/scroll-area.css';
 @import './add-ons/ps-scroll-area.css';
+@import './components/tags-input.css';

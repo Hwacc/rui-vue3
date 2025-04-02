@@ -8,6 +8,8 @@ interface Props extends PrimitiveProps {
   innerClass?: HTMLAttributes['class'];
   placeholder?: string;
   clearable?: boolean;
+  disabled?: boolean;
+  readonly?: boolean;
   disableRuiClass?: boolean;
 }
 </script>
@@ -26,6 +28,8 @@ const {
   size = 'default',
   clearable = false,
   disableRuiClass,
+  disabled,
+  readonly,
   ...props
 } = defineProps<Props>();
 const emits = defineEmits<{
@@ -42,43 +46,67 @@ const modelValue = useVModel(props, 'modelValue', emits, {
 });
 
 const isFocus = ref(false);
+const inputState = computed(() => {
+  if (disabled) return 'disabled';
+  if (readonly) return 'readonly';
+  return isFocus.value ? 'focused' : 'blur';
+});
+const inputRef = ref<HTMLInputElement | null>(null);
+const rejectBlur = ref(false);
+const onBlur = (event: Event) => {
+  setTimeout(() => {
+    emits('blur', event);
+    if (rejectBlur.value) {
+      rejectBlur.value = false;
+      return;
+    }
+    isFocus.value = false;
+  });
+};
 
 const className = computed(() => cn(inputVariants({ size, disableRuiClass }), propsClass));
 const innerClassName = computed(() =>
   cn(inputInnerVariants({ size, disableRuiClass }), innerClass)
 );
-
 const { forwardRef } = useForwardExpose();
 </script>
 
 <template>
-  <div :class="className" :data-state="isFocus ? 'focus' : 'blur'">
+  <div :class="className" :data-state="inputState">
     <slot name="prefix"></slot>
     <input
       :class="innerClassName"
       v-model="modelValue"
-      :ref="forwardRef"
+      :ref="
+        (r: any) => {
+          inputRef = r as HTMLInputElement;
+          forwardRef(r);
+        }
+      "
       :placeholder="props.placeholder"
-      :data-state="isFocus ? 'focus' : 'blur'"
+      :data-state="inputState"
+      :disabled="disabled ? true : undefined"
+      :readonly="readonly ? true : undefined"
       @focus="
-        (e: Event) => {
+        (event: Event) => {
           isFocus = true;
-          emits('focus', e);
+          emits('focus', event);
         }
       "
-      @blur="
-        (e: Event) => {
-          isFocus = false;
-          emits('blur', e);
-        }
-      "
+      @blur="onBlur"
       @input="(e: Event) => emits('input', e, modelValue)"
       @change="(e: Event) => emits('change', e, modelValue)"
     />
     <div
-      v-if="clearable && modelValue"
+      v-if="inputState === 'focused' && clearable && modelValue"
       :class="inputClearableVariants({ size, disableRuiClass })"
-      @click="modelValue = ''"
+      @mousedown.stop="
+        () => {
+          rejectBlur = true;
+          inputRef?.focus();
+          modelValue = '';
+        }
+      "
     >
       <CircleX />
     </div>

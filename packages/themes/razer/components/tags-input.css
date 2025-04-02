@@ -1,0 +1,9 @@
+@import './input.css';
+
+@layer components {
+  .rui-tags-input {}
+
+  .rui-tags-input-item{
+    @apply bg-h22 rounded-full data-[state=active]:bg-rz-blue data-[state=active]:text-hff;
+  }
+}

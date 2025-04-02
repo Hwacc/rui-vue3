@@ -33,6 +33,8 @@ import { Input } from '@/core/components/input';
       </Input>
       <Input size="lg" placeholder="Large input" />
       <Input size="sm" placeholder="Small input" />
+      <Input readonly placeholder="Readonly input" modelValue="Readonly input" />
+      <Input disabled placeholder="Disabled input" />
     </div>
   </div>
 </template>
