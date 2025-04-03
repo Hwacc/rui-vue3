@@ -18,7 +18,7 @@ interface Props extends PrimitiveProps {
 import { computed, ref, type HTMLAttributes } from 'vue';
 import { cn } from '@/core/lib/utils';
 import { useVModel } from '@vueuse/core';
-import { PrimitiveProps, useForwardExpose } from 'reka-ui';
+import { Primitive, PrimitiveProps, useForwardExpose } from 'reka-ui';
 import { inputInnerVariants, inputVariants, inputClearableVariants } from '.';
 import { CircleX } from 'lucide-vue-next';
 
@@ -72,7 +72,7 @@ const { forwardRef } = useForwardExpose();
 </script>
 
 <template>
-  <div :class="className" :data-state="inputState">
+  <Primitive :class="className" :data-state="inputState" v-bind="props">
     <slot name="prefix"></slot>
     <input
       :class="innerClassName"
@@ -111,5 +111,5 @@ const { forwardRef } = useForwardExpose();
       <CircleX />
     </div>
     <slot name="suffix"></slot>
-  </div>
+  </Primitive>
 </template>

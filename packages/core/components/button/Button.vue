@@ -11,7 +11,7 @@ import type { TooltipContentVariants } from '../tooltip';
 import type { ButtonVariants } from '.';
 
 interface Props extends PrimitiveProps {
-  variant?: ButtonVariants['variant'];
+  variant?: ButtonVariants['variant'] | string;
   size?: ButtonVariants['size'];
   class?: HTMLAttributes['class'];
   disabled?: boolean;
@@ -75,7 +75,7 @@ const emits = defineEmits(['click']);
 const buttonClass = computed(() =>
   cn(
     buttonVariants({
-      variant,
+      variant: variant as ButtonVariants['variant'],
       size,
       limitWidth: variant === 'icon' ? false : limitWidth,
       disableRuiClass,
