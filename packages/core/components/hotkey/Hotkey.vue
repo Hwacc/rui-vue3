@@ -12,9 +12,9 @@ const {} = defineProps({});
 </script>
 
 <template>
-  <div>
-    <Primitive as="span" class="outline-2">
-      
+  <div aria-label="test" role="button" tab-index="0" @keydown="() => {}">
+    <Primitive as="span" >
+      test
     </Primitive>
   </div>
 </template>

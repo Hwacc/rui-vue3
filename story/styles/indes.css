@@ -1,0 +1,5 @@
+@import 'tailwindcss';
+
+@config '../tailwind.config.ts';
+
+@import '@themes/razer/index.css';

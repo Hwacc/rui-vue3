@@ -132,7 +132,7 @@ const { forwardRef, currentElement: triggerElement } = useForwardExpose();
 <template>
   <PopoverAnchor as-child>
     <Primitive
-      :class="cn('outline-none', propsClass)"
+      :class="cn(propsClass)"
       :id="rootContex.triggerId"
       :ref="forwardRef"
       :type="as === 'button' ? 'button' : undefined"

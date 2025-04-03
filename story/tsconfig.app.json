@@ -1,0 +1,26 @@
+{
+  "extends": "@vue/tsconfig/tsconfig.dom.json",
+  "compilerOptions": {
+    "tsBuildInfoFile": "./node_modules/.tmp/tsconfig.app.tsbuildinfo",
+    "typeRoots": ["./node_modules/@types", "./types"],
+
+    "paths": {
+      "@/stories/*": ["./stories/*"],
+      "@stories/*": ["./stories/*"],
+      "@/core/*": ["../packages/core/*"],
+      "@core/*": ["../packages/core/*"],
+      "@/add-ons/*": ["../packages/add-ons/*"],
+      "@add-ons/*": ["../packages/add-ons/*"],
+      "@/themes/*": ["../packages/themes/*"],
+      "@themes/*": ["../packages/themes/*"],
+    },
+
+    /* Linting */
+    "strict": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noFallthroughCasesInSwitch": true,
+    "noUncheckedSideEffectImports": true
+  },
+  "include": ["stories/**/*.ts", "stories/**/*.tsx", "stories/**/*.vue", "vite-env.d.ts"]
+}
