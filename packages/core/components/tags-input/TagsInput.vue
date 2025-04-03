@@ -1,14 +1,6 @@
-<script lang="ts">
-const [injectTagsInputContext, provideTagsInputContext] = createContext<{
-  size?: TagsInputVariants['size'];
-}>('TagsInput');
-export { injectTagsInputContext };
-</script>
-
 <script setup lang="ts">
 import { cn } from '@/core/lib/utils';
 import {
-  createContext,
   TagsInputRoot,
   type TagsInputRootEmits,
   type TagsInputRootProps,
@@ -16,6 +8,8 @@ import {
 } from 'reka-ui';
 import { type HTMLAttributes } from 'vue';
 import { TagsInputVariants, tagsInputVariants } from '.';
+import { TagsInputProviderEx } from './TagsInputProviderEx';
+import { useCollection } from '../collection';
 
 const {
   class: propsClass,
@@ -28,18 +22,24 @@ const {
   }
 >();
 const emits = defineEmits<TagsInputRootEmits>();
-provideTagsInputContext({
-  size,
+
+const { CollectionSlot } = useCollection({
+  key: 'RuiTagsInputCollection',
+  isProvider: true,
 });
 const forwarded = useForwardPropsEmits(props, emits);
 </script>
 
 <template>
-  <TagsInputRoot
-    v-bind="forwarded"
-    :class="cn(tagsInputVariants({ size }), propsClass)"
-    :data-size="size"
-  >
-    <slot />
-  </TagsInputRoot>
+  <CollectionSlot>
+    <TagsInputRoot
+      v-bind="forwarded"
+      :class="cn(tagsInputVariants({ size }), propsClass)"
+      :data-size="size"
+    >
+      <TagsInputProviderEx :size="size">
+        <slot />
+      </TagsInputProviderEx>
+    </TagsInputRoot>
+  </CollectionSlot>
 </template>

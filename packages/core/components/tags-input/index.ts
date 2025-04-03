@@ -5,6 +5,7 @@ export { default as TagsInputInput } from './TagsInputInput.vue';
 export { default as TagsInputItem } from './TagsInputItem.vue';
 export { default as TagsInputItemDelete } from './TagsInputItemDelete.vue';
 export { default as TagsInputItemText } from './TagsInputItemText.vue';
+export { default as TagsItemScrollHorizontal } from './TagsItemScrollHorizontal.vue';
 
 export const tagsInputVariants = cva(
   ['flex', 'items-center', 'rounded-md', 'border', 'rounded', 'py-[.375rem]', 'px-2', 'gap-2'],
@@ -94,3 +95,19 @@ export const tagsInputItemDeleteVariants = cva(
   }
 );
 export type TagsInputItemDeleteVariants = VariantProps<typeof tagsInputItemDeleteVariants>;
+
+export const tagsItemScrollHorizontalVariants = cva(
+  [],
+  {
+    variants: {
+      size: {
+        base: ['-mb-1.5 pb-1.5'],
+        sm: ['-mb-1 pb-1'],
+        tiny: ['-mb-0.5 pb-0.5'],
+      },
+    },
+  },
+  {
+    className: 'rui-tags-item-scroll-horizontal',
+  }
+);

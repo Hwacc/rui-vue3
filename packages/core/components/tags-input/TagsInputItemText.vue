@@ -3,7 +3,7 @@ import { cn } from '@/core/lib/utils';
 import { TagsInputItemText, type TagsInputItemTextProps, useForwardProps } from 'reka-ui';
 import { type HTMLAttributes } from 'vue';
 import { TagsInputItemTextVariants, tagsInputItemTextVariants } from '.';
-import { injectTagsInputContext } from './TagsInput.vue';
+import { injectTagsInputContextEx } from './TagsInputProviderEx';
 
 const {
   class: propsClass,
@@ -15,7 +15,7 @@ const {
     size?: TagsInputItemTextVariants['size'];
   }
 >();
-const { size: contextSize } = injectTagsInputContext();
+const { size: contextSize } = injectTagsInputContextEx();
 const forwardedProps = useForwardProps(props);
 </script>
 

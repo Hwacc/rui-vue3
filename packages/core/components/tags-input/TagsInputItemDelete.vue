@@ -4,7 +4,7 @@ import { X } from 'lucide-vue-next';
 import { TagsInputItemDelete, type TagsInputItemDeleteProps, useForwardProps } from 'reka-ui';
 import { type HTMLAttributes } from 'vue';
 import { tagsInputItemDeleteVariants, TagsInputItemDeleteVariants } from '.';
-import { injectTagsInputContext } from './TagsInput.vue';
+import { injectTagsInputContextEx } from './TagsInputProviderEx';
 
 const { class: propsClass, ...props } = defineProps<
   TagsInputItemDeleteProps & {
@@ -13,7 +13,7 @@ const { class: propsClass, ...props } = defineProps<
   }
 >();
 
-const { size: contextSize } = injectTagsInputContext();
+const { size: contextSize } = injectTagsInputContextEx();
 
 const forwardedProps = useForwardProps(props);
 </script>
