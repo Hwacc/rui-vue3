@@ -3,43 +3,41 @@ import type {
   PrimitiveProps,
   TooltipContentProps,
   TooltipRootProps,
-  TooltipArrowProps,
-  TooltipProviderProps,
-} from 'reka-ui';
-import type { HTMLAttributes } from 'vue';
-import type { TooltipContentVariants } from '@/core/components/tooltip';
-import type { ButtonVariants } from '.';
+  TooltipArrowProps
+} from 'reka-ui'
+import type { HTMLAttributes } from 'vue'
+import type { TooltipContentVariants } from '@/core/components/tooltip'
+import type { ButtonVariants } from '.'
 
 interface Props extends PrimitiveProps {
-  variant?: ButtonVariants['variant'] | string;
-  size?: ButtonVariants['size'];
-  class?: HTMLAttributes['class'];
-  disabled?: boolean;
-  checked?: boolean;
-  tooltip?: string;
-  tooltipTheme?: TooltipContentVariants['theme'];
-  tooltipProviderProps?: TooltipProviderProps;
-  tooltipRootProps?: TooltipRootProps;
-  tooltipContentClass?: HTMLAttributes['class'];
-  tooltipContentProps?: TooltipContentProps;
-  tooltipArrowClass?: HTMLAttributes['class'];
-  tooltipArrowProps?: TooltipArrowProps;
-  disableRuiClass?: boolean;
+  variant?: ButtonVariants['variant'] | string
+  size?: ButtonVariants['size']
+  class?: HTMLAttributes['class']
+  disabled?: boolean
+  checked?: boolean
+  tooltip?: string
+  tooltipTheme?: TooltipContentVariants['theme']
+  tooltipRootProps?: TooltipRootProps
+  tooltipContentClass?: HTMLAttributes['class']
+  tooltipContentProps?: TooltipContentProps
+  tooltipArrowClass?: HTMLAttributes['class']
+  tooltipArrowProps?: TooltipArrowProps
+  disableRuiClass?: boolean
 }
 </script>
 
 <script setup lang="ts">
-import { computed } from 'vue';
-import { cn } from '@/core/lib/utils';
-import { Primitive } from 'reka-ui';
-import { buttonVariants } from '.';
+import { computed } from 'vue'
+import { cn } from '@/core/lib/utils'
+import { Primitive, useForwardExpose } from 'reka-ui'
+import { buttonVariants } from '.'
 import {
   Tooltip,
   TooltipTrigger,
   TooltipContent,
   TooltipArrow,
-  TooltipProvider,
-} from '@/core/components/tooltip';
+  TooltipProvider
+} from '@/core/components/tooltip'
 
 const {
   as = 'button',
@@ -54,38 +52,39 @@ const {
   tooltipRootProps = {
     delayDuration: 0,
     disableHoverableContent: true,
-    ignoreNonKeyboardFocus: true,
+    ignoreNonKeyboardFocus: true
   },
   tooltipContentClass,
   tooltipContentProps = {
     side: 'top',
     align: 'start',
-    sideOffset: 6,
+    sideOffset: 6
   },
   tooltipArrowClass,
   tooltipArrowProps = {
     width: 6,
-    height: 6,
-  },
-} = defineProps<Props>();
+    height: 6
+  }
+} = defineProps<Props>()
 
 const slots = defineSlots<{
-  default?: () => any;
-  tooltip?: () => any;
-}>();
+  default?: () => any
+  tooltip?: () => any
+}>()
 
-const emits = defineEmits(['click']);
+const emits = defineEmits(['click'])
 
+const { forwardRef } = useForwardExpose()
 const buttonClass = computed(() =>
   cn(
     buttonVariants({
       variant: variant as ButtonVariants['variant'],
       size,
-      disableRuiClass,
+      disableRuiClass
     }),
     propsClass
   )
-);
+)
 </script>
 
 <template>
@@ -97,8 +96,11 @@ const buttonClass = computed(() =>
         :asChild="asChild"
         :class="buttonClass"
         :disabled="disabled"
+        :ref="forwardRef"
         :data-variant="variant"
-        :data-switch-state="variant === 'switch' ? (checked ? 'checked' : 'unchecked') : undefined"
+        :data-switch-state="
+          variant === 'switch' ? (checked ? 'checked' : 'unchecked') : undefined
+        "
         @click="emits('click')"
       >
         <slot />
@@ -127,9 +129,12 @@ const buttonClass = computed(() =>
     :as="as"
     :as-child="asChild"
     :class="buttonClass"
+    :ref="forwardRef"
     :disabled="disabled"
     :data-variant="variant"
-    :data-switch-state="variant === 'switch' ? (checked ? 'checked' : 'unchecked') : undefined"
+    :data-switch-state="
+      variant === 'switch' ? (checked ? 'checked' : 'unchecked') : undefined
+    "
     @click="emits('click')"
   >
     <slot />

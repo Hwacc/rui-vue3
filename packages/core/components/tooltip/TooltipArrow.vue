@@ -8,7 +8,7 @@ const {
   force = false,
   theme = 'default',
   variant = 'css',
-  width = 6,
+  width = 12,
   height = 6,
   class: propsClass,
   disableRuiClass,
@@ -35,11 +35,19 @@ watch(arrowRef, () => {
 });
 
 const style = computed(() => {
+  if(variant === 'css') {
+    // makes square
+    const line = Math.min(width, height);
+    return {
+      '--reka-tooltip-arrow-width': `${line}px`,
+      '--reka-tooltip-arrow-height': `${line}px`,
+      '--reka-tooltip-arrow-border-width': `${line / 2}px`,
+      '--reka-tooltip-arrow-border-height': `${line / 2}px`,
+    };
+  }
   return {
     '--reka-tooltip-arrow-width': `${width}px`,
     '--reka-tooltip-arrow-height': `${height}px`,
-    '--reka-tooltip-arrow-border-width': `${width / 2}px`,
-    '--reka-tooltip-arrow-border-height': `${height / 2}px`,
   };
 });
 

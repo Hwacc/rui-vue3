@@ -1,22 +1,22 @@
-import { PREFIX } from '@/core/lib/constants';
-import { VariantProps } from 'class-variance-authority';
-import { cva } from '@/core/lib/cva';
+import { PREFIX } from '@/core/lib/constants'
+import { VariantProps } from 'class-variance-authority'
+import { cva } from '@/core/lib/cva'
 
-export { default as Checkbox } from './Checkbox.vue';
-export { default as CheckboxGroup } from './CheckboxGroup.vue';
+export { default as Checkbox } from './Checkbox.vue'
+export { default as CheckboxGroup } from './CheckboxGroup.vue'
 
-const prefix = `${PREFIX}-checkbox`;
-export const checkboxLabelVariants = cva(
+const prefix = `${PREFIX}-checkbox`
+export const checkboxRootVariants = cva(
   ['flex', 'items-center', 'gap-2.5'],
   {
     variants: {
       disabled: {
-        true: ['opacity-(--disabled-opacity)'],
-      },
-    },
+        true: ['opacity-(--disabled-opacity)']
+      }
+    }
   },
   { className: `${prefix}-root` }
-);
+)
 
 export const checkboxVariants = cva(
   ['peer', 'shrink-0', 'rounded-xs', 'border'],
@@ -25,14 +25,29 @@ export const checkboxVariants = cva(
       size: {
         base: ['size-3.5'],
         sm: ['size-3'],
-        lg: ['size-4'],
+        lg: ['size-4']
       },
       disabled: {
-        true: '',
-      },
-    },
+        true: ''
+      }
+    }
   },
   { className: prefix }
-);
+)
+export type CheckboxVariantsProps = VariantProps<typeof checkboxVariants>
 
-export type CheckboxVariantsProps = VariantProps<typeof checkboxVariants>;
+export const checkboxLabelVariants = cva(
+  '',
+  {
+    variants: {
+      size: {
+        base: ['text-sm'],
+        sm: ['text-xs'],
+        lg: ['text-base']
+      }
+    }
+  },
+  {
+    className: `${prefix}-label`
+  }
+)

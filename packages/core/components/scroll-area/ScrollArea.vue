@@ -5,10 +5,8 @@ import {
   ScrollAreaRoot,
   type ScrollAreaRootProps,
   ScrollAreaViewport,
-  useForwardExpose,
 } from 'reka-ui';
 import { getCurrentInstance, ref, watch, type HTMLAttributes } from 'vue';
-import ScrollBar from './ScrollBar.vue';
 import { scrollAreaVariants } from '.';
 
 const {

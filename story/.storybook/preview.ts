@@ -10,11 +10,11 @@ const preview: Preview = {
       },
     },
     backgrounds: {
-      default: 'Light',
+      default: 'Dark',
       values: [
         {
           name: 'Dark',
-          value: '#000',
+          value: '#111',
         },
         {
           name: 'Light',

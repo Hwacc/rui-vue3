@@ -1,16 +1,27 @@
 <script setup lang="ts">
-import type { CheckboxRootEmits, CheckboxRootProps } from 'reka-ui';
-import { cn } from '@/core/lib/utils';
-import { Check, Minus } from 'lucide-vue-next';
-import { CheckboxIndicator, CheckboxRoot, useForwardPropsEmits } from 'reka-ui';
-import { computed, getCurrentInstance, ref, watch, type HTMLAttributes } from 'vue';
-import { checkboxVariants, CheckboxVariantsProps, checkboxLabelVariants } from '.';
-import { injectCheckboxGroupContext } from './CheckboxGroup.vue';
+import type { CheckboxRootEmits, CheckboxRootProps } from 'reka-ui'
+import { cn } from '@/core/lib/utils'
+import { Check, Minus } from 'lucide-vue-next'
+import { CheckboxIndicator, CheckboxRoot, useForwardPropsEmits } from 'reka-ui'
+import {
+  computed,
+  getCurrentInstance,
+  ref,
+  watch,
+  type HTMLAttributes
+} from 'vue'
+import {
+  checkboxVariants,
+  CheckboxVariantsProps,
+  checkboxRootVariants,
+  checkboxLabelVariants
+} from '.'
+import { injectCheckboxGroupContext } from './CheckboxGroup.vue'
 
 /**
  * create checkbox group context, if not exist it will be null
  */
-const groupContext = injectCheckboxGroupContext(null);
+const groupContext = injectCheckboxGroupContext(null)
 const {
   primary,
   size = 'base',
@@ -22,84 +33,105 @@ const {
   ...props
 } = defineProps<
   CheckboxRootProps & {
-    primary?: boolean;
-    labelClass?: HTMLAttributes['class'];
-    label?: string;
-    class?: HTMLAttributes['class'];
-    size?: CheckboxVariantsProps['size'];
-    stopPropagation?: boolean; // 有时checkbox作为checkable-item的子组件，需要阻止事件冒泡
-    disableRuiClass?: boolean;
+    primary?: boolean
+    labelClass?: HTMLAttributes['class']
+    label?: string
+    class?: HTMLAttributes['class']
+    size?: CheckboxVariantsProps['size']
+    stopPropagation?: boolean // 有时checkbox作为checkable-item的子组件，需要阻止事件冒泡
+    disableRuiClass?: boolean
   }
->();
-const emits = defineEmits<CheckboxRootEmits>();
+>()
+const emits = defineEmits<CheckboxRootEmits>()
 
-const innerModelValue = ref(modelValue);
+const innerModelValue = ref(modelValue)
 if (groupContext) {
   // set instances
-  const instance = getCurrentInstance();
-  groupContext.setCheckboxInstance(instance, primary);
+  const instance = getCurrentInstance()
+  groupContext.setCheckboxInstance(instance, primary)
   // sync innerChecked
   watch(
     groupContext.collection,
     (collection) => {
       if (!primary) {
-        innerModelValue.value = collection.includes(props.name as string);
+        innerModelValue.value = collection.includes(props.name as string)
       }
     },
     { immediate: true }
-  );
+  )
 }
 watch(
   () => modelValue,
   (val) => (innerModelValue.value = val)
-);
+)
 watch(innerModelValue, (val) => {
   if (groupContext) {
-    groupContext.onChecked(props.name, val, primary);
+    groupContext.onChecked(props.name, val, primary)
   }
-  emits('update:modelValue', val || false);
-});
+  emits('update:modelValue', val || false)
+})
 
 defineExpose({
   name: props.name,
   primary,
   innerModelValue,
-  setChecked: (value: boolean | 'indeterminate' | null) => (innerModelValue.value = value),
-});
+  setChecked: (value: boolean | 'indeterminate' | null) =>
+    (innerModelValue.value = value)
+})
 
-const labelClassName = computed(() =>
-  cn(
-    checkboxLabelVariants({
-      disabled: props.disabled,
-      disableRuiClass,
-    }),
-    labelClass
-  )
-);
+const mergeSize = computed(() => {
+  return groupContext?.size?.value || size
+})
 const checkboxClassName = computed(() =>
   cn(
     checkboxVariants({
-      size,
+      size: mergeSize.value,
       disabled: props.disabled,
-      disableRuiClass,
+      disableRuiClass: groupContext?.disableRuiClass?.value || disableRuiClass
     })
   )
-);
-const forwarded = useForwardPropsEmits(props, emits);
+)
+const forwarded = useForwardPropsEmits(props, emits)
 </script>
 
 <template>
   <label
-    :class="labelClassName"
+    :class="
+      cn(
+        checkboxRootVariants({
+          disabled: props.disabled,
+          disableRuiClass:
+            groupContext?.disableRuiClass?.value || disableRuiClass
+        }),
+        props.class
+      )
+    "
     :disabled="props.disabled || undefined"
+    :data-size="mergeSize"
     @click="
       (event) => {
-        stopPropagation && event.stopPropagation();
+        stopPropagation && event.stopPropagation()
+      }
+    "
+    @keydown="
+      (event) => {
+        if (event.key === 'Enter') {
+          stopPropagation && event.stopPropagation()
+          if (innerModelValue === 'indeterminate') innerModelValue = true
+          innerModelValue = !innerModelValue
+        }
       }
     "
   >
-    <CheckboxRoot v-model="innerModelValue" v-bind="forwarded" :class="checkboxClassName">
-      <CheckboxIndicator class="flex h-full w-full items-center justify-center text-current">
+    <CheckboxRoot
+      v-model="innerModelValue"
+      v-bind="forwarded"
+      :class="checkboxClassName"
+      :data-size="mergeSize"
+    >
+      <CheckboxIndicator
+        class="flex h-full w-full items-center justify-center text-inherit"
+      >
         <slot name="indicator">
           <Check
             v-if="innerModelValue !== 'indeterminate'"
@@ -115,7 +147,16 @@ const forwarded = useForwardPropsEmits(props, emits);
     <slot name="label">
       <span
         v-if="label"
-        :class="cn(['text-sm'], [size === 'sm' && 'text-xs', size === 'lg' && 'text-base'])"
+        :class="
+          cn(
+            checkboxLabelVariants({
+              size: mergeSize,
+              disableRuiClass:
+                groupContext?.disableRuiClass?.value || disableRuiClass
+            }),
+            labelClass
+          )
+        "
       >
         {{ label }}
       </span>

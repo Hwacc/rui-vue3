@@ -3,3 +3,9 @@
 @config '../tailwind.config.ts';
 
 @import '@themes/razer/index.css';
+
+@layer base {
+  body {
+    color: #fff;
+  }
+}

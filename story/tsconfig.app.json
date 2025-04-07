@@ -20,7 +20,12 @@
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true,
-    "noUncheckedSideEffectImports": true
+    "noUncheckedSideEffectImports": true,
+
+    "jsx": "preserve",
+    "jsxFactory": "h",
+    "jsxImportSource": "vue",
+    "jsxFragmentFactory": "Fragment",
   },
   "include": ["stories/**/*.ts", "stories/**/*.tsx", "stories/**/*.vue", "vite-env.d.ts"]
 }
