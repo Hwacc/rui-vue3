@@ -55,12 +55,10 @@ export const WithCheckboxGroup: WithCheckboxGroup = {
             class='flex flex-col gap-2'
             v-model:collection={collection.value}
             size={size.value}
-            onChange={onChange.value}>
-            <Checkbox
-              disableRuiClass={disableRuiClass?.value}
-              primary
-              label='Primary'
-            />
+            onChange={onChange.value}
+            disableRuiClass={disableRuiClass?.value}
+          >
+            <Checkbox primary label='Primary' />
             <Checkbox
               disableRuiClass={disableRuiClass?.value}
               name='1'
