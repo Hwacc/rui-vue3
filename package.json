@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "pnpm --filter examples run dev"
+    "dev": "pnpm --filter examples run dev",
+    "dev:story": "pnpm --filter story run storybook"
   },
   "dependencies": {
     "@vueuse/core": "^12.8.2",

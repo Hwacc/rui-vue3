@@ -10,18 +10,25 @@ const preview: Preview = {
       },
     },
     backgrounds: {
-      default: 'dark',
+      default: 'Light',
       values: [
         {
-          name: 'dark',
+          name: 'Dark',
           value: '#000',
         },
         {
-          name: 'light',
+          name: 'Light',
           value: '#fff',
         },
       ],
     },
+    layout: 'centered',
+    docs: {
+      controls: {
+        exclude: ['class'],
+      },
+    },
+    tags: ['autodocs'],
   },
 };
 

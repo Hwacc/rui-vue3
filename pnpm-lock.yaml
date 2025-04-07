@@ -141,6 +141,9 @@ importers:
       '@chromatic-com/storybook':
         specifier: '3'
         version: 3.2.6(react@19.1.0)(storybook@8.6.12)
+      '@storybook/addon-docs':
+        specifier: ^8.6.12
+        version: 8.6.12(@types/react@19.1.0)(storybook@8.6.12)
       '@storybook/addon-essentials':
         specifier: 8.6.12
         version: 8.6.12(@types/react@19.1.0)(storybook@8.6.12)

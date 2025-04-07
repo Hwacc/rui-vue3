@@ -7,7 +7,7 @@ import type {
   TooltipProviderProps,
 } from 'reka-ui';
 import type { HTMLAttributes } from 'vue';
-import type { TooltipContentVariants } from '../tooltip';
+import type { TooltipContentVariants } from '@/core/components/tooltip';
 import type { ButtonVariants } from '.';
 
 interface Props extends PrimitiveProps {
@@ -15,7 +15,6 @@ interface Props extends PrimitiveProps {
   size?: ButtonVariants['size'];
   class?: HTMLAttributes['class'];
   disabled?: boolean;
-  limitWidth?: boolean;
   checked?: boolean;
   tooltip?: string;
   tooltipTheme?: TooltipContentVariants['theme'];
@@ -34,7 +33,13 @@ import { computed } from 'vue';
 import { cn } from '@/core/lib/utils';
 import { Primitive } from 'reka-ui';
 import { buttonVariants } from '.';
-import { Tooltip, TooltipTrigger, TooltipContent, TooltipArrow } from '../tooltip';
+import {
+  Tooltip,
+  TooltipTrigger,
+  TooltipContent,
+  TooltipArrow,
+  TooltipProvider,
+} from '@/core/components/tooltip';
 
 const {
   as = 'button',
@@ -42,7 +47,6 @@ const {
   size,
   class: propsClass,
   disabled,
-  limitWidth = true,
   checked = false,
   disableRuiClass,
   tooltip,
@@ -77,7 +81,6 @@ const buttonClass = computed(() =>
     buttonVariants({
       variant: variant as ButtonVariants['variant'],
       size,
-      limitWidth: variant === 'icon' ? false : limitWidth,
       disableRuiClass,
     }),
     propsClass
@@ -86,36 +89,39 @@ const buttonClass = computed(() =>
 </script>
 
 <template>
-  <Tooltip v-if="tooltip || slots.tooltip" v-bind="{ ...tooltipRootProps, disabled }">
-    <!-- data-state 已被Tooltip占用, 故使用data-switch-state -->
-    <TooltipTrigger
-      :as="as"
-      :asChild="asChild"
-      :class="buttonClass"
-      :disabled="disabled"
-      :data-variant="variant"
-      :data-switch-state="variant === 'switch' ? (checked ? 'checked' : 'unchecked') : undefined"
-      @click="emits('click')"
-    >
-      <slot />
-    </TooltipTrigger>
-    <TooltipContent
-      v-bind="tooltipContentProps"
-      :class="tooltipContentClass"
-      :theme="tooltipTheme"
-      :data-theme="tooltipTheme"
-    >
-      <slot name="tooltip">
-        {{ tooltip }}
-      </slot>
-      <TooltipArrow
-        :class="tooltipArrowClass"
+  <TooltipProvider v-if="tooltip || slots.tooltip">
+    <Tooltip v-bind="{ ...tooltipRootProps, disabled }">
+      <!-- data-state 已被Tooltip占用, 故使用data-switch-state -->
+      <TooltipTrigger
+        :as="as"
+        :asChild="asChild"
+        :class="buttonClass"
+        :disabled="disabled"
+        :data-variant="variant"
+        :data-switch-state="variant === 'switch' ? (checked ? 'checked' : 'unchecked') : undefined"
+        @click="emits('click')"
+      >
+        <slot />
+      </TooltipTrigger>
+      <TooltipContent
+        v-bind="tooltipContentProps"
+        :class="tooltipContentClass"
         :theme="tooltipTheme"
-        v-bind="tooltipArrowProps"
-        force
-      />
-    </TooltipContent>
-  </Tooltip>
+        :data-theme="tooltipTheme"
+      >
+        <slot name="tooltip">
+          {{ tooltip }}
+        </slot>
+        <TooltipArrow
+          :class="tooltipArrowClass"
+          :theme="tooltipTheme"
+          v-bind="tooltipArrowProps"
+          variant="css"
+          force
+        />
+      </TooltipContent>
+    </Tooltip>
+  </TooltipProvider>
   <Primitive
     v-else
     :as="as"

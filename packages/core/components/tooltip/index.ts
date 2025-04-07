@@ -67,7 +67,7 @@ export const toolTipArrowVariants = cva(
             'before:z-1',
             'before:w-0',
             'before:h-0',
-            'before:bottom-0',
+            'before:bottom-[1px]',
             'before:border-y-(length:--reka-tooltip-arrow-border-height)',
             'before:border-b-transparent',
             'before:border-x-(length:--reka-tooltip-arrow-border-width)',
@@ -76,7 +76,7 @@ export const toolTipArrowVariants = cva(
           [
             'after:absolute',
             'after:z-2',
-            'after:bottom-[.0625rem]',
+            'after:bottom-[2px]',
             'after:w-0',
             'after:h-0',
             'after:border-y-(length:--reka-tooltip-arrow-border-height)',

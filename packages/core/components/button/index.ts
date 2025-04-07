@@ -41,9 +41,6 @@ export const buttonVariants = cva(
         sm: 'h-[1.5rem] text-xs',
         lg: 'h-[2rem] text-base',
       },
-      limitWidth: {
-        true: 'min-w-[5.625rem]',
-      },
     },
     compoundVariants: [
       {
@@ -58,11 +55,6 @@ export const buttonVariants = cva(
       },
       {
         variant: 'switch',
-        limitWidth: true,
-        className: 'min-w-[8.875rem]',
-      },
-      {
-        variant: 'switch',
         size: 'lg',
         className: '[&_svg]:size-3',
       },
@@ -70,7 +62,6 @@ export const buttonVariants = cva(
     defaultVariants: {
       variant: 'default',
       size: 'base',
-      limitWidth: true,
     },
   },
   { className: prefix }
