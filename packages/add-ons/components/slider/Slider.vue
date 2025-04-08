@@ -305,14 +305,14 @@ const {
   size = 'base',
   duration = 0.15,
   floatingTooltip,
-  disableRuiClass,
+  unstyled,
   ...props
 } = defineProps<
   SliderProps & {
     class?: HTMLAttributes['class'];
     size?: 'base' | 'sm' | 'lg';
     floatingTooltip?: FloatingTooltipOptions | boolean | undefined;
-    disableRuiClass?: boolean;
+    unstyled?: boolean;
   }
 >();
 // default model
@@ -373,7 +373,7 @@ const sliderRef = ref<{ $el: HTMLElement }>();
 const mergedRailStyle = computed(() => {
   return merge(
     {
-      backgroundColor: disableRuiClass
+      backgroundColor: unstyled
         ? undefined
         : getNodeCssVar(sliderRef.value?.$el, '--rui-slider-rail', '#000'),
     },
@@ -383,7 +383,7 @@ const mergedRailStyle = computed(() => {
 const mergedProcessStyle = computed(() => {
   return merge(
     {
-      backgroundColor: disableRuiClass
+      backgroundColor: unstyled
         ? undefined
         : getNodeCssVar(sliderRef.value?.$el, '--rui-slider-progress', '#fff'),
     },
@@ -468,7 +468,7 @@ const getFloatingTooltipContent = (value: number | string) => {
       floatingBoundaryRef = r;
       sliderRef = r;
     }"
-    :class="cn(sliderVariants({ disableRuiClass }), propsClass)"
+    :class="cn(sliderVariants({ unstyled }), propsClass)"
     :direction="direction"
     :width="computedWidth"
     :height="computedHeight"
@@ -500,7 +500,7 @@ const getFloatingTooltipContent = (value: number | string) => {
             index,
             class: sliderDotVariants({
               size,
-              disableRuiClass,
+              unstyled,
               scale: index === dotDragIndex && dotDragStart,
             }),
             ...rest,
@@ -511,7 +511,7 @@ const getFloatingTooltipContent = (value: number | string) => {
               cn(
                 sliderDotVariants({
                   size,
-                  disableRuiClass,
+                  unstyled,
                   scale: index === dotDragIndex && dotDragStart,
                 })
               )
@@ -523,25 +523,25 @@ const getFloatingTooltipContent = (value: number | string) => {
     <template #label="labelProps">
       <slot
         name="label"
-        v-bind="{ ...labelProps, class: disableRuiClass ? '' : 'rui-vue-slider-label' }"
+        v-bind="{ ...labelProps, class: unstyled ? '' : 'rui-vue-slider-label' }"
       />
     </template>
     <template #mark="markProps">
       <slot
         name="mark"
-        v-bind="{ ...markProps, class: disableRuiClass ? '' : 'rui-vue-slider-mark' }"
+        v-bind="{ ...markProps, class: unstyled ? '' : 'rui-vue-slider-mark' }"
       />
     </template>
     <template #process="processProps">
       <slot
         name="process"
-        v-bind="{ ...processProps, class: disableRuiClass ? '' : 'rui-vue-slider-process' }"
+        v-bind="{ ...processProps, class: unstyled ? '' : 'rui-vue-slider-process' }"
       />
     </template>
     <template #step="stepProps">
       <slot
         name="step"
-        v-bind="{ ...stepProps, class: disableRuiClass ? '' : 'rui-vue-slider-step' }"
+        v-bind="{ ...stepProps, class: unstyled ? '' : 'rui-vue-slider-step' }"
       />
     </template>
     <template #tooltip="tooltipProps">
@@ -556,7 +556,7 @@ const getFloatingTooltipContent = (value: number | string) => {
           class: cn(
             sliderTooltipVariants({
               variant: 'floating',
-              disableRuiClass,
+              unstyled,
             }),
             floatingTooltipOptions.class
           ),
@@ -569,7 +569,7 @@ const getFloatingTooltipContent = (value: number | string) => {
               cn(
                 sliderTooltipVariants({
                   variant: 'floating',
-                  disableRuiClass,
+                  unstyled,
                 }),
                 floatingTooltipOptions.class
               )
@@ -619,7 +619,7 @@ const getFloatingTooltipContent = (value: number | string) => {
           class: sliderTooltipVariants({
             variant: 'default',
             placement: tooltipPlacement,
-            disableRuiClass,
+            unstyled,
           }),
           variant: 'default',
           ...tooltipProps,
@@ -630,7 +630,7 @@ const getFloatingTooltipContent = (value: number | string) => {
             sliderTooltipVariants({
               variant: 'default',
               placement: tooltipPlacement,
-              disableRuiClass,
+              unstyled,
             })
           "
           data-variant="floating"

@@ -25,13 +25,13 @@ import { defaults } from 'lodash-es';
 const {
   class: propsClass,
   size,
-  disableRuiClass,
+  unstyled,
   ...props
 } = defineProps<
   PerfectScrollBarOptions & {
     class?: string;
     size?: 'base' | 'sm' | 'xs';
-    disableRuiClass?: false;
+    unstyled?: false;
   }
 >();
 
@@ -94,7 +94,7 @@ watchEffect((cleanup) => {
 
 <template>
   <div
-    :class="cn(scrollAreaVariants({ size, disableRuiClass }), propsClass)"
+    :class="cn(scrollAreaVariants({ size, unstyled }), propsClass)"
     :id="`rui-scroll-area-${id}`"
     ref="containerRef"
     :data-size="size"
