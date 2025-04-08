@@ -8,10 +8,10 @@ import { dropdownMenuSubTriggerVariants } from '.';
 
 const {
   class: propsClass,
-  disableRuiClass,
+  unstyled,
   ...props
 } = defineProps<
-  DropdownMenuSubTriggerProps & { class?: HTMLAttributes['class']; disableRuiClass?: boolean }
+  DropdownMenuSubTriggerProps & { class?: HTMLAttributes['class']; unstyled?: boolean }
 >();
 
 const forwardedProps = useForwardProps(props);
@@ -20,7 +20,7 @@ const forwardedProps = useForwardProps(props);
 <template>
   <DropdownMenuSubTrigger
     v-bind="forwardedProps"
-    :class="cn(dropdownMenuSubTriggerVariants({ disableRuiClass }), propsClass)"
+    :class="cn(dropdownMenuSubTriggerVariants({ unstyled }), propsClass)"
   >
     <slot />
     <ChevronRight class="ml-auto h-4 w-4" />

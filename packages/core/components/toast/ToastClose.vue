@@ -9,17 +9,17 @@ import { toastCloseVariants } from '.';
 
 const {
   class: propsClass,
-  disableRuiClass,
+  unstyled,
   ...props
 } = defineProps<
   ToastCloseProps & {
     class?: HTMLAttributes['class'];
-    disableRuiClass?: boolean;
+    unstyled?: boolean;
   }
 >();
 
 const classNames = computed(() => {
-  return cn(toastCloseVariants({ disableRuiClass }), propsClass);
+  return cn(toastCloseVariants({ unstyled }), propsClass);
 });
 </script>
 

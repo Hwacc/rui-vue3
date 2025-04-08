@@ -11,10 +11,10 @@ const { index } = injectTabsContext();
 
 const {
   class: propsClass,
-  disableRuiClass,
+  unstyled,
   ...props
 } = defineProps<
-  TabsContentProps & { class?: HTMLAttributes['class']; disableRuiClass?: boolean }
+  TabsContentProps & { class?: HTMLAttributes['class']; unstyled?: boolean }
 >();
 
 const direction = ref(0);
@@ -27,7 +27,7 @@ const classNames = computed(() => {
     tabsContentVariants({
       prev: direction.value < 0,
       next: direction.value > 0,
-      disableRuiClass,
+      unstyled,
     }),
     propsClass
   );

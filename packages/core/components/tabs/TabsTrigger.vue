@@ -10,13 +10,13 @@ import { injectTabsContext } from './Tabs.vue';
 const {
   class: propsClass,
   size = 'base',
-  disableRuiClass,
+  unstyled,
   ...props
 } = defineProps<
   TabsTriggerProps & {
     class?: HTMLAttributes['class'];
     size?: TabsTriggerVariantsProps['size'];
-    disableRuiClass?: boolean;
+    unstyled?: boolean;
   }
 >();
 
@@ -28,7 +28,7 @@ onMounted(() => {
 
 const forwardedProps = useForwardProps(props);
 const classNames = computed(() => {
-  return cn(tabsTriggerVariants({ size, disableRuiClass }), propsClass);
+  return cn(tabsTriggerVariants({ size, unstyled }), propsClass);
 });
 </script>
 

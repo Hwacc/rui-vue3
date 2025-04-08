@@ -5,16 +5,16 @@ import { dialogHeaderVariants, DialogClose, DialogCloseFrom, dialogCloseVariants
 import { DialogTitle, DialogDescription } from 'reka-ui';
 import { X } from 'lucide-vue-next';
 
-const { class: propsClass, disableRuiClass } = defineProps<{
+const { class: propsClass, unstyled } = defineProps<{
   class?: HTMLAttributes['class'];
-  disableRuiClass?: boolean;
+  unstyled?: boolean;
 }>();
 
 const slots = useSlots();
 </script>
 
 <template>
-  <div :class="cn(dialogHeaderVariants({ disableRuiClass }), propsClass)">
+  <div :class="cn(dialogHeaderVariants({ unstyled }), propsClass)">
     <!-- for remove warning -->
     <DialogTitle class="!hidden select-none">
       <component :is="() => slots.default?.()" />
@@ -24,7 +24,7 @@ const slots = useSlots();
     <slot />
     <DialogClose
       as="button"
-      :class="cn(dialogCloseVariants({ disableRuiClass }), 'p-0.5')"
+      :class="cn(dialogCloseVariants({ unstyled }), 'p-0.5')"
       :close-from="DialogCloseFrom.CloseButton"
     >
       <X class="size-4 text-xs disabled:pointer-events-none" />

@@ -15,9 +15,9 @@ import { isFunction } from 'lodash-es';
 
 const {
   class: propsClass,
-  disableRuiClass,
+  unstyled,
   ...props
-} = defineProps<SelectItemProps & { class?: HTMLAttributes['class']; disableRuiClass?: boolean }>();
+} = defineProps<SelectItemProps & { class?: HTMLAttributes['class']; unstyled?: boolean }>();
 const { multiple } = injectSelectRootContext();
 
 const slots = defineSlots<{
@@ -35,7 +35,7 @@ const forwardedProps = useForwardProps(props);
       cn(
         selectItemVariants({
           indicator: multiple || isFunction(slots.indicator),
-          disableRuiClass
+          unstyled
         }),
         propsClass
       )

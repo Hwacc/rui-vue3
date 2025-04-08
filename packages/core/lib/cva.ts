@@ -4,14 +4,14 @@ import { compact, concat, merge, mergeWith } from 'lodash-es';
 
 type ConfigSchema = Record<string, Record<string, ClassValue>>;
 type ConfigVariants<T extends ConfigSchema> = {
-  [Variant in keyof T | 'disableRuiClass']?:
+  [Variant in keyof T | 'unstyled']?:
     | StringToBoolean<keyof T[Variant]>
     | boolean
     | null
     | undefined;
 };
 type ConfigVariantsMulti<T extends ConfigSchema> = {
-  [Variant in keyof T | 'disableRuiClass']?:
+  [Variant in keyof T | 'unstyled']?:
     | StringToBoolean<keyof T[Variant]>
     | StringToBoolean<keyof T[Variant]>[]
     | boolean
@@ -19,20 +19,20 @@ type ConfigVariantsMulti<T extends ConfigSchema> = {
 };
 type Config<T> = T extends ConfigSchema
   ? {
-      variants?: T & { disableRuiClass?: Partial<Record<'true' | 'false', ClassValue>> };
-      defaultVariants?: ConfigVariants<T & { disableRuiClass?: boolean }>;
+      variants?: T & { unstyled?: Partial<Record<'true' | 'false', ClassValue>> };
+      defaultVariants?: ConfigVariants<T & { unstyled?: boolean }>;
       compoundVariants?: (T extends ConfigSchema
         ? (
-            | ConfigVariants<T & { disableRuiClass?: boolean }>
-            | ConfigVariantsMulti<T & { disableRuiClass?: boolean }>
+            | ConfigVariants<T & { unstyled?: boolean }>
+            | ConfigVariantsMulti<T & { unstyled?: boolean }>
           ) &
             ClassProp
-        : ClassProp & { disableRuiClass?: boolean })[];
+        : ClassProp & { unstyled?: boolean })[];
     }
   : never;
 type Props<T> = T extends ConfigSchema
   ? ConfigVariants<T> & ClassProp
-  : ClassProp & { disableRuiClass?: boolean };
+  : ClassProp & { unstyled?: boolean };
 
 export { type VariantProps } from 'class-variance-authority';
 export const cva = <T>(
@@ -46,13 +46,13 @@ export const cva = <T>(
   const mergedCvaOption = mergeWith(
     {
       variants: {
-        disableRuiClass: {
+        unstyled: {
           true: '',
           false: ruiConfig?.className ?? '' ,
         },
       },
       defaultVariants: {
-        disableRuiClass: false,
+        unstyled: false,
       },
       compoundVariants: ruiConfig?.compound ?? [],
     },
@@ -67,8 +67,8 @@ export const cva = <T>(
   ) as any;
   return originCva<
     T & {
-      variants: { disableRuiClass: { true: null; false: string } };
-      defaultVariants: { disableRuiClass: boolean };
+      variants: { unstyled: { true: null; false: string } };
+      defaultVariants: { unstyled: boolean };
     }
   >(base, mergedCvaOption);
 };

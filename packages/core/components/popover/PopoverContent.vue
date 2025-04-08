@@ -27,10 +27,10 @@ const {
   side = 'bottom',
   align = 'center',
   sideOffset = 4,
-  disableRuiClass,
+  unstyled,
   ...props
 } = defineProps<
-  PopoverContentProps & { class?: HTMLAttributes['class']; disableRuiClass?: boolean }
+  PopoverContentProps & { class?: HTMLAttributes['class']; unstyled?: boolean }
 >();
 
 const { triggerElement } = injectPopoverRootContext();
@@ -77,7 +77,7 @@ const forwarded = useForwardPropsEmits(props, emits);
     <AnimatePresence>
       <PopoverContent v-bind="{ ...forwarded, side, align, sideOffset, ...$attrs }">
         <PopoverContentMotion
-          :class="cn(popoverContentVariants({ disableRuiClass }), propsClass)"
+          :class="cn(popoverContentVariants({ unstyled }), propsClass)"
           :side="side"
           :ref="(r: any) => {
             contentRef = r?.$el;

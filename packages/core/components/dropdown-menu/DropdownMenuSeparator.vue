@@ -7,12 +7,12 @@ import { dropdownMenuSeparatorVariants } from '.';
 
 const {
   class: propsClass,
-  disableRuiClass,
+  unstyled,
   ...props
 } = defineProps<
   DropdownMenuSeparatorProps & {
     class?: HTMLAttributes['class'];
-    disableRuiClass?: boolean;
+    unstyled?: boolean;
   }
 >();
 </script>
@@ -20,6 +20,6 @@ const {
 <template>
   <DropdownMenuSeparator
     v-bind="props"
-    :class="cn(dropdownMenuSeparatorVariants({ disableRuiClass }), propsClass)"
+    :class="cn(dropdownMenuSeparatorVariants({ unstyled }), propsClass)"
   />
 </template>

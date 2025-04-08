@@ -9,9 +9,9 @@ import { injectTabsContext } from './Tabs.vue';
 
 const {
   class: propsClass,
-  disableRuiClass,
+  unstyled,
   ...props
-} = defineProps<TabsListProps & { class?: HTMLAttributes['class']; disableRuiClass?: boolean }>();
+} = defineProps<TabsListProps & { class?: HTMLAttributes['class']; unstyled?: boolean }>();
 
 const { index, initTabList, tabsTriggers, orientation } = injectTabsContext();
 
@@ -88,7 +88,7 @@ watchEffect(
 );
 
 const classNames = computed(() => {
-  return cn(tabsListVariants({ disableRuiClass }), propsClass);
+  return cn(tabsListVariants({ unstyled }), propsClass);
 });
 </script>
 

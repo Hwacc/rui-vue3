@@ -15,7 +15,7 @@ import { Input } from '@/core/components/input';
             </TooltipTrigger>
             <TooltipContent align="start">
               Prefix Star
-              <TooltipArrow force></TooltipArrow>
+              <TooltipArrow variant="css" :width="6" :height="3"></TooltipArrow>
             </TooltipContent>
           </Tooltip>
         </template>

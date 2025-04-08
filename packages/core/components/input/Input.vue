@@ -10,7 +10,7 @@ interface Props extends PrimitiveProps {
   clearable?: boolean;
   disabled?: boolean;
   readonly?: boolean;
-  disableRuiClass?: boolean;
+  unstyled?: boolean;
 }
 </script>
 
@@ -27,7 +27,7 @@ const {
   innerClass,
   size = 'base',
   clearable = false,
-  disableRuiClass,
+  unstyled,
   disabled,
   readonly,
   ...props
@@ -64,9 +64,9 @@ const onBlur = (event: Event) => {
   });
 };
 
-const className = computed(() => cn(inputVariants({ size, disableRuiClass }), propsClass));
+const className = computed(() => cn(inputVariants({ size, unstyled }), propsClass));
 const innerClassName = computed(() =>
-  cn(inputInnerVariants({ size, disableRuiClass }), innerClass)
+  cn(inputInnerVariants({ size, unstyled }), innerClass)
 );
 const { forwardRef } = useForwardExpose();
 </script>
@@ -99,7 +99,7 @@ const { forwardRef } = useForwardExpose();
     />
     <div
       v-if="inputState === 'focused' && clearable && modelValue"
-      :class="inputClearableVariants({ size, disableRuiClass })"
+      :class="inputClearableVariants({ size, unstyled })"
       @mousedown.stop="
         () => {
           rejectBlur = true;

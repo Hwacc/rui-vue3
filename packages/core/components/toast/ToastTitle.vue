@@ -8,12 +8,12 @@ import { toastTitleVariants } from '.';
 
 const {
   class: propsClass,
-  disableRuiClass,
+  unstyled,
   ...props
-} = defineProps<ToastTitleProps & { class?: HTMLAttributes['class']; disableRuiClass?: boolean }>();
+} = defineProps<ToastTitleProps & { class?: HTMLAttributes['class']; unstyled?: boolean }>();
 
 const classNames = computed(() => {
-  return cn(toastTitleVariants({ disableRuiClass }), propsClass);
+  return cn(toastTitleVariants({ unstyled }), propsClass);
 });
 </script>
 

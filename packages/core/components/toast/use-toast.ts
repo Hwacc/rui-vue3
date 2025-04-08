@@ -13,7 +13,7 @@ type ToasterToast = ToastProps & {
   description?: StringOrVNode;
   icon?: VNode | (() => VNode);
   action?: Component;
-  disableRuiClass?: boolean;
+  unstyled?: boolean;
 };
 
 const actionTypes = {

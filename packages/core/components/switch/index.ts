@@ -50,7 +50,7 @@ export const switchThumbVariants = cva(
     },
     compoundVariants: [
       {
-        disableRuiClass: false,
+        unstyled: false,
         class: 'bg-rui-switch-thumb',
       },
     ],

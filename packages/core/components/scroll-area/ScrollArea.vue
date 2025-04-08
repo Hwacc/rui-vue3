@@ -12,13 +12,13 @@ import { scrollAreaVariants } from '.';
 const {
   class: propsClass,
   theme,
-  disableRuiClass,
+  unstyled,
   ...props
 } = defineProps<
   ScrollAreaRootProps & {
     class?: HTMLAttributes['class'];
     theme?: string;
-    disableRuiClass?: boolean;
+    unstyled?: boolean;
   }
 >();
 
@@ -40,7 +40,7 @@ watch(rootRef, () => {
 <template>
   <ScrollAreaRoot
     v-bind="props"
-    :class="cn(scrollAreaVariants({ disableRuiClass }), propsClass)"
+    :class="cn(scrollAreaVariants({ unstyled }), propsClass)"
     ref="rootRef"
   >
     <ScrollAreaViewport
@@ -50,7 +50,7 @@ watch(rootRef, () => {
     >
       <slot />
     </ScrollAreaViewport>
-    <!-- <ScrollBar :theme="theme" orientation="vertical" :disable-rui-class="disableRuiClass" /> -->
+    <!-- <ScrollBar :theme="theme" orientation="vertical" :disable-rui-class="unstyled" /> -->
     <ScrollAreaCorner />
   </ScrollAreaRoot>
 </template>

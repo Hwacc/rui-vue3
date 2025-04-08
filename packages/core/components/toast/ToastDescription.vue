@@ -8,13 +8,13 @@ import { toastDescriptionVariants } from '.';
 
 const {
   class: propsClass,
-  disableRuiClass,
+  unstyled,
   ...props
 } = defineProps<
-  ToastDescriptionProps & { class?: HTMLAttributes['class']; disableRuiClass?: boolean }
+  ToastDescriptionProps & { class?: HTMLAttributes['class']; unstyled?: boolean }
 >();
 const classNames = computed(() => {
-  return cn(toastDescriptionVariants({ disableRuiClass }), propsClass);
+  return cn(toastDescriptionVariants({ unstyled }), propsClass);
 });
 </script>
 

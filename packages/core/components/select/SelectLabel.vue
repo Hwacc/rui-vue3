@@ -6,7 +6,7 @@ import { injectSelectRootContext, SelectLabel } from 'reka-ui';
 import { selectLabelVariants } from '.';
 
 const props = defineProps<
-  SelectLabelProps & { class?: HTMLAttributes['class']; disableRuiClass?: boolean }
+  SelectLabelProps & { class?: HTMLAttributes['class']; unstyled?: boolean }
 >();
 const { multiple } = injectSelectRootContext();
 </script>
@@ -15,7 +15,7 @@ const { multiple } = injectSelectRootContext();
   <SelectLabel
     :class="
       cn(
-        selectLabelVariants({ disableRuiClass: props.disableRuiClass }),
+        selectLabelVariants({ unstyled: props.unstyled }),
         multiple && 'pl-8',
         props.class
       )

@@ -10,13 +10,13 @@ const {
   class: propsClass,
   modelValue,
   prevent = true,
-  disableRuiClass,
+  unstyled,
   ...props
 } = defineProps<
   DropdownMenuCheckboxItemProps & {
     class?: HTMLAttributes['class'];
     prevent?: boolean;
-    disableRuiClass?: boolean;
+    unstyled?: boolean;
   }
 >();
 const emits = defineEmits<DropdownMenuCheckboxItemEmits>();
@@ -39,7 +39,7 @@ const forwarded = useForwardPropsEmits(props, emits);
       cn(
         dropdownMenuItemVariants({
           variant: 'checkbox',
-          disableRuiClass,
+          unstyled,
         }),
         propsClass
       )

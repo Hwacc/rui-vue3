@@ -29,7 +29,7 @@ const {
   label = '',
   modelValue = false,
   stopPropagation = false,
-  disableRuiClass,
+  unstyled,
   ...props
 } = defineProps<
   CheckboxRootProps & {
@@ -39,7 +39,7 @@ const {
     class?: HTMLAttributes['class']
     size?: CheckboxVariantsProps['size']
     stopPropagation?: boolean // 有时checkbox作为checkable-item的子组件，需要阻止事件冒泡
-    disableRuiClass?: boolean
+    unstyled?: boolean
   }
 >()
 const emits = defineEmits<CheckboxRootEmits>()
@@ -87,7 +87,7 @@ const checkboxClassName = computed(() =>
     checkboxVariants({
       size: mergeSize.value,
       disabled: props.disabled,
-      disableRuiClass: groupContext?.disableRuiClass?.value || disableRuiClass
+      unstyled: groupContext?.unstyled?.value || unstyled
     })
   )
 )
@@ -100,8 +100,8 @@ const forwarded = useForwardPropsEmits(props, emits)
       cn(
         checkboxRootVariants({
           disabled: props.disabled,
-          disableRuiClass:
-            groupContext?.disableRuiClass?.value || disableRuiClass
+          unstyled:
+            groupContext?.unstyled?.value || unstyled
         }),
         props.class
       )
@@ -151,8 +151,8 @@ const forwarded = useForwardPropsEmits(props, emits)
           cn(
             checkboxLabelVariants({
               size: mergeSize,
-              disableRuiClass:
-                groupContext?.disableRuiClass?.value || disableRuiClass
+              unstyled:
+                groupContext?.unstyled?.value || unstyled
             }),
             labelClass
           )

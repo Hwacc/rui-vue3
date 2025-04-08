@@ -11,7 +11,7 @@ const {
   width = 12,
   height = 6,
   class: propsClass,
-  disableRuiClass,
+  unstyled,
   ...props
 } = defineProps<
   TooltipArrowProps & {
@@ -19,7 +19,7 @@ const {
     force?: boolean;
     theme?: ToolTipArrowVariants['theme'];
     variant?: ToolTipArrowVariants['variant'];
-    disableRuiClass?: boolean;
+    unstyled?: boolean;
   }
 >();
 const arrowRef = ref<{ $el: HTMLElement } | null>(null);
@@ -37,7 +37,7 @@ watch(arrowRef, () => {
 const style = computed(() => {
   if(variant === 'css') {
     // makes square
-    const line = Math.min(width, height);
+    const line = Math.max(width, height);
     return {
       '--reka-tooltip-arrow-width': `${line}px`,
       '--reka-tooltip-arrow-height': `${line}px`,
@@ -56,7 +56,7 @@ const classNames = computed(() =>
     toolTipArrowVariants({
       theme,
       variant,
-      disableRuiClass,
+      unstyled,
     }),
     propsClass
   )

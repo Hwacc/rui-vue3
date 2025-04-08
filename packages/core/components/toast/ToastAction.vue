@@ -7,14 +7,14 @@ import { toastActionVariants } from '.';
 
 const {
   class: propsClass,
-  disableRuiClass,
+  unstyled,
   variant,
   ...props
 } = defineProps<
   ToastActionProps & {
     class?: HTMLAttributes['class'];
     variant?: StatusVariants;
-    disableRuiClass?: boolean;
+    unstyled?: boolean;
   }
 >();
 </script>
@@ -22,7 +22,7 @@ const {
 <template>
   <ToastAction
     v-bind="props"
-    :class="cn(toastActionVariants({ disableRuiClass }), propsClass)"
+    :class="cn(toastActionVariants({ unstyled }), propsClass)"
     :data-variant="variant"
   >
     <slot />

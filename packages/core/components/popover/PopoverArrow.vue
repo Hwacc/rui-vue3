@@ -10,14 +10,14 @@ const {
   variant = 'css',
   width = rem2px(1),
   height = rem2px(0.75),
-  disableRuiClass,
+  unstyled,
   ...props
 } = defineProps<
   PopoverArrowProps & {
     class?: HTMLAttributes['class'];
     force?: boolean;
     variant?: PopoverArrowVariants['variant'];
-    disableRuiClass?: boolean;
+    unstyled?: boolean;
   }
 >();
 
@@ -46,7 +46,7 @@ const classNames = computed(() =>
   cn(
     popoverArrowVariants({
       variant,
-      disableRuiClass,
+      unstyled,
     }),
     propsClass
   )

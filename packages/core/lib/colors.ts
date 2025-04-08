@@ -107,5 +107,3 @@ export const detectCssColorType = (
     value: cssColor,
   };
 };
-
-// ... existing code ...

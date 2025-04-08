@@ -11,7 +11,7 @@ import { injectToastProviderContextEx } from './ToastProvider.vue';
 const {
   class: propsClass,
   variant = 'success',
-  disableRuiClass,
+  unstyled,
   ...props
 } = defineProps<ToastProps>();
 const { position, swipeDirection } = injectToastProviderContextEx();
@@ -22,7 +22,7 @@ const classNames = computed(() => {
     toastVariants({
       position: unref(position),
       swipeDirection: unref(swipeDirection),
-      disableRuiClass,
+      unstyled,
     }),
     propsClass
   );

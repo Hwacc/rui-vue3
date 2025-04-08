@@ -15,7 +15,7 @@ const {
   type = 'circle',
   indicatorClass,
   variant = 'default',
-  disableRuiClass,
+  unstyled,
   ...props
 } = defineProps<{
   class?: HTMLAttributes['class'];
@@ -24,7 +24,7 @@ const {
   strokeWidth?: number;
   indicatorClass?: HTMLAttributes['class'];
   variant?: CircleProgressIndicatorVariants['variant'];
-  disableRuiClass?: boolean;
+  unstyled?: boolean;
 }>();
 const area = computed(() => {
   const r = 24 - strokeWidth;
@@ -49,12 +49,12 @@ const { indicatorRef, transferStyle } = useIndicatorTransfer(variant, modelValue
 </script>
 
 <template>
-  <div :class="cn(circleProgressVariants({ disableRuiClass }), propsClass)" :data-type="type">
+  <div :class="cn(circleProgressVariants({ unstyled }), propsClass)" :data-type="type">
     <div
       v-if="type === 'arc'"
       :class="
         cn(
-          circleProgressIndicatorVariants({ disableRuiClass, variant }),
+          circleProgressIndicatorVariants({ unstyled, variant }),
           indicatorClass
         )
       "
@@ -104,7 +104,7 @@ const { indicatorRef, transferStyle } = useIndicatorTransfer(variant, modelValue
       v-else
       :class="
         cn(
-          circleProgressIndicatorVariants({ disableRuiClass, variant }),
+          circleProgressIndicatorVariants({ unstyled, variant }),
           indicatorClass
         )
       "

@@ -8,10 +8,10 @@ import { selectScrollButtonVariants } from '.';
 
 const {
   class: propsClass,
-  disableRuiClass,
+  unstyled,
   ...props
 } = defineProps<
-  SelectScrollUpButtonProps & { class?: HTMLAttributes['class']; disableRuiClass?: boolean }
+  SelectScrollUpButtonProps & { class?: HTMLAttributes['class']; unstyled?: boolean }
 >();
 const forwardedProps = useForwardProps(props);
 </script>
@@ -19,7 +19,7 @@ const forwardedProps = useForwardProps(props);
 <template>
   <SelectScrollUpButton
     v-bind="forwardedProps"
-    :class="cn(selectScrollButtonVariants({ dir: 'up', disableRuiClass }), propsClass)"
+    :class="cn(selectScrollButtonVariants({ dir: 'up', unstyled }), propsClass)"
     data-direction="up"
   >
     <slot>

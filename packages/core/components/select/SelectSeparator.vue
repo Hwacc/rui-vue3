@@ -7,16 +7,16 @@ import { selectSeparatorVariants } from '.';
 
 const {
   class: propsClass,
-  disableRuiClass,
+  unstyled,
   ...props
 } = defineProps<
-  SelectSeparatorProps & { class?: HTMLAttributes['class']; disableRuiClass?: boolean }
+  SelectSeparatorProps & { class?: HTMLAttributes['class']; unstyled?: boolean }
 >();
 </script>
 
 <template>
   <SelectSeparator
     v-bind="props"
-    :class="cn(selectSeparatorVariants({ disableRuiClass }), propsClass)"
+    :class="cn(selectSeparatorVariants({ unstyled }), propsClass)"
   />
 </template>

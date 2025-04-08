@@ -28,12 +28,12 @@ const {
   modelValue,
   defaultValue,
   class: propsClass,
-  disableRuiClass,
+  unstyled,
   ...props
 } = defineProps<
   TabsRootProps & {
     class?: HTMLAttributes['class'];
-    disableRuiClass?: boolean;
+    unstyled?: boolean;
   }
 >();
 const innerValue = ref<StringOrNumber | undefined>(modelValue ?? defaultValue);

@@ -11,12 +11,12 @@ const {
   class: propsClass,
   side = 'bottom',
   align = 'start',
-  disableRuiClass,
+  unstyled,
   ...props
 } = defineProps<
   DropdownMenuContentProps & {
     class?: HTMLAttributes['class'];
-    disableRuiClass?: boolean;
+    unstyled?: boolean;
   }
 >();
 
@@ -37,7 +37,7 @@ const forwarded = useForwardPropsEmits(
     <AnimatePresence>
       <DropdownMenuContent v-bind="forwarded">
         <PopoverContentMotion
-          :class="cn(dropdownMenuContentVariants({ disableRuiClass }), propsClass)"
+          :class="cn(dropdownMenuContentVariants({ unstyled }), propsClass)"
         >
           <slot />
         </PopoverContentMotion>

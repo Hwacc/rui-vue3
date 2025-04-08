@@ -3,7 +3,7 @@ import { HTMLAttributes } from 'vue';
 import { CollapsibleRootProps, CollapsibleTriggerProps, createContext } from 'reka-ui';
 
 export interface ReadMoreProps extends CollapsibleRootProps {
-  disableRuiClass?: boolean;
+  unstyled?: boolean;
   triggerProps?: CollapsibleTriggerProps & {
     class?: HTMLAttributes['class'];
     viewLessText?: string;
@@ -32,7 +32,7 @@ const {
   triggerProps,
   contentProps,
   class: propsClass,
-  disableRuiClass,
+  unstyled,
   ...props
 } = defineProps<
   ReadMoreProps & {
@@ -66,7 +66,7 @@ provideReadMoreContext({
 
 <template>
   <Collapsible
-    :class="cn(readMoreRootVariant({ disableRuiClass }), propsClass)"
+    :class="cn(readMoreRootVariant({ unstyled }), propsClass)"
     v-bind="rootForwarded"
     v-slot="{ open }"
   >
@@ -81,7 +81,7 @@ provideReadMoreContext({
     >
       <CollapsibleTrigger
         v-if="showTrigger"
-        :class="cn(readMoreTriggerVariant({ disableRuiClass }), triggerProps?.class)"
+        :class="cn(readMoreTriggerVariant({ unstyled }), triggerProps?.class)"
         v-bind="delegateTriggerProps"
       >
         {{

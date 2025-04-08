@@ -9,16 +9,16 @@ import { isEmpty } from 'lodash-es';
 
 const {
   class: propsClass,
-  disableRuiClass,
+  unstyled,
   ...props
 } = defineProps<
-  SelectTriggerProps & { class?: HTMLAttributes['class']; disableRuiClass?: boolean }
+  SelectTriggerProps & { class?: HTMLAttributes['class']; unstyled?: boolean }
 >();
 
 const { open, modelValue } = injectSelectRootContext();
 
 const classNames = computed(() => {
-  return cn(selectTriggerVariants({ disableRuiClass }), propsClass);
+  return cn(selectTriggerVariants({ unstyled }), propsClass);
 });
 
 const triggerRef = ref<{ $el: HTMLElement } | null>();
@@ -43,7 +43,7 @@ const forwardedProps = useForwardProps(props);
     <slot name="icon" :v-bind="{ open }">
       <SelectIcon
         as="i"
-        :class="selectTriangleVariants({ disableRuiClass })"
+        :class="selectTriangleVariants({ unstyled })"
         :data-state="open ? 'open' : 'closed'"
       >
         <svg

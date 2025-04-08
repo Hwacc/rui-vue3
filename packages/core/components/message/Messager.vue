@@ -14,7 +14,7 @@ import { isFunction } from 'lodash-es';
 
 const props = defineProps<
   Omit<ToastProviderPropsEx, 'position' | 'swipeDirection'> & {
-    disableRuiClass?: boolean;
+    unstyled?: boolean;
   }
 >();
 const { messages } = useMessage();
@@ -26,7 +26,7 @@ const { messages } = useMessage();
       v-for="message in (messages as any)"
       :key="message.id"
       v-bind="message"
-      :class="messageVariants({ disableRuiClass: props.disableRuiClass })"
+      :class="messageVariants({ unstyled: props.unstyled })"
       :data-variant="message.variant"
     >
       <div class="w-full flex items-center gap-4">

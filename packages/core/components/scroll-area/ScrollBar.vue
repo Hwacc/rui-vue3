@@ -15,7 +15,7 @@ const {
   size = 'base',
   theme,
   orientation = 'vertical',
-  disableRuiClass,
+  unstyled,
   ...props
 } = defineProps<
   ScrollAreaScrollbarProps & {
@@ -23,7 +23,7 @@ const {
     size?: ScrollBarVariants['size'];
     theme?: string;
     thumbClass?: HTMLAttributes['class'];
-    disableRuiClass?: boolean;
+    unstyled?: boolean;
   }
 >();
 
@@ -50,7 +50,7 @@ watchEffect((onCleanup) => {
   <ScrollAreaScrollbar
     v-bind="props"
     :orientation="orientation"
-    :class="cn(scrollBarVariants({ orientation, disableRuiClass }), propsClass)"
+    :class="cn(scrollBarVariants({ orientation, unstyled }), propsClass)"
     :data-size="size"
     :data-scroll-state="scrollState"
     :data-theme="theme"

@@ -2,7 +2,7 @@
 import { createContext } from 'reka-ui'
 interface CheckboxGroupContext {
   size: Ref<CheckboxVariantsProps['size']>
-  disableRuiClass: Ref<boolean>
+  unstyled: Ref<boolean>
   collection: Ref<string[]>
   onChecked: (
     name?: string,
@@ -43,7 +43,7 @@ const {
     class?: HTMLAttributes['class']
     size?: CheckboxVariantsProps['size']
     collection?: string[]
-    disableRuiClass?: boolean
+    unstyled?: boolean
   }
 >()
 
@@ -89,10 +89,10 @@ watchEffect(
   { flush: 'post' }
 )
 
-const { size, disableRuiClass } = toRefs(props)
+const { size, unstyled } = toRefs(props)
 provideCheckboxGroupContext({
   size,
-  disableRuiClass,
+  unstyled,
   collection: innerCollection,
   onChecked: (
     name?: string,

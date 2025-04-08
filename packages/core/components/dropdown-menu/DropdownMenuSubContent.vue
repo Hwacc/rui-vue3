@@ -10,10 +10,10 @@ import { PopoverContentMotion } from '@/core/components/motion/PopoverContentMot
 const {
   class: propsClass,
   sideOffset = spaceTimes(2),
-  disableRuiClass,
+  unstyled,
   ...props
 } = defineProps<
-  DropdownMenuSubContentProps & { class?: HTMLAttributes['class']; disableRuiClass?: boolean }
+  DropdownMenuSubContentProps & { class?: HTMLAttributes['class']; unstyled?: boolean }
 >();
 const emits = defineEmits<DropdownMenuSubContentEmits>();
 
@@ -24,7 +24,7 @@ const forwarded = useForwardPropsEmits(props, emits);
   <AnimatePresence>
     <DropdownMenuSubContent v-bind="forwarded" :side-offset="sideOffset">
       <PopoverContentMotion
-        :class="cn(dropdownMenuSubContentVariants({ disableRuiClass }), propsClass)"
+        :class="cn(dropdownMenuSubContentVariants({ unstyled }), propsClass)"
         side="right"
       >
         <slot />

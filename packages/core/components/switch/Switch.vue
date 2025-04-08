@@ -12,14 +12,14 @@ import { switchThumbVariants, switchVariants, SwitchVariantsProps } from '.';
 
 const {
   size = 'base',
-  disableRuiClass,
+  unstyled,
   ...props
 } = defineProps<
   SwitchRootProps & {
     class?: HTMLAttributes['class'];
     size?: SwitchVariantsProps['size'];
     thumbClass?: HTMLAttributes['class'];
-    disableRuiClass?: boolean;
+    unstyled?: boolean;
   }
 >();
 const emits = defineEmits<SwitchRootEmits>();
@@ -29,7 +29,7 @@ const switchRootClassName = computed(() => {
   return cn(
     switchVariants({
       size,
-      disableRuiClass
+      unstyled
     }),
     props.class
   );
@@ -38,7 +38,7 @@ const switchThumbClassName = computed(() => {
   return cn(
     switchThumbVariants({
       size,
-      disableRuiClass
+      unstyled
     }),
     props.thumbClass
   );

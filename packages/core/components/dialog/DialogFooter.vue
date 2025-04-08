@@ -6,9 +6,9 @@ import { cn } from '@/core/lib/utils';
 import { dialogFooterVariants, DialogClose, DialogCloseFrom } from '.';
 import { Button } from '@/core/components/button';
 
-const { class: propsClass, disableRuiClass } = defineProps<{
+const { class: propsClass, unstyled } = defineProps<{
   class?: HTMLAttributes['class'];
-  disableRuiClass?: boolean;
+  unstyled?: boolean;
 }>();
 const emits = defineEmits<{
   ok: [];
@@ -17,7 +17,7 @@ const emits = defineEmits<{
 </script>
 
 <template>
-  <div :class="cn(dialogFooterVariants({ disableRuiClass }), propsClass)">
+  <div :class="cn(dialogFooterVariants({ unstyled }), propsClass)">
     <slot>
       <DialogClose :close-from="DialogCloseFrom.CancelButton">
         <Button class="min-w-22.5 uppercase" type="text" size="sm" @click="() => emits('cancel')">

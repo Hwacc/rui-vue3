@@ -9,13 +9,13 @@ import { dropdownMenuItemVariants } from '.';
 const {
   class: propsClass,
   prevent = true,
-  disableRuiClass,
+  unstyled,
   ...props
 } = defineProps<
   DropdownMenuRadioItemProps & {
     class?: HTMLAttributes['class'];
     prevent?: boolean;
-    disableRuiClass?: boolean;
+    unstyled?: boolean;
   }
 >();
 
@@ -31,7 +31,7 @@ const forwarded = useForwardPropsEmits(props, emits);
       cn(
         dropdownMenuItemVariants({
           variant: 'radio',
-          disableRuiClass,
+          unstyled,
         }),
         propsClass
       )

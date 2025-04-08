@@ -12,13 +12,13 @@ export default defineComponent({
   components: {
     RekaSelectValue,
   },
-  setup(props: SelectValueProps & { class?: HTMLAttributes['class']; disableRuiClass?: boolean }) {
+  setup(props: SelectValueProps & { class?: HTMLAttributes['class']; unstyled?: boolean }) {
     const {
       multiple,
       triggerPointerDownPosRef,
       modelValue: rootModelValue,
     } = injectSelectRootContext();
-    const { class: propsClass, placeholder, asChild, as, disableRuiClass } = toRefs(props);
+    const { class: propsClass, placeholder, asChild, as, unstyled } = toRefs(props);
 
     watch(triggerPointerDownPosRef, (val) => {
       console.log('triggerPointerDownPosRef', val);
@@ -27,7 +27,7 @@ export default defineComponent({
       return (
         <RekaSelectValue
           class={cn(
-            selectValueVariants({ disableRuiClass: disableRuiClass?.value }),
+            selectValueVariants({ unstyled: unstyled?.value }),
             propsClass?.value
           )}
           as={as?.value}

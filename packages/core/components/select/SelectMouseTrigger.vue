@@ -33,12 +33,12 @@ const {
   as = 'button',
   asChild,
   class: propsClass,
-  disableRuiClass,
+  unstyled,
   ...props
 } = defineProps<
   SelectTriggerProps & {
     class?: HTMLAttributes['class'];
-    disableRuiClass?: boolean;
+    unstyled?: boolean;
   }
 >();
 
@@ -47,7 +47,7 @@ const { forwardRef, currentElement: triggerElement } = useForwardExpose();
 
 const isDisabled = computed(() => rootContext.disabled?.value || props.disabled);
 const classNames = computed(() => {
-  return cn(selectTriggerVariants({ disableRuiClass }), propsClass);
+  return cn(selectTriggerVariants({ unstyled }), propsClass);
 });
 
 rootContext.contentId ||= useId(undefined, 'reka-select-content');
@@ -96,7 +96,7 @@ onMounted(() => {
       <slot name="icon" :v-bind="{ open: unref(rootContext.open) }">
         <SelectIcon
           as="i"
-          :class="selectTriangleVariants({ disableRuiClass, open: unref(rootContext.open) })"
+          :class="selectTriangleVariants({ unstyled, open: unref(rootContext.open) })"
           :data-state="unref(rootContext.open) ? 'open' : 'closed'"
         >
           <svg

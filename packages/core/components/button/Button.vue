@@ -22,7 +22,7 @@ interface Props extends PrimitiveProps {
   tooltipContentProps?: TooltipContentProps
   tooltipArrowClass?: HTMLAttributes['class']
   tooltipArrowProps?: TooltipArrowProps
-  disableRuiClass?: boolean
+  unstyled?: boolean
 }
 </script>
 
@@ -46,7 +46,7 @@ const {
   class: propsClass,
   disabled,
   checked = false,
-  disableRuiClass,
+  unstyled,
   tooltip,
   tooltipTheme = 'default',
   tooltipRootProps = {
@@ -63,7 +63,7 @@ const {
   tooltipArrowClass,
   tooltipArrowProps = {
     width: 6,
-    height: 6
+    height: 3
   }
 } = defineProps<Props>()
 
@@ -80,7 +80,7 @@ const buttonClass = computed(() =>
     buttonVariants({
       variant: variant as ButtonVariants['variant'],
       size,
-      disableRuiClass
+      unstyled
     }),
     propsClass
   )
@@ -118,7 +118,7 @@ const buttonClass = computed(() =>
           :class="tooltipArrowClass"
           :theme="tooltipTheme"
           v-bind="tooltipArrowProps"
-          variant="css"
+          variant="svg"
           force
         />
       </TooltipContent>

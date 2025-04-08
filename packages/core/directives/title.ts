@@ -69,7 +69,7 @@ class TitleTooltip {
           return titleTipVariants({
             theme: (binding.arg as any) ?? 'default',
             size: binding.modifiers.lg ? 'lg' : undefined,
-            disableRuiClass: binding.modifiers.disableRuiClass,
+            unstyled: binding.modifiers.unstyled,
             hidden,
             visible,
           });

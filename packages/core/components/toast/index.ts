@@ -220,6 +220,6 @@ export const toastActionVariants = cva(
 export interface ToastProps extends ToastRootProps {
   class?: HTMLAttributes['class'];
   variant?: StatusVariants;
-  disableRuiClass?: boolean;
+  unstyled?: boolean;
   onOpenChange?: ((value: boolean) => void) | undefined;
 }

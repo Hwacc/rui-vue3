@@ -7,13 +7,13 @@ import { dropdownMenuItemVariants } from '.';
 
 const {
   class: propsClass,
-  disableRuiClass,
+  unstyled,
   ...props
 } = defineProps<
   DropdownMenuItemProps & {
     class?: HTMLAttributes['class'];
     inset?: boolean;
-    disableRuiClass?: boolean;
+    unstyled?: boolean;
   }
 >();
 
@@ -25,7 +25,7 @@ const forwardedProps = useForwardProps(props);
     v-bind="forwardedProps"
     :class="
       cn(
-        dropdownMenuItemVariants({ variant: 'default', disableRuiClass }),
+        dropdownMenuItemVariants({ variant: 'default', unstyled }),
         props.inset && 'pl-8',
         propsClass
       )

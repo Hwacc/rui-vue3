@@ -31,14 +31,14 @@ const toastIcons:Record<StatusVariants, any> = {
       v-for="toast in toasts"
       :key="toast.id"
       v-bind="toast"
-      :disable-rui-class="toast.disableRuiClass"
+      :disable-rui-class="toast.unstyled"
     >
       <div class="w-full flex items-center gap-4">
         <template v-if="!toast.icon">
           <component
             v-if="toast.variant"
             :is="toastIcons[toast.variant]"
-            :class="toastIconVariants({ disableRuiClass: toast.disableRuiClass })"
+            :class="toastIconVariants({ unstyled: toast.unstyled })"
             :data-variant="toast.variant"
           />
         </template>
@@ -46,22 +46,22 @@ const toastIcons:Record<StatusVariants, any> = {
           <component :is="toast.icon" />
         </template>
         <div class="grid gap-1 flex-1">
-          <ToastTitle v-if="toast.title" :disable-rui-class="toast.disableRuiClass">
+          <ToastTitle v-if="toast.title" :disable-rui-class="toast.unstyled">
             {{ toast.title }}
           </ToastTitle>
           <template v-if="toast.description">
             <ToastDescription
               v-if="isVNode(toast.description) || isFunction(toast.description)"
-              :disable-rui-class="toast.disableRuiClass"
+              :disable-rui-class="toast.unstyled"
             >
               <component :is="toast.description" />
             </ToastDescription>
-            <ToastDescription v-else :disable-rui-class="toast.disableRuiClass">
+            <ToastDescription v-else :disable-rui-class="toast.unstyled">
               {{ toast.description }}
             </ToastDescription>
           </template>
         </div>
-        <ToastClose :disable-rui-class="toast.disableRuiClass" />
+        <ToastClose :disable-rui-class="toast.unstyled" />
       </div>
       <component :is="toast.action" :disable-rui-class="toast.variant" />
     </Toast>

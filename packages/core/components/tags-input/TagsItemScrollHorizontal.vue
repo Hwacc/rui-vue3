@@ -9,11 +9,11 @@ import { cn } from '@/core/lib/utils'
 const {
   class: propsClass,
   size = 'sm',
-  disableRuiClass
+  unstyled
 } = defineProps<{
   class?: HTMLAttributes['class']
   size?: ScrollBarVariants['size']
-  disableRuiClass?: boolean
+  unstyled?: boolean
 }>()
 const { modelValue, selectedElement } = injectTagsInputRootContext()
 const scrollArea = useTemplateRef('scroll-area')
@@ -41,7 +41,7 @@ watch(modelValue, async (newVal, oldVal) => {
   <ScrollArea
     :class="
       cn(
-        tagsItemScrollHorizontalVariants({ size, disableRuiClass }),
+        tagsItemScrollHorizontalVariants({ size, unstyled }),
         propsClass
       )
     "

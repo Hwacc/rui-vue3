@@ -5,7 +5,7 @@ export interface DialogContentPropsImp extends DialogContentProps {
   autoFocus?: boolean;
   overlay?: DialogOverlayProps & { class?: HTMLAttributes['class'] };
   portal?: DialogPortalProps;
-  disableRuiClass?: boolean;
+  unstyled?: boolean;
 }
 </script>
 
@@ -44,7 +44,7 @@ const {
   autoFocus = false,
   overlay = {},
   portal = {},
-  disableRuiClass,
+  unstyled,
   ...props
 } = defineProps<DialogContentPropsImp>();
 
@@ -94,10 +94,10 @@ watch(open, (value, _, onCleanup) => {
 });
 
 const overlayClassNames = computed(() => {
-  return cn(dialogOverlayVariants({ disableRuiClass }), overlay.class);
+  return cn(dialogOverlayVariants({ unstyled }), overlay.class);
 });
 const classNames = computed(() => {
-  return cn(dialogContentVariants({ variant: 'default', disableRuiClass }), propsClass);
+  return cn(dialogContentVariants({ variant: 'default', unstyled }), propsClass);
 });
 const forwarded = useForwardPropsEmits(props, emits);
 </script>
@@ -138,7 +138,7 @@ const forwarded = useForwardPropsEmits(props, emits);
       <slot />
       <slot v-if="showContentClose" name="close">
         <DialogClose
-          :class="dialogCloseVariants({ position: 'abs', disableRuiClass })"
+          :class="dialogCloseVariants({ position: 'abs', unstyled })"
           :close-from="DialogCloseFrom.CloseButton"
         >
           <X class="size-4 text-xs disabled:pointer-events-none" />

@@ -6,13 +6,13 @@ import { dialogContentBodyVariants } from '.';
 
 const {
   class: propsClass,
-  disableRuiClass,
+  unstyled,
   ...props
-} = defineProps<PrimitiveProps & { class?: HTMLAttributes['class']; disableRuiClass?: boolean }>();
+} = defineProps<PrimitiveProps & { class?: HTMLAttributes['class']; unstyled?: boolean }>();
 </script>
 
 <template>
-  <Primitive :class="cn(dialogContentBodyVariants({ disableRuiClass }), propsClass)" v-bind="props">
+  <Primitive :class="cn(dialogContentBodyVariants({ unstyled }), propsClass)" v-bind="props">
     <slot />
   </Primitive>
 </template>

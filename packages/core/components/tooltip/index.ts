@@ -14,7 +14,7 @@ const prefix = `${PREFIX}-tooltip`;
 export const tooltipContentVariants = cva(
   [
     'z-50',
-    'overflow-hidden',
+    'overflow-visible',
     'animate-in',
     'fade-in-0',
     'zoom-in-95',
@@ -60,7 +60,7 @@ export const toolTipArrowVariants = cva(
           'block',
           'w-[var(--reka-tooltip-arrow-width)]',
           'h-[var(--reka-tooltip-arrow-height)]',
-          'animate-fade',
+          'animate-in',
           'animate-duration-100',
           [
             'before:absolute',

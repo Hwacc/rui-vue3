@@ -8,19 +8,19 @@ import { tabsIndicatorVariants, TabsIndicatorVariantsProps } from '.';
 const {
   class: propsClass,
   size = 'base',
-  disableRuiClass,
+  unstyled,
   ...props
 } = defineProps<
   TabsIndicatorProps & {
     class?: HTMLAttributes['class'];
     size?: TabsIndicatorVariantsProps['size'];
-    disableRuiClass?: boolean;
+    unstyled?: boolean;
   }
 >();
 const forwardedProps = useForwardProps(props);
 
 const classNames = computed(() => {
-  return cn(tabsIndicatorVariants({ size, disableRuiClass }), propsClass);
+  return cn(tabsIndicatorVariants({ size, unstyled }), propsClass);
 });
 </script>
 

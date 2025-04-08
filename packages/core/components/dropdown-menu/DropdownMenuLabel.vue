@@ -10,7 +10,7 @@ const props = defineProps<
   DropdownMenuLabelProps & {
     class?: HTMLAttributes['class'];
     inset?: boolean;
-    disableRuiClass?: boolean;
+    unstyled?: boolean;
   }
 >();
 
@@ -27,7 +27,7 @@ const forwardedProps = useForwardProps(delegatedProps);
   <DropdownMenuLabel
     v-bind="forwardedProps"
     :class="
-      cn(dropdownMenuLabelVariants({ inset, disableRuiClass: props.disableRuiClass }), props.class)
+      cn(dropdownMenuLabelVariants({ inset, unstyled: props.unstyled }), props.class)
     "
   >
     <slot />
