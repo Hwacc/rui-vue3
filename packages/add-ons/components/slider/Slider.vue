@@ -310,7 +310,7 @@ const {
 } = defineProps<
   SliderProps & {
     class?: HTMLAttributes['class'];
-    size?: 'base' | 'sm' | 'lg' | 'custom';
+    size?: 'base' | 'sm' | 'lg';
     floatingTooltip?: FloatingTooltipOptions | boolean | undefined;
     disableRuiClass?: boolean;
   }
@@ -399,8 +399,6 @@ const computedWidth = computed(() => {
         return '.0625rem';
       case 'lg':
         return '.25rem';
-      case 'custom':
-        return width;
     }
   } else if (direction === 'ltr' || direction === 'rtl') {
     return width;
@@ -417,8 +415,6 @@ const computedHeight = computed(() => {
         return '.0625rem';
       case 'lg':
         return '.25rem';
-      case 'custom':
-        return height;
     }
   }
 });
@@ -430,8 +426,6 @@ const computedDotSize = computed(() => {
       return [rem2px(0.5), rem2px(0.5)];
     case 'lg':
       return [rem2px(0.75), rem2px(0.75)];
-    case 'custom':
-      return dotSize;
   }
 });
 const dotDragIndex = ref(-1);

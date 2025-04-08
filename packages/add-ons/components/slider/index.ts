@@ -21,8 +21,7 @@ export const sliderDotVariants = cva(
       size: {
         sm: 'border-[.0625rem]',
         lg: 'border-[.25rem]',
-        base: 'border-[.125rem]',
-        custom: '',
+        base: 'border-[.125rem]'
       },
       scale: {
         true: 'scale-125',
