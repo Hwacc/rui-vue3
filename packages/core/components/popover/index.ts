@@ -1,18 +1,23 @@
-import { VariantProps } from 'class-variance-authority';
-import { cva } from '@/core/lib/cva';
-import { PREFIX } from '@/core/lib/constants.js';
+import { VariantProps } from 'class-variance-authority'
+import { cva } from '@/core/lib/cva'
+import { PREFIX } from '@/core/lib/constants.js'
 
-export { default as Popover } from './Popover.vue';
-export { default as PopoverContent } from './PopoverContent.vue';
-export { default as PopoverTrigger } from './PopoverTrigger.vue';
-export { default as PopoverArrow } from './PopoverArrow.vue';
+export { default as Popover } from './Popover.vue'
+export { default as PopoverContent } from './PopoverContent.vue'
+export { default as PopoverTrigger } from './PopoverTrigger.vue'
+export { default as PopoverArrow } from './PopoverArrow.vue'
 
-export { PopoverAnchor } from 'reka-ui';
+export { PopoverAnchor } from 'reka-ui'
 
 //@ts-ignore
-export { u as useGraceArea } from '../../node_modules/reka-ui/dist/shared/useGraceArea.js';
+export { u as useGraceArea } from '../../node_modules/reka-ui/dist/shared/useGraceArea.js'
 
-const prefix = `${PREFIX}-popover`;
+const prefix = `${PREFIX}-popover`
+
+export const popoverTriggerVariants = cva(['group', 'rounded'], undefined, {
+  className: `${prefix}-trigger`
+})
+
 export const popoverContentVariants = cva(
   [
     'z-50',
@@ -21,11 +26,11 @@ export const popoverContentVariants = cva(
     'border',
     'rounded-lg',
     'p-2.5',
-    'outline-none',
+    'outline-none'
   ],
   { variants: {} },
   { className: `${prefix}-content` }
-);
+)
 
 export const popoverArrowVariants = cva(
   '',
@@ -49,7 +54,7 @@ export const popoverArrowVariants = cva(
             'before:border-y-(length:--reka-popover-arrow-border-height)',
             'before:border-b-transparent',
             'before:border-x-(length:--reka-popover-arrow-border-width)',
-            'before:border-x-transparent',
+            'before:border-x-transparent'
           ],
           [
             'after:absolute',
@@ -60,12 +65,12 @@ export const popoverArrowVariants = cva(
             'after:border-y-(length:--reka-popover-arrow-border-height)',
             'after:border-b-transparent',
             'after:border-x-(length:--reka-popover-arrow-border-width)',
-            'after:border-x-transparent',
-          ],
-        ],
-      },
-    },
+            'after:border-x-transparent'
+          ]
+        ]
+      }
+    }
   },
   { className: `${prefix}-arrow` }
-);
-export type PopoverArrowVariants = VariantProps<typeof popoverArrowVariants>;
+)
+export type PopoverArrowVariants = VariantProps<typeof popoverArrowVariants>

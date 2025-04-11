@@ -18,4 +18,8 @@
   .rui-dialog-footer{
     @apply bg-h16;
   }
+
+  .rui-dialog-body{
+    @apply outline-offset-[-2px];
+  }
 }

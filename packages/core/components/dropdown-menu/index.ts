@@ -1,30 +1,39 @@
-import { PREFIX } from '@/core/lib/constants';
-import { cva } from '@/core/lib/cva';
+import { PREFIX } from '@/core/lib/constants'
+import { cva } from '@/core/lib/cva'
 
-export { default as DropdownMenuCheckboxItem } from './DropdownMenuCheckboxItem.vue';
-export { default as DropdownMenuContent } from './DropdownMenuContent.vue';
-export { default as DropdownMenuItem } from './DropdownMenuItem.vue';
-export { default as DropdownMenuLabel } from './DropdownMenuLabel.vue';
-export { default as DropdownMenuRadioItem } from './DropdownMenuRadioItem.vue';
-export { default as DropdownMenuSeparator } from './DropdownMenuSeparator.vue';
-export { default as DropdownMenuShortcut } from './DropdownMenuShortcut.vue';
-export { default as DropdownMenuSubContent } from './DropdownMenuSubContent.vue';
-export { default as DropdownMenuSubTrigger } from './DropdownMenuSubTrigger.vue';
-export { default as DropdownMenuTrigger } from './DropdownMenuTrigger.vue';
+export { default as DropdownMenuCheckboxItem } from './DropdownMenuCheckboxItem.vue'
+export { default as DropdownMenuContent } from './DropdownMenuContent.vue'
+export { default as DropdownMenuItem } from './DropdownMenuItem.vue'
+export { default as DropdownMenuLabel } from './DropdownMenuLabel.vue'
+export { default as DropdownMenuRadioItem } from './DropdownMenuRadioItem.vue'
+export { default as DropdownMenuSeparator } from './DropdownMenuSeparator.vue'
+export { default as DropdownMenuShortcut } from './DropdownMenuShortcut.vue'
+export { default as DropdownMenuSubContent } from './DropdownMenuSubContent.vue'
+export { default as DropdownMenuSubTrigger } from './DropdownMenuSubTrigger.vue'
+export { default as DropdownMenuTrigger } from './DropdownMenuTrigger.vue'
 
 export {
   DropdownMenuPortal,
   DropdownMenuGroup,
   DropdownMenuRoot as DropdownMenu,
   DropdownMenuRadioGroup,
-  DropdownMenuSub,
-} from 'reka-ui';
+  DropdownMenuSub
+} from 'reka-ui'
 export type {
   DropdownMenuRootProps as DropdownMenuProps,
-  DropdownMenuRootEmits as DropdownMenuEmits,
-} from 'reka-ui';
+  DropdownMenuRootEmits as DropdownMenuEmits
+} from 'reka-ui'
 
-const prefix = `${PREFIX}-dropdown-menu`;
+const prefix = `${PREFIX}-dropdown-menu`
+
+export const dropdownMenuTriggerVariants = cva(
+  ['group', 'rounded'],
+  undefined,
+  {
+    className: `${prefix}-trigger`
+  }
+)
+
 export const dropdownMenuContentVariants = cva(
   [
     'z-50',
@@ -33,11 +42,11 @@ export const dropdownMenuContentVariants = cva(
     'rounded',
     'border',
     'px-2',
-    'py-1.5',
+    'py-1.5'
   ],
   undefined,
   { className: `${prefix}-content` }
-);
+)
 
 export const dropdownMenuItemVariants = cva(
   [
@@ -54,19 +63,19 @@ export const dropdownMenuItemVariants = cva(
     'outline-none',
     'transition-colors',
     'data-[disabled]:pointer-events-none',
-    'data-[disabled]:opacity-(--disabled-opacity)',
+    'data-[disabled]:opacity-(--disabled-opacity)'
   ],
   {
     variants: {
       variant: {
         default: ['[&>svg]:size-4', '[&>svg]:shrink-0'],
         checkbox: ['pr-2', 'pl-8'],
-        radio: ['pl-8', 'pr-2'],
-      },
-    },
+        radio: ['pl-8', 'pr-2']
+      }
+    }
   },
   { className: `${prefix}-item` }
-);
+)
 
 export const dropdownMenuSubTriggerVariants = cva(
   [
@@ -78,11 +87,11 @@ export const dropdownMenuSubTriggerVariants = cva(
     'px-2',
     'py-1.5',
     'text-sm',
-    'outline-none',
+    'outline-none'
   ],
   undefined,
   { className: `${prefix}-sub-trigger` }
-);
+)
 
 export const dropdownMenuSubContentVariants = cva(
   [
@@ -92,24 +101,28 @@ export const dropdownMenuSubContentVariants = cva(
     'py-1.5',
     'rounded',
     'border',
-    'overflow-hidden',
+    'overflow-hidden'
   ],
   undefined,
   { className: `${prefix}-sub-content` }
-);
+)
 
 export const dropdownMenuLabelVariants = cva(
   ['px-2', 'py-1.5', 'text-base'],
   {
     variants: {
       inset: {
-        true: 'pl-8',
-      },
-    },
+        true: 'pl-8'
+      }
+    }
   },
   { className: `${prefix}-label` }
-);
+)
 
-export const dropdownMenuSeparatorVariants = cva(['-mx-2 my-1.5 h-px'], undefined, {
-  className: `${prefix}-separator`,
-});
+export const dropdownMenuSeparatorVariants = cva(
+  ['-mx-2 my-1.5 h-px'],
+  undefined,
+  {
+    className: `${prefix}-separator`
+  }
+)

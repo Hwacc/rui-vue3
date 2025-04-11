@@ -118,7 +118,7 @@ const buttonClass = computed(() =>
           :class="tooltipArrowClass"
           :theme="tooltipTheme"
           v-bind="tooltipArrowProps"
-          variant="svg"
+          variant="css"
           force
         />
       </TooltipContent>

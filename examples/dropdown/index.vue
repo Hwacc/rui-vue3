@@ -31,7 +31,7 @@ const position = ref<string>('top');
     <div class="flex-c flex-wrap gap-2">
       <DropdownMenu>
         <DropdownMenuTrigger>
-          <Button>Open Dropdown</Button>
+          <Button as="div">Open Dropdown</Button>
         </DropdownMenuTrigger>
         <DropdownMenuContent>
           <DropdownMenuLabel>My Account</DropdownMenuLabel>
@@ -45,7 +45,7 @@ const position = ref<string>('top');
 
       <DropdownMenu>
         <DropdownMenuTrigger>
-          <Button type="icon" tooltip="Add">
+          <Button as="div" type="icon" tooltip="Add">
             <Plus />
           </Button>
         </DropdownMenuTrigger>
@@ -61,7 +61,7 @@ const position = ref<string>('top');
 
       <DropdownMenu>
         <DropdownMenuTrigger>
-          <Button> Open a Checkbox Menu </Button>
+          <Button as="div"> Open a Checkbox Menu </Button>
         </DropdownMenuTrigger>
         <DropdownMenuContent>
           <DropdownMenuLabel>Appearance</DropdownMenuLabel>
@@ -80,7 +80,7 @@ const position = ref<string>('top');
 
       <DropdownMenu>
         <DropdownMenuTrigger>
-          <Button> Open a Radio Menu </Button>
+          <Button as="div"> Open a Radio Menu </Button>
         </DropdownMenuTrigger>
         <DropdownMenuContent>
           <DropdownMenuLabel>Panel Position</DropdownMenuLabel>
@@ -94,8 +94,8 @@ const position = ref<string>('top');
       </DropdownMenu>
 
       <DropdownMenu>
-        <DropdownMenuTrigger>
-          <Button> Open a Sub Menu </Button>
+        <DropdownMenuTrigger class="rounded">
+          <Button as="div"> Open a Sub Menu </Button>
         </DropdownMenuTrigger>
         <DropdownMenuContent>
           <DropdownMenuSub>

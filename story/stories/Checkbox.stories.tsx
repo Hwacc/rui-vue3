@@ -13,7 +13,7 @@ const meta = {
     indicator: { control: false },
     label: { control: 'text' },
     stopPropagation: { control: 'boolean' },
-    disableRuiClass: { control: 'boolean' }
+    unstyled: { control: 'boolean' }
   }
 } satisfies Meta<typeof Checkbox>
 
@@ -23,6 +23,13 @@ type Story = StoryObj<typeof meta>
 export const Default: Story = {
   args: {
     size: 'base'
+  }
+}
+
+export const WithLabel: Story = {
+  args: {
+    size: 'base',
+    label: 'Checkbox'
   }
 }
 
@@ -41,14 +48,14 @@ export const WithCheckboxGroup: WithCheckboxGroup = {
   args: {
     size: 'base',
     collection: ['1'],
-    disableRuiClass: false,
+    unstyled: false,
     onChange: fn()
   },
   render: (args) => {
     return {
       components: { CheckboxGroup, Checkbox },
       setup() {
-        const { size, collection, onChange, disableRuiClass } =
+        const { size, collection, onChange, unstyled } =
           toRefs<any>(args)
         return () => (
           <CheckboxGroup
@@ -56,21 +63,21 @@ export const WithCheckboxGroup: WithCheckboxGroup = {
             v-model:collection={collection.value}
             size={size.value}
             onChange={onChange.value}
-            disableRuiClass={disableRuiClass?.value}
+            unstyled={unstyled?.value}
           >
             <Checkbox primary label='Primary' />
             <Checkbox
-              disableRuiClass={disableRuiClass?.value}
+              unstyled={unstyled?.value}
               name='1'
               label='Checkbox 1'
             />
             <Checkbox
-              disableRuiClass={disableRuiClass?.value}
+              unstyled={unstyled?.value}
               name='2'
               label='Checkbox 2'
             />
             <Checkbox
-              disableRuiClass={disableRuiClass?.value}
+              unstyled={unstyled?.value}
               name='3'
               label='Checkbox 3'
             />

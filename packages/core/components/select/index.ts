@@ -2,6 +2,7 @@ import { VariantProps } from 'class-variance-authority';
 import { cva } from '@/core/lib/cva';
 import { PREFIX } from '@/core/lib/constants';
 
+export { default as Select } from './Select.vue';
 export { default as SelectContent } from './SelectContent.vue';
 export { default as SelectItem } from './SelectItem.vue';
 export { default as SelectLabel } from './SelectLabel.vue';
@@ -12,8 +13,7 @@ export { default as SelectTrigger } from './SelectTrigger.vue';
 export { default as SelectValue } from './SelectValue.vue';
 export { default as SelectMouseTrigger } from './SelectMouseTrigger.vue';
 
-export { SelectRoot as Select, SelectGroup, SelectItemText } from 'reka-ui';
-export type { SelectRootProps as SelectProps, SelectRootEmits as SelectEmits } from 'reka-ui';
+export { SelectGroup, SelectItemText } from 'reka-ui';
 
 const prefix = `${PREFIX}-select`;
 export const selectTriggerVariants = cva(
@@ -28,7 +28,6 @@ export const selectTriggerVariants = cva(
     'px-2',
     'py-1.5',
     'text-start',
-    'outline-none',
     'disabled:pointer-events-none',
     'disabled:opacity-(--disabled-opacity)',
     'transition-colors',

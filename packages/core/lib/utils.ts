@@ -16,7 +16,7 @@ export const rem2px = (rem: number) => {
 };
 
 export const spaceTimes = (times: number) => {
-  const spacing = parseFloat(getCssVar('--spacing') || '.25rem');
+  const spacing = parseFloat(getCssVar('--spacing') ?? '.25rem');
   return times * rem2px(spacing);
 };
 
@@ -31,7 +31,7 @@ export const getNodeCssVar = <T>(
   return getComputedStyle(node).getPropertyValue(variableName) || fallback;
 };
 
-export const getCssVar = <T>(variableName: string, fallback?: T) => {
+export const getCssVar = (variableName: string, fallback?: string) => {
   return getNodeCssVar(document.documentElement, variableName, fallback);
 };
 

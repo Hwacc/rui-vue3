@@ -26,7 +26,7 @@ type Story = StoryObj<typeof meta>
 export const Default: Story = {
   parameters: {
     controls: {
-      include: ['size', 'disabled', 'default', 'disableRuiClass']
+      include: ['size', 'disabled', 'default', 'unstyled']
     }
   },
   args: {
@@ -39,7 +39,7 @@ export const Default: Story = {
 export const Normal: Story = {
   parameters: {
     controls: {
-      include: ['size', 'disabled', 'default', 'disableRuiClass']
+      include: ['size', 'disabled', 'default', 'unstyled']
     }
   },
   args: {
@@ -52,7 +52,7 @@ export const Normal: Story = {
 export const Outline: Story = {
   parameters: {
     controls: {
-      include: ['size', 'disabled', 'default', 'disableRuiClass']
+      include: ['size', 'disabled', 'default', 'unstyled']
     }
   },
   args: {
@@ -65,7 +65,7 @@ export const Outline: Story = {
 export const Text: Story = {
   parameters: {
     controls: {
-      include: ['size', 'disabled', 'default', 'disableRuiClass']
+      include: ['size', 'disabled', 'default', 'unstyled']
     }
   },
   args: {
@@ -103,7 +103,7 @@ export const Icon: Story = {
 export const Switch: Story = {
   parameters: {
     controls: {
-      include: ['size', 'disabled', 'default', 'checked', 'disableRuiClass']
+      include: ['size', 'disabled', 'default', 'checked', 'unstyled']
     }
   },
   args: {

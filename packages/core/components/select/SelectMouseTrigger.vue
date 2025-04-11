@@ -96,7 +96,7 @@ onMounted(() => {
       <slot name="icon" :v-bind="{ open: unref(rootContext.open) }">
         <SelectIcon
           as="i"
-          :class="selectTriangleVariants({ unstyled, open: unref(rootContext.open) })"
+          :class="selectTriangleVariants({ unstyled })"
           :data-state="unref(rootContext.open) ? 'open' : 'closed'"
         >
           <svg
