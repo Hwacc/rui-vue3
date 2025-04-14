@@ -4,7 +4,7 @@ export interface HotkeyProps extends PrimitiveProps {
   placeholder?: string | ((focused: boolean) => string)
   class?: HTMLAttributes['class']
   innerClass?: HTMLAttributes['class']
-  size?: HotkeyVariants['size']
+  size?: InputVariants['size']
   disabled?: boolean
   readonly?: boolean
   unstyled?: boolean
@@ -12,7 +12,7 @@ export interface HotkeyProps extends PrimitiveProps {
 </script>
 
 <script setup lang="ts">
-import { Primitive, PrimitiveProps } from 'reka-ui'
+import { Primitive, PrimitiveProps, useForwardExpose } from 'reka-ui'
 import {
   computed,
   HTMLAttributes,
@@ -22,9 +22,9 @@ import {
   watch,
   watchEffect
 } from 'vue'
-import { hotkeyVariants, HotkeyVariants } from '.'
+import { hotkeyVariants } from '.'
 import { cn } from '@/core/lib/utils'
-import { inputInnerVariants, inputVariants } from '../input'
+import { inputInnerVariants, InputVariants, inputVariants } from '../input'
 import {
   CodesMap,
   isAccebilityCode,
@@ -41,7 +41,8 @@ const {
   innerClass,
   disabled,
   readonly,
-  unstyled
+  unstyled,
+  size
 } = defineProps<HotkeyProps>()
 
 const emits = defineEmits<{
@@ -283,14 +284,16 @@ watchEffect((cleanup) => {
 
 const classNames = computed(() => {
   return cn(
-    inputVariants({ unstyled }),
+    inputVariants({ unstyled, size }),
     hotkeyVariants({ unstyled }),
     propsClass
   )
 })
 const innerClassName = computed(() => {
-  return cn(inputInnerVariants({ unstyled }), innerClass)
+  return cn(inputInnerVariants({ unstyled, size }), innerClass)
 })
+
+const { forwardRef } = useForwardExpose()
 </script>
 
 <template>
@@ -300,7 +303,12 @@ const innerClassName = computed(() => {
     :data-placeholder="placeholder"
   >
     <input
-      ref="innerRef"
+      :ref="
+        (r) => {
+          forwardRef(r)
+          innerRef = r as HTMLInputElement
+        }
+      "
       :class="innerClassName"
       :disabled="disabled ? true : undefined"
       :spellcheck="false"

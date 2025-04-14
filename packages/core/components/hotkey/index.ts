@@ -7,15 +7,7 @@ const prefix = `${PREFIX}-hotkey`
 
 export const hotkeyVariants = cva(
   ['relative'],
-  {
-    variants: {
-      size: {
-        base: '',
-        sm: '',
-        lg: ''
-      }
-    }
-  },
+  undefined,
   {
     className: prefix
   }
