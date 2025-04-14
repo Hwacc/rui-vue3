@@ -409,8 +409,12 @@ export const CodesMap: Record<string, { keyCode: number; name: string }> = {
   }
 }
 
+export function isAccebilityCode(code: string) {
+  return code === 'Tab' || code === 'Escape'
+}
+
 export function isDeleteCode(code: string) {
-  return code === 'Escape' || code === 'Delete' || code === 'Backspace'
+  return code === 'Delete' || code === 'Backspace'
 }
 
 export function isAssistCode(code: string) {

@@ -1,6 +1,7 @@
 <script lang="ts">
 export interface HotkeyProps extends PrimitiveProps {
-  hotkey: string | string[]
+  hotkey: string
+  placeholder?: string | ((focused: boolean) => string)
   class?: HTMLAttributes['class']
   innerClass?: HTMLAttributes['class']
   size?: HotkeyVariants['size']
@@ -18,16 +19,25 @@ import {
   nextTick,
   reactive,
   ref,
+  watch,
   watchEffect
 } from 'vue'
 import { hotkeyVariants, HotkeyVariants } from '.'
 import { cn } from '@/core/lib/utils'
 import { inputInnerVariants, inputVariants } from '../input'
-import { CodesMap, isAssistCode, isDeleteCode, isMainCode } from './keycode'
+import {
+  CodesMap,
+  isAccebilityCode,
+  isAssistCode,
+  isDeleteCode,
+  isMainCode
+} from './keycode'
 import { isEmpty, without } from 'lodash-es'
 
 const {
   class: propsClass,
+  hotkey,
+  placeholder: propsPlaceholder = '',
   innerClass,
   disabled,
   readonly,
@@ -35,11 +45,15 @@ const {
 } = defineProps<HotkeyProps>()
 
 const emits = defineEmits<{
-  'update:modelValue': [value: string | number]
-  'focus': [e: Event]
-  'blur': [e: Event]
+  'update:hotkey': [value: string]
+  'focus': [event: Event]
+  'blur': [event: Event]
+  'error': [error: Error]
+  'cancel': [keycodes: string[], hotkey: string]
+  'change': [keycodes: string[], hotkey: string]
 }>()
 
+const innerRef = ref<HTMLInputElement | null>(null)
 const isFocus = ref(false)
 const inputState = computed(() => {
   if (disabled) return 'disabled'
@@ -49,15 +63,36 @@ const inputState = computed(() => {
 
 const onFocus = (event: Event) => {
   isFocus.value = true
+  moveSelectionArchor()
   emits('focus', event)
 }
 const onBlur = (event: Event) => {
   isFocus.value = false
+  setInnerHotkey()
+  resetData()
   emits('blur', event)
 }
 
-const curHotkey = ref('')
-const placeholder = ref<string | null>(null)
+const innerHotkey = ref(hotkey)
+const placeholder = ref('')
+
+const setInnerHotkey = (hk?: string) => {
+  const _hotkey = hk || hotkey
+  console.log('_hotkey', _hotkey)
+  const _placeholder =
+    typeof propsPlaceholder === 'function'
+      ? propsPlaceholder(isFocus.value)
+      : propsPlaceholder
+  if (isEmpty(_hotkey)) {
+    if (isFocus.value) {
+      placeholder.value = _placeholder || 'Press hotkey'
+    } else {
+      placeholder.value = _placeholder || 'No hotkey assigned'
+    }
+  }
+  innerHotkey.value = _hotkey
+}
+watch(() => hotkey, setInnerHotkey, { immediate: true })
 
 const keydownRecord = reactive({
   mainCode: '',
@@ -65,17 +100,12 @@ const keydownRecord = reactive({
 })
 const judgeKeyArr = ref([] as string[])
 const resultCodeArr = ref([] as string[])
-
 const onKeydown = (event: KeyboardEvent) => {
+  const { keyCode, code, repeat } = event
   event.preventDefault()
   event.stopPropagation()
-
-  const { keyCode, code, repeat } = event
-  if (!repeat && isDeleteCode(code)) {
-    // ESC || backspace
-    // curHotkey = '';
-    return false
-  }
+  // ESC || backspace
+  if (!repeat && (isDeleteCode(code) || isAccebilityCode(code))) return false
   // 消除repeat
   if (repeat) return false
   // keyCode 出现大于等于229的情况 代表该hotkey被占用, 无法识别keydown, 但是在keyup中可以捕获
@@ -95,34 +125,36 @@ const onKeydown = (event: KeyboardEvent) => {
   judgeKeyArr.value = [...judgeKeyArr.value, code]
 
   // 处理输入框显示
-  handleSelectionArchor()
-  placeholder.value = null
+  moveSelectionArchor()
   const assistStr = keydownRecord.assistCodes.reduce((acc, c) => {
     return acc === '' ? CodesMap[c].name : acc + ' + ' + CodesMap[c].name
   }, '')
 
-  curHotkey.value = keydownRecord.mainCode
+  innerHotkey.value = keydownRecord.mainCode
     ? `${
         isEmpty(assistStr)
           ? CodesMap[keydownRecord.mainCode].name
           : `${assistStr} + ${CodesMap[keydownRecord.mainCode].name}`
       }`
     : assistStr
-
-  console.log('----keydown----curHotkey', curHotkey.value)
 }
 
 const keyupSet = ref<Set<string>>(new Set())
 const onKeyUp = (event: KeyboardEvent) => {
+  const { code } = event
   event.preventDefault()
   event.stopPropagation()
-
-  const { code } = event
-
+  if (isAccebilityCode(code)) {
+    code === 'Escape' && innerRef.value?.blur()
+    return
+  }
   if (isDeleteCode(code)) {
     // ESC || backspace
-    handleResetData()
-    // this.$emit('on-cancel', [], 'ESC');
+    innerHotkey.value = ''
+    resetData()
+    emits('update:hotkey', '')
+    emits('cancel', [], 'ESC')
+    emits('change', [], 'ESC')
     return false
   }
 
@@ -137,10 +169,17 @@ const onKeyUp = (event: KeyboardEvent) => {
   return false
 }
 
+const IMELocked = ref(false)
+const onInput = () => {
+  IMELocked.value = true
+  setInnerHotkey()
+  return false
+}
+
 /**
  * 将光标移至最后
  */
-const handleSelectionArchor = () => {
+const moveSelectionArchor = () => {
   nextTick(() => {
     const selection = window.getSelection()
     const range = selection?.getRangeAt(0)
@@ -153,7 +192,7 @@ const handleSelectionArchor = () => {
   })
 }
 
-const handleResetData = () => {
+const resetData = () => {
   keydownRecord.mainCode = ''
   keydownRecord.assistCodes = []
   keyupSet.value.clear()
@@ -161,9 +200,19 @@ const handleResetData = () => {
   resultCodeArr.value = []
 }
 
-watchEffect(() => {
+watchEffect((cleanup) => {
   if (judgeKeyArr.value.length === 0 && inputState.value === 'focused') {
-    console.log('----keydown----watchEffect', curHotkey.value)
+    if (IMELocked.value) {
+      // 如果IME是输入状态 直接返回
+      IMELocked.value = false
+      setInnerHotkey()
+      if (innerRef.value) {
+        innerRef.value.value = innerHotkey.value
+        innerRef.value.blur()
+      }
+      emits('error', new Error('using ime'))
+      return
+    }
     // keydown未捕获到maincode
     if (!keydownRecord.mainCode) {
       // 在keyup Set中找一个主键
@@ -173,17 +222,15 @@ watchEffect(() => {
       })
       // 仍然没找到主键, 还原设置
       if (!keyupMainCode) {
-        // curHotkey.value = this.hotkey
-        keydownRecord.mainCode = ''
-        keydownRecord.assistCodes = []
-        keyupSet.value.clear()
+        setInnerHotkey()
+        resetData()
         return
       }
       // 否则, 重新记录keydown中的mainCode
       keydownRecord.mainCode = keyupMainCode
     }
 
-    resultCodeArr.value = []
+    // resultCodeArr.value = []
     if (isEmpty(keydownRecord.assistCodes)) {
       // keydown未捕获assistCode, 给一个默认值
       resultCodeArr.value = keydownRecord.assistCodes = [
@@ -224,8 +271,13 @@ watchEffect(() => {
     }
     resultCodeArr.value.push(keydownRecord.mainCode)
     console.log('----result code', resultCodeArr.value)
-    // this.$emit('on-change', this.keyArr, this.hotkeyName)
-    // this.handleClickOutside()
+    innerHotkey.value = resultCodeArr.value
+      .map((c) => CodesMap[c].name)
+      .join(' + ')
+    emits('update:hotkey', innerHotkey.value)
+    emits('change', resultCodeArr.value, innerHotkey.value)
+    innerRef.value?.blur()
+    cleanup(resetData)
   }
 })
 
@@ -242,20 +294,29 @@ const innerClassName = computed(() => {
 </script>
 
 <template>
-  <Primitive :class="classNames" :data-state="inputState">
-    <span
-      ref="hotkeySpan"
+  <Primitive
+    :class="classNames"
+    :data-state="inputState"
+    :data-placeholder="placeholder"
+  >
+    <input
+      ref="innerRef"
       :class="innerClassName"
-      :contenteditable="!disabled"
+      :disabled="disabled ? true : undefined"
       :spellcheck="false"
       :data-state="inputState"
       :readonly="readonly ? true : undefined"
+      :placeholder="placeholder"
+      :value="innerHotkey"
+      aria-label="Hotkey input"
       @focus="onFocus"
       @blur="onBlur"
       @keydown="onKeydown"
       @keyup="onKeyUp"
-    >
-      {{ curHotkey }}
+      @input="onInput"
+    />
+    <span class="sr-only">
+      {{ innerHotkey }}
     </span>
   </Primitive>
 </template>
