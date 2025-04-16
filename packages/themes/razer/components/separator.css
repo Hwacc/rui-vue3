@@ -1,0 +1,9 @@
+@layer components {
+  .rui-separator {
+    @apply bg-h55;
+  }
+
+  .rui-separator-label {
+    @apply text-hcc bg-h1a;
+  }
+}

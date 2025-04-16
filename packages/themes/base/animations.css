@@ -9,6 +9,7 @@
   --animate-collapsible-down: collapsible-down var(--tw-animate-duration, 150ms) ease-in-out;
   --animate-collapsible-up: collapsible-up var(--tw-animate-duration, 150ms) ease-in-out;
   --animate-quick-squeeze-x: squeeze-x var(--tw-animate-duration, 150ms) ease-in-out;
+  --animate-rippling: rippling var(--tw-animate-duration, 150ms) ease-out;
 
   /* Keyframes */
   @keyframes accordion-down {
@@ -92,6 +93,17 @@
       filter: blur(0);
     }
   }
+
+  @keyframes rippling {
+    0% {
+      opacity: 1;
+    }
+    100% {
+      transform: scale(2);
+      opacity: 0;
+    }
+  }
+
 }
 
 @utility animate-check-dash {

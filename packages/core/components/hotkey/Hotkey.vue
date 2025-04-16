@@ -151,12 +151,14 @@ const onKeyUp = (event: KeyboardEvent) => {
   }
   if (isDeleteCode(code)) {
     // ESC || backspace
-    innerHotkey.value = ''
-    resetData()
-    emits('update:hotkey', '')
-    emits('cancel', [], 'ESC')
-    emits('change', [], 'ESC')
-    return false
+    if (innerHotkey.value) {
+      innerHotkey.value = ''
+      resetData()
+      emits('update:hotkey', '')
+      emits('cancel', [], 'ESC')
+      emits('change', [], 'ESC')
+    }
+    return
   }
 
   // 因为热键冲突的原因, keydown无法捕获到主键(mainCode), 但在keyup中可以捕获到
@@ -167,14 +169,14 @@ const onKeyUp = (event: KeyboardEvent) => {
   if (judgeKeyArr.value.indexOf(code) > -1) {
     judgeKeyArr.value.splice(judgeKeyArr.value.indexOf(code), 1)
   }
-  return false
+  return
 }
 
 const IMELocked = ref(false)
 const onInput = () => {
   IMELocked.value = true
   setInnerHotkey()
-  return false
+  return
 }
 
 /**

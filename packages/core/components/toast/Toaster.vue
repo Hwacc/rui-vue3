@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { isVNode } from 'vue';
+import { isVNode } from 'vue'
 import {
   Toast,
   ToastClose,
@@ -7,22 +7,22 @@ import {
   ToastProvider,
   ToastTitle,
   ToastViewport,
-  toastIconVariants,
-} from '.';
-import { useToast } from './use-toast';
-import { ToastProviderPropsEx } from './ToastProvider.vue';
-import { isFunction } from 'lodash-es';
-import { CircleCheck, CircleAlert, Info, CircleX } from 'lucide-vue-next';
+  toastIconVariants
+} from '.'
+import { useToast } from './use-toast'
+import { ToastProviderPropsEx } from './ToastProvider.vue'
+import { isFunction } from 'lodash-es'
+import { CircleCheck, CircleAlert, Info, CircleX } from 'lucide-vue-next'
 
-const props = defineProps<ToastProviderPropsEx>();
-const { toasts } = useToast();
+const props = defineProps<ToastProviderPropsEx>()
+const { toasts } = useToast()
 
-const toastIcons:Record<StatusVariants, any> = {
+const toastIcons: Record<StatusVariants, any> = {
   success: CircleCheck,
   warning: CircleAlert,
   info: Info,
-  error: CircleX,
-};
+  error: CircleX
+}
 </script>
 
 <template>

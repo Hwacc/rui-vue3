@@ -1,21 +1,24 @@
 <script setup lang="ts">
-import type { ToastDescriptionProps } from 'reka-ui';
-import type { HTMLAttributes } from 'vue';
-import { cn } from '@/core/lib/utils';
-import { ToastDescription } from 'reka-ui';
-import { computed } from 'vue';
-import { toastDescriptionVariants } from '.';
+import type { ToastDescriptionProps } from 'reka-ui'
+import type { HTMLAttributes } from 'vue'
+import { cn } from '@/core/lib/utils'
+import { ToastDescription } from 'reka-ui'
+import { computed } from 'vue'
+import { toastDescriptionVariants } from '.'
 
 const {
   class: propsClass,
   unstyled,
   ...props
 } = defineProps<
-  ToastDescriptionProps & { class?: HTMLAttributes['class']; unstyled?: boolean }
->();
+  ToastDescriptionProps & {
+    class?: HTMLAttributes['class']
+    unstyled?: boolean
+  }
+>()
 const classNames = computed(() => {
-  return cn(toastDescriptionVariants({ unstyled }), propsClass);
-});
+  return cn(toastDescriptionVariants({ unstyled }), propsClass)
+})
 </script>
 
 <template>

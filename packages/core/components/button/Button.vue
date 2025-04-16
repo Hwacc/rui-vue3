@@ -8,6 +8,7 @@ import type {
 import type { HTMLAttributes } from 'vue'
 import type { TooltipContentVariants } from '@/core/components/tooltip'
 import type { ButtonVariants } from '.'
+import { useRipple } from '@/core/hooks/useRipple'
 
 interface Props extends PrimitiveProps {
   variant?: ButtonVariants['variant'] | string
@@ -23,12 +24,13 @@ interface Props extends PrimitiveProps {
   tooltipArrowClass?: HTMLAttributes['class']
   tooltipArrowProps?: TooltipArrowProps
   unstyled?: boolean
+  ripple?: boolean
 }
 </script>
 
 <script setup lang="ts">
 import { computed } from 'vue'
-import { cn } from '@/core/lib/utils'
+import { cn, getNodeCssVar } from '@/core/lib/utils'
 import { Primitive, useForwardExpose } from 'reka-ui'
 import { buttonVariants } from '.'
 import {
@@ -47,6 +49,7 @@ const {
   disabled,
   checked = false,
   unstyled,
+  ripple = false,
   tooltip,
   tooltipTheme = 'default',
   tooltipRootProps = {
@@ -71,10 +74,31 @@ const slots = defineSlots<{
   default?: () => any
   tooltip?: () => any
 }>()
+const emits = defineEmits<{
+  click: [event: MouseEvent]
+}>()
+const { forwardRef, currentElement } = useForwardExpose()
 
-const emits = defineEmits(['click'])
+const rippleColor = computed(() => {
+  return getNodeCssVar(
+    currentElement.value,
+    '--rui-ripple-color',
+    'transparent'
+  )
+})
+const {
+  onRipple,
+  referenceRef: rippleReferenceRef,
+  Ripple
+} = useRipple({
+  color: rippleColor
+})
 
-const { forwardRef } = useForwardExpose()
+const onClick = (event: MouseEvent) => {
+  onRipple(event)
+  emits('click', event)
+}
+
 const buttonClass = computed(() =>
   cn(
     buttonVariants({
@@ -96,14 +120,21 @@ const buttonClass = computed(() =>
         :asChild="asChild"
         :class="buttonClass"
         :disabled="disabled"
-        :ref="forwardRef"
+        :ref="
+          (r) => {
+            forwardRef(r)
+            rippleReferenceRef = r
+          }
+        "
         :data-variant="variant"
+        :data-ripple="ripple ? true : undefined"
         :data-switch-state="
           variant === 'switch' ? (checked ? 'checked' : 'unchecked') : undefined
         "
-        @click="emits('click')"
+        @click="onClick"
       >
         <slot />
+        <Ripple v-if="ripple" />
       </TooltipTrigger>
       <TooltipContent
         v-bind="tooltipContentProps"
@@ -129,14 +160,21 @@ const buttonClass = computed(() =>
     :as="as"
     :as-child="asChild"
     :class="buttonClass"
-    :ref="forwardRef"
+    :ref="
+      (r) => {
+        forwardRef(r)
+        rippleReferenceRef = r
+      }
+    "
     :disabled="disabled"
     :data-variant="variant"
+    :data-ripple="ripple ? true : undefined"
     :data-switch-state="
       variant === 'switch' ? (checked ? 'checked' : 'unchecked') : undefined
     "
-    @click="emits('click')"
+    @click="onClick"
   >
     <slot />
+    <Ripple v-if="ripple" />
   </Primitive>
 </template>

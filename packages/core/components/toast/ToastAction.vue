@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import type { ToastActionProps } from 'reka-ui';
-import type { HTMLAttributes } from 'vue';
-import { cn } from '@/core/lib/utils';
-import { ToastAction } from 'reka-ui';
-import { toastActionVariants } from '.';
+import type { ToastActionProps } from 'reka-ui'
+import type { HTMLAttributes } from 'vue'
+import { cn } from '@/core/lib/utils'
+import { ToastAction } from 'reka-ui'
+import { toastActionVariants } from '.'
 
 const {
   class: propsClass,
@@ -12,11 +12,11 @@ const {
   ...props
 } = defineProps<
   ToastActionProps & {
-    class?: HTMLAttributes['class'];
-    variant?: StatusVariants;
-    unstyled?: boolean;
+    class?: HTMLAttributes['class']
+    variant?: StatusVariants
+    unstyled?: boolean
   }
->();
+>()
 </script>
 
 <template>

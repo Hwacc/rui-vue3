@@ -32,7 +32,7 @@ export const getNodeCssVar = <T>(
 };
 
 export const getCssVar = (variableName: string, fallback?: string) => {
-  return getNodeCssVar(document.documentElement, variableName, fallback);
+  return getNodeCssVar(null, variableName, fallback);
 };
 
 export const getCssColor = (colorName: string, fallback?: string) => {

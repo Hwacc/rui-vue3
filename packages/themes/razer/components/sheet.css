@@ -1,0 +1,9 @@
+@layer components {
+  .rui-sheet {
+    @apply p-2.5 bg-h22 shadow-black;
+  }
+
+  .rui-sheet-close {
+    @apply right-2.5 top-2.5 text-rui-close hover:text-rui-close-hover;
+  }
+}

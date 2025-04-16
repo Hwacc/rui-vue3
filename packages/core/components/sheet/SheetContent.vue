@@ -1,0 +1,69 @@
+<script setup lang="ts">
+import { cn } from '@/core/lib/utils'
+import { X } from 'lucide-vue-next'
+import {
+  DialogClose,
+  DialogContent,
+  type DialogContentEmits,
+  type DialogContentProps,
+  DialogOverlay,
+  DialogPortal,
+  useForwardPropsEmits
+} from 'reka-ui'
+import { type HTMLAttributes } from 'vue'
+import {
+  type SheetVariants,
+  sheetVariants,
+  sheetOverlayVariants,
+  sheetCloseVariants
+} from '.'
+
+interface SheetProps extends DialogContentProps {
+  class?: HTMLAttributes['class']
+  side?: SheetVariants['side']
+  showClose?: boolean
+  unstyled?: boolean
+}
+
+defineOptions({
+  inheritAttrs: false
+})
+
+const {
+  class: propsClass,
+  side = 'right',
+  unstyled,
+  showClose = true,
+  ...props
+} = defineProps<SheetProps>()
+
+const emits = defineEmits<DialogContentEmits>()
+
+const forwarded = useForwardPropsEmits(props, emits)
+</script>
+
+<template>
+  <DialogPortal>
+    <DialogOverlay :class="cn(sheetOverlayVariants({ unstyled }))" />
+    <DialogContent
+      :class="cn(sheetVariants({ side, unstyled }), propsClass)"
+      v-bind="{ ...forwarded, ...$attrs }"
+    >
+      <slot />
+      <DialogClose
+        v-if="showClose"
+        :class="
+          cn(
+            'absolute p-2 -m-2',
+            sheetCloseVariants({ unstyled })
+          )
+        "
+      >
+        <slot name="close">
+          <span class="sr-only">Close</span>
+          <X class="w-4 h-4" />
+        </slot>
+      </DialogClose>
+    </DialogContent>
+  </DialogPortal>
+</template>
