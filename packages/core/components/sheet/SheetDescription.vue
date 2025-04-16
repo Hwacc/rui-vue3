@@ -2,15 +2,23 @@
 import { cn } from '@/core/lib/utils'
 import { DialogDescription, type DialogDescriptionProps } from 'reka-ui'
 import { type HTMLAttributes } from 'vue'
+import { sheetDescriptionVariants } from '.'
 
-const { class: propsClass, ...props } = defineProps<
-  DialogDescriptionProps & { class?: HTMLAttributes['class'] }
+const {
+  class: propsClass,
+  unstyled,
+  ...props
+} = defineProps<
+  DialogDescriptionProps & {
+    class?: HTMLAttributes['class']
+    unstyled?: boolean
+  }
 >()
 </script>
 
 <template>
   <DialogDescription
-    :class="cn('text-sm text-muted-foreground', propsClass)"
+    :class="cn(sheetDescriptionVariants({ unstyled }), propsClass)"
     v-bind="props"
   >
     <slot />

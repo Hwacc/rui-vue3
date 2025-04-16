@@ -107,3 +107,15 @@ export const sheetFooterVariants = cva(
     className: `${prefix}-footer`
   }
 )
+
+export const sheetTitleVariants = cva('text-lg', undefined, {
+  className: `${prefix}-title`
+})
+
+export const sheetDescriptionVariants = cva(
+  'text-sm',
+  undefined,
+  {
+    className: `${prefix}-description`
+  }
+)
