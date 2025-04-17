@@ -15,7 +15,7 @@ import {
   type SheetVariants,
   sheetVariants,
   sheetOverlayVariants,
-  sheetCloseVariants
+  sheetContentCloseVariants
 } from '.'
 
 interface SheetProps extends DialogContentProps {
@@ -55,7 +55,7 @@ const forwarded = useForwardPropsEmits(props, emits)
         :class="
           cn(
             'absolute p-2 -m-2',
-            sheetCloseVariants({ unstyled })
+            sheetContentCloseVariants({ unstyled })
           )
         "
       >

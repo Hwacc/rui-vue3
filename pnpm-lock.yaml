@@ -118,13 +118,16 @@ importers:
         version: 3.5.13(typescript@5.8.2)
 
   packages/themes:
-    dependencies:
+    devDependencies:
       tailwindcss-animate:
         specifier: ^1.0.7
         version: 1.0.7(tailwindcss@4.0.15)
       tailwindcss-animated:
         specifier: ^1.1.2
         version: 1.1.2(tailwindcss@4.0.15)
+      tailwindcss-motion:
+        specifier: ^1.1.0
+        version: 1.1.0(tailwindcss@4.0.15)
 
   story:
     dependencies:
@@ -2710,6 +2713,11 @@ packages:
     resolution: {integrity: sha512-SI4owS5ojserhgEYIZA/uFVdNjU2GMB2P3sjtjmFA52VxoUi+Hht6oR5+RdT+CxrX9cNNYEa+vbTWHvN9zbj3w==}
     peerDependencies:
       tailwindcss: '>=3.1.0'
+
+  tailwindcss-motion@1.1.0:
+    resolution: {integrity: sha512-0lK6rA4+367ffJdi1TtB72GlMCxJi2TP/xRiHc6An5pZSlU6WfIHhSvLxpcGilGZfBrOqc2q4woH1DEP/lCNbQ==}
+    peerDependencies:
+      tailwindcss: '>=3.0.0 || insiders'
 
   tailwindcss@4.0.15:
     resolution: {integrity: sha512-6ZMg+hHdMJpjpeCCFasX7K+U615U9D+7k5/cDK/iRwl6GptF24+I/AbKgOnXhVKePzrEyIXutLv36n4cRsq3Sg==}
@@ -5642,6 +5650,10 @@ snapshots:
       tailwindcss: 4.0.15
 
   tailwindcss-animated@1.1.2(tailwindcss@4.0.15):
+    dependencies:
+      tailwindcss: 4.0.15
+
+  tailwindcss-motion@1.1.0(tailwindcss@4.0.15):
     dependencies:
       tailwindcss: 4.0.15
 

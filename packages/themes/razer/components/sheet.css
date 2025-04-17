@@ -1,9 +1,10 @@
 @layer components {
   .rui-sheet {
+    --tw-animate-duration: 200ms;
     @apply p-2.5 bg-h22 shadow-black;
   }
 
-  .rui-sheet-close {
+  .rui-sheet-content-close {
     @apply right-2.5 top-2.5 text-rui-close hover:text-rui-close-hover;
   }
 }

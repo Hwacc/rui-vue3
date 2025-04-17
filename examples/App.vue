@@ -25,6 +25,7 @@ import TagsInputExample from './tags-input/index.vue'
 import HotkeyExample from './hotkey/index.vue'
 import SeparatorExample from './separator/index.vue'
 import SheetExample from './sheet/index.vue'
+import SkeletonExample from './skeleton/index.vue'
 
 import { ref } from 'vue'
 
@@ -68,6 +69,7 @@ const toastPosition = ref<ToastPosition>('bottom-right')
       <HotkeyExample />
       <SeparatorExample />
       <SheetExample />
+      <SkeletonExample />
     </div>
   </TooltipProvider>
   <Toaster :position="toastPosition" :duration="5000" />

@@ -55,7 +55,7 @@ const {
   tooltipRootProps = {
     delayDuration: 0,
     disableHoverableContent: true,
-    ignoreNonKeyboardFocus: true
+    ignoreNonKeyboardFocus: true,
   },
   tooltipContentClass,
   tooltipContentProps = {

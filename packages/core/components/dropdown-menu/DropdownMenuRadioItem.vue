@@ -1,10 +1,17 @@
 <script setup lang="ts">
-import type { DropdownMenuRadioItemEmits, DropdownMenuRadioItemProps } from 'reka-ui';
-import type { HTMLAttributes } from 'vue';
-import { cn } from '@/core/lib/utils';
-import { Circle } from 'lucide-vue-next';
-import { DropdownMenuItemIndicator, DropdownMenuRadioItem, useForwardPropsEmits } from 'reka-ui';
-import { dropdownMenuItemVariants } from '.';
+import type {
+  DropdownMenuRadioItemEmits,
+  DropdownMenuRadioItemProps
+} from 'reka-ui'
+import type { HTMLAttributes } from 'vue'
+import { cn } from '@/core/lib/utils'
+import { Circle } from 'lucide-vue-next'
+import {
+  DropdownMenuItemIndicator,
+  DropdownMenuRadioItem,
+  useForwardPropsEmits
+} from 'reka-ui'
+import { dropdownMenuItemVariants } from '.'
 
 const {
   class: propsClass,
@@ -13,15 +20,15 @@ const {
   ...props
 } = defineProps<
   DropdownMenuRadioItemProps & {
-    class?: HTMLAttributes['class'];
-    prevent?: boolean;
-    unstyled?: boolean;
+    class?: HTMLAttributes['class']
+    prevent?: boolean
+    unstyled?: boolean
   }
->();
+>()
 
-const emits = defineEmits<DropdownMenuRadioItemEmits>();
+const emits = defineEmits<DropdownMenuRadioItemEmits>()
 
-const forwarded = useForwardPropsEmits(props, emits);
+const forwarded = useForwardPropsEmits(props, emits)
 </script>
 
 <template>
@@ -31,7 +38,7 @@ const forwarded = useForwardPropsEmits(props, emits);
       cn(
         dropdownMenuItemVariants({
           variant: 'radio',
-          unstyled,
+          unstyled
         }),
         propsClass
       )
@@ -39,8 +46,8 @@ const forwarded = useForwardPropsEmits(props, emits);
     data-variant="radio"
     @select="
       (event) => {
-        prevent && event.preventDefault();
-        emits('select', event);
+        prevent && event.preventDefault()
+        emits('select', event)
       }
     "
   >
@@ -48,7 +55,9 @@ const forwarded = useForwardPropsEmits(props, emits);
       <DropdownMenuItemIndicator>
         <template #default="indicatorProps">
           <slot name="indicator" v-bind="indicatorProps">
-            <Circle class="h-2 w-2 animate-in zoom-in-1" />
+            <Circle
+              class="h-2 w-2 motion-scale-in-0"
+            />
           </slot>
         </template>
       </DropdownMenuItemIndicator>

@@ -100,8 +100,7 @@ const forwarded = useForwardPropsEmits(props, emits)
       cn(
         checkboxRootVariants({
           disabled: props.disabled,
-          unstyled:
-            groupContext?.unstyled?.value || unstyled
+          unstyled: groupContext?.unstyled?.value || unstyled
         }),
         props.class
       )
@@ -132,7 +131,7 @@ const forwarded = useForwardPropsEmits(props, emits)
       <CheckboxIndicator
         class="flex h-full w-full items-center justify-center text-inherit"
       >
-        <slot name="indicator">
+        <slot name="indicator" v-bind="{ modelValue: innerModelValue }">
           <Check
             v-if="innerModelValue !== 'indeterminate'"
             class="size-full stroke-black stroke-[.125rem] [&_path]:animate-check-dash"
@@ -151,8 +150,7 @@ const forwarded = useForwardPropsEmits(props, emits)
           cn(
             checkboxLabelVariants({
               size: mergeSize,
-              unstyled:
-                groupContext?.unstyled?.value || unstyled
+              unstyled: groupContext?.unstyled?.value || unstyled
             }),
             labelClass
           )

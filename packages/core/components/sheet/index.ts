@@ -12,38 +12,29 @@ export { default as SheetTrigger } from './SheetTrigger.vue'
 
 const prefix = `${PREFIX}-sheet`
 export const sheetVariants = cva(
-  [
-    'fixed',
-    'z-50',
-    'transition',
-    'ease-in-out',
-    'data-[state=open]:animate-in',
-    'data-[state=closed]:animate-out',
-    'data-[state=closed]:duration-300',
-    'data-[state=open]:duration-500'
-  ],
+  ['fixed', 'z-50', 'motion-duration-200'],
   {
     variants: {
       side: {
         top: [
           'inset-x-0',
           'top-0',
-          'data-[state=closed]:slide-out-to-top',
-          'data-[state=open]:slide-in-from-top'
+          'data-[state=closed]:motion-translate-y-out-[-100%]',
+          'data-[state=open]:motion-translate-y-in-[-100%]'
         ],
         bottom: [
           'inset-x-0',
           'bottom-0',
-          'data-[state=closed]:slide-out-to-bottom',
-          'data-[state=open]:slide-in-from-bottom'
+          'data-[state=closed]:motion-translate-y-out-100',
+          'data-[state=open]:motion-translate-y-in-100'
         ],
         left: [
           'inset-y-0',
           'left-0',
           'h-full',
           'w-3/4',
-          'data-[state=closed]:slide-out-to-left',
-          'data-[state=open]:slide-in-from-left',
+          'data-[state=closed]:motion-translate-x-out-[-100%]',
+          'data-[state=open]:motion-translate-x-in-[-100%]',
           'sm:max-w-sm'
         ],
         right: [
@@ -51,8 +42,8 @@ export const sheetVariants = cva(
           'right-0',
           'h-full',
           'w-3/4',
-          'data-[state=closed]:slide-out-to-right',
-          'data-[state=open]:slide-in-from-right',
+          'data-[state=closed]:motion-translate-x-out-100',
+          'data-[state=open]:motion-translate-x-in-100',
           'sm:max-w-sm'
         ]
       }
@@ -62,7 +53,7 @@ export const sheetVariants = cva(
     }
   },
   {
-    className: `${prefix}`
+    className: [`${prefix}`, `${prefix}-content`]
   }
 )
 export type SheetVariants = VariantProps<typeof sheetVariants>
@@ -73,10 +64,9 @@ export const sheetOverlayVariants = cva(
     'inset-0',
     'z-50',
     'bg-black/80',
-    'data-[state=open]:animate-in',
-    'data-[state=closed]:animate-out',
-    'data-[state=closed]:fade-out-0',
-    'data-[state=open]:fade-in-0'
+    'motion-duration-200',
+    'data-[state=open]:motion-opacity-in',
+    'data-[state=closed]:motion-opacity-out'
   ],
   undefined,
   {
@@ -84,11 +74,11 @@ export const sheetOverlayVariants = cva(
   }
 )
 
-export const sheetCloseVariants = cva(
+export const sheetContentCloseVariants = cva(
   ['group', 'rounded', 'disabled:pointer-events-none'],
   undefined,
   {
-    className: `${prefix}-close`
+    className: `${prefix}-content-close`
   }
 )
 
@@ -112,10 +102,6 @@ export const sheetTitleVariants = cva('text-lg', undefined, {
   className: `${prefix}-title`
 })
 
-export const sheetDescriptionVariants = cva(
-  'text-sm',
-  undefined,
-  {
-    className: `${prefix}-description`
-  }
-)
+export const sheetDescriptionVariants = cva('text-sm', undefined, {
+  className: `${prefix}-description`
+})

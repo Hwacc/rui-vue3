@@ -26,9 +26,6 @@ export const messageVariants = cva(
     'px-4',
     'py-3',
     // message animations
-    'data-[state=open]:animate-in',
-    'data-[state=closed]:animate-out',
-    'data-[state=closed]:fade-out-80',
     toastEdgeAnimate['top-center'],
     toastSwipe.vertical,
   ],

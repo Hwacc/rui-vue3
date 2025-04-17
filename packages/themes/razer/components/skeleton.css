@@ -1,0 +1,6 @@
+@layer components {
+  .rui-skeleton {
+    --tw-animate-duration: 1s;
+    @apply bg-h55;
+  }
+}

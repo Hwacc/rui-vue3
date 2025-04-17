@@ -1,13 +1,37 @@
 <script setup lang="ts">
 import { Button } from '@/core/components/button'
-import { Sheet, SheetContent, SheetTrigger } from '@/core/components/sheet'
+import {
+  Sheet,
+  SheetContent,
+  SheetTrigger,
+  SheetHeader,
+  SheetTitle,
+  SheetDescription,
+  SheetFooter,
+  SheetClose
+} from '@/core/components/sheet'
 </script>
 
 <template>
   <div class="container flex flex-col items-center gap-4">
-    <Sheet>
+    <Sheet >
       <SheetTrigger><Button as="div">Open Sheet</Button></SheetTrigger>
-      <SheetContent>Sheet Content</SheetContent>
+      <SheetContent side="left">
+        <SheetHeader>
+          <SheetTitle>Edit profile</SheetTitle>
+          <SheetDescription>
+            Make changes to your profile here. Click save when you're done.
+          </SheetDescription>
+        </SheetHeader>
+        <div class="grid gap-4 py-4">
+          this is content
+        </div>
+        <SheetFooter>
+          <SheetClose as-child>
+            <Button type="submit"> Save changes </Button>
+          </SheetClose>
+        </SheetFooter>
+      </SheetContent>
     </Sheet>
   </div>
 </template>

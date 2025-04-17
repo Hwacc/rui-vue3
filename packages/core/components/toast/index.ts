@@ -64,44 +64,45 @@ export type ToastViewportVariants = VariantProps<typeof toastViewportVariants>
 
 export const toastEdgeAnimate: Partial<Record<ToastPosition, any>> = {
   'top-center': [
-    'data-[state=open]:slide-in-from-top-full',
-    'data-[state=closed]:slide-out-to-top-full'
+    'data-[state=open]:-motion-translate-y-in-100',
+    // 'data-[state=closed]:-motion-translate-y-out-100'
   ],
   'top-left': [
-    'data-[state=open]:slide-in-from-top-full',
-    'data-[state=closed]:slide-out-to-left-full'
+    'data-[state=open]:-motion-translate-y-in-100',
+    // 'data-[state=closed]:-motion-translate-x-out-100'
   ],
   'top-right': [
-    'data-[state=open]:slide-in-from-top-full',
-    'data-[state=closed]:slide-out-to-right-full'
+    'data-[state=open]:-motion-translate-y-in-100',
+    // 'data-[state=closed]:motion-translate-x-out-100'
   ],
   'bottom-center': [
-    'data-[state=open]:slide-in-from-bottom-full',
-    'data-[state=closed]:slide-out-to-bottom-full'
+    'data-[state=open]:motion-translate-y-in-100',
+    // 'data-[state=closed]:motion-translate-y-out-100'
   ],
   'bottom-left': [
-    'data-[state=open]:slide-in-from-bottom-full',
-    'data-[state=closed]:slide-out-to-left-full'
+    'data-[state=open]:motion-translate-y-in-100',
+    // 'data-[state=closed]:-motion-translate-x-out-100'
   ],
   'bottom-right': [
-    'data-[state=open]:slide-in-from-bottom-full',
-    'data-[state=closed]:slide-out-to-right-full'
+    'data-[state=open]:motion-translate-y-in-100',
+    // 'data-[state=closed]:motion-translate-x-out-100'
   ]
 }
 export const toastSwipe = {
   horizontal: [
+    'motion-duration-2000',
     'data-[swipe=cancel]:translate-x-0',
-    'data-[swipe=move]:translate-x-(--reka-toast-swipe-move-x)',
+    'data-[swipe=move]:!translate-x-(--reka-toast-swipe-move-x)',
     'data-[swipe=move]:transition-none',
-    'data-[swipe=end]:animate-out',
-    'data-[swipe=end]:translate-x-(--reka-toast-swipe-end-x)'
+    // 'data-[swipe=end]:!motion-translate-x-out-(--reka-toast-swipe-end-x)'
+    'data-[swipe=end]:animate-toast-exit'
   ],
   vertical: [
     'data-[swipe=cancel]:translate-y-0',
-    'data-[swipe=move]:translate-y-(--reka-toast-swipe-move-y)',
+    'data-[swipe=move]:!translate-y-(--reka-toast-swipe-move-y)',
     'data-[swipe=move]:transition-none',
-    'data-[swipe=end]:animate-out',
-    'data-[swipe=end]:translate-y-(--reka-toast-swipe-end-y)'
+    // 'data-[swipe=end]:!motion-translate-y-out-(--reka-toast-swipe-end-y)'
+    'data-[swipe=end]:animate-toast-exit'
   ],
   none: []
 }
@@ -121,9 +122,7 @@ const getToastCompoundVariants = () => {
       _split[0] === 'center'
         ? []
         : [
-            'data-[state=open]:animate-in',
-            'data-[state=closed]:animate-out',
-            'data-[state=closed]:fade-out-80',
+            'data-[state=closed]:motion-opacity-out-80',
             ...toastEdgeAnimate[position]
           ]
     let _swipe: any[] = []
@@ -174,8 +173,6 @@ export const toastVariants = cva<{
       swipeDirection: {},
       position: {
         center: [
-          'animate-duration-150',
-          'animate-ease-out',
           'data-[state=open]:animate-fade-down',
           'data-[state=closed]:animate-fade-down-out'
         ]

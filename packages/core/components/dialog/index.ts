@@ -26,10 +26,8 @@ export const dialogOverlayVariants = cva(
     'fixed',
     'inset-0',
     'z-50',
-    'data-[state=open]:animate-in',
-    'data-[state=open]:fade-in',
-    'data-[state=closed]:animate-out',
-    'data-[state=closed]:fade-out'
+    'data-[state=open]:motion-opacity-in',
+    'data-[state=closed]:motion-opacity-out',
   ],
   undefined,
   { className: `${prefix}-overlay` }
@@ -87,11 +85,9 @@ export type DialogContentVariantsProps = VariantProps<
   typeof dialogContentVariants
 >
 
-export const dialogCloseVariants = cva(
-  ['group'],
-  undefined,
-  { className: `${prefix}-close` }
-)
+export const dialogCloseVariants = cva(['group'], undefined, {
+  className: `${prefix}-close`
+})
 
 export const dialogContentBodyVariants = cva(
   ['flex-1', 'p-6', 'overflow-y-auto'],

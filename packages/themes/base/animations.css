@@ -1,5 +1,6 @@
 @import './animation-easing.css';
 
+@plugin 'tailwindcss-motion';
 @plugin 'tailwindcss-animate';
 @plugin 'tailwindcss-animated';
 
@@ -10,6 +11,8 @@
   --animate-collapsible-up: collapsible-up var(--tw-animate-duration, 150ms) ease-in-out;
   --animate-quick-squeeze-x: squeeze-x var(--tw-animate-duration, 150ms) ease-in-out;
   --animate-rippling: rippling var(--tw-animate-duration, 150ms) ease-out;
+
+  --animate-toast-exit: toast-exit var(--tw-animate-duration, 150ms) ease-in-out;
 
   /* Keyframes */
   @keyframes accordion-down {
@@ -98,9 +101,19 @@
     0% {
       opacity: 1;
     }
+
     100% {
       transform: scale(2);
       opacity: 0;
+    }
+  }
+
+  @keyframes toast-exit {
+    from: {
+      transform: translate3d(var(--reka-toast-swipe-move-x, 0), var(--reka-toast-swipe-move-y, 0), 0);
+    }
+    to: {
+      transform: translate3d(100%, 100%, 0);
     }
   }
 
