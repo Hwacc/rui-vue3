@@ -11,6 +11,7 @@ export const skeletonVariants = cva(
     variants: {
       variant: {
         pulse: 'animate-pulse',
+        wave: 'animate-skeleton-wave animate-infinite',
       },
       shape: {
         rect: 'rounded',
