@@ -65,44 +65,41 @@ export type ToastViewportVariants = VariantProps<typeof toastViewportVariants>
 export const toastEdgeAnimate: Partial<Record<ToastPosition, any>> = {
   'top-center': [
     'data-[state=open]:-motion-translate-y-in-100',
-    // 'data-[state=closed]:-motion-translate-y-out-100'
+    'data-[state=closed]:animate-toast-exit-top'
   ],
   'top-left': [
     'data-[state=open]:-motion-translate-y-in-100',
-    // 'data-[state=closed]:-motion-translate-x-out-100'
+    'data-[state=closed]:animate-toast-exit-left'
   ],
   'top-right': [
     'data-[state=open]:-motion-translate-y-in-100',
-    // 'data-[state=closed]:motion-translate-x-out-100'
+    'data-[state=closed]:animate-toast-exit-right'
   ],
   'bottom-center': [
     'data-[state=open]:motion-translate-y-in-100',
-    // 'data-[state=closed]:motion-translate-y-out-100'
+    'data-[state=closed]:animate-toast-exit-bottom'
   ],
   'bottom-left': [
     'data-[state=open]:motion-translate-y-in-100',
-    // 'data-[state=closed]:-motion-translate-x-out-100'
+    'data-[state=closed]:animate-toast-exit-left'
   ],
   'bottom-right': [
     'data-[state=open]:motion-translate-y-in-100',
-    // 'data-[state=closed]:motion-translate-x-out-100'
+    'data-[state=closed]:animate-toast-exit-right'
   ]
 }
 export const toastSwipe = {
   horizontal: [
-    'motion-duration-2000',
+    'motion-duration-200',
     'data-[swipe=cancel]:translate-x-0',
     'data-[swipe=move]:!translate-x-(--reka-toast-swipe-move-x)',
     'data-[swipe=move]:transition-none',
-    // 'data-[swipe=end]:!motion-translate-x-out-(--reka-toast-swipe-end-x)'
-    'data-[swipe=end]:animate-toast-exit'
   ],
   vertical: [
+    'motion-duration-200',
     'data-[swipe=cancel]:translate-y-0',
     'data-[swipe=move]:!translate-y-(--reka-toast-swipe-move-y)',
     'data-[swipe=move]:transition-none',
-    // 'data-[swipe=end]:!motion-translate-y-out-(--reka-toast-swipe-end-y)'
-    'data-[swipe=end]:animate-toast-exit'
   ],
   none: []
 }

@@ -5,14 +5,18 @@
 @plugin 'tailwindcss-animated';
 
 @theme {
-  --animate-accordion-down: accordion-down var(--tw-animate-duration, 150ms) ease-out;
-  --animate-accordion-up: accordion-up var(--tw-animate-duration, 150ms) ease-out;
-  --animate-collapsible-down: collapsible-down var(--tw-animate-duration, 150ms) ease-in-out;
-  --animate-collapsible-up: collapsible-up var(--tw-animate-duration, 150ms) ease-in-out;
-  --animate-quick-squeeze-x: squeeze-x var(--tw-animate-duration, 150ms) ease-in-out;
-  --animate-rippling: rippling var(--tw-animate-duration, 150ms) ease-out;
+  --animate-accordion-down: accordion-down var(--tw-animate-duration, 150ms) var(--tw-animate-easing, ease-out);
+  --animate-accordion-up: accordion-up var(--tw-animate-duration, 150ms) var(--tw-animate-easing, ease-out);
+  --animate-collapsible-down: collapsible-down var(--tw-animate-duration, 150ms) var(--tw-animate-easing, ease-in-out);
+  --animate-collapsible-up: collapsible-up var(--tw-animate-duration, 150ms) var(--tw-animate-easing, ease-in-out);
+  --animate-quick-squeeze-x: squeeze-x var(--tw-animate-duration, 150ms) var(--tw-animate-easing, ease-in-out);
+  --animate-rippling: rippling var(--tw-animate-duration, 150ms) var(--tw-animate-easing, ease-out);
 
-  --animate-toast-exit: toast-exit var(--tw-animate-duration, 150ms) ease-in-out;
+  /* toast exit animations */
+  --animate-toast-exit-right: toast-exit-right 200ms var(--tw-animate-easing, ease-out);
+  --animate-toast-exit-left: toast-exit-left 200ms var(--tw-animate-easing, ease-out);
+  --animate-toast-exit-top: toast-exit-top 200ms var(--tw-animate-easing, ease-out);
+  --animate-toast-exit-bottom: toast-exit-bottom 200ms var(--tw-animate-easing, ease-out);
 
   /* Keyframes */
   @keyframes accordion-down {
@@ -108,12 +112,39 @@
     }
   }
 
-  @keyframes toast-exit {
-    from: {
-      transform: translate3d(var(--reka-toast-swipe-move-x, 0), var(--reka-toast-swipe-move-y, 0), 0);
+  @keyframes toast-exit-right {
+    from {
+      transform: translate3d(var(--reka-toast-swipe-end-x, 0), 0, 0);
     }
-    to: {
-      transform: translate3d(100%, 100%, 0);
+    to {
+      transform: translate3d(calc(100% + 24px), 0, 0);
+    }
+  }
+
+  @keyframes toast-exit-left {
+    from {
+      transform: translate3d(var(--reka-toast-swipe-end-x, 0), 0, 0);
+    }
+    to {
+      transform: translate3d(calc(-100% - 24px), 0, 0);
+    }
+  }
+
+  @keyframes toast-exit-top {
+    from {
+      transform: translate3d(0, var(--reka-toast-swipe-end-y, 0), 0);
+    }
+    to {
+      transform: translate3d(0, calc(-100% - 24px), 0);
+    }
+  }
+
+  @keyframes toast-exit-bottom { 
+    from {
+      transform: translate3d(0, var(--reka-toast-swipe-end-y, 0), 0);
+    }
+    to {
+      transform: translate3d(0, calc(100% + 24px), 0);
     }
   }
 
