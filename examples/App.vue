@@ -26,6 +26,7 @@ import HotkeyExample from './hotkey/index.vue'
 import SeparatorExample from './separator/index.vue'
 import SheetExample from './sheet/index.vue'
 import SkeletonExample from './skeleton/index.vue'
+import SidebarExample from './sidebar/index.vue'
 
 import { ref } from 'vue'
 
@@ -70,6 +71,7 @@ const toastPosition = ref<ToastPosition>('bottom-right')
       <SeparatorExample />
       <SheetExample />
       <SkeletonExample />
+      <SidebarExample />
     </div>
   </TooltipProvider>
   <Toaster :position="toastPosition" :duration="5000" />

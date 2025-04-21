@@ -9,7 +9,7 @@
   --animate-collapsible-down: collapsible-down var(--tw-animate-duration, 200ms) var(--tw-animate-easing, ease-in-out);
   --animate-collapsible-up: collapsible-up var(--tw-animate-duration, 200ms) var(--tw-animate-easing, ease-in-out);
   --animate-quick-squeeze-x: squeeze-x var(--tw-animate-duration, 200ms) var(--tw-animate-easing, ease-in-out);
-  --animate-rippling: rippling var(--tw-animate-duration, 200ms) var(--tw-animate-easing, ease-out);
+  --animate-rippling: rippling var(--tw-ripple-duration, 600ms) ease-out;
 
   /* toast exit animations */
   --animate-toast-exit-right: toast-exit-right var(--tw-animate-duration, 200ms) var(--tw-animate-easing, ease-out);
