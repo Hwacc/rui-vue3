@@ -90,7 +90,13 @@ export const sidebarInnerVariants = cva(
     variants: {
       layout: {
         fixed: ['flex', 'flex-col'],
-        block: ['group-data-[state=collapsed]:overflow-hidden']
+        block: [
+          '[&>div]:flex',
+          '[&>div]:flex-col',
+          '[&>div]:w-(--sidebar-width)',
+          '[&>div]:h-full',
+          'group-data-[state=collapsed]:overflow-hidden'
+        ]
       }
     }
   },
