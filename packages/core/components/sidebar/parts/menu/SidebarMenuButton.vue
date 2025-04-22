@@ -2,7 +2,7 @@
 import { Tooltip, TooltipContent, TooltipTrigger } from '@/core/components/tooltip'
 import { type Component, computed } from 'vue'
 import SidebarMenuButtonChild, { type SidebarMenuButtonProps } from './SidebarMenuButtonChild.vue'
-import { useSidebar } from './utils'
+import { useSidebar } from '../../utils'
 
 defineOptions({
   inheritAttrs: false,

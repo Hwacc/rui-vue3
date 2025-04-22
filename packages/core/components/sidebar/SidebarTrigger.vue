@@ -4,9 +4,11 @@ import { cn } from '@/core/lib/utils'
 import { Button } from '@/core/components/button'
 import { PanelLeft } from 'lucide-vue-next'
 import { useSidebar } from './utils'
+import { prefix } from '.'
 
 const props = defineProps<{
   class?: HTMLAttributes['class']
+  unstyled?: boolean
 }>()
 
 const { toggleSidebar } = useSidebar()
@@ -14,12 +16,14 @@ const { toggleSidebar } = useSidebar()
 
 <template>
   <Button
-    data-sidebar="trigger"
+    :class="cn([!props.unstyled && `${prefix}-trigger`], props.class)"
     variant="icon"
-    :class="cn('h-7 w-7', props.class)"
+    data-sidebar="trigger"
     @click="toggleSidebar"
   >
-    <PanelLeft />
+    <slot>
+      <PanelLeft />
+    </slot>
     <span class="sr-only">Toggle Sidebar</span>
   </Button>
 </template>

@@ -30,7 +30,9 @@ const emits = defineEmits<{
   'update:open': [open: boolean]
 }>()
 
-const isMobile = useMediaQuery('(max-width: 768px)')
+// temp fix
+// const isMobile = useMediaQuery('(max-width: 768px)')
+const isMobile = ref(false)
 const openMobile = ref(false)
 
 const open = useVModel(props, 'open', emits, {
@@ -69,7 +71,6 @@ useEventListener('keydown', (event: KeyboardEvent) => {
 // We add a state so that we can do data-state="expanded" or "collapsed".
 // This makes it easier to style the sidebar with Tailwind classes.
 const state = computed(() => (open.value ? 'expanded' : 'collapsed'))
-
 provideSidebarContext({
   state,
   open,
@@ -84,13 +85,13 @@ provideSidebarContext({
 <template>
   <TooltipProvider :delay-duration="0">
     <div
+      :class="
+        cn(sidebarProviderVariants({ unstyled: props.unstyled }), props.class)
+      "
       :style="{
         '--sidebar-width': SIDEBAR_WIDTH,
         '--sidebar-width-icon': SIDEBAR_WIDTH_ICON
       }"
-      :class="
-        cn(sidebarProviderVariants({ unstyled: props.unstyled }), props.class)
-      "
       v-bind="$attrs"
     >
       <slot />

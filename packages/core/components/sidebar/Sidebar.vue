@@ -1,7 +1,6 @@
 <script lang="ts">
 export interface SidebarProps {
   side?: 'left' | 'right'
-  variant?: 'sidebar' | 'floating' | 'inset'
   collapsible?: 'offcanvas' | 'icon' | 'none'
   layout?: 'fixed' | 'block'
   class?: HTMLAttributes['class']
@@ -14,7 +13,7 @@ import { cn } from '@/core/lib/utils'
 import { Sheet, SheetContent } from '@/core/components/sheet'
 import { SIDEBAR_WIDTH_MOBILE, useSidebar } from './utils'
 import { HTMLAttributes } from 'vue'
-import { SidebarVariants, sidebarVariants, sidebarInnerVariants } from '.'
+import { sidebarVariants, sidebarInnerVariants } from '.'
 
 defineOptions({
   inheritAttrs: false
@@ -22,7 +21,6 @@ defineOptions({
 
 const props = withDefaults(defineProps<SidebarProps>(), {
   side: 'left',
-  variant: 'sidebar',
   collapsible: 'offcanvas',
   layout: 'block'
 })
@@ -31,22 +29,15 @@ const { isMobile, state, openMobile, setOpenMobile } = useSidebar()
 </script>
 
 <template>
+  <!-- static -->
   <div
     v-if="collapsible === 'none'"
-    :class="
-      cn(
-        sidebarVariants({
-          collapsible: 'none',
-          unstyled: props.unstyled
-        }),
-        props.class
-      )
-    "
+    :class="cn(sidebarVariants(props), props.class)"
     v-bind="$attrs"
   >
     <slot />
   </div>
-
+  <!-- mobile -->
   <Sheet
     v-else-if="isMobile"
     :open="openMobile"
@@ -57,9 +48,10 @@ const { isMobile, state, openMobile, setOpenMobile } = useSidebar()
       data-sidebar="sidebar"
       data-mobile="true"
       :side="side"
+      :showClose="false"
       :class="
         cn(
-          ['w-(--sidebar-width)', 'p-0', '[&>button]:hidden'],
+          ['w-(--sidebar-width)', 'p-0'],
           sidebarVariants({
             unstyled: props.unstyled
           }),
@@ -75,58 +67,27 @@ const { isMobile, state, openMobile, setOpenMobile } = useSidebar()
       </div>
     </SheetContent>
   </Sheet>
-
+  <!-- desktop -->
   <div
     v-else
-    class="group peer block"
+    class="group peer"
     :data-state="state"
     :data-collapsible="state === 'collapsed' ? collapsible : ''"
-    :data-variant="variant"
     :data-side="side"
+    :data-layout="layout"
   >
     <!-- This is what handles the sidebar gap on desktop  -->
     <div
-      v-if="props.layout === 'fixed'"
+      v-if="layout === 'fixed'"
       :class="
         cn(
-          sidebarVariants({
-            collapsible: collapsible as SidebarVariants['collapsible'],
-            side: side as SidebarVariants['side'],
-            variant: variant as SidebarVariants['variant'],
-            layout: layout as SidebarVariants['layout'],
-            unstyled: props.unstyled
-          }),
+          sidebarVariants({ ...props, placeholder: true, layout: 'block' }),
           props.class
         )
       "
     />
-    <div
-      :class="
-        cn(
-          sidebarVariants({
-            collapsible: collapsible as SidebarVariants['collapsible'],
-            side: side as SidebarVariants['side'],
-            variant: variant as SidebarVariants['variant'],
-            layout: layout as SidebarVariants['layout'],
-            unstyled: props.unstyled
-          }),
-          props.class
-        )
-      "
-      v-bind="$attrs"
-    >
-      <div
-        data-sidebar="sidebar"
-        :class="
-          cn(
-            sidebarInnerVariants({
-              layout: layout as SidebarVariants['layout'],
-              variant: variant as SidebarVariants['variant'],
-              unstyled: props.unstyled
-            }),
-          )
-        "
-      >
+    <div :class="cn(sidebarVariants(props), props.class)" v-bind="$attrs">
+      <div :class="cn(sidebarInnerVariants(props))" data-sidebar="sidebar">
         <slot />
       </div>
     </div>
