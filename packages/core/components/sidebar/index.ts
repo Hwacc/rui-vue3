@@ -85,14 +85,15 @@ export const sidebarVariants = cva(
 export type SidebarVariants = VariantProps<typeof sidebarVariants>
 
 export const sidebarInnerVariants = cva(
-  [
-    'flex',
-    'h-full',
-    'w-full',
-    'flex-col',
-    'group-data-[layout=block]:group-data-[collapsible=offcanvas]:overflow-hidden'
-  ],
-  undefined,
+  ['h-full', 'w-full'],
+  {
+    variants: {
+      layout: {
+        fixed: ['flex', 'flex-col'],
+        block: ['group-data-[state=collapsed]:overflow-hidden']
+      }
+    }
+  },
   {
     className: `${prefix}-inner`
   }

@@ -1,5 +1,5 @@
 @layer components {
-  .rui-sidebar-inner {
+  .rui-sidebar {
     @apply bg-h1a
   }
 }

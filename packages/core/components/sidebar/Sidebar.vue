@@ -88,7 +88,13 @@ const { isMobile, state, openMobile, setOpenMobile } = useSidebar()
     />
     <div :class="cn(sidebarVariants(props), props.class)" v-bind="$attrs">
       <div :class="cn(sidebarInnerVariants(props))" data-sidebar="sidebar">
-        <slot />
+        <div
+          v-if="layout === 'block'"
+          class="w-(--sidebar-width) h-full flex flex-col"
+        >
+          <slot />
+        </div>
+        <slot v-else />
       </div>
     </div>
   </div>
