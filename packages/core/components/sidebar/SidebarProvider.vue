@@ -31,8 +31,7 @@ const emits = defineEmits<{
 }>()
 
 // temp fix
-// const isMobile = useMediaQuery('(max-width: 768px)')
-const isMobile = ref(false)
+const isMobile = useMediaQuery('(max-width: 768px)')
 const openMobile = ref(false)
 
 const open = useVModel(props, 'open', emits, {

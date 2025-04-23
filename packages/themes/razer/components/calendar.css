@@ -1,0 +1,5 @@
+@layer components {
+  .rui-calendar {
+    @apply bg-h33;
+  }
+}
