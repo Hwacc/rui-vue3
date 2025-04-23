@@ -88,7 +88,7 @@ const { isMobile, state, openMobile, setOpenMobile } = useSidebar()
     />
     <div :class="cn(sidebarVariants(props), props.class)" v-bind="$attrs">
       <div :class="cn(sidebarInnerVariants(props))" data-sidebar="sidebar">
-        <div v-if="layout === 'block'">
+        <div v-if="layout === 'block' || collapsible === 'icon'">
           <slot />
         </div>
         <slot v-else />
