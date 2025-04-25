@@ -51,7 +51,7 @@ const forwarded = useForwardPropsEmits(props, emits)
         <CalendarNextButton />
       </CalendarHeader>
     </div>
-    <div data-calendar-body>
+    <div data-calendar-panel>
       <CalendarGrid v-for="month in grid" :key="month.value.toString()">
         <CalendarGridHead>
           <CalendarGridRow>
@@ -64,7 +64,6 @@ const forwarded = useForwardPropsEmits(props, emits)
           <CalendarGridRow
             v-for="(weekDates, index) in month.rows"
             :key="`weekDate-${index}`"
-            class="mt-2 w-full"
           >
             <CalendarCell
               v-for="weekDate in weekDates"

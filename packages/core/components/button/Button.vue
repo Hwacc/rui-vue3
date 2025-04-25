@@ -10,7 +10,7 @@ import type { TooltipContentVariants } from '@/core/components/tooltip'
 import type { ButtonVariants } from '.'
 import { useRipple } from '@/core/hooks/useRipple'
 
-interface Props extends PrimitiveProps {
+interface ButtonProps extends PrimitiveProps {
   variant?: ButtonVariants['variant'] | string
   size?: ButtonVariants['size']
   class?: HTMLAttributes['class']
@@ -68,7 +68,7 @@ const {
     width: 6,
     height: 3
   }
-} = defineProps<Props>()
+} = defineProps<ButtonProps>()
 
 const slots = defineSlots<{
   default?: () => any

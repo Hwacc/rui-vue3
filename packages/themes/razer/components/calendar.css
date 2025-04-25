@@ -2,4 +2,8 @@
   .rui-calendar {
     @apply bg-h33;
   }
+
+  .rui-calendar-heading {
+    
+  }
 }
