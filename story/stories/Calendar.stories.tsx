@@ -1,5 +1,6 @@
 import { Calendar } from '@core/components/calendar'
 import type { Meta, StoryObj } from '@storybook/vue3'
+import dayjs from 'dayjs'
 
 const meta = {
   title: 'RUI/Calendar',
@@ -16,7 +17,18 @@ export const Default: Story = {
     return {
       components: { Calendar },
       setup() {
-        return () => <Calendar {...args} />
+        return () => (
+          <Calendar
+            {...args}
+            fixedWeeks
+            isDateUnavailable={(date) => {
+              return dayjs(date.toString()).isAfter(dayjs())
+            }}
+            isDateDisabled={(date) => {
+              return date.day % 2 !== 0
+            }}
+          />
+        )
       }
     }
   }

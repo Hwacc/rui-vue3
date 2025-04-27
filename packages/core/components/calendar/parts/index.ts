@@ -46,9 +46,9 @@ export const calendarGridVariants = cva(['w-full'], undefined, {
 })
 
 const calendarCellSizes = {
-  base: ['size-6', 'm-0.5', 'text-sm'],
-  lg: [],
-  sm: []
+  base: ['size-6', 'text-sm'],
+  lg: ['size-8', 'text-base'],
+  sm: ['size-5', 'text-xs']
 }
 export const calendarHeadCellVariants = cva(
   ['text-center'],
@@ -65,15 +65,7 @@ export type CalendarHeadCellVariantsProps = VariantProps<
   typeof calendarHeadCellVariants
 >
 export const calendarCellVariants = cva(
-  [
-    'relative',
-    'text-center',
-    'focus-within:relative',
-    'focus-within:z-20',
-    '[&:has([data-selected])]:rounded-md',
-    '[&:has([data-selected])]:bg-hff',
-    '[&:has([data-selected][data-outside-view])]:bg-accent/50'
-  ],
+  ['relative', 'text-center', 'focus-within:relative', 'focus-within:z-20'],
   {
     variants: {
       size: calendarCellSizes
@@ -88,20 +80,14 @@ export type CalendarCellVariantsProps = VariantProps<
 >
 
 export const calendarCellTriggerVariants = cva(
-  [
-    '[&[data-today]:not([data-selected])]:bg-accent [&[data-today]:not([data-selected])]:text-accent-foreground',
-    // Selected
-    'data-[selected]:bg-primary data-[selected]:text-primary-foreground data-[selected]:opacity-100 data-[selected]:hover:bg-primary data-[selected]:hover:text-primary-foreground data-[selected]:focus:bg-primary data-[selected]:focus:text-primary-foreground',
-    // Disabled
-    'data-[disabled]:text-muted-foreground data-[disabled]:opacity-50',
-    // Unavailable
-    'data-[unavailable]:text-destructive-foreground data-[unavailable]:line-through',
-    // Outside months
-    'data-[outside-view]:text-muted-foreground data-[outside-view]:opacity-50 [&[data-outside-view][data-selected]]:bg-accent/50 [&[data-outside-view][data-selected]]:text-muted-foreground [&[data-outside-view][data-selected]]:opacity-30'
-  ],
+  ['relative size-full flex items-center justify-center'],
   {
     variants: {
-      size: calendarCellSizes
+      size: {
+        base: ['text-sm'],
+        sm: ['text-xs'],
+        lg: ['text-base']
+      }
     }
   },
   {

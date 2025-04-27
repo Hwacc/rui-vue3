@@ -3,7 +3,47 @@
     @apply bg-h33;
   }
 
-  .rui-calendar-heading {
-    
+  .rui-calendar-heading {}
+
+
+  .rui-calendar-head-cell,
+  .rui-calendar-cell {
+    @apply my-0.5;
+  }
+
+  .rui-calendar-cell {
+
+    &:has([data-selected]),
+    &:has([data-selected][data-outside-view]) {
+      @apply bg-rz-green rounded;
+    }
+
+    &:has([data-outside-view]) {
+      @apply bg-h47;
+    }
+
+    &:has([data-today]) {
+      &:after {
+        content: " ";
+        @apply absolute w-1.25 h-1.25 top-0 right-0 bg-rz-green rounded-full;
+      }
+      &:has([data-selected]) {
+        &:after {
+          @apply hidden;
+        }
+      }
+    }
+  }
+
+  .rui-calendar-cell-trigger {
+    &[data-selected],
+    &[data-selected][data-outside-view] {
+      @apply text-black;
+    }
+    &[data-unavailable],
+    &[data-disabled],
+    &[data-outside-view] {
+      @apply text-h88
+    }
   }
 }
