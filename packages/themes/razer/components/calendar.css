@@ -5,6 +5,9 @@
 
   .rui-calendar-heading {}
 
+  .rui-calendar-head-cell {
+    @apply font-normal text-h88;
+  }
 
   .rui-calendar-head-cell,
   .rui-calendar-cell {

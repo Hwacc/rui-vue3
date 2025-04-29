@@ -12,7 +12,7 @@ const { unstyled, ...props } = defineProps<
 
 <template>
   <CalendarGridHead
-    v-bind="{ props }"
+    v-bind="props"
     :class="!unstyled && `${prefix}-grid-head`"
   >
     <slot />

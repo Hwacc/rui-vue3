@@ -4,6 +4,7 @@ import type { HTMLAttributes } from 'vue'
 import { cn } from '@/core/lib/utils'
 import { CalendarHeading, useForwardProps } from 'reka-ui'
 import { calendarHeadingVariants, type CalendarHeadingVariantsProps } from '.'
+import { CalendarPanel, injectCalendarContextEx } from '..'
 
 const {
   class: propsClass,
@@ -22,6 +23,8 @@ defineSlots<{
   default: (props: { headingValue: string }) => any
 }>()
 
+const contextEx = injectCalendarContextEx()
+
 const forwardedProps = useForwardProps(props)
 </script>
 
@@ -30,6 +33,7 @@ const forwardedProps = useForwardProps(props)
     v-slot="{ headingValue }"
     :class="cn(calendarHeadingVariants({ size, unstyled }), propsClass)"
     v-bind="forwardedProps"
+    @click="() => (contextEx.panel.value = CalendarPanel.MONTH)"
   >
     <slot :heading-value="headingValue">
       {{ headingValue }}

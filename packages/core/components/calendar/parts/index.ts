@@ -80,7 +80,7 @@ export type CalendarCellVariantsProps = VariantProps<
 >
 
 export const calendarCellTriggerVariants = cva(
-  ['relative size-full flex items-center justify-center'],
+  ['relative size-full flex items-center justify-center', 'cursor-default'],
   {
     variants: {
       size: {

@@ -3,11 +3,13 @@ import { cva, VariantProps } from '@/core/lib/cva'
 
 export { default as Calendar } from './Calendar.vue'
 
+export * from './CalendarProvider'
 export * from './parts/index'
+
 
 const prefix = `${PREFIX}-calendar`
 export const calendarRootVariants = cva(
-  ['rounded'],
+  ['rounded', 'group/calendar'],
   {
     variants: {
       size: {

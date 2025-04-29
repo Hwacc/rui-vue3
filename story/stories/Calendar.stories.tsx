@@ -6,7 +6,12 @@ const meta = {
   title: 'RUI/Calendar',
   component: Calendar,
   tags: ['autodocs'],
-  argTypes: {}
+  argTypes: {
+    size: { control: 'radio', options: ['base', 'sm', 'lg'] },
+  },
+  args: {
+    size: 'base'
+  }
 } satisfies Meta<typeof Calendar>
 
 export default meta

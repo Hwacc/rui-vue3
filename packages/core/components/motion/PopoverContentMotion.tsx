@@ -6,7 +6,8 @@
  */
 import { computed, defineComponent, toRefs } from 'vue'
 import { motion } from 'motion-v'
-import { getCssVar, spaceTimes } from '@/core/lib/utils'
+import { spaceTimes } from '@/core/lib/utils'
+import { useAnimationParams } from '@/core/hooks/useAnimationParams'
 
 export const PopoverContentMotion = defineComponent({
   name: 'PopoverContentMotion',
@@ -18,13 +19,7 @@ export const PopoverContentMotion = defineComponent({
   },
   setup(props, { slots }) {
     const { side } = toRefs(props)
-    let twDuration = getCssVar('--tw-duration')
-    let animationDuration = parseFloat(twDuration ?? '0.15')
-    if (twDuration?.endsWith('ms')) {
-      animationDuration = parseFloat(twDuration) / 1000
-    }
-    const animationEase =
-      getCssVar('--tw-ease') ?? 'cubic-bezier(0.165, 0.84, 0.44, 1)'
+    const { animationDuration, animationEase } = useAnimationParams()
     const animation = computed(() => {
       const _anime: Array<Record<string, number>> = [
         {

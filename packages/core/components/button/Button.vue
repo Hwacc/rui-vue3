@@ -131,6 +131,7 @@ const buttonClass = computed(() =>
         :data-switch-state="
           variant === 'switch' ? (checked ? 'checked' : 'unchecked') : undefined
         "
+        :data-size="size"
         @click="onClick"
       >
         <slot />
@@ -172,6 +173,7 @@ const buttonClass = computed(() =>
     :data-switch-state="
       variant === 'switch' ? (checked ? 'checked' : 'unchecked') : undefined
     "
+    :data-size="size"
     @click="onClick"
   >
     <slot />
