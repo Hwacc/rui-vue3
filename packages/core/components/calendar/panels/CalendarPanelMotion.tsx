@@ -22,7 +22,11 @@ export const CalendarPanelMotion = defineComponent<
       )
     })
     return () => {
-      return <motion.div {...mergedProps.value}>{slots.default?.()}</motion.div>
+      return (
+        <motion.div {...mergedProps.value}>
+          {slots.default?.()}
+        </motion.div>
+      )
     }
   }
 })

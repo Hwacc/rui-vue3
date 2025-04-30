@@ -10,11 +10,13 @@ import {
   CalendarPrevButton,
   calendarRootVariants,
   CalendarVariantsProps,
-  CalendarProvider
+  CalendarProvider,
+  CalendarPanelEnum
 } from '.'
 import {
   CalendarDayPanel,
   CalendarMonthPanel,
+  CalendarYearPanel,
   CalendarPanelMotion
 } from './panels'
 import { AnimatePresence } from 'motion-v'
@@ -48,17 +50,26 @@ const forwarded = useForwardPropsEmits(props, emits)
       <div class="group/calendar-header" data-calendar-header>
         <CalendarHeader v-bind="variants">
           <CalendarPrevButton v-bind="variants" />
-          <CalendarHeading v-bind="variants" />
+          <CalendarHeading v-bind="variants"></CalendarHeading>
           <CalendarNextButton v-bind="variants" />
         </CalendarHeader>
       </div>
       <div class="group/calendar-panel" data-calendar-panel>
         <AnimatePresence mode="wait">
-          <CalendarPanelMotion v-if="panel === 'day'">
+          <CalendarPanelMotion
+            v-if="panel === CalendarPanelEnum.DAY"
+            class="w-full"
+          >
             <CalendarDayPanel v-bind="variants" />
           </CalendarPanelMotion>
-          <CalendarPanelMotion v-if="panel === 'month'">
+          <CalendarPanelMotion
+            v-if="panel === CalendarPanelEnum.MONTH"
+            class="w-full"
+          >
             <CalendarMonthPanel :date="date" v-bind="variants" />
+          </CalendarPanelMotion>
+          <CalendarPanelMotion v-if="panel === CalendarPanelEnum.YEAR">
+            <CalendarYearPanel :date="date" v-bind="variants" />
           </CalendarPanelMotion>
         </AnimatePresence>
       </div>

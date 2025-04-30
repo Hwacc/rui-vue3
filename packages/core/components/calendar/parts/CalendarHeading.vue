@@ -1,10 +1,16 @@
-<script lang="ts" setup>
+<script lang="tsx" setup>
 import type { CalendarHeadingProps } from 'reka-ui'
-import type { HTMLAttributes } from 'vue'
+import { computed, type HTMLAttributes } from 'vue'
 import { cn } from '@/core/lib/utils'
-import { CalendarHeading, useForwardProps } from 'reka-ui'
+import {
+  CalendarHeading,
+  injectCalendarRootContext,
+  useDateFormatter,
+  useForwardProps
+} from 'reka-ui'
 import { calendarHeadingVariants, type CalendarHeadingVariantsProps } from '.'
-import { CalendarPanel, injectCalendarContextEx } from '..'
+import { CalendarPanelEnum, injectCalendarContextEx } from '..'
+import { toDate } from 'reka-ui/date'
 
 const {
   class: propsClass,
@@ -22,10 +28,39 @@ const {
 defineSlots<{
   default: (props: { headingValue: string }) => any
 }>()
-
+const context = injectCalendarRootContext()
 const contextEx = injectCalendarContextEx()
 
+const formatter = useDateFormatter(context.locale.value)
 const forwardedProps = useForwardProps(props)
+
+const Heading = computed(() => {
+  const grid = context.grid.value
+  const panel = contextEx.panel.value
+
+  const year = (
+    <div onClick={() => (contextEx.panel.value = CalendarPanelEnum.YEAR)}>
+      {formatter.fullYear(toDate(grid[0].value))}
+    </div>
+  )
+  const month = (
+    <div onClick={() => (contextEx.panel.value = CalendarPanelEnum.MONTH)}>
+      {formatter.fullMonth(toDate(grid[0].value))}
+    </div>
+  )
+  if (panel === CalendarPanelEnum.YEAR) {
+    return <div class='flex items-center'>{year}</div>
+  }
+
+  if (panel === CalendarPanelEnum.MONTH) {
+    return <div class='flex items-center'>{year}</div>
+  }
+  return (
+    <div class='flex items-center gap-2'>
+      {month} - {year}
+    </div>
+  )
+})
 </script>
 
 <template>
@@ -33,10 +68,9 @@ const forwardedProps = useForwardProps(props)
     v-slot="{ headingValue }"
     :class="cn(calendarHeadingVariants({ size, unstyled }), propsClass)"
     v-bind="forwardedProps"
-    @click="() => (contextEx.panel.value = CalendarPanel.MONTH)"
   >
     <slot :heading-value="headingValue">
-      {{ headingValue }}
+      <Heading />
     </slot>
   </CalendarHeading>
 </template>

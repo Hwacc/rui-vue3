@@ -1,9 +1,15 @@
 @layer components {
   .rui-calendar {
     @apply bg-h33;
+
+    &>[data-calendar-panel] {
+      @apply min-w-50;
+    }
   }
 
-  .rui-calendar-heading {}
+  .rui-calendar-grid-head, .rui-calendar-grid-row {
+    @apply justify-between
+  }
 
   .rui-calendar-head-cell {
     @apply font-normal text-h88;
@@ -11,11 +17,10 @@
 
   .rui-calendar-head-cell,
   .rui-calendar-cell {
-    @apply my-0.5;
+    @apply flex-1 my-0.5;
   }
 
   .rui-calendar-cell {
-
     &:has([data-selected]),
     &:has([data-selected][data-outside-view]) {
       @apply bg-rz-green rounded;

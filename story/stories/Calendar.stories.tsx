@@ -26,12 +26,12 @@ export const Default: Story = {
           <Calendar
             {...args}
             fixedWeeks
-            isDateUnavailable={(date) => {
-              return dayjs(date.toString()).isAfter(dayjs())
-            }}
-            isDateDisabled={(date) => {
-              return date.day % 2 !== 0
-            }}
+            // isDateUnavailable={(date) => {
+            //   return dayjs(date.toString()).isAfter(dayjs())
+            // }}
+            // isDateDisabled={(date) => {
+            //   return date.day % 2 !== 0
+            // }}
           />
         )
       }

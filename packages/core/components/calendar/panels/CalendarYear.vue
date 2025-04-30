@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import type { CalendarDate } from '@internationalized/date'
-import { createYear } from 'reka-ui/date'
+import { createDecade } from 'reka-ui/date'
 import { CalendarGridProps } from 'reka-ui'
 import {
   CalendarGrid,
@@ -10,8 +10,7 @@ import {
 } from '../parts'
 import { computed } from 'vue'
 import { chunk } from 'lodash-es'
-import { CalendarCellMonthTrigger } from '../parts'
-import { CalendarVariantsProps } from '..'
+import { CalendarVariantsProps, CalendarCellYearTrigger } from '..'
 
 const {
   date,
@@ -26,8 +25,8 @@ const {
   }
 >()
 
-const monthGrid = computed(() => {
-  return chunk(createYear({ dateObj: date }), 3)
+const yearGrid = computed(() => {
+  return chunk(createDecade({ dateObj: date, startIndex: -6, endIndex: 6 }), 3)
 })
 
 const variants = computed(() => ({
@@ -41,17 +40,17 @@ const variants = computed(() => ({
   <CalendarGrid v-bind="props">
     <CalendarGridBody v-bind="variants">
       <CalendarGridRow
-        v-for="(quarter, quarterIndex) in monthGrid"
-        :key="`quarter-${quarterIndex}`"
+        v-for="(triple, tripleIndex) in yearGrid"
+        :key="`year-${tripleIndex}`"
         v-bind="variants"
       >
         <CalendarCell
-          v-for="month in quarter"
-          :key="month.toString()"
-          :date="month"
+          v-for="year in triple"
+          :key="year.toString()"
+          :date="year"
           v-bind="variants"
         >
-          <CalendarCellMonthTrigger :date="month" v-bind="variants" />
+          <CalendarCellYearTrigger :date="year" v-bind="variants" />
         </CalendarCell>
       </CalendarGridRow>
     </CalendarGridBody>

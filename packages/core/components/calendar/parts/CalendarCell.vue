@@ -9,12 +9,14 @@ const {
   class: propsClass,
   unstyled,
   size = 'base',
+  variant = 'day',
   ...props
 } = defineProps<
   CalendarCellProps & {
     class?: HTMLAttributes['class']
     unstyled?: boolean
     size?: CalendarCellVariantsProps['size']
+    variant?: CalendarCellVariantsProps['variant']
   }
 >()
 
@@ -23,7 +25,7 @@ const forwardedProps = useForwardProps(props)
 
 <template>
   <CalendarCell
-    :class="cn(calendarCellVariants({ size, unstyled }), propsClass)"
+    :class="cn(calendarCellVariants({ size, variant, unstyled }), propsClass)"
     v-bind="forwardedProps"
   >
     <slot />

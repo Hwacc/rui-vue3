@@ -8,6 +8,8 @@ export { default as CalendarNextButton } from './CalendarNextButton.vue'
 export { default as CalendarGrid } from './CalendarGrid.vue'
 export { default as CalendarCell } from './CalendarCell.vue'
 export { default as CalendarCellTrigger } from './CalendarCellTrigger.vue'
+export { default as CalendarCellMonthTrigger } from './CalendarCellMonthTrigger.vue'
+export { default as CalendarCellYearTrigger } from './CalendarCellYearTrigger.vue'
 export { default as CalendarGridBody } from './CalendarGridBody.vue'
 export { default as CalendarGridHead } from './CalendarGridHead.vue'
 export { default as CalendarGridRow } from './CalendarGridRow.vue'
@@ -68,7 +70,33 @@ export const calendarCellVariants = cva(
   ['relative', 'text-center', 'focus-within:relative', 'focus-within:z-20'],
   {
     variants: {
-      size: calendarCellSizes
+      size: calendarCellSizes,
+      variant: {
+        year: '',
+        month: '',
+        day: ''
+      }
+    },
+    compoundVariants: [
+      {
+        variant: 'month',
+        size: 'base',
+        class: ['size-8']
+      },
+      {
+        variant: 'month',
+        size: 'lg',
+        class: ['size-10']
+      },
+      {
+        variant: 'month',
+        size: 'sm',
+        class: ['size-7']
+      }
+    ],
+    defaultVariants: {
+      variant: 'day',
+      size: 'base'
     }
   },
   {

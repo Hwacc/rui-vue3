@@ -1,23 +1,24 @@
 import { createContext } from 'reka-ui'
 import { defineComponent, ref, Ref, SlotsType } from 'vue'
 
-export enum CalendarPanel {
+export enum CalendarPanelEnum {
+  YEAR = 'year',
   MONTH = 'month',
   DAY = 'day'
 }
 
 const [injectCalendarContextEx, provideCalendarContextEx] = createContext<{
-  panel: Ref<CalendarPanel>
+  panel: Ref<CalendarPanelEnum>
 }>('CalendarProvider')
 export { injectCalendarContextEx }
 
 export const CalendarProvider = defineComponent({
   name: 'CalendarProvider',
   slots: Object as SlotsType<{
-    default: { panel: CalendarPanel }
+    default: { panel: CalendarPanelEnum }
   }>,
   setup(props, { slots }) {
-    const curPanel = ref<CalendarPanel>(CalendarPanel.DAY)
+    const curPanel = ref<CalendarPanelEnum>(CalendarPanelEnum.DAY)
     provideCalendarContextEx({
       panel: curPanel
     })
