@@ -39,6 +39,7 @@ const Heading = computed(() => {
   const panel = contextEx.panel.value
   const year = (
     <div
+      class='cursor-default'
       role='button'
       tabindex='0'
       aria-label='Heading Year'
@@ -51,6 +52,7 @@ const Heading = computed(() => {
   )
   const month = (
     <div
+      class='cursor-default'
       role='button'
       tabindex='0'
       aria-label='Heading Month'
