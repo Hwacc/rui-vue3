@@ -1,6 +1,6 @@
 <script lang="ts" setup>
-import type { CalendarRootEmits, CalendarRootProps } from 'reka-ui'
-import { computed, type HTMLAttributes } from 'vue'
+import type { CalendarRootEmits, CalendarRootProps, DateValue } from 'reka-ui'
+import { computed, ref, type HTMLAttributes } from 'vue'
 import { cn } from '@/core/lib/utils'
 import { CalendarRoot, useForwardPropsEmits } from 'reka-ui'
 import {
@@ -34,6 +34,32 @@ const {
   }
 >()
 
+const curPanel = ref<CalendarPanelEnum>(CalendarPanelEnum.DAY)
+const onPrevPage = (placeholder: DateValue) => {
+  switch (curPanel.value) {
+    case CalendarPanelEnum.DAY:
+      return placeholder.subtract({ months: 1 })
+    case CalendarPanelEnum.MONTH:
+      return placeholder.subtract({ years: 1 })
+    case CalendarPanelEnum.YEAR:
+      return placeholder.subtract({ years: 12 })
+    default:
+      return placeholder
+  }
+}
+const onNextPage = (placeholder: DateValue) => {
+  switch (curPanel.value) {
+    case CalendarPanelEnum.DAY:
+      return placeholder.add({ months: 1 })
+    case CalendarPanelEnum.MONTH:
+      return placeholder.add({ years: 1 })
+    case CalendarPanelEnum.YEAR:
+      return placeholder.add({ years: 12 })
+    default:
+      return placeholder
+  }
+}
+
 const variants = computed(() => ({ size, unstyled }))
 const emits = defineEmits<CalendarRootEmits>()
 const forwarded = useForwardPropsEmits(props, emits)
@@ -46,12 +72,15 @@ const forwarded = useForwardPropsEmits(props, emits)
     :class="cn(calendarRootVariants({ size, unstyled }), propsClass)"
     :data-size="size"
   >
-    <CalendarProvider v-slot="{ panel }">
+    <CalendarProvider
+      v-slot="{ panel }"
+      @update:model-value="(panel) => (curPanel = panel)"
+    >
       <div class="group/calendar-header" data-calendar-header>
         <CalendarHeader v-bind="variants">
-          <CalendarPrevButton v-bind="variants" />
+          <CalendarPrevButton v-bind="variants" :prev-page="onPrevPage" />
           <CalendarHeading v-bind="variants"></CalendarHeading>
-          <CalendarNextButton v-bind="variants" />
+          <CalendarNextButton v-bind="variants" :next-page="onNextPage" />
         </CalendarHeader>
       </div>
       <div class="group/calendar-panel" data-calendar-panel>

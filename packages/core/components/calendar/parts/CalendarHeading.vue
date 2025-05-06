@@ -37,14 +37,27 @@ const forwardedProps = useForwardProps(props)
 const Heading = computed(() => {
   const grid = context.grid.value
   const panel = contextEx.panel.value
-
   const year = (
-    <div onClick={() => (contextEx.panel.value = CalendarPanelEnum.YEAR)}>
+    <div
+      role='button'
+      tabindex='0'
+      aria-label='Heading Year'
+      onKeydown={(e) => {
+        e.code === 'Enter' && (contextEx.panel.value = CalendarPanelEnum.YEAR)
+      }}
+      onClick={() => (contextEx.panel.value = CalendarPanelEnum.YEAR)}>
       {formatter.fullYear(toDate(grid[0].value))}
     </div>
   )
   const month = (
-    <div onClick={() => (contextEx.panel.value = CalendarPanelEnum.MONTH)}>
+    <div
+      role='button'
+      tabindex='0'
+      aria-label='Heading Month'
+      onKeydown={(e) => {
+        e.code === 'Enter' && (contextEx.panel.value = CalendarPanelEnum.MONTH)
+      }}
+      onClick={() => (contextEx.panel.value = CalendarPanelEnum.MONTH)}>
       {formatter.fullMonth(toDate(grid[0].value))}
     </div>
   )

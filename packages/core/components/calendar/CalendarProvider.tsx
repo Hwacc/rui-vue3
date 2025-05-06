@@ -1,5 +1,12 @@
 import { createContext } from 'reka-ui'
-import { defineComponent, ref, Ref, SlotsType } from 'vue'
+import {
+  defineComponent,
+  PropType,
+  ref,
+  Ref,
+  SlotsType,
+  watch
+} from 'vue'
 
 export enum CalendarPanelEnum {
   YEAR = 'year',
@@ -14,14 +21,22 @@ export { injectCalendarContextEx }
 
 export const CalendarProvider = defineComponent({
   name: 'CalendarProvider',
+  props: {
+    modelValue: {
+      type: String as PropType<CalendarPanelEnum>,
+      default: CalendarPanelEnum.DAY
+    }
+  },
+  emits: ['update:modelValue'],
   slots: Object as SlotsType<{
     default: { panel: CalendarPanelEnum }
   }>,
-  setup(props, { slots }) {
-    const curPanel = ref<CalendarPanelEnum>(CalendarPanelEnum.DAY)
-    provideCalendarContextEx({
-      panel: curPanel
+  setup(props, { slots, emit }) {
+    const panel = ref<CalendarPanelEnum>(props.modelValue)
+    provideCalendarContextEx({ panel })
+    watch(panel, (newValue) => {
+      emit('update:modelValue', newValue)
     })
-    return () => slots.default?.({ panel: curPanel.value })
+    return () => slots.default?.({ panel: panel.value })
   }
 })

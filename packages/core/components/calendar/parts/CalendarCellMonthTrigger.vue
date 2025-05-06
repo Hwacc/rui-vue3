@@ -5,6 +5,7 @@ import { toDate } from 'reka-ui/date'
 import { isSameMonth, isSameYear } from '@internationalized/date'
 import { computed, HtmlHTMLAttributes } from 'vue'
 import { CalendarPanelEnum, injectCalendarContextEx } from '../CalendarProvider'
+import { useCellTriggerKeyControl } from './utils'
 
 export interface CalendarCellTriggerProps extends PrimitiveProps {
   /** The date value provided to the cell trigger */
@@ -36,7 +37,7 @@ defineSlots<CalendarCellTriggerSlot>()
 const context = injectCalendarRootContext()
 const contextEx = injectCalendarContextEx()
 
-const { primitiveElement } = usePrimitiveElement()
+const { primitiveElement, currentElement } = usePrimitiveElement()
 const formatter = useDateFormatter(context.locale.value)
 
 const monthValue = computed(() =>
@@ -68,12 +69,23 @@ const isSelectedDate = computed(() => {
         isSameYear(context.modelValue.value, props.date)
 })
 
-function handleClick() {
+const handleClick = () => {
   context.onPlaceholderChange(
     context.placeholder.value.copy().set({ month: props.date.month })
   )
   contextEx.panel.value = CalendarPanelEnum.DAY
 }
+
+const { handleArrowKey } = useCellTriggerKeyControl({
+  currentElement,
+  onPrevPage: (placeholder) => {
+    return placeholder.subtract({ years: 1 })
+  },
+  onNextPage: (placeholder) => {
+    return placeholder.add({ years: 1 })
+  },
+  onSelect: handleClick
+})
 </script>
 
 <template>
@@ -89,6 +101,8 @@ function handleClick() {
     :data-focused="isFocusedDate ? '' : undefined"
     :tabindex="0"
     @click="handleClick"
+    @keydown.up.down.left.right.space.enter="handleArrowKey"
+    @keydown.enter.prevent
   >
     <slot :month-value="monthValue" :selected="isSelectedDate">
       {{ monthValue }}
