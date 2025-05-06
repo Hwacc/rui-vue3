@@ -213,7 +213,10 @@ watchEffect((cleanup) => {
         innerRef.value.value = innerHotkey.value
         innerRef.value.blur()
       }
-      emits('error', new Error('using ime'))
+      emits(
+        'error',
+        new Error('IME is active, please close it before inputing')
+      )
       return
     }
     // keydown未捕获到maincode
@@ -273,7 +276,6 @@ watchEffect((cleanup) => {
       )
     }
     resultCodeArr.value.push(keydownRecord.mainCode)
-    console.log('----result code', resultCodeArr.value)
     innerHotkey.value = resultCodeArr.value
       .map((c) => CodesMap[c].name)
       .join(' + ')

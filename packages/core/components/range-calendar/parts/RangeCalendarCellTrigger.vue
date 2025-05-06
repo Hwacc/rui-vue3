@@ -1,19 +1,20 @@
 <script lang="ts" setup>
-import type { CalendarCellTriggerProps } from 'reka-ui'
+import type { RangeCalendarCellTriggerProps } from 'reka-ui'
 import type { HTMLAttributes } from 'vue'
 import { cn } from '@/core/lib/utils'
-import { CalendarCellTrigger, useForwardProps } from 'reka-ui'
+import { RangeCalendarCellTrigger, useForwardProps } from 'reka-ui'
 import {
   calendarCellTriggerVariants,
   type CalendarCellTriggerVariantsProps
-} from '.'
+} from '@/core/components/calendar'
+
 const {
   class: propsClass,
   unstyled,
   size = 'base',
   ...props
 } = defineProps<
-  CalendarCellTriggerProps & {
+  RangeCalendarCellTriggerProps & {
     class?: HTMLAttributes['class']
     unstyled?: boolean
     size?: CalendarCellTriggerVariantsProps['size']
@@ -23,7 +24,7 @@ const forwardedProps = useForwardProps(props)
 </script>
 
 <template>
-  <CalendarCellTrigger
+  <RangeCalendarCellTrigger
     :class="
       cn(
         calendarCellTriggerVariants({
@@ -36,5 +37,5 @@ const forwardedProps = useForwardProps(props)
     v-bind="forwardedProps"
   >
     <slot />
-  </CalendarCellTrigger>
+  </RangeCalendarCellTrigger>
 </template>

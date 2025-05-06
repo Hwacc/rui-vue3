@@ -3,27 +3,35 @@ import type { RangeCalendarHeadingProps } from 'reka-ui'
 import type { HTMLAttributes } from 'vue'
 import { cn } from '@/core/lib/utils'
 import { RangeCalendarHeading, useForwardProps } from 'reka-ui'
-import { computed } from 'vue'
+import {
+  calendarHeadingVariants,
+  type CalendarHeadingVariantsProps
+} from '@/core/components/calendar'
 
-const props = defineProps<RangeCalendarHeadingProps & { class?: HTMLAttributes['class'] }>()
+const {
+  class: propsClass,
+  unstyled,
+  size = 'base',
+  ...props
+} = defineProps<
+  RangeCalendarHeadingProps & {
+    class?: HTMLAttributes['class']
+    size?: CalendarHeadingVariantsProps['size']
+    unstyled?: boolean
+  }
+>()
 
 defineSlots<{
   default: (props: { headingValue: string }) => any
 }>()
 
-const delegatedProps = computed(() => {
-  const { class: _, ...delegated } = props
-
-  return delegated
-})
-
-const forwardedProps = useForwardProps(delegatedProps)
+const forwardedProps = useForwardProps(props)
 </script>
 
 <template>
   <RangeCalendarHeading
     v-slot="{ headingValue }"
-    :class="cn('text-sm font-medium', props.class)"
+    :class="cn(calendarHeadingVariants({ size, unstyled }), propsClass)"
     v-bind="forwardedProps"
   >
     <slot :heading-value>
