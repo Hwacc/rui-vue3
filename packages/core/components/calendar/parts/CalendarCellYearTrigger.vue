@@ -4,8 +4,9 @@ import type { DateValue } from '@internationalized/date'
 import { toDate } from 'reka-ui/date'
 import { isSameYear } from '@internationalized/date'
 import { computed, HtmlHTMLAttributes } from 'vue'
-import { CalendarPanelEnum, injectCalendarContextEx } from '../CalendarProvider'
+import { injectCalendarContextEx } from '../CalendarProvider'
 import { useCellTriggerKeyControl } from './utils'
+import { CalendarPanelEnum } from '@/core/lib/constants'
 
 export interface CalendarCellTriggerProps extends PrimitiveProps {
   /** The date value provided to the cell trigger */

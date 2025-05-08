@@ -1,30 +1,40 @@
 <script lang="ts" setup>
 import type { RangeCalendarPrevProps } from 'reka-ui'
 import type { HTMLAttributes } from 'vue'
-import { buttonVariants } from '@/core/components/button'
+import { type ButtonVariants, buttonVariants } from '@/core/components/button'
 import { cn } from '@/core/lib/utils'
 import { ChevronLeft } from 'lucide-vue-next'
 import { RangeCalendarPrev, useForwardProps } from 'reka-ui'
-import { computed } from 'vue'
+import { prefix } from '@/core/components/calendar'
 
-const props = defineProps<RangeCalendarPrevProps & { class?: HTMLAttributes['class'] }>()
+const {
+  class: propsClass,
+  variant = 'icon',
+  size = 'base',
+  unstyled,
+  ...props
+} = defineProps<
+  RangeCalendarPrevProps & {
+    class?: HTMLAttributes['class']
+    unstyled?: boolean
+    variant?: ButtonVariants['variant']
+    size?: ButtonVariants['size']
+  }
+>()
 
-const delegatedProps = computed(() => {
-  const { class: _, ...delegated } = props
-
-  return delegated
-})
-
-const forwardedProps = useForwardProps(delegatedProps)
+const forwardedProps = useForwardProps(props)
 </script>
 
 <template>
   <RangeCalendarPrev
-    :class="cn(
-      buttonVariants({ variant: 'outline' }),
-      'h-7 w-7 bg-transparent p-0 opacity-50 hover:opacity-100',
-      props.class,
-    )"
+    :class="
+      cn(
+        buttonVariants({ size, variant, unstyled }),
+        [!unstyled && `${prefix}-prev`],
+        propsClass
+      )
+    "
+    :data-variant="variant"
     v-bind="forwardedProps"
   >
     <slot>

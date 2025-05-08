@@ -2,11 +2,11 @@
 import type { RangeCalendarCellProps } from 'reka-ui'
 import type { HTMLAttributes } from 'vue'
 import { cn } from '@/core/lib/utils'
-import { RangeCalendarCell, useForwardProps } from 'reka-ui'
 import {
   calendarCellVariants,
   type CalendarCellVariantsProps
 } from '@/core/components/calendar'
+import { RangeCalendarCell, useForwardProps } from 'reka-ui'
 
 const {
   class: propsClass,

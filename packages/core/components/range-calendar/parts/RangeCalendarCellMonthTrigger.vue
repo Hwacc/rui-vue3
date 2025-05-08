@@ -4,8 +4,8 @@ import type { DateValue } from '@internationalized/date'
 import { toDate } from 'reka-ui/date'
 import { isSameMonth, isSameYear } from '@internationalized/date'
 import { computed, HtmlHTMLAttributes } from 'vue'
-import { injectCalendarContextEx } from '../CalendarProvider'
-import { useCellTriggerKeyControl } from './utils'
+import { injectRangeCalendarContextEx } from '../RangeCalendarProvider'
+import { useRangeCellTriggerKeyControl } from './utils'
 import { CalendarPanelEnum } from '@/core/lib/constants'
 
 export interface CalendarCellTriggerProps extends PrimitiveProps {
@@ -21,10 +21,14 @@ export interface CalendarCellTriggerSlot {
 </script>
 
 <script setup lang="ts">
-import { Primitive, injectCalendarRootContext, useDateFormatter } from 'reka-ui'
+import {
+  Primitive,
+  injectRangeCalendarRootContext,
+  useDateFormatter
+} from 'reka-ui'
 import { usePrimitiveElement } from '@/core/hooks/usePrimitiveElement'
 import { cn } from '@/core/lib/utils'
-import { calendarCellTriggerVariants } from '.'
+import { calendarCellTriggerVariants } from '@/core/components/calendar'
 
 const {
   class: propsClass,
@@ -35,8 +39,8 @@ const {
 
 defineSlots<CalendarCellTriggerSlot>()
 
-const context = injectCalendarRootContext()
-const contextEx = injectCalendarContextEx()
+const context = injectRangeCalendarRootContext()
+const contextEx = injectRangeCalendarContextEx()
 
 const { primitiveElement, currentElement } = usePrimitiveElement()
 const formatter = useDateFormatter(context.locale.value)
@@ -61,13 +65,14 @@ const isFocusedDate = computed(() => {
   )
 })
 const isSelectedDate = computed(() => {
-  if (!context.modelValue.value) return false
-  return Array.isArray(context.modelValue.value)
-    ? context.modelValue.value.some((date) => {
-        return isSameMonth(props.date, date) && isSameYear(props.date, date)
-      })
-    : isSameMonth(context.modelValue.value, props.date) &&
-        isSameYear(context.modelValue.value, props.date)
+  return false
+  // if (!context.modelValue.value) return false
+  // return Array.isArray(context.modelValue.value)
+  //   ? context.modelValue.value.some((date) => {
+  //       return isSameMonth(props.date, date) && isSameYear(props.date, date)
+  //     })
+  //   : isSameMonth(context.modelValue.value, props.date) &&
+  //       isSameYear(context.modelValue.value, props.date)
 })
 
 const handleClick = () => {
@@ -77,7 +82,7 @@ const handleClick = () => {
   contextEx.panel.value = CalendarPanelEnum.DAY
 }
 
-const { handleArrowKey } = useCellTriggerKeyControl({
+const { handleArrowKey } = useRangeCellTriggerKeyControl({
   currentElement,
   onPrevPage: (placeholder) => {
     return placeholder.subtract({ years: 1 })

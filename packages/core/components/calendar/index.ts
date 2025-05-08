@@ -5,6 +5,7 @@ export { default as Calendar } from './Calendar.vue'
 
 export * from './CalendarProvider'
 export * from './parts/index'
+export * from './panels'
 
 
 const prefix = `${PREFIX}-calendar`

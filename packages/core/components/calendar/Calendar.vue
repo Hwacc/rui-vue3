@@ -11,15 +11,13 @@ import {
   calendarRootVariants,
   CalendarVariantsProps,
   CalendarProvider,
-  CalendarPanelEnum
-} from '.'
-import {
   CalendarDayPanel,
   CalendarMonthPanel,
-  CalendarYearPanel,
-  CalendarPanelMotion
-} from './panels'
+  CalendarYearPanel
+} from '.'
+import { CalendarPanelMotion } from '@/core/components/motion/CalendarPanelMotion.tsx'
 import { AnimatePresence } from 'motion-v'
+import { CalendarPanelEnum } from '@/core/lib/constants'
 
 const {
   class: propsClass,
