@@ -1,9 +1,9 @@
-import { Calendar } from '@core/components/calendar'
+import { RangeCalendar } from '@core/components/range-calendar'
 import type { Meta, StoryObj } from '@storybook/vue3'
 
 const meta = {
-  title: 'RUI/Calendar',
-  component: Calendar,
+  title: 'RUI/RangeCalendar',
+  component: RangeCalendar,
   tags: ['autodocs'],
   argTypes: {
     size: { control: 'radio', options: ['base', 'sm', 'lg'] },
@@ -11,7 +11,7 @@ const meta = {
   args: {
     size: 'base'
   }
-} satisfies Meta<typeof Calendar>
+} satisfies Meta<typeof RangeCalendar>
 
 export default meta
 
@@ -19,10 +19,10 @@ type Story = StoryObj<typeof meta>
 export const Default: Story = {
   render: (args) => {
     return {
-      components: { Calendar },
+      components: { RangeCalendar },
       setup() {
         return () => (
-          <Calendar
+          <RangeCalendar
             {...args}
             fixedWeeks
             // isDateUnavailable={(date) => {

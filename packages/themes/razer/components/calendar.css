@@ -22,12 +22,22 @@
 
   .rui-calendar-cell {
     &:has([data-selected]),
-    &:has([data-selected][data-outside-view]) {
+    &:has([data-selected][data-outside-view]){
       @apply bg-rz-green rounded;
     }
-
     &:has([data-outside-view]) {
       @apply bg-h47;
+    }
+
+    &:has([data-highlighted]){
+      @apply bg-rz-green/40;
+    }
+
+    &:has([data-highlighted-start]) {
+      @apply bg-rz-green rounded-none rounded-tl rounded-bl;
+    }
+    &:has([data-highlighted-end]) {
+      @apply bg-rz-green rounded-none rounded-tr rounded-br;
     }
 
     &:has([data-today]) {
@@ -44,14 +54,36 @@
   }
 
   .rui-calendar-cell-trigger {
-    &[data-selected],
-    &[data-selected][data-outside-view] {
-      @apply text-black;
-    }
     &[data-unavailable],
     &[data-disabled],
     &[data-outside-view] {
       @apply text-h88
+    }
+
+    &[data-highlighted] {
+      @apply text-hff;
+    }
+
+    &[data-selected],
+    &[data-selected][data-outside-view] {
+      @apply text-black;
+    }
+  }
+
+  .rui-calendar[data-range-calendar]{
+    & .rui-calendar-cell{
+      &:has([data-selected]),
+      &:has([data-selected][data-outside-view]){
+        @apply rounded-none;
+      }
+      &:has([data-selected][data-selected-start]),
+      &:has([data-selected][data-selected-start][data-outside-view]){
+        @apply rounded-tl rounded-bl;
+      }
+      &:has([data-selected][data-selected-end]),
+      &:has([data-selected][data-selected-end][data-outside-view]){
+        @apply rounded-tr rounded-br;
+      }
     }
   }
 }
