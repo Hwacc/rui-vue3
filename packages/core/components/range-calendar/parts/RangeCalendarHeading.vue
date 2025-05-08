@@ -32,6 +32,7 @@ const {
 defineSlots<{
   default: (props: { headingValue: string }) => any
 }>()
+
 const context = injectRangeCalendarRootContext()
 const contextEx = injectRangeCalendarContextEx()
 
