@@ -1,8 +1,8 @@
 <script lang="ts">
 import type { PrimitiveProps } from 'reka-ui'
 import type { DateValue } from '@internationalized/date'
-import { toDate } from 'reka-ui/date'
-import { isSameMonth, isSameYear } from '@internationalized/date'
+import { isBetween, toDate } from 'reka-ui/date'
+import { isSameMonth } from '@internationalized/date'
 import { computed, HtmlHTMLAttributes } from 'vue'
 import { injectRangeCalendarContextEx } from '../RangeCalendarProvider'
 import { useRangeCellTriggerKeyControl } from './utils'
@@ -64,15 +64,21 @@ const isFocusedDate = computed(() => {
     isSameMonth(props.date, context.placeholder.value)
   )
 })
+const isSelectionStart = computed(() => {
+  if (!context.startValue.value) return false
+  return isSameMonth(context.startValue.value, props.date)
+})
+const isSelectionEnd = computed(() => {
+  if (!context.endValue.value) return false
+  return isSameMonth(context.endValue.value, props.date)
+})
 const isSelectedDate = computed(() => {
+  const { startValue, endValue } = context
+  if (startValue.value && isSameMonth(startValue.value, props.date)) return true
+  if (endValue.value && isSameMonth(endValue.value, props.date)) return true
+  if (endValue.value && startValue.value)
+    return isBetween(props.date, startValue.value, endValue.value)
   return false
-  // if (!context.modelValue.value) return false
-  // return Array.isArray(context.modelValue.value)
-  //   ? context.modelValue.value.some((date) => {
-  //       return isSameMonth(props.date, date) && isSameYear(props.date, date)
-  //     })
-  //   : isSameMonth(context.modelValue.value, props.date) &&
-  //       isSameYear(context.modelValue.value, props.date)
 })
 
 const handleClick = () => {
@@ -104,6 +110,8 @@ const { handleArrowKey } = useRangeCellTriggerKeyControl({
     :aria-label="labelText"
     data-reka-calendar-cell-trigger
     :data-selected="isSelectedDate ? true : undefined"
+    :data-selection-start="isSelectionStart ? true : undefined"
+    :data-selection-end="isSelectionEnd ? true : undefined"
     :data-focused="isFocusedDate ? '' : undefined"
     :tabindex="0"
     @click="handleClick"

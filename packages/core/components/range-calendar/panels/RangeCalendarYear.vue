@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { CalendarDate } from '@internationalized/date'
+import type { DateValue } from '@internationalized/date'
 import { createDecade } from 'reka-ui/date'
 import { RangeCalendarGridProps } from 'reka-ui'
 import {
@@ -20,7 +20,7 @@ const {
   ...props
 } = defineProps<
   RangeCalendarGridProps & {
-    date: CalendarDate
+    date: DateValue
     size?: CalendarVariantsProps['size']
     unstyled?: boolean
   }

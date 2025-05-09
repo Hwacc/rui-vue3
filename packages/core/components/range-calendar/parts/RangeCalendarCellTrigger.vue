@@ -1,17 +1,12 @@
 <script lang="ts" setup>
 import type { RangeCalendarCellTriggerProps } from 'reka-ui'
-import { computed, watch, type HTMLAttributes } from 'vue'
+import { type HTMLAttributes } from 'vue'
 import { cn } from '@/core/lib/utils'
-import {
-  injectRangeCalendarRootContext,
-  RangeCalendarCellTrigger,
-  useForwardProps
-} from 'reka-ui'
+import { RangeCalendarCellTrigger, useForwardProps } from 'reka-ui'
 import {
   calendarCellTriggerVariants,
   type CalendarCellTriggerVariantsProps
 } from '@/core/components/calendar'
-import { isSameDay } from '@internationalized/date'
 
 const {
   class: propsClass,
@@ -27,15 +22,6 @@ const {
     size?: CalendarCellTriggerVariantsProps['size']
   }
 >()
-
-const { startValue, endValue } = injectRangeCalendarRootContext()
-const isSelectedStart = computed(() => {
-  return startValue.value && isSameDay(startValue.value, day)
-})
-const isSelectedEnd = computed(() => {
-  return endValue.value && isSameDay(endValue.value, day)
-})
-
 const forwardedProps = useForwardProps({ day, month, ...props })
 </script>
 
@@ -51,8 +37,6 @@ const forwardedProps = useForwardProps({ day, month, ...props })
       )
     "
     v-bind="forwardedProps"
-    :data-selected-start="isSelectedStart || undefined"
-    :data-selected-end="isSelectedEnd || undefined"
   >
     <slot />
   </RangeCalendarCellTrigger>

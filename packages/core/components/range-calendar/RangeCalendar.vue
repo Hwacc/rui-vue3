@@ -1,5 +1,9 @@
 <script lang="ts" setup>
-import type { RangeCalendarRootEmits, RangeCalendarRootProps } from 'reka-ui'
+import type {
+  DateValue,
+  RangeCalendarRootEmits,
+  RangeCalendarRootProps
+} from 'reka-ui'
 import type { HTMLAttributes } from 'vue'
 import { cn } from '@/core/lib/utils'
 import { RangeCalendarRoot, useForwardPropsEmits } from 'reka-ui'
@@ -38,6 +42,30 @@ const {
 >()
 
 const curPanel = ref<CalendarPanelEnum>(CalendarPanelEnum.DAY)
+const onPrevPage = (placeholder: DateValue) => {
+  switch (curPanel.value) {
+    case CalendarPanelEnum.DAY:
+      return placeholder.subtract({ months: 1 })
+    case CalendarPanelEnum.MONTH:
+      return placeholder.subtract({ years: 1 })
+    case CalendarPanelEnum.YEAR:
+      return placeholder.subtract({ years: 12 })
+    default:
+      return placeholder
+  }
+}
+const onNextPage = (placeholder: DateValue) => {
+  switch (curPanel.value) {
+    case CalendarPanelEnum.DAY:
+      return placeholder.add({ months: 1 })
+    case CalendarPanelEnum.MONTH:
+      return placeholder.add({ years: 1 })
+    case CalendarPanelEnum.YEAR:
+      return placeholder.add({ years: 12 })
+    default:
+      return placeholder
+  }
+}
 
 const variants = computed(() => ({ size, unstyled }))
 const emits = defineEmits<RangeCalendarRootEmits>()
@@ -57,9 +85,9 @@ const forwarded = useForwardPropsEmits(props, emits)
     >
       <div class="group/calendar-header" data-calendar-header>
         <RangeCalendarHeader v-bind="variants">
-          <RangeCalendarPrevButton v-bind="variants" />
+          <RangeCalendarPrevButton v-bind="variants" :prev-page="onPrevPage" />
           <RangeCalendarHeading v-bind="variants"></RangeCalendarHeading>
-          <RangeCalendarNextButton v-bind="variants" />
+          <RangeCalendarNextButton v-bind="variants" :next-page="onNextPage" />
         </RangeCalendarHeader>
       </div>
       <div class="group/calendar-panel" data-calendar-panel>
