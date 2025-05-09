@@ -76,12 +76,12 @@
       &:has([data-selected][data-outside-view]){
         @apply rounded-none;
       }
-      &:has([data-selected][data-selected-start]),
-      &:has([data-selected][data-selected-start][data-outside-view]){
+      &:has([data-selected][data-selection-start]),
+      &:has([data-selected][data-selection-start][data-outside-view]){
         @apply rounded-tl rounded-bl;
       }
-      &:has([data-selected][data-selected-end]),
-      &:has([data-selected][data-selected-end][data-outside-view]){
+      &:has([data-selected][data-selection-end]),
+      &:has([data-selected][data-selection-end][data-outside-view]){
         @apply rounded-tr rounded-br;
       }
     }
