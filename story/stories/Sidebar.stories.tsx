@@ -1,11 +1,11 @@
 import type { Meta, StoryObj } from '@storybook/vue3'
 import {
-  SidebarProvider,
   Sidebar,
-  SidebarTrigger,
   SidebarContent,
+  SidebarFooter,
   SidebarHeader,
-  SidebarFooter
+  SidebarProvider,
+  SidebarTrigger,
 } from '@rui/core/components/sidebar'
 
 const meta = {
@@ -16,14 +16,14 @@ const meta = {
     side: { control: 'radio', options: ['left', 'right'] },
     layout: { control: 'radio', options: ['block', 'fixed'] },
     collapsible: { control: 'radio', options: ['none', 'icon', 'offcanvas'] },
-    unstyled: { control: 'boolean' }
+    unstyled: { control: 'boolean' },
   },
   args: {
     side: 'left',
     layout: 'block',
     collapsible: 'offcanvas',
-    unstyled: false
-  }
+    unstyled: false,
+  },
 } satisfies Meta<typeof Sidebar>
 
 export default meta
@@ -31,20 +31,20 @@ export default meta
 type Story = StoryObj<typeof meta>
 
 export const Default: Story = {
-  render: (args) => ({
+  render: args => ({
     components: {
       SidebarProvider,
       Sidebar,
       SidebarTrigger,
       SidebarContent,
       SidebarHeader,
-      SidebarFooter
+      SidebarFooter,
     },
     setup() {
       return () => {
         return (
-          <div class='size-[640px]'>
-            <SidebarProvider class='size-full'>
+          <div class="size-[640px]">
+            <SidebarProvider class="size-full">
               <Sidebar {...args}>
                 <SidebarHeader>App sidebar header</SidebarHeader>
                 <SidebarContent>
@@ -53,7 +53,7 @@ export const Default: Story = {
                 </SidebarContent>
                 <SidebarFooter>App sidebar footer</SidebarFooter>
               </Sidebar>
-              <div class='flex-1'>
+              <div class="flex-1">
                 <SidebarTrigger></SidebarTrigger>
                 App content
               </div>
@@ -61,6 +61,6 @@ export const Default: Story = {
           </div>
         )
       }
-    }
-  })
+    },
+  }),
 }

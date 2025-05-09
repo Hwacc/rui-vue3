@@ -1,4 +1,4 @@
-import type { StorybookConfig } from '@storybook/vue3-vite';
+import type { StorybookConfig } from '@storybook/vue3-vite'
 
 const config: StorybookConfig = {
   stories: ['../stories/**/*.mdx', '../stories/**/*.stories.@(js|jsx|mjs|ts|tsx)'],
@@ -13,7 +13,7 @@ const config: StorybookConfig = {
     options: {},
   },
   viteFinal: (config) => {
-    return config;
+    return config
   },
-};
-export default config;
+}
+export default config

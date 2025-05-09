@@ -1,5 +1,5 @@
-import { Calendar } from '@rui/core/components/calendar'
 import type { Meta, StoryObj } from '@storybook/vue3'
+import { Calendar } from '@rui/core/components/calendar'
 
 const meta = {
   title: 'RUI/Calendar',
@@ -9,8 +9,8 @@ const meta = {
     size: { control: 'radio', options: ['base', 'sm', 'lg'] },
   },
   args: {
-    size: 'base'
-  }
+    size: 'base',
+  },
 } satisfies Meta<typeof Calendar>
 
 export default meta
@@ -33,7 +33,7 @@ export const Default: Story = {
             // }}
           />
         )
-      }
+      },
     }
-  }
+  },
 }

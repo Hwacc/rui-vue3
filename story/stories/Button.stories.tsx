@@ -1,6 +1,6 @@
-import { fn } from '@storybook/test'
 import type { Meta, StoryObj } from '@storybook/vue3'
 import { Button } from '@rui/core/components/button'
+import { fn } from '@storybook/test'
 import { Camera } from 'lucide-vue-next'
 import { ref, watch } from 'vue'
 
@@ -12,12 +12,12 @@ const meta = {
     size: { control: 'radio', options: ['base', 'sm', 'lg'] },
     variant: {
       control: 'select',
-      options: ['default', 'normal', 'outline', 'text', 'icon']
+      options: ['default', 'normal', 'outline', 'text', 'icon'],
     },
     class: { control: 'text' },
     tooltip: { control: 'text' },
-    tooltipTheme: { control: 'select', options: ['default', 'dark'] }
-  }
+    tooltipTheme: { control: 'select', options: ['default', 'dark'] },
+  },
 } satisfies Meta<typeof Button>
 
 export default meta
@@ -26,65 +26,65 @@ type Story = StoryObj<typeof meta>
 export const Default: Story = {
   parameters: {
     controls: {
-      include: ['size', 'disabled', 'default', 'unstyled']
-    }
+      include: ['size', 'disabled', 'default', 'unstyled'],
+    },
   },
   args: {
     default: 'Default',
     variant: 'default',
-    size: 'base'
-  }
+    size: 'base',
+  },
 }
 
 export const Normal: Story = {
   parameters: {
     controls: {
-      include: ['size', 'disabled', 'default', 'unstyled']
-    }
+      include: ['size', 'disabled', 'default', 'unstyled'],
+    },
   },
   args: {
     default: 'Normal',
     variant: 'normal',
-    size: 'base'
-  }
+    size: 'base',
+  },
 }
 
 export const Outline: Story = {
   parameters: {
     controls: {
-      include: ['size', 'disabled', 'default', 'unstyled']
-    }
+      include: ['size', 'disabled', 'default', 'unstyled'],
+    },
   },
   args: {
     default: 'Outline',
     variant: 'outline',
-    size: 'base'
-  }
+    size: 'base',
+  },
 }
 
 export const Text: Story = {
   parameters: {
     controls: {
-      include: ['size', 'disabled', 'default', 'unstyled']
-    }
+      include: ['size', 'disabled', 'default', 'unstyled'],
+    },
   },
   args: {
     default: 'Text',
     variant: 'text',
-    size: 'base'
-  }
+    size: 'base',
+  },
 }
 
 export const Icon: Story = {
   parameters: {
     controls: {
-      exclude: ['class']
-    }
+      exclude: ['class'],
+    },
   },
   args: {
     variant: 'icon',
     tooltip: 'Camera',
-    size: 'base'
+    size: 'base',
   },
   render: (args) => {
     return {
@@ -95,23 +95,23 @@ export const Icon: Story = {
             <Camera />
           </Button>
         )
-      }
+      },
     }
-  }
+  },
 }
 
 export const Switch: Story = {
   parameters: {
     controls: {
-      include: ['size', 'disabled', 'default', 'checked', 'unstyled']
-    }
+      include: ['size', 'disabled', 'default', 'checked', 'unstyled'],
+    },
   },
   args: {
     default: 'Switch',
     variant: 'switch',
     checked: true,
     size: 'base',
-    onClick: fn()
+    onClick: fn(),
   },
   render: (args) => {
     return {
@@ -123,38 +123,39 @@ export const Switch: Story = {
           () => args.checked,
           (val) => {
             checked.value = val
-          }
+          },
         )
         return () => (
           <Button
             {...args}
             checked={checked.value}
-            onClick={() => (checked.value = !checked.value)}>
+            onClick={() => (checked.value = !checked.value)}
+          >
             {{
-              default: () => args.default
+              default: () => args.default,
             }}
           </Button>
         )
-      }
+      },
     }
-  }
+  },
 }
 
 export const WithTooltip: Story = {
   parameters: {
     controls: {
-      exclude: ['class']
+      exclude: ['class'],
     },
     backgrounds: {
-      default: 'light'
-    }
+      default: 'light',
+    },
   },
   args: {
     default: 'With Tooltip',
     variant: 'default',
     size: 'base',
     tooltip: 'Tooltip',
-    tooltipTheme: 'default'
+    tooltipTheme: 'default',
   },
   render: (args) => {
     return {
@@ -163,11 +164,11 @@ export const WithTooltip: Story = {
         return () => (
           <Button {...args}>
             {{
-              default: () => args.default
+              default: () => args.default,
             }}
           </Button>
         )
-      }
+      },
     }
-  }
+  },
 }

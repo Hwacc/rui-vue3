@@ -10,7 +10,8 @@
   "scripts": {
     "dev": "pnpm --filter examples run dev",
     "dev:story": "pnpm --filter story run storybook",
-    "fix": "eslint --ext .ts,.tsx,.js,.jsx,.vue packages/**/*"
+    "fix": "eslint --ext .ts,.tsx,.js,.jsx,.vue packages/**/*",
+    "fix:story": "eslint  --ext .ts,.tsx,.js,.jsx,.vue story/**/*"
   },
   "dependencies": {
     "@vueuse/core": "^12.8.2",

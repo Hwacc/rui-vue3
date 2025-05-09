@@ -2,8 +2,11 @@
   "extends": "@vue/tsconfig/tsconfig.dom.json",
   "compilerOptions": {
     "tsBuildInfoFile": "./node_modules/.tmp/tsconfig.app.tsbuildinfo",
-    "typeRoots": ["./node_modules/@types", "./types"],
 
+    "jsx": "preserve",
+    "jsxFactory": "h",
+    "jsxFragmentFactory": "Fragment",
+    "jsxImportSource": "vue",
     "paths": {
       "@/stories/*": ["./stories/*"],
       "@stories/*": ["./stories/*"],
@@ -12,18 +15,14 @@
       "@rui/add-ons/*": ["../packages/add-ons/*"],
       "@rui/themes/*": ["../packages/themes/*"]
     },
+    "typeRoots": ["./node_modules/@types", "./types"],
 
     /* Linting */
     "strict": true,
+    "noFallthroughCasesInSwitch": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
-    "noFallthroughCasesInSwitch": true,
-    "noUncheckedSideEffectImports": true,
-
-    "jsx": "preserve",
-    "jsxFactory": "h",
-    "jsxImportSource": "vue",
-    "jsxFragmentFactory": "Fragment"
+    "noUncheckedSideEffectImports": true
   },
   "include": [
     "stories/**/*.ts",

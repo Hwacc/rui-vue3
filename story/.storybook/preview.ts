@@ -1,5 +1,5 @@
-import type { Preview } from '@storybook/vue3';
-import '../styles/indes.css';
+import type { Preview } from '@storybook/vue3'
+import '../styles/indes.css'
 
 const preview: Preview = {
   parameters: {
@@ -30,6 +30,6 @@ const preview: Preview = {
     },
     tags: ['autodocs'],
   },
-};
+}
 
-export default preview;
+export default preview

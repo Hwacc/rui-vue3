@@ -1,16 +1,16 @@
-import { RangeCalendar } from '@rui/core/components/range-calendar'
 import type { Meta, StoryObj } from '@storybook/vue3'
+import { RangeCalendar } from '@rui/core/components/range-calendar'
 
 const meta = {
   title: 'RUI/RangeCalendar',
   component: RangeCalendar,
   tags: ['autodocs'],
   argTypes: {
-    size: { control: 'radio', options: ['base', 'sm', 'lg'] }
+    size: { control: 'radio', options: ['base', 'sm', 'lg'] },
   },
   args: {
-    size: 'base'
-  }
+    size: 'base',
+  },
 } satisfies Meta<typeof RangeCalendar>
 
 export default meta
@@ -33,7 +33,7 @@ export const Default: Story = {
             // }}
           />
         )
-      }
+      },
     }
-  }
+  },
 }
