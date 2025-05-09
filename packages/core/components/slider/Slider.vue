@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import type { SliderRootEmits, SliderRootProps } from 'reka-ui';
-import { cn } from '@/core/lib/utils';
+import { cn } from '@rui/core/lib/utils';
 import { SliderRange, SliderRoot, SliderThumb, SliderTrack, useForwardPropsEmits } from 'reka-ui';
 import { type HTMLAttributes } from 'vue';
 import { sliderClass, sliderRangeClass, sliderTrackClass, sliderThumbClass } from '.';

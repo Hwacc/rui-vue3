@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import type { CalendarRootEmits, CalendarRootProps, DateValue } from 'reka-ui'
 import { computed, ref, type HTMLAttributes } from 'vue'
-import { cn } from '@/core/lib/utils'
+import { cn } from '@rui/core/lib/utils'
 import { CalendarRoot, useForwardPropsEmits } from 'reka-ui'
 import {
   CalendarHeader,
@@ -15,9 +15,9 @@ import {
   CalendarMonthPanel,
   CalendarYearPanel
 } from '.'
-import { CalendarPanelMotion } from '@/core/components/motion/CalendarPanelMotion.tsx'
+import { CalendarPanelMotion } from '@rui/core/components/motion/CalendarPanelMotion.tsx'
 import { AnimatePresence } from 'motion-v'
-import { CalendarPanelEnum } from '@/core/lib/constants'
+import { CalendarPanelEnum } from '@rui/core/lib/constants'
 
 const {
   class: propsClass,

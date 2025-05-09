@@ -3,7 +3,7 @@ import type { DropdownMenuTriggerProps } from 'reka-ui'
 import { DropdownMenuTrigger, useForwardProps } from 'reka-ui'
 import { HTMLAttributes } from 'vue'
 import { dropdownMenuTriggerVariants } from '.'
-import { cn } from '@/core/lib/utils'
+import { cn } from '@rui/core/lib/utils'
 
 const { class: propsClass, ...props } = defineProps<
   DropdownMenuTriggerProps & {

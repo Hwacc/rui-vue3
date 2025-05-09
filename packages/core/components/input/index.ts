@@ -1,10 +1,10 @@
-import { PREFIX } from '@/core/lib/constants';
-import { VariantProps } from 'class-variance-authority';
-import { cva } from '@/core/lib/cva';
+import { PREFIX } from '@rui/core/lib/constants'
+import { VariantProps } from 'class-variance-authority'
+import { cva } from '@rui/core/lib/cva'
 
-export { default as Input } from './Input.vue';
+export { default as Input } from './Input.vue'
 
-const prefix = `${PREFIX}-input`;
+const prefix = `${PREFIX}-input`
 export const inputVariants = cva(
   [
     'flex',
@@ -17,23 +17,23 @@ export const inputVariants = cva(
     'rounded',
     'transition-all',
     'data-[state=disabled]:pointer-events-none',
-    'data-[state=disabled]:opacity-(--disabled-opacity)',
+    'data-[state=disabled]:opacity-(--disabled-opacity)'
   ],
   {
     variants: {
       size: {
         base: ['text-sm'],
         sm: ['text-xs'],
-        lg: ['text-base'],
-      },
+        lg: ['text-base']
+      }
     },
     defaultVariants: {
-      size: 'base',
-    },
+      size: 'base'
+    }
   },
   { className: prefix }
-);
-export type InputVariants = VariantProps<typeof inputVariants>;
+)
+export type InputVariants = VariantProps<typeof inputVariants>
 
 export const inputInnerVariants = cva(
   ['flex-1', 'w-0', 'outline-hidden', 'border-none', 'bg-transparent'],
@@ -42,14 +42,14 @@ export const inputInnerVariants = cva(
       size: {
         base: ['placeholder:text-sm'],
         sm: ['placeholder:text-xs'],
-        lg: ['placeholder:text-base'],
-      },
+        lg: ['placeholder:text-base']
+      }
     },
-    defaultVariants: { size: 'base' },
+    defaultVariants: { size: 'base' }
   },
   { className: `${prefix}-inner` }
-);
-export type InputInnerVariants = VariantProps<typeof inputInnerVariants>;
+)
+export type InputInnerVariants = VariantProps<typeof inputInnerVariants>
 
 export const inputClearableVariants = cva(
   'flex items-center justify-center',
@@ -58,9 +58,9 @@ export const inputClearableVariants = cva(
       size: {
         base: '[&_svg]:size-3.5',
         sm: '[&_svg]:size-3',
-        lg: '[&_svg]:size-4',
-      },
-    },
+        lg: '[&_svg]:size-4'
+      }
+    }
   },
   { className: `${prefix}-clearable` }
-);
+)

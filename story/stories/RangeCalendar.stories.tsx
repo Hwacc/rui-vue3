@@ -1,4 +1,4 @@
-import { RangeCalendar } from '@core/components/range-calendar'
+import { RangeCalendar } from '@rui/core/components/range-calendar'
 import type { Meta, StoryObj } from '@storybook/vue3'
 
 const meta = {
@@ -6,7 +6,7 @@ const meta = {
   component: RangeCalendar,
   tags: ['autodocs'],
   argTypes: {
-    size: { control: 'radio', options: ['base', 'sm', 'lg'] },
+    size: { control: 'radio', options: ['base', 'sm', 'lg'] }
   },
   args: {
     size: 'base'

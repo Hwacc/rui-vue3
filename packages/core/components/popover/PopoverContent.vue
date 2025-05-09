@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { cn } from '@/core/lib/utils';
+import { cn } from '@rui/core/lib/utils'
 import {
   injectPopoverRootContext,
   PopoverContent,
@@ -7,20 +7,20 @@ import {
   type PopoverContentProps,
   PopoverPortal,
   useForwardExpose,
-  useForwardPropsEmits,
-} from 'reka-ui';
-import { ref, watchEffect, type HTMLAttributes } from 'vue';
-import { popoverContentVariants } from '.';
-import { AnimatePresence } from 'motion-v';
-import { PopoverContentMotion } from '../motion/PopoverContentMotion';
+  useForwardPropsEmits
+} from 'reka-ui'
+import { ref, watchEffect, type HTMLAttributes } from 'vue'
+import { popoverContentVariants } from '.'
+import { AnimatePresence } from 'motion-v'
+import { PopoverContentMotion } from '@rui/core/components/motion/PopoverContentMotion'
 
 //@ts-ignore
-import { u as useGraceArea } from '../../node_modules/reka-ui/dist/shared/useGraceArea.js';
-import { injectPopoverRootContextEx } from './PopoverProviderEx.jsx';
+import { u as useGraceArea } from '../../node_modules/reka-ui/dist/shared/useGraceArea.js'
+import { injectPopoverRootContextEx } from './PopoverProviderEx.jsx'
 
 defineOptions({
-  inheritAttrs: false,
-});
+  inheritAttrs: false
+})
 
 const {
   class: propsClass,
@@ -31,51 +31,74 @@ const {
   ...props
 } = defineProps<
   PopoverContentProps & { class?: HTMLAttributes['class']; unstyled?: boolean }
->();
+>()
 
-const { triggerElement } = injectPopoverRootContext();
-const rootContextEx = injectPopoverRootContextEx();
+const { triggerElement } = injectPopoverRootContext()
+const rootContextEx = injectPopoverRootContextEx()
 
-const contentRef = ref<any>(null);
-const { isPointerInTransit, onPointerExit } = useGraceArea(triggerElement, contentRef);
+const contentRef = ref<any>(null)
+const { isPointerInTransit, onPointerExit } = useGraceArea(
+  triggerElement,
+  contentRef
+)
 
-rootContextEx.isPointerInTransitRef = isPointerInTransit;
+rootContextEx.isPointerInTransitRef = isPointerInTransit
 onPointerExit(() => {
-  if (rootContextEx.triggerType.value === 'hover' && !rootContextEx.disableHoverableContent.value) {
-    rootContextEx.onClose();
+  if (
+    rootContextEx.triggerType.value === 'hover' &&
+    !rootContextEx.disableHoverableContent.value
+  ) {
+    rootContextEx.onClose()
   }
-});
+})
 
-const { forwardRef, currentElement } = useForwardExpose();
+const { forwardRef, currentElement } = useForwardExpose()
 watchEffect((onCleanup) => {
-  const triggerType = rootContextEx.triggerType.value;
-  const triggerMode = rootContextEx.triggerMode.value;
-  if ((triggerType === 'click' || triggerType === 'manual') && currentElement.value) {
+  const triggerType = rootContextEx.triggerType.value
+  const triggerMode = rootContextEx.triggerMode.value
+  if (
+    (triggerType === 'click' || triggerType === 'manual') &&
+    currentElement.value
+  ) {
     if (rootContextEx.disableHoverableContent.value) {
       if (triggerMode === 'mouse-only') {
-        currentElement.value.addEventListener('mouseenter', rootContextEx.onClose);
+        currentElement.value.addEventListener(
+          'mouseenter',
+          rootContextEx.onClose
+        )
       } else if (triggerMode === 'touch-simulate') {
-        currentElement.value.addEventListener('pointerenter', rootContextEx.onClose);
+        currentElement.value.addEventListener(
+          'pointerenter',
+          rootContextEx.onClose
+        )
       }
       onCleanup(() => {
         if (triggerMode === 'mouse-only') {
-          currentElement.value?.removeEventListener('mouseenter', rootContextEx.onClose);
+          currentElement.value?.removeEventListener(
+            'mouseenter',
+            rootContextEx.onClose
+          )
         } else if (triggerMode === 'touch-simulate') {
-          currentElement.value?.removeEventListener('pointerenter', rootContextEx.onClose);
+          currentElement.value?.removeEventListener(
+            'pointerenter',
+            rootContextEx.onClose
+          )
         }
-      });
+      })
     }
   }
-});
+})
 
-const emits = defineEmits<PopoverContentEmits>();
-const forwarded = useForwardPropsEmits(props, emits);
+const emits = defineEmits<PopoverContentEmits>()
+const forwarded = useForwardPropsEmits(props, emits)
 </script>
 
 <template>
   <PopoverPortal>
     <AnimatePresence>
-      <PopoverContent v-bind="{ ...forwarded, side, align, sideOffset, ...$attrs }">
+      <PopoverContent
+        v-bind="{ ...forwarded, side, align, sideOffset, ...$attrs }"
+      >
         <PopoverContentMotion
           :class="cn(popoverContentVariants({ unstyled }), propsClass)"
           :side="side"

@@ -1,5 +1,5 @@
-import { PREFIX } from '@/core/lib/constants'
-import { cva } from '@/core/lib/cva'
+import { PREFIX } from '@rui/core/lib/constants'
+import { cva } from '@rui/core/lib/cva'
 
 export { default as SidebarContent } from './SidebarContent.vue'
 export { default as SidebarHeader } from './SidebarHeader.vue'

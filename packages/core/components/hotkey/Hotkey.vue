@@ -23,7 +23,7 @@ import {
   watchEffect
 } from 'vue'
 import { hotkeyVariants } from '.'
-import { cn } from '@/core/lib/utils'
+import { cn } from '@rui/core/lib/utils'
 import { inputInnerVariants, InputVariants, inputVariants } from '../input'
 import {
   CodesMap,

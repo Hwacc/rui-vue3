@@ -1,10 +1,9 @@
-import { PREFIX } from '@/core/lib/constants';
-// import { cva, type VariantProps } from 'class-variance-authority';
-import { cva, type VariantProps } from '@/core/lib/cva';
+import { PREFIX } from '@rui/core/lib/constants'
+import { cva, type VariantProps } from '@rui/core/lib/cva'
 
-export { default as Button } from './Button.vue';
+export { default as Button } from './Button.vue'
 
-const prefix = `${PREFIX}-btn`;
+const prefix = `${PREFIX}-btn`
 export const buttonVariants = cva(
   [
     'inline-flex',
@@ -24,7 +23,7 @@ export const buttonVariants = cva(
     'disabled:opacity-(--disabled-opacity)',
     '[&_svg]:pointer-events-none',
     '[&_svg]:size-3.5',
-    '[&_svg]:shrink-0',
+    '[&_svg]:shrink-0'
   ],
   {
     variants: {
@@ -34,37 +33,43 @@ export const buttonVariants = cva(
         outline: '',
         text: '',
         icon: ['px-0', 'aspect-square', 'border-none'],
-        switch: ['justify-start', 'gap-[.6875rem]', 'px-3', 'text-xs', '[&_svg]:size-[.625rem]'],
+        switch: [
+          'justify-start',
+          'gap-[.6875rem]',
+          'px-3',
+          'text-xs',
+          '[&_svg]:size-[.625rem]'
+        ]
       },
       size: {
         base: 'h-[1.75rem]',
         sm: 'h-[1.5rem] text-xs',
-        lg: 'h-[2rem] text-base',
-      },
+        lg: 'h-[2rem] text-base'
+      }
     },
     compoundVariants: [
       {
         variant: 'icon',
         size: 'lg',
-        className: '[&_svg]:size-4',
+        className: '[&_svg]:size-4'
       },
       {
         variant: 'icon',
         size: 'sm',
-        className: '[&_svg]:size-3',
+        className: '[&_svg]:size-3'
       },
       {
         variant: 'switch',
         size: 'lg',
-        className: '[&_svg]:size-3',
-      },
+        className: '[&_svg]:size-3'
+      }
     ],
     defaultVariants: {
       variant: 'default',
-      size: 'base',
-    },
+      size: 'base'
+    }
   },
   { className: prefix }
-);
+)
 
-export type ButtonVariants = VariantProps<typeof buttonVariants>;
+export type ButtonVariants = VariantProps<typeof buttonVariants>

@@ -1,13 +1,13 @@
 <script setup lang="ts">
-import { cn } from '@/core/lib/utils';
-import { computed, HTMLAttributes, toRefs } from 'vue';
+import { cn } from '@rui/core/lib/utils'
+import { computed, HTMLAttributes, toRefs } from 'vue'
 import {
   circleProgressVariants,
   circleProgressIndicatorVariants,
   CircleProgressVariants,
-  CircleProgressIndicatorVariants,
-} from '.';
-import { useIndicatorTransfer } from './useIndicatorTransfer';
+  CircleProgressIndicatorVariants
+} from '.'
+import { useIndicatorTransfer } from './useIndicatorTransfer'
 
 const {
   class: propsClass,
@@ -18,38 +18,44 @@ const {
   unstyled,
   ...props
 } = defineProps<{
-  class?: HTMLAttributes['class'];
-  type?: CircleProgressVariants['type'];
-  modelValue?: number;
-  strokeWidth?: number;
-  indicatorClass?: HTMLAttributes['class'];
-  variant?: CircleProgressIndicatorVariants['variant'];
-  unstyled?: boolean;
-}>();
+  class?: HTMLAttributes['class']
+  type?: CircleProgressVariants['type']
+  modelValue?: number
+  strokeWidth?: number
+  indicatorClass?: HTMLAttributes['class']
+  variant?: CircleProgressIndicatorVariants['variant']
+  unstyled?: boolean
+}>()
 const area = computed(() => {
-  const r = 24 - strokeWidth;
-  return Math.ceil(2 * Math.PI * r);
-});
+  const r = 24 - strokeWidth
+  return Math.ceil(2 * Math.PI * r)
+})
 
 const arc = computed(() => {
-  const r = 24 - strokeWidth;
-  const theta = (180 * 100) / (Math.PI * 22); // 以r = 22为基准计算圆心角
-  return Math.ceil((theta * Math.PI * r) / 180);
-});
+  const r = 24 - strokeWidth
+  const theta = (180 * 100) / (Math.PI * 22) // 以r = 22为基准计算圆心角
+  return Math.ceil((theta * Math.PI * r) / 180)
+})
 
-const { modelValue } = toRefs(props);
+const { modelValue } = toRefs(props)
 const progress = computed(() => {
   if (type === 'arc') {
-    return arc.value - ((modelValue.value ?? 0) / 100) * arc.value;
+    return arc.value - ((modelValue.value ?? 0) / 100) * arc.value
   } else {
-    return area.value - ((modelValue.value ?? 0) / 100) * area.value;
+    return area.value - ((modelValue.value ?? 0) / 100) * area.value
   }
-});
-const { indicatorRef, transferStyle } = useIndicatorTransfer(variant, modelValue);
+})
+const { indicatorRef, transferStyle } = useIndicatorTransfer(
+  variant,
+  modelValue
+)
 </script>
 
 <template>
-  <div :class="cn(circleProgressVariants({ unstyled }), propsClass)" :data-type="type">
+  <div
+    :class="cn(circleProgressVariants({ unstyled }), propsClass)"
+    :data-type="type"
+  >
     <div
       v-if="type === 'arc'"
       :class="

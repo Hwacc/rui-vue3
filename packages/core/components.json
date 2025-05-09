@@ -10,10 +10,10 @@
     "prefix": ""
   },
   "aliases": {
-    "ui": "@/core/components",
-    "components": "@/core/components",
-    "lib": "@/core/lib",
-    "utils": "@/core/lib/utils",
-    "composables": "@/core/composables"
+    "ui": "@rui/core/components",
+    "components": "@rui/core/components",
+    "lib": "@rui/core/lib",
+    "utils": "@rui/core/lib/utils",
+    "composables": "@rui/core/composables"
   }
 }

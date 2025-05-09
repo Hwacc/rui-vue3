@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { cn } from '@/core/lib/utils';
+import { cn } from '@rui/core/lib/utils';
 import { ProgressIndicator, ProgressRoot, type ProgressRootProps } from 'reka-ui';
 import { toRefs, type HTMLAttributes } from 'vue';
 import { progressVariants, progressIndicatorVariants, ProgressIndicatorVariants } from '.';

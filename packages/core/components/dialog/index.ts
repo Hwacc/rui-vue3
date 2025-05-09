@@ -1,6 +1,6 @@
-import { PREFIX } from '@/core/lib/constants'
+import { PREFIX } from '@rui/core/lib/constants'
 import { VariantProps } from 'class-variance-authority'
-import { cva } from '@/core/lib/cva'
+import { cva } from '@rui/core/lib/cva'
 
 export { default as Dialog } from './Dialog.vue'
 export { default as DialogClose } from './DialogClose.vue'
@@ -27,7 +27,7 @@ export const dialogOverlayVariants = cva(
     'inset-0',
     'z-50',
     'data-[state=open]:motion-opacity-in',
-    'data-[state=closed]:motion-opacity-out',
+    'data-[state=closed]:motion-opacity-out'
   ],
   undefined,
   { className: `${prefix}-overlay` }

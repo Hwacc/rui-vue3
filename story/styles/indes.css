@@ -2,7 +2,7 @@
 
 @config '../tailwind.config.ts';
 
-@import '@themes/razer/index.css';
+@import '@rui/themes/razer/index.css';
 
 @layer base {
   body {

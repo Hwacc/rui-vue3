@@ -1,12 +1,11 @@
-import { PREFIX } from '@/core/lib/constants'
-import { cva, VariantProps } from '@/core/lib/cva'
+import { PREFIX } from '@rui/core/lib/constants'
+import { cva, type VariantProps } from '@rui/core/lib/cva'
 
 export { default as Calendar } from './Calendar.vue'
 
 export * from './CalendarProvider'
 export * from './parts/index'
 export * from './panels'
-
 
 const prefix = `${PREFIX}-calendar`
 export const calendarRootVariants = cva(

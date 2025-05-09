@@ -1,4 +1,4 @@
-import { getCssVar } from "@/core/lib/utils"
+import { getCssVar } from "@rui/core/lib/utils"
 
 export const useAnimationParams = () => {
   let twDuration = getCssVar('--tw-duration')

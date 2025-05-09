@@ -1,6 +1,6 @@
 import { DirectiveBinding } from 'vue';
 import { computePosition, flip, shift, offset, hide } from '@floating-ui/vue';
-import { cva } from '@/core/lib/cva';
+import { cva } from '@rui/core/lib/cva';
 
 const titleTipVariants = cva(
   [

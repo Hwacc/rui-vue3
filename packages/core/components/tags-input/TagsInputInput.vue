@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { cn } from '@/core/lib/utils';
+import { cn } from '@rui/core/lib/utils';
 import { TagsInputInput, type TagsInputInputProps, useForwardProps } from 'reka-ui';
 import { ref, watch, type HTMLAttributes } from 'vue';
 import { TagsInputInnerVariants, tagsInputInnerVariants } from '.';

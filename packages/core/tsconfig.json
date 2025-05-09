@@ -2,7 +2,8 @@
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
-      "@/core/*": ["./*"]
+      "@rui/*": ["../packages/*"],
+      "@rui/core/*": ["./*"]
     },
     "target": "ES2020",
     "useDefineForClassFields": true,
@@ -29,9 +30,5 @@
     "noFallthroughCasesInSwitch": true,
     "noUncheckedSideEffectImports": true
   },
-  "include": [
-    "./**/*.ts",
-    "./**/*.tsx",
-    "./**/*.vue",
-  ]
+  "include": ["./**/*.ts", "./**/*.tsx", "./**/*.vue"]
 }

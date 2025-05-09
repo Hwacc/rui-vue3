@@ -1,19 +1,19 @@
 <script setup lang="ts">
-import type { CollapsibleContentProps } from 'reka-ui';
-import { CollapsibleContent } from 'reka-ui';
-import { collapsibleContentClass } from '.';
-import { cn } from '@/core/lib/utils';
-import { computed, HTMLAttributes } from 'vue';
+import type { CollapsibleContentProps } from 'reka-ui'
+import { CollapsibleContent } from 'reka-ui'
+import { collapsibleContentClass } from '.'
+import { cn } from '@rui/core/lib/utils'
+import { computed, HTMLAttributes } from 'vue'
 
 const { class: propsClass, ...props } = defineProps<
   CollapsibleContentProps & {
-    class?: HTMLAttributes['class'];
+    class?: HTMLAttributes['class']
   }
->();
+>()
 
 const classNames = computed(() => {
-  return cn(collapsibleContentClass, propsClass);
-});
+  return cn(collapsibleContentClass, propsClass)
+})
 </script>
 
 <template>

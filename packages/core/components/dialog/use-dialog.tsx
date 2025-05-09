@@ -1,4 +1,4 @@
-import { createApp, defineComponent, ref } from 'vue';
+import { createApp, defineComponent, ref } from 'vue'
 import {
   Dialog,
   DialogCloseFrom,
@@ -7,24 +7,24 @@ import {
   DialogFooter,
   DialogHeader,
   DialogScrollContent
-} from '.';
-import { DialogContentPropsImp } from './DialogContent.vue';
-import { isNil } from 'lodash-es';
+} from '.'
+import { DialogContentPropsImp } from './DialogContent.vue'
+import { isNil } from 'lodash-es'
 
 type DialogOptions = {
-  dialogContentProps?: DialogContentPropsImp;
-  title?: string | (() => any);
-  content?: string | (() => any);
-  type?: 'default' | 'scroll';
-  footer?: () => any;
-  render?: () => any;
-  onOpen?: () => void;
-  onOpened?: () => void;
-  onClose?: ({ from }: { from: DialogCloseFrom | undefined }) => void;
-  onClosed?: ({ from }: { from: DialogCloseFrom | undefined }) => void;
-  onOk?: () => void;
-  onCancel?: () => void;
-};
+  dialogContentProps?: DialogContentPropsImp
+  title?: string | (() => any)
+  content?: string | (() => any)
+  type?: 'default' | 'scroll'
+  footer?: () => any
+  render?: () => any
+  onOpen?: () => void
+  onOpened?: () => void
+  onClose?: ({ from }: { from: DialogCloseFrom | undefined }) => void
+  onClosed?: ({ from }: { from: DialogCloseFrom | undefined }) => void
+  onOk?: () => void
+  onCancel?: () => void
+}
 
 export const dialog = ({
   type = 'default',
@@ -38,44 +38,44 @@ export const dialog = ({
   onClose,
   onClosed,
   onOk,
-  onCancel,
+  onCancel
 }: DialogOptions) => {
-  const open = ref(false);
+  const open = ref(false)
   const DialogComponent = defineComponent<{ onClosed: () => void }>({
     name: 'Dialog',
     props: {
       onClosed: {
         type: Function,
-        default: () => {},
-      },
+        default: () => {}
+      }
     },
     setup(props) {
-      const { onClosed: onPropsClosed } = props;
+      const { onClosed: onPropsClosed } = props
       return () => {
         const _contentProps = {
           ...dialogContentProps,
-          showClose: isNil(render) && dialogContentProps.showClose,
-        };
+          showClose: isNil(render) && dialogContentProps.showClose
+        }
         const contentSlots = {
           default: () => {
-            if (render) return render();
+            if (render) return render()
             else
               return (
                 <>
                   <DialogHeader>
                     {{
                       default: () => {
-                        if (typeof title === 'function') return title();
-                        return title;
-                      },
+                        if (typeof title === 'function') return title()
+                        return title
+                      }
                     }}
                   </DialogHeader>
                   <DialogContentBody>
                     {{
                       default: () => {
-                        if (typeof content === 'function') return content();
-                        return content;
-                      },
+                        if (typeof content === 'function') return content()
+                        return content
+                      }
                     }}
                   </DialogContentBody>
                   {!footer ? (
@@ -83,14 +83,14 @@ export const dialog = ({
                   ) : (
                     <DialogFooter>
                       {{
-                        default: footer,
+                        default: footer
                       }}
                     </DialogFooter>
                   )}
                 </>
-              );
-          },
-        };
+              )
+          }
+        }
         return (
           <Dialog v-model={[open.value, 'open']}>
             {type === 'scroll' && (
@@ -100,8 +100,8 @@ export const dialog = ({
                 onOpened={onOpened}
                 onClose={onClose}
                 onClosed={(arg: { from: DialogCloseFrom | undefined }) => {
-                  onClosed?.(arg);
-                  onPropsClosed();
+                  onClosed?.(arg)
+                  onPropsClosed()
                 }}>
                 {contentSlots}
               </DialogScrollContent>
@@ -113,30 +113,30 @@ export const dialog = ({
                 onOpened={onOpened}
                 onClose={onClose}
                 onClosed={(arg: { from: DialogCloseFrom | undefined }) => {
-                  onClosed?.(arg);
-                  onPropsClosed();
+                  onClosed?.(arg)
+                  onPropsClosed()
                 }}>
                 {contentSlots}
               </DialogContent>
             )}
           </Dialog>
-        );
-      };
-    },
-  });
+        )
+      }
+    }
+  })
   // create a dialog
-  let dialogRoot: HTMLDivElement | null = document.createElement('div');
+  let dialogRoot: HTMLDivElement | null = document.createElement('div')
   const dialogApp = createApp(DialogComponent, {
     onClosed: () => {
-      dialogApp.unmount();
-      dialogRoot = null;
-    },
-  });
-  dialogApp.mount(dialogRoot);
+      dialogApp.unmount()
+      dialogRoot = null
+    }
+  })
+  dialogApp.mount(dialogRoot)
   // open the dialog
-  open.value = true;
+  open.value = true
   const close = () => {
-    open.value = false;
-  };
-  return [close];
-};
+    open.value = false
+  }
+  return [close]
+}

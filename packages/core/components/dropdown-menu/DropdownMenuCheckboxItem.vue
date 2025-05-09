@@ -1,10 +1,13 @@
 <script setup lang="ts">
-import type { DropdownMenuCheckboxItemEmits, DropdownMenuCheckboxItemProps } from 'reka-ui';
-import { ref, watch, type HTMLAttributes } from 'vue';
-import { cn } from '@/core/lib/utils';
-import { DropdownMenuCheckboxItem, useForwardPropsEmits } from 'reka-ui';
-import { dropdownMenuItemVariants } from '.';
-import { Checkbox } from '@/core/components/checkbox';
+import type {
+  DropdownMenuCheckboxItemEmits,
+  DropdownMenuCheckboxItemProps
+} from 'reka-ui'
+import { ref, watch, type HTMLAttributes } from 'vue'
+import { cn } from '@rui/core/lib/utils'
+import { DropdownMenuCheckboxItem, useForwardPropsEmits } from 'reka-ui'
+import { dropdownMenuItemVariants } from '.'
+import { Checkbox } from '@rui/core/components/checkbox'
 
 const {
   class: propsClass,
@@ -14,22 +17,22 @@ const {
   ...props
 } = defineProps<
   DropdownMenuCheckboxItemProps & {
-    class?: HTMLAttributes['class'];
-    prevent?: boolean;
-    unstyled?: boolean;
+    class?: HTMLAttributes['class']
+    prevent?: boolean
+    unstyled?: boolean
   }
->();
-const emits = defineEmits<DropdownMenuCheckboxItemEmits>();
+>()
+const emits = defineEmits<DropdownMenuCheckboxItemEmits>()
 
-const innerModelValue = ref(modelValue);
+const innerModelValue = ref(modelValue)
 watch(
   () => modelValue,
   (val) => (innerModelValue.value = val),
   { immediate: true }
-);
-watch(innerModelValue, (val) => emits('update:modelValue', val as boolean));
+)
+watch(innerModelValue, (val) => emits('update:modelValue', val as boolean))
 
-const forwarded = useForwardPropsEmits(props, emits);
+const forwarded = useForwardPropsEmits(props, emits)
 </script>
 
 <template>
@@ -39,7 +42,7 @@ const forwarded = useForwardPropsEmits(props, emits);
       cn(
         dropdownMenuItemVariants({
           variant: 'checkbox',
-          unstyled,
+          unstyled
         }),
         propsClass
       )
@@ -49,8 +52,8 @@ const forwarded = useForwardPropsEmits(props, emits);
     @update:model-value="(val) => (innerModelValue = val)"
     @select="
       (event) => {
-        prevent && event.preventDefault();
-        emits('select', event);
+        prevent && event.preventDefault()
+        emits('select', event)
       }
     "
   >

@@ -1,10 +1,10 @@
 <script setup lang="ts">
-import { ScrollArea, ScrollBar } from '@/core/components/scroll-area'
+import { ScrollArea, ScrollBar } from '@rui/core/components/scroll-area'
 import { injectTagsInputRootContext } from 'reka-ui'
 import { HTMLAttributes, nextTick, useTemplateRef, watch } from 'vue'
 import { tagsItemScrollHorizontalVariants } from '.'
-import { ScrollBarVariants } from '@/core/components/scroll-area'
-import { cn } from '@/core/lib/utils'
+import { ScrollBarVariants } from '@rui/core/components/scroll-area'
+import { cn } from '@rui/core/lib/utils'
 
 const {
   class: propsClass,

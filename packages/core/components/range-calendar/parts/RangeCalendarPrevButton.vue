@@ -1,11 +1,11 @@
 <script lang="ts" setup>
 import type { RangeCalendarPrevProps } from 'reka-ui'
 import type { HTMLAttributes } from 'vue'
-import { type ButtonVariants, buttonVariants } from '@/core/components/button'
-import { cn } from '@/core/lib/utils'
+import { type ButtonVariants, buttonVariants } from '@rui/core/components/button'
+import { cn } from '@rui/core/lib/utils'
 import { ChevronLeft } from 'lucide-vue-next'
 import { RangeCalendarPrev, useForwardProps } from 'reka-ui'
-import { prefix } from '@/core/components/calendar'
+import { prefix } from '@rui/core/components/calendar'
 
 const {
   class: propsClass,

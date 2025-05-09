@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import type { RangeCalendarGridBodyProps } from 'reka-ui'
 import { RangeCalendarGridBody } from 'reka-ui'
-import { prefix } from '@/core/components/calendar'
+import { prefix } from '@rui/core/components/calendar'
 
 const { unstyled, ...props } = defineProps<
   RangeCalendarGridBodyProps & {

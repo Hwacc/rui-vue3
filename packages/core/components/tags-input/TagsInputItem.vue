@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { cn } from '@/core/lib/utils'
+import { cn } from '@rui/core/lib/utils'
 import {
   injectTagsInputRootContext,
   TagsInputItem,
@@ -11,7 +11,7 @@ import { useTemplateRef, type HTMLAttributes } from 'vue'
 import { TagsInputItemVariants, tagsInputItemVariants } from '.'
 import { injectTagsInputContextEx } from './TagsInputProviderEx'
 import { onClickOutside } from '@vueuse/core'
-import { useCollection } from '@/core/components/collection'
+import { useCollection } from '@rui/core/components/collection'
 import { last } from 'lodash-es'
 
 const {

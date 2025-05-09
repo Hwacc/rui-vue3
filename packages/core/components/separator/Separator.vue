@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { cn } from '@/core/lib/utils'
+import { cn } from '@rui/core/lib/utils'
 import { Separator, type SeparatorProps } from 'reka-ui'
 import { type HTMLAttributes } from 'vue'
 import { separatorVariants, separatorLabelVariants } from '.'

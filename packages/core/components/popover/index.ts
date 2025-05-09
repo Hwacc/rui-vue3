@@ -1,6 +1,6 @@
 import { VariantProps } from 'class-variance-authority'
-import { cva } from '@/core/lib/cva'
-import { PREFIX } from '@/core/lib/constants.js'
+import { cva } from '@rui/core/lib/cva'
+import { PREFIX } from '@rui/core/lib/constants.js'
 
 export { default as Popover } from './Popover.vue'
 export { default as PopoverContent } from './PopoverContent.vue'

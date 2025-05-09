@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import { PopoverArrow, type PopoverArrowProps } from 'reka-ui';
-import { computed, HTMLAttributes, ref, watch } from 'vue';
-import { popoverArrowVariants, PopoverArrowVariants } from '.';
-import { cn, rem2px } from '@/core/lib/utils';
+import { PopoverArrow, type PopoverArrowProps } from 'reka-ui'
+import { computed, HTMLAttributes, ref, watch } from 'vue'
+import { popoverArrowVariants, PopoverArrowVariants } from '.'
+import { cn, rem2px } from '@rui/core/lib/utils'
 
 const {
   class: propsClass,
@@ -14,43 +14,43 @@ const {
   ...props
 } = defineProps<
   PopoverArrowProps & {
-    class?: HTMLAttributes['class'];
-    force?: boolean;
-    variant?: PopoverArrowVariants['variant'];
-    unstyled?: boolean;
+    class?: HTMLAttributes['class']
+    force?: boolean
+    variant?: PopoverArrowVariants['variant']
+    unstyled?: boolean
   }
->();
+>()
 
-const arrowRef = ref<{ $el: HTMLElement } | null>(null);
+const arrowRef = ref<{ $el: HTMLElement } | null>(null)
 
 watch(arrowRef, () => {
   if (force && arrowRef.value?.$el) {
     setTimeout(() => {
       if (arrowRef.value?.$el) {
-        arrowRef.value.$el.style.visibility = 'visible';
+        arrowRef.value.$el.style.visibility = 'visible'
       }
-    }, 100);
+    }, 100)
   }
-});
+})
 
 const style = computed(() => {
   return {
     '--reka-popover-arrow-width': `${width}px`,
     '--reka-popover-arrow-height': `${height}px`,
     '--reka-popover-arrow-border-width': `${width / 2}px`,
-    '--reka-popover-arrow-border-height': `${height / 2}px`,
-  };
-});
+    '--reka-popover-arrow-border-height': `${height / 2}px`
+  }
+})
 
 const classNames = computed(() =>
   cn(
     popoverArrowVariants({
       variant,
-      unstyled,
+      unstyled
     }),
     propsClass
   )
-);
+)
 </script>
 <template>
   <PopoverArrow

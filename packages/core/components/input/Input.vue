@@ -1,26 +1,26 @@
 <script lang="ts">
-import type { InputVariants } from './index';
+import type { InputVariants } from './index'
 interface Props extends PrimitiveProps {
-  defaultValue?: string | number;
-  modelValue?: string | number;
-  class?: HTMLAttributes['class'];
-  size?: InputVariants['size'];
-  innerClass?: HTMLAttributes['class'];
-  placeholder?: string;
-  clearable?: boolean;
-  disabled?: boolean;
-  readonly?: boolean;
-  unstyled?: boolean;
+  defaultValue?: string | number
+  modelValue?: string | number
+  class?: HTMLAttributes['class']
+  size?: InputVariants['size']
+  innerClass?: HTMLAttributes['class']
+  placeholder?: string
+  clearable?: boolean
+  disabled?: boolean
+  readonly?: boolean
+  unstyled?: boolean
 }
 </script>
 
 <script setup lang="ts">
-import { computed, ref, type HTMLAttributes } from 'vue';
-import { cn } from '@/core/lib/utils';
-import { useVModel } from '@vueuse/core';
-import { Primitive, PrimitiveProps, useForwardExpose } from 'reka-ui';
-import { inputInnerVariants, inputVariants, inputClearableVariants } from '.';
-import { CircleX } from 'lucide-vue-next';
+import { computed, ref, type HTMLAttributes } from 'vue'
+import { cn } from '@rui/core/lib/utils'
+import { useVModel } from '@vueuse/core'
+import { Primitive, PrimitiveProps, useForwardExpose } from 'reka-ui'
+import { inputInnerVariants, inputVariants, inputClearableVariants } from '.'
+import { CircleX } from 'lucide-vue-next'
 
 const {
   class: propsClass,
@@ -31,44 +31,46 @@ const {
   disabled,
   readonly,
   ...props
-} = defineProps<Props>();
+} = defineProps<Props>()
 const emits = defineEmits<{
-  'update:modelValue': [value: string | number];
-  focus: [e: Event];
-  blur: [e: Event];
-  input: [e: Event, value: string | number | undefined];
-  change: [e: Event, value: string | number | undefined];
-}>();
+  'update:modelValue': [value: string | number]
+  'focus': [e: Event]
+  'blur': [e: Event]
+  'input': [e: Event, value: string | number | undefined]
+  'change': [e: Event, value: string | number | undefined]
+}>()
 
 const modelValue = useVModel(props, 'modelValue', emits, {
   passive: true,
-  defaultValue: props.defaultValue,
-});
+  defaultValue: props.defaultValue
+})
 
-const isFocus = ref(false);
+const isFocus = ref(false)
 const inputState = computed(() => {
-  if (disabled) return 'disabled';
-  if (readonly) return 'readonly';
-  return isFocus.value ? 'focused' : 'blur';
-});
-const inputRef = ref<HTMLInputElement | null>(null);
-const rejectBlur = ref(false);
+  if (disabled) return 'disabled'
+  if (readonly) return 'readonly'
+  return isFocus.value ? 'focused' : 'blur'
+})
+const inputRef = ref<HTMLInputElement | null>(null)
+const rejectBlur = ref(false)
 const onBlur = (event: Event) => {
   setTimeout(() => {
-    emits('blur', event);
+    emits('blur', event)
     if (rejectBlur.value) {
-      rejectBlur.value = false;
-      return;
+      rejectBlur.value = false
+      return
     }
-    isFocus.value = false;
-  });
-};
+    isFocus.value = false
+  })
+}
 
-const className = computed(() => cn(inputVariants({ size, unstyled }), propsClass));
+const className = computed(() =>
+  cn(inputVariants({ size, unstyled }), propsClass)
+)
 const innerClassName = computed(() =>
   cn(inputInnerVariants({ size, unstyled }), innerClass)
-);
-const { forwardRef } = useForwardExpose();
+)
+const { forwardRef } = useForwardExpose()
 </script>
 
 <template>
@@ -102,9 +104,9 @@ const { forwardRef } = useForwardExpose();
       :class="inputClearableVariants({ size, unstyled })"
       @mousedown.stop="
         () => {
-          rejectBlur = true;
-          inputRef?.focus();
-          modelValue = '';
+          rejectBlur = true
+          inputRef?.focus()
+          modelValue = ''
         }
       "
     >

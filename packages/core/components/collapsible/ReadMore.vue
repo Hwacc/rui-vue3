@@ -1,32 +1,44 @@
 <script lang="ts">
-import { HTMLAttributes } from 'vue';
-import { CollapsibleRootProps, CollapsibleTriggerProps, createContext } from 'reka-ui';
+import { HTMLAttributes } from 'vue'
+import {
+  CollapsibleRootProps,
+  CollapsibleTriggerProps,
+  createContext
+} from 'reka-ui'
 
 export interface ReadMoreProps extends CollapsibleRootProps {
-  unstyled?: boolean;
+  unstyled?: boolean
   triggerProps?: CollapsibleTriggerProps & {
-    class?: HTMLAttributes['class'];
-    viewLessText?: string;
-    viewMoreText?: string;
-  };
+    class?: HTMLAttributes['class']
+    viewLessText?: string
+    viewMoreText?: string
+  }
   contentProps?: ReadMoreContentProps & {
-    class?: HTMLAttributes['class'];
-  };
+    class?: HTMLAttributes['class']
+  }
 }
 
 export interface ReadMoreContext {
-  showTrigger?: Ref<boolean>;
+  showTrigger?: Ref<boolean>
 }
 export const [injectReadMoreContext, provideReadMoreContext] =
-  createContext<ReadMoreContext>('ReadMoreContext');
+  createContext<ReadMoreContext>('ReadMoreContext')
 </script>
 
 <script setup lang="ts">
-import { Collapsible, CollapsibleTrigger, readMoreRootVariant, readMoreTriggerVariant } from '.';
-import { default as ReadMoreContent, ReadMoreContentProps } from './ReadMoreContent.vue';
-import { useForwardPropsEmits, CollapsibleRootEmits } from 'reka-ui';
-import { cn } from '@/core/lib/utils';
-import { computed, Ref, ref } from 'vue';
+import {
+  Collapsible,
+  CollapsibleTrigger,
+  readMoreRootVariant,
+  readMoreTriggerVariant
+} from '.'
+import {
+  default as ReadMoreContent,
+  ReadMoreContentProps
+} from './ReadMoreContent.vue'
+import { useForwardPropsEmits, CollapsibleRootEmits } from 'reka-ui'
+import { cn } from '@rui/core/lib/utils'
+import { computed, Ref, ref } from 'vue'
 
 const {
   triggerProps,
@@ -36,32 +48,32 @@ const {
   ...props
 } = defineProps<
   ReadMoreProps & {
-    class?: HTMLAttributes['class'];
+    class?: HTMLAttributes['class']
   }
->();
+>()
 const emits = defineEmits<
   CollapsibleRootEmits & {
-    contentFound: [void];
+    contentFound: [void]
   }
->();
+>()
 
 const delegateTriggerProps = computed(() => {
   const _delegete = {
-    ...triggerProps,
-  };
-  delete _delegete?.class;
-  delete _delegete?.viewLessText;
-  delete _delegete?.viewMoreText;
-  return _delegete;
-});
+    ...triggerProps
+  }
+  delete _delegete?.class
+  delete _delegete?.viewLessText
+  delete _delegete?.viewMoreText
+  return _delegete
+})
 
-const rootForwarded = useForwardPropsEmits(props, emits);
-const contentForwarded = useForwardPropsEmits(contentProps ?? {});
+const rootForwarded = useForwardPropsEmits(props, emits)
+const contentForwarded = useForwardPropsEmits(contentProps ?? {})
 
-const showTrigger = ref(false);
+const showTrigger = ref(false)
 provideReadMoreContext({
-  showTrigger,
-});
+  showTrigger
+})
 </script>
 
 <template>
@@ -76,7 +88,7 @@ provideReadMoreContext({
         open,
         showTrigger,
         viewLessText: triggerProps?.viewLessText,
-        viewMoreText: triggerProps?.viewMoreText,
+        viewMoreText: triggerProps?.viewMoreText
       }"
     >
       <CollapsibleTrigger
@@ -91,7 +103,10 @@ provideReadMoreContext({
         }}
       </CollapsibleTrigger>
     </slot>
-    <ReadMoreContent v-bind="contentForwarded"  @content-found="emits('contentFound')">
+    <ReadMoreContent
+      v-bind="contentForwarded"
+      @content-found="emits('contentFound')"
+    >
       <template #default>
         <slot name="default" v-bind="{ open, showTrigger }"></slot>
       </template>

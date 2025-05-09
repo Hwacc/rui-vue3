@@ -2,7 +2,7 @@
 import { TooltipArrow, type TooltipArrowProps } from 'reka-ui';
 import { computed, HTMLAttributes, ref, watch } from 'vue';
 import { toolTipArrowVariants, ToolTipArrowVariants } from '.';
-import { cn } from '@/core/lib/utils';
+import { cn } from '@rui/core/lib/utils';
 
 const {
   force = false,

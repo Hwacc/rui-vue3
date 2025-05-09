@@ -1,4 +1,4 @@
-import { cva, VariantProps } from '@/core/lib/cva';
+import { cva, VariantProps } from '@rui/core/lib/cva';
 
 export { default as TagsInput } from './TagsInput.vue';
 export { default as TagsInputInput } from './TagsInputInput.vue';

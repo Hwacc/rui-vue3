@@ -1,20 +1,23 @@
 <script setup lang="ts">
-import type { DropdownMenuSubTriggerProps } from 'reka-ui';
-import type { HTMLAttributes } from 'vue';
-import { cn } from '@/core/lib/utils';
-import { ChevronRight } from 'lucide-vue-next';
-import { DropdownMenuSubTrigger, useForwardProps } from 'reka-ui';
-import { dropdownMenuSubTriggerVariants } from '.';
+import type { DropdownMenuSubTriggerProps } from 'reka-ui'
+import type { HTMLAttributes } from 'vue'
+import { cn } from '@rui/core/lib/utils'
+import { ChevronRight } from 'lucide-vue-next'
+import { DropdownMenuSubTrigger, useForwardProps } from 'reka-ui'
+import { dropdownMenuSubTriggerVariants } from '.'
 
 const {
   class: propsClass,
   unstyled,
   ...props
 } = defineProps<
-  DropdownMenuSubTriggerProps & { class?: HTMLAttributes['class']; unstyled?: boolean }
->();
+  DropdownMenuSubTriggerProps & {
+    class?: HTMLAttributes['class']
+    unstyled?: boolean
+  }
+>()
 
-const forwardedProps = useForwardProps(props);
+const forwardedProps = useForwardProps(props)
 </script>
 
 <template>

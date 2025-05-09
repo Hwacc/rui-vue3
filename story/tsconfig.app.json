@@ -7,12 +7,10 @@
     "paths": {
       "@/stories/*": ["./stories/*"],
       "@stories/*": ["./stories/*"],
-      "@/core/*": ["../packages/core/*"],
-      "@core/*": ["../packages/core/*"],
-      "@/add-ons/*": ["../packages/add-ons/*"],
-      "@add-ons/*": ["../packages/add-ons/*"],
-      "@/themes/*": ["../packages/themes/*"],
-      "@themes/*": ["../packages/themes/*"],
+      "@rui/*": ["../packages/*"],
+      "@rui/core/*": ["../packages/core/*"],
+      "@rui/add-ons/*": ["../packages/add-ons/*"],
+      "@rui/themes/*": ["../packages/themes/*"]
     },
 
     /* Linting */
@@ -25,7 +23,12 @@
     "jsx": "preserve",
     "jsxFactory": "h",
     "jsxImportSource": "vue",
-    "jsxFragmentFactory": "Fragment",
+    "jsxFragmentFactory": "Fragment"
   },
-  "include": ["stories/**/*.ts", "stories/**/*.tsx", "stories/**/*.vue", "vite-env.d.ts"]
+  "include": [
+    "stories/**/*.ts",
+    "stories/**/*.tsx",
+    "stories/**/*.vue",
+    "vite-env.d.ts"
+  ]
 }

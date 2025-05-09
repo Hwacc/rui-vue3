@@ -1,6 +1,6 @@
 <script lang="tsx" setup>
 import { computed, type HTMLAttributes } from 'vue'
-import { cn } from '@/core/lib/utils'
+import { cn } from '@rui/core/lib/utils'
 import {
   CalendarHeading,
   injectCalendarRootContext,
@@ -11,7 +11,7 @@ import {
 import { calendarHeadingVariants, type CalendarHeadingVariantsProps } from '.'
 import { injectCalendarContextEx } from '..'
 import { toDate } from 'reka-ui/date'
-import { CalendarPanelEnum } from '@/core/lib/constants'
+import { CalendarPanelEnum } from '@rui/core/lib/constants'
 
 const {
   class: propsClass,

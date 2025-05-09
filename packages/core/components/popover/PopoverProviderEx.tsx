@@ -1,42 +1,42 @@
-import { useTimeoutFn } from '@vueuse/core';
-import { createContext, injectPopoverRootContext } from 'reka-ui';
-import { defineComponent, ref, Ref, toRefs } from 'vue';
+import { useTimeoutFn } from '@vueuse/core'
+import { createContext, injectPopoverRootContext } from 'reka-ui'
+import { defineComponent, ref, Ref, toRefs } from 'vue'
 
 export interface PopoverRootContext {
-  triggerElement: Ref<HTMLElement | undefined>;
-  triggerId: string;
-  contentId: string;
-  open: Ref<boolean>;
-  modal: Ref<boolean>;
-  onOpenChange: (value: boolean) => void;
-  onOpenToggle: () => void;
-  hasCustomAnchor: Ref<boolean>;
+  triggerElement: Ref<HTMLElement | undefined>
+  triggerId: string
+  contentId: string
+  open: Ref<boolean>
+  modal: Ref<boolean>
+  onOpenChange: (value: boolean) => void
+  onOpenToggle: () => void
+  hasCustomAnchor: Ref<boolean>
 }
 
 export interface PopoverRootContextEx extends PopoverRootContext {
-  delayDuration: Ref<number | undefined>;
-  disableClosingTrigger: Ref<boolean | undefined>;
-  disabled: Ref<boolean | undefined>;
-  disableHoverableContent: Ref<boolean | undefined>;
-  ignoreNonKeyboardFocus: Ref<boolean | undefined>;
+  delayDuration: Ref<number | undefined>
+  disableClosingTrigger: Ref<boolean | undefined>
+  disabled: Ref<boolean | undefined>
+  disableHoverableContent: Ref<boolean | undefined>
+  ignoreNonKeyboardFocus: Ref<boolean | undefined>
 
-  isPointerInTransitRef: Ref<boolean>;
-  isOpenDelayed: Ref<boolean>;
-  triggerType: Ref<'hover' | 'click' | 'manual'>;
-  triggerMode: Ref<'mouse-only' | 'touch-simulate'>;
-  onOpen: () => void;
-  onClose: () => void;
+  isPointerInTransitRef: Ref<boolean>
+  isOpenDelayed: Ref<boolean>
+  triggerType: Ref<'hover' | 'click' | 'manual'>
+  triggerMode: Ref<'mouse-only' | 'touch-simulate'>
+  onOpen: () => void
+  onClose: () => void
 }
 const [injectPopoverRootContextEx, providePopoverRootContextEx] =
-  createContext<PopoverRootContextEx>('PopoverProviderEx');
-export { injectPopoverRootContextEx };
+  createContext<PopoverRootContextEx>('PopoverProviderEx')
+export { injectPopoverRootContextEx }
 
 export interface PopoverProviderExProps {
-  delayDuration?: number;
-  disableClosingTrigger?: boolean;
-  disabled?: boolean;
-  disableHoverableContent?: boolean;
-  ignoreNonKeyboardFocus?: boolean;
+  delayDuration?: number
+  disableClosingTrigger?: boolean
+  disabled?: boolean
+  disableHoverableContent?: boolean
+  ignoreNonKeyboardFocus?: boolean
 }
 
 export const PopoverProviderEx = defineComponent<PopoverProviderExProps>({
@@ -44,57 +44,57 @@ export const PopoverProviderEx = defineComponent<PopoverProviderExProps>({
   props: {
     disabled: {
       type: Boolean,
-      default: false,
+      default: false
     },
     disableClosingTrigger: {
       type: Boolean,
-      default: false,
+      default: false
     },
     disableHoverableContent: {
       type: Boolean,
-      default: false,
+      default: false
     },
     ignoreNonKeyboardFocus: {
       type: Boolean,
-      default: false,
+      default: false
     },
     delayDuration: {
       type: Number,
-      default: 0,
+      default: 0
     },
     skipDelayDuration: {
       type: Number,
-      default: 0,
-    },
+      default: 0
+    }
   },
   setup(props, { slots }) {
-    const propsRefs = toRefs(props);
-    const popoverRootContext = injectPopoverRootContext();
-    const triggerType = ref<'hover' | 'click' | 'manual'>('click');
-    const triggerMode = ref<'mouse-only' | 'touch-simulate'>('mouse-only');
-    const isOpenDelayed = ref(true);
+    const propsRefs = toRefs(props)
+    const popoverRootContext = injectPopoverRootContext()
+    const triggerType = ref<'hover' | 'click' | 'manual'>('click')
+    const triggerMode = ref<'mouse-only' | 'touch-simulate'>('mouse-only')
+    const isOpenDelayed = ref(true)
     // Reset the inTransit state if idle/scrolled.
-    const isPointerInTransitRef = ref(false);
+    const isPointerInTransitRef = ref(false)
 
     const { start: startOpenTimer, stop: clearOpenTimer } = useTimeoutFn(
       () => {
-        popoverRootContext.onOpenChange(true);
+        popoverRootContext.onOpenChange(true)
       },
       propsRefs.delayDuration as Ref<number>,
       { immediate: false }
-    );
+    )
 
     const handleOpen = () => {
       if (isOpenDelayed.value) {
-        startOpenTimer();
+        startOpenTimer()
       } else {
-        popoverRootContext.onOpenChange(true);
+        popoverRootContext.onOpenChange(true)
       }
-    };
+    }
     const handleClose = () => {
-      clearOpenTimer();
-      popoverRootContext.onOpenChange(false);
-    };
+      clearOpenTimer()
+      popoverRootContext.onOpenChange(false)
+    }
 
     providePopoverRootContextEx({
       ...popoverRootContext,
@@ -104,8 +104,8 @@ export const PopoverProviderEx = defineComponent<PopoverProviderExProps>({
       isOpenDelayed,
       isPointerInTransitRef,
       onOpen: handleOpen,
-      onClose: handleClose,
-    });
-    return () => slots.default?.();
-  },
-});
+      onClose: handleClose
+    })
+    return () => slots.default?.()
+  }
+})

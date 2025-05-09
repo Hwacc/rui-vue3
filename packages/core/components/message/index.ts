@@ -1,14 +1,14 @@
-import { VariantProps } from 'class-variance-authority';
-import { cva } from '@/core/lib/cva';
-import { ToastRootProps } from 'reka-ui';
-import { HTMLAttributes } from 'vue';
-import { toastEdgeAnimate, toastSwipe } from '../toast';
-import { PREFIX } from '@/core/lib/constants';
+import { VariantProps } from 'class-variance-authority'
+import { cva } from '@rui/core/lib/cva'
+import { ToastRootProps } from 'reka-ui'
+import { HTMLAttributes } from 'vue'
+import { toastEdgeAnimate, toastSwipe } from '../toast'
+import { PREFIX } from '@rui/core/lib/constants'
 
-export { default as Messager } from './Messager.vue';
-export { message, useMessage } from './use-message';
+export { default as Messager } from './Messager.vue'
+export { message, useMessage } from './use-message'
 
-const prefix = `${PREFIX}-message`;
+const prefix = `${PREFIX}-message`
 export const messageVariants = cva(
   [
     'group',
@@ -27,15 +27,15 @@ export const messageVariants = cva(
     'py-3',
     // message animations
     toastEdgeAnimate['top-center'],
-    toastSwipe.vertical,
+    toastSwipe.vertical
   ],
   undefined,
   { className: prefix }
-);
-export type MessageVariants = VariantProps<typeof messageVariants>;
+)
+export type MessageVariants = VariantProps<typeof messageVariants>
 
 export interface MessageProps extends ToastRootProps {
-  class?: HTMLAttributes['class'];
-  variant?: StatusVariants;
-  onOpenChange?: ((value: boolean) => void) | undefined;
+  class?: HTMLAttributes['class']
+  variant?: StatusVariants
+  onOpenChange?: ((value: boolean) => void) | undefined
 }

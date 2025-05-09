@@ -1,6 +1,6 @@
 import { fn } from '@storybook/test'
 import type { Meta, StoryObj } from '@storybook/vue3'
-import { Button } from '@core/components/button'
+import { Button } from '@rui/core/components/button'
 import { Camera } from 'lucide-vue-next'
 import { ref, watch } from 'vue'
 

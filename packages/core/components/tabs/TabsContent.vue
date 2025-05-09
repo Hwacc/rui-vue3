@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type { TabsContentProps } from 'reka-ui';
 import type { HTMLAttributes } from 'vue';
-import { cn } from '@/core/lib/utils';
+import { cn } from '@rui/core/lib/utils';
 import { TabsContent } from 'reka-ui';
 import { computed, ref, watch } from 'vue';
 import { tabsContentVariants } from '.';

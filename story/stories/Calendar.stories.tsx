@@ -1,4 +1,4 @@
-import { Calendar } from '@core/components/calendar'
+import { Calendar } from '@rui/core/components/calendar'
 import type { Meta, StoryObj } from '@storybook/vue3'
 
 const meta = {

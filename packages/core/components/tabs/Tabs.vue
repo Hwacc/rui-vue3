@@ -21,7 +21,7 @@ export const [injectTabsContext, provideTabsContext] = createContext<TabsContext
 import type { TabsRootEmits, TabsRootProps } from 'reka-ui';
 import { TabsRoot, useForwardPropsEmits } from 'reka-ui';
 import { computed, getCurrentInstance, HTMLAttributes, nextTick, reactive, ref } from 'vue';
-import { cn } from '@/core/lib/utils';
+import { cn } from '@rui/core/lib/utils';
 import { tabsVariants } from '.';
 
 const {

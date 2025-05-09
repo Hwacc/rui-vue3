@@ -1,7 +1,7 @@
 <script lang="tsx" setup>
 import type { DateValue, RangeCalendarHeadingProps } from 'reka-ui'
 import { computed, type HTMLAttributes } from 'vue'
-import { cn } from '@/core/lib/utils'
+import { cn } from '@rui/core/lib/utils'
 import {
   injectRangeCalendarRootContext,
   RangeCalendarHeading,
@@ -11,9 +11,9 @@ import {
 import {
   calendarHeadingVariants,
   type CalendarHeadingVariantsProps
-} from '@/core/components/calendar'
+} from '@rui/core/components/calendar'
 import { injectRangeCalendarContextEx } from '../RangeCalendarProvider'
-import { CalendarPanelEnum } from '@/core/lib/constants'
+import { CalendarPanelEnum } from '@rui/core/lib/constants'
 import { toDate } from 'reka-ui/date'
 
 const {

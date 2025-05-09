@@ -6,8 +6,8 @@
  */
 import { computed, defineComponent, toRefs } from 'vue'
 import { motion } from 'motion-v'
-import { spaceTimes } from '@/core/lib/utils'
-import { useAnimationParams } from '@/core/hooks/useAnimationParams'
+import { spaceTimes } from '@rui/core/lib/utils'
+import { useAnimationParams } from '@rui/core/hooks/useAnimationParams'
 
 export const PopoverContentMotion = defineComponent({
   name: 'PopoverContentMotion',

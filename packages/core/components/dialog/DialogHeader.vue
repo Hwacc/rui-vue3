@@ -1,16 +1,21 @@
 <script setup lang="ts">
-import { useSlots, type HTMLAttributes } from 'vue';
-import { cn } from '@/core/lib/utils';
-import { dialogHeaderVariants, DialogClose, DialogCloseFrom, dialogCloseVariants } from '.';
-import { DialogTitle, DialogDescription } from 'reka-ui';
-import { X } from 'lucide-vue-next';
+import { useSlots, type HTMLAttributes } from 'vue'
+import { cn } from '@rui/core/lib/utils'
+import {
+  dialogHeaderVariants,
+  DialogClose,
+  DialogCloseFrom,
+  dialogCloseVariants
+} from '.'
+import { DialogTitle, DialogDescription } from 'reka-ui'
+import { X } from 'lucide-vue-next'
 
 const { class: propsClass, unstyled } = defineProps<{
-  class?: HTMLAttributes['class'];
-  unstyled?: boolean;
-}>();
+  class?: HTMLAttributes['class']
+  unstyled?: boolean
+}>()
 
-const slots = useSlots();
+const slots = useSlots()
 </script>
 
 <template>

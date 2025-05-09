@@ -1,12 +1,12 @@
 <script lang="ts" setup>
 import type { RangeCalendarCellTriggerProps } from 'reka-ui'
 import { type HTMLAttributes } from 'vue'
-import { cn } from '@/core/lib/utils'
+import { cn } from '@rui/core/lib/utils'
 import { RangeCalendarCellTrigger, useForwardProps } from 'reka-ui'
 import {
   calendarCellTriggerVariants,
   type CalendarCellTriggerVariantsProps
-} from '@/core/components/calendar'
+} from '@rui/core/components/calendar'
 
 const {
   class: propsClass,

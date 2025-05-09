@@ -1,31 +1,31 @@
 <script lang="ts">
-import type { PrimitiveProps } from 'reka-ui';
+import type { PrimitiveProps } from 'reka-ui'
 
 export interface ReadMoreContentProps extends PrimitiveProps {
-  class?: HTMLAttributes['class'];
-  unstyled?: boolean;
-  collapsedHeight?: number;
-  collapsedLine?: number;
+  class?: HTMLAttributes['class']
+  unstyled?: boolean
+  collapsedHeight?: number
+  collapsedLine?: number
 }
 
 export type ReadMoreContentEmits = {
-  contentFound: [void];
-};
+  contentFound: [void]
+}
 </script>
 
 <script setup lang="ts">
-import { HTMLAttributes, ref, watchEffect } from 'vue';
+import { HTMLAttributes, ref, watchEffect } from 'vue'
 import {
   Primitive,
   injectCollapsibleRootContext,
   useForwardExpose,
   useForwardPropsEmits,
-  useId,
-} from 'reka-ui';
-import { useEventListener, useResizeObserver } from '@vueuse/core';
-import { cn } from '@/core/lib/utils';
-import { injectReadMoreContext } from './ReadMore.vue';
-import { readMoreContentVariant } from '.';
+  useId
+} from 'reka-ui'
+import { useEventListener, useResizeObserver } from '@vueuse/core'
+import { cn } from '@rui/core/lib/utils'
+import { injectReadMoreContext } from './ReadMore.vue'
+import { readMoreContentVariant } from '.'
 
 const {
   class: propsClass,
@@ -33,56 +33,58 @@ const {
   collapsedHeight = 80,
   unstyled,
   ...props
-} = defineProps<ReadMoreContentProps >();
-const { showTrigger } = injectReadMoreContext({ showTrigger: ref(false) });
-const { forwardRef, currentElement } = useForwardExpose();
-const emits = defineEmits<ReadMoreContentEmits>();
+} = defineProps<ReadMoreContentProps>()
+const { showTrigger } = injectReadMoreContext({ showTrigger: ref(false) })
+const { forwardRef, currentElement } = useForwardExpose()
+const emits = defineEmits<ReadMoreContentEmits>()
 
-const rootContext = injectCollapsibleRootContext();
-rootContext.contentId ||= useId(undefined, 'reka-readmore-content');
+const rootContext = injectCollapsibleRootContext()
+rootContext.contentId ||= useId(undefined, 'reka-readmore-content')
 
-const measureRef = ref<HTMLElement>();
-const measureHeight = ref(0);
-const measureLineHeight = ref(0);
+const measureRef = ref<HTMLElement>()
+const measureHeight = ref(0)
+const measureLineHeight = ref(0)
 useResizeObserver(measureRef, (entries) => {
-  const entry = entries[0];
-  const { height } = entry.contentRect;
+  const entry = entries[0]
+  const { height } = entry.contentRect
   if (measureRef.value) {
-    const computedStyle = window.getComputedStyle(measureRef.value.children[0] ?? measureRef.value);
-    measureLineHeight.value = parseFloat(computedStyle.lineHeight);
+    const computedStyle = window.getComputedStyle(
+      measureRef.value.children[0] ?? measureRef.value
+    )
+    measureLineHeight.value = parseFloat(computedStyle.lineHeight)
   }
   if (currentElement.value && showTrigger) {
     setTimeout(() => {
-      const viewHeight = currentElement.value.getBoundingClientRect().height;
-      showTrigger.value = height - viewHeight > 5;
-    }, 300); // 动画时间
+      const viewHeight = currentElement.value.getBoundingClientRect().height
+      showTrigger.value = height - viewHeight > 5
+    }, 300) // 动画时间
   }
-  measureHeight.value = Math.ceil(height);
-});
+  measureHeight.value = Math.ceil(height)
+})
 
-const maxHeight = ref(0);
+const maxHeight = ref(0)
 watchEffect(
   () => {
-    const isOpen = rootContext.open.value;
+    const isOpen = rootContext.open.value
     maxHeight.value = isOpen
       ? measureHeight.value
       : collapsedLine
       ? Math.ceil(measureLineHeight.value * collapsedLine)
-      : collapsedHeight;
+      : collapsedHeight
   },
   {
-    flush: 'post',
+    flush: 'post'
   }
-);
+)
 
 useEventListener(currentElement, 'beforematch', () => {
   requestAnimationFrame(() => {
-    rootContext.onOpenToggle();
-    emits('contentFound');
-  });
-});
+    rootContext.onOpenToggle()
+    emits('contentFound')
+  })
+})
 
-const forwarded = useForwardPropsEmits(props, emits);
+const forwarded = useForwardPropsEmits(props, emits)
 </script>
 
 <template>
@@ -95,7 +97,7 @@ const forwarded = useForwardPropsEmits(props, emits);
     :data-disabled="rootContext.disabled?.value ? '' : undefined"
     :style="{
       [`--reka-readmore-max-height`]: `${maxHeight}px`,
-      [`--reka-readmore-collapsed-line`]: collapsedLine ? collapsedLine : 'none',
+      [`--reka-readmore-collapsed-line`]: collapsedLine ? collapsedLine : 'none'
     }"
   >
     <div class="w-fit h-fit" ref="measureRef">

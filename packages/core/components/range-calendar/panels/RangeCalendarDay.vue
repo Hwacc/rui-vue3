@@ -10,7 +10,7 @@ import {
   RangeCalendarGridRow,
   RangeCalendarHeadCell
 } from '../parts'
-import { type CalendarVariantsProps } from '@/core/components/calendar'
+import { type CalendarVariantsProps } from '@rui/core/components/calendar'
 
 const props = defineProps<
   CalendarGridProps & {

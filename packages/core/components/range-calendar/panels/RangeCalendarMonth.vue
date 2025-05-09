@@ -10,7 +10,7 @@ import {
 } from '../parts'
 import { computed } from 'vue'
 import { chunk } from 'lodash-es'
-import { type CalendarVariantsProps } from '@/core/components/calendar'
+import { type CalendarVariantsProps } from '@rui/core/components/calendar'
 import { RangeCalendarCellMonthTrigger } from '../parts'
 
 const {

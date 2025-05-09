@@ -1,8 +1,8 @@
 import type { ToastRootProps } from 'reka-ui'
 import type { HTMLAttributes } from 'vue'
 import type { VariantProps } from 'class-variance-authority'
-import { cva } from '@/core/lib/cva'
-import { PREFIX } from '@/core/lib/constants'
+import { cva } from '@rui/core/lib/cva'
+import { PREFIX } from '@rui/core/lib/constants'
 
 export type SwipeDirection = 'up' | 'down' | 'left' | 'right'
 export type ToastPosition =

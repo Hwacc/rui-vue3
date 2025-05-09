@@ -6,9 +6,9 @@ import type {
   TooltipArrowProps
 } from 'reka-ui'
 import type { HTMLAttributes } from 'vue'
-import type { TooltipContentVariants } from '@/core/components/tooltip'
+import type { TooltipContentVariants } from '@rui/core/components/tooltip'
 import type { ButtonVariants } from '.'
-import { useRipple } from '@/core/hooks/useRipple'
+import { useRipple } from '@rui/core/hooks/useRipple'
 
 interface ButtonProps extends PrimitiveProps {
   variant?: ButtonVariants['variant'] | string
@@ -30,7 +30,7 @@ interface ButtonProps extends PrimitiveProps {
 
 <script setup lang="ts">
 import { computed } from 'vue'
-import { cn, getNodeCssVar } from '@/core/lib/utils'
+import { cn, getNodeCssVar } from '@rui/core/lib/utils'
 import { Primitive, useForwardExpose } from 'reka-ui'
 import { buttonVariants } from '.'
 import {
@@ -39,7 +39,7 @@ import {
   TooltipContent,
   TooltipArrow,
   TooltipProvider
-} from '@/core/components/tooltip'
+} from '@rui/core/components/tooltip'
 
 const {
   as = 'button',
@@ -55,7 +55,7 @@ const {
   tooltipRootProps = {
     delayDuration: 0,
     disableHoverableContent: true,
-    ignoreNonKeyboardFocus: true,
+    ignoreNonKeyboardFocus: true
   },
   tooltipContentClass,
   tooltipContentProps = {

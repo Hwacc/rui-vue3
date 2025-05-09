@@ -1,6 +1,6 @@
 import { createContext } from 'reka-ui'
 import { defineComponent, PropType, ref, Ref, SlotsType, watch } from 'vue'
-import { CalendarPanelEnum } from '@/core/lib/constants'
+import { CalendarPanelEnum } from '@rui/core/lib/constants'
 
 const [injectRangeCalendarContextEx, provideRangeCalendarContextEx] =
   createContext<{

@@ -1,108 +1,114 @@
-import type { MessageProps } from '.';
-import { computed, ref, VNode } from 'vue';
+import type { MessageProps } from '.'
+import { computed, ref, VNode } from 'vue'
 
-const MESSAGE_LIMIT = 1;
-const MESSAGE_REMOVE_DELAY = 200;
+const MESSAGE_LIMIT = 1
+const MESSAGE_REMOVE_DELAY = 200
 
 type MessagerToast = MessageProps & {
-  id: string;
-  title?: string;
-  icon?: VNode | (() => VNode);
-};
+  id: string
+  title?: string
+  icon?: VNode | (() => VNode)
+}
 
 const actionTypes = {
   ADD_TOAST: 'ADD_TOAST',
   UPDATE_TOAST: 'UPDATE_TOAST',
   DISMISS_TOAST: 'DISMISS_TOAST',
-  REMOVE_TOAST: 'REMOVE_TOAST',
-} as const;
+  REMOVE_TOAST: 'REMOVE_TOAST'
+} as const
 
-let count = 0;
+let count = 0
 
 function genId() {
-  count = (count + 1) % Number.MAX_VALUE;
-  return count.toString();
+  count = (count + 1) % Number.MAX_VALUE
+  return count.toString()
 }
 
-type ActionType = typeof actionTypes;
+type ActionType = typeof actionTypes
 type Action =
   | {
-      type: ActionType['ADD_TOAST'];
-      message: MessagerToast;
+      type: ActionType['ADD_TOAST']
+      message: MessagerToast
     }
   | {
-      type: ActionType['UPDATE_TOAST'];
-      message: Partial<MessagerToast>;
+      type: ActionType['UPDATE_TOAST']
+      message: Partial<MessagerToast>
     }
   | {
-      type: ActionType['DISMISS_TOAST'];
-      messageId?: MessagerToast['id'];
+      type: ActionType['DISMISS_TOAST']
+      messageId?: MessagerToast['id']
     }
   | {
-      type: ActionType['REMOVE_TOAST'];
-      messageId?: MessagerToast['id'];
-    };
+      type: ActionType['REMOVE_TOAST']
+      messageId?: MessagerToast['id']
+    }
 
 interface State {
-  messages: MessagerToast[];
+  messages: MessagerToast[]
 }
 
-const messageTimeouts = new Map<string, ReturnType<typeof setTimeout>>();
+const messageTimeouts = new Map<string, ReturnType<typeof setTimeout>>()
 
 function addToRemoveQueue(msgId: string) {
-  if (messageTimeouts.has(msgId)) return;
-  
+  if (messageTimeouts.has(msgId)) return
+
   const timeout = setTimeout(() => {
-    messageTimeouts.delete(msgId);
+    messageTimeouts.delete(msgId)
     dispatch({
       type: actionTypes.REMOVE_TOAST,
-      messageId: msgId,
-    });
-  }, MESSAGE_REMOVE_DELAY);
+      messageId: msgId
+    })
+  }, MESSAGE_REMOVE_DELAY)
 
-  messageTimeouts.set(msgId, timeout);
+  messageTimeouts.set(msgId, timeout)
 }
 
 const state = ref<State>({
-  messages: [],
-});
+  messages: []
+})
 
 function dispatch(action: Action) {
   switch (action.type) {
     case actionTypes.ADD_TOAST:
-      state.value.messages = [action.message, ...state.value.messages].slice(0, MESSAGE_LIMIT);
-      break;
+      state.value.messages = [action.message, ...state.value.messages].slice(
+        0,
+        MESSAGE_LIMIT
+      )
+      break
 
     case actionTypes.UPDATE_TOAST:
       state.value.messages = state.value.messages.map((t) =>
         t.id === action.message.id ? { ...t, ...action.message } : t
-      );
-      break;
+      )
+      break
 
     case actionTypes.DISMISS_TOAST: {
-      const { messageId } = action;
+      const { messageId } = action
       if (messageId) {
-        addToRemoveQueue(messageId);
+        addToRemoveQueue(messageId)
       } else {
         state.value.messages.forEach((message) => {
-          addToRemoveQueue(message.id);
-        });
+          addToRemoveQueue(message.id)
+        })
       }
       state.value.messages = state.value.messages.map((msg) =>
         msg.id === messageId || messageId === undefined
           ? {
               ...msg,
-              open: false,
+              open: false
             }
           : msg
-      );
-      break;
+      )
+      break
     }
 
     case actionTypes.REMOVE_TOAST:
-      if (action.messageId === undefined) state.value.messages = [];
-      else state.value.messages = state.value.messages.filter((msg) => msg.id !== action.messageId);
-      break;
+      if (action.messageId === undefined) state.value.messages = []
+      else
+        state.value.messages = state.value.messages.filter(
+          (msg) => msg.id !== action.messageId
+        )
+      break
   }
 }
 
@@ -110,22 +116,24 @@ function useMessage() {
   return {
     messages: computed(() => state.value.messages),
     message,
-    dismiss: (msgId?: string) => dispatch({ type: actionTypes.DISMISS_TOAST, messageId: msgId }),
-  };
+    dismiss: (msgId?: string) =>
+      dispatch({ type: actionTypes.DISMISS_TOAST, messageId: msgId })
+  }
 }
 
-type Toast = Omit<MessagerToast, 'id'>;
+type Toast = Omit<MessagerToast, 'id'>
 
 function message(props: Toast) {
-  const id = `m-${genId()}`;
+  const id = `m-${genId()}`
 
   const update = (props: MessagerToast) =>
     dispatch({
       type: actionTypes.UPDATE_TOAST,
-      message: { ...props, id },
-    });
+      message: { ...props, id }
+    })
 
-  const dismiss = () => dispatch({ type: actionTypes.DISMISS_TOAST, messageId: id });
+  const dismiss = () =>
+    dispatch({ type: actionTypes.DISMISS_TOAST, messageId: id })
 
   dispatch({
     type: actionTypes.ADD_TOAST,
@@ -134,16 +142,16 @@ function message(props: Toast) {
       id,
       open: true,
       onOpenChange: (open: boolean) => {
-        if (!open) dismiss();
-      },
-    },
-  });
+        if (!open) dismiss()
+      }
+    }
+  })
 
   return {
     id,
     dismiss,
-    update,
-  };
+    update
+  }
 }
 
-export { message, useMessage };
+export { message, useMessage }

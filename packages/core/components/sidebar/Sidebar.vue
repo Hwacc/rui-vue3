@@ -9,8 +9,8 @@ export interface SidebarProps {
 </script>
 
 <script setup lang="ts">
-import { cn } from '@/core/lib/utils'
-import { Sheet, SheetContent } from '@/core/components/sheet'
+import { cn } from '@rui/core/lib/utils'
+import { Sheet, SheetContent } from '@rui/core/components/sheet'
 import { SIDEBAR_WIDTH_MOBILE, useSidebar } from './utils'
 import { HTMLAttributes } from 'vue'
 import { sidebarVariants, sidebarInnerVariants } from '.'

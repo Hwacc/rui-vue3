@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import type { DropdownMenuItemProps } from 'reka-ui';
-import type { HTMLAttributes } from 'vue';
-import { cn } from '@/core/lib/utils';
-import { DropdownMenuItem, useForwardProps } from 'reka-ui';
-import { dropdownMenuItemVariants } from '.';
+import type { DropdownMenuItemProps } from 'reka-ui'
+import type { HTMLAttributes } from 'vue'
+import { cn } from '@rui/core/lib/utils'
+import { DropdownMenuItem, useForwardProps } from 'reka-ui'
+import { dropdownMenuItemVariants } from '.'
 
 const {
   class: propsClass,
@@ -11,13 +11,13 @@ const {
   ...props
 } = defineProps<
   DropdownMenuItemProps & {
-    class?: HTMLAttributes['class'];
-    inset?: boolean;
-    unstyled?: boolean;
+    class?: HTMLAttributes['class']
+    inset?: boolean
+    unstyled?: boolean
   }
->();
+>()
 
-const forwardedProps = useForwardProps(props);
+const forwardedProps = useForwardProps(props)
 </script>
 
 <template>

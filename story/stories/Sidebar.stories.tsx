@@ -6,7 +6,7 @@ import {
   SidebarContent,
   SidebarHeader,
   SidebarFooter
-} from '@core/components/sidebar'
+} from '@rui/core/components/sidebar'
 
 const meta = {
   title: 'RUI/Sidebar',

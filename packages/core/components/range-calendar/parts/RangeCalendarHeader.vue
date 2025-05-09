@@ -1,9 +1,9 @@
 <script lang="ts" setup>
 import type { RangeCalendarHeaderProps } from 'reka-ui'
 import type { HTMLAttributes } from 'vue'
-import { cn } from '@/core/lib/utils'
+import { cn } from '@rui/core/lib/utils'
 import { RangeCalendarHeader, useForwardProps } from 'reka-ui'
-import { calendarHeaderVariants } from '@/core/components/calendar'
+import { calendarHeaderVariants } from '@rui/core/components/calendar'
 
 const {
   class: propsClass,

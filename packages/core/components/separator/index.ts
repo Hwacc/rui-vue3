@@ -1,5 +1,5 @@
-import { PREFIX } from '@/core/lib/constants'
-import { cva, VariantProps } from '@/core/lib/cva'
+import { PREFIX } from '@rui/core/lib/constants'
+import { cva, VariantProps } from '@rui/core/lib/cva'
 
 export { default as Separator } from './Separator.vue'
 

@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/vue3'
-import { CheckboxGroup, Checkbox } from '@core/components/checkbox'
+import { CheckboxGroup, Checkbox } from '@rui/core/components/checkbox'
 import { toRefs } from 'vue'
 import { fn } from '@storybook/test'
 
@@ -55,32 +55,18 @@ export const WithCheckboxGroup: WithCheckboxGroup = {
     return {
       components: { CheckboxGroup, Checkbox },
       setup() {
-        const { size, collection, onChange, unstyled } =
-          toRefs<any>(args)
+        const { size, collection, onChange, unstyled } = toRefs<any>(args)
         return () => (
           <CheckboxGroup
             class='flex flex-col gap-2'
             v-model:collection={collection.value}
             size={size.value}
             onChange={onChange.value}
-            unstyled={unstyled?.value}
-          >
+            unstyled={unstyled?.value}>
             <Checkbox primary label='Primary' />
-            <Checkbox
-              unstyled={unstyled?.value}
-              name='1'
-              label='Checkbox 1'
-            />
-            <Checkbox
-              unstyled={unstyled?.value}
-              name='2'
-              label='Checkbox 2'
-            />
-            <Checkbox
-              unstyled={unstyled?.value}
-              name='3'
-              label='Checkbox 3'
-            />
+            <Checkbox unstyled={unstyled?.value} name='1' label='Checkbox 1' />
+            <Checkbox unstyled={unstyled?.value} name='2' label='Checkbox 2' />
+            <Checkbox unstyled={unstyled?.value} name='3' label='Checkbox 3' />
           </CheckboxGroup>
         )
       }

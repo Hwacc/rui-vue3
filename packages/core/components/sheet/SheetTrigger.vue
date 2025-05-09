@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { DialogTrigger, type DialogTriggerProps } from 'reka-ui'
-import { cn } from '@/core/lib/utils'
+import { cn } from '@rui/core/lib/utils'
 import { HTMLAttributes } from 'vue'
 
 const { class: propsClass, ...props } = defineProps<

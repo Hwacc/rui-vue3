@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { cn } from '@/core/lib/utils'
+import { cn } from '@rui/core/lib/utils'
 import { Primitive, PrimitiveProps } from 'reka-ui'
 import { HTMLAttributes } from 'vue'
 import { dialogContentBodyVariants } from '.'

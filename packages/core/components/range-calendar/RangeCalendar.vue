@@ -5,13 +5,13 @@ import type {
   RangeCalendarRootProps
 } from 'reka-ui'
 import type { HTMLAttributes } from 'vue'
-import { cn } from '@/core/lib/utils'
+import { cn } from '@rui/core/lib/utils'
 import { RangeCalendarRoot, useForwardPropsEmits } from 'reka-ui'
 import { computed, ref } from 'vue'
 import {
   type CalendarVariantsProps,
   calendarRootVariants
-} from '@/core/components/calendar'
+} from '@rui/core/components/calendar'
 import {
   RangeCalendarProvider,
   RangeCalendarHeader,
@@ -24,8 +24,8 @@ import {
   RangeCalendarMonthPanel,
   RangeCalendarYearPanel
 } from './panels'
-import { CalendarPanelEnum } from '@/core/lib/constants'
-import { CalendarPanelMotion } from '@/core/components/motion/CalendarPanelMotion'
+import { CalendarPanelEnum } from '@rui/core/lib/constants'
+import { CalendarPanelMotion } from '@rui/core/components/motion/CalendarPanelMotion'
 import { AnimatePresence } from 'motion-v'
 
 const {
