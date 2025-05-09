@@ -1,8 +1,8 @@
 <script lang="ts" setup>
-import { Button } from '@/core/components/button'
-import { TooltipProvider } from '@/core/components/tooltip'
-import { Toaster, ToastPosition } from '@/core/components/toast'
-import { Messager } from '@/core/components/message'
+import { Button } from '@rui/core/components/button'
+import { TooltipProvider } from '@rui/core/components/tooltip'
+import { Toaster, ToastPosition } from '@rui/core/components/toast'
+import { Messager } from '@rui/core/components/message'
 
 import ButtonExample from './buttons/index.vue'
 import VTitleExample from './v-title/index.vue'

@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import { Tooltip, TooltipContent, TooltipTrigger, TooltipArrow } from '@/core/components/tooltip';
+import { Tooltip, TooltipContent, TooltipTrigger, TooltipArrow } from '@rui/core/components/tooltip';
 import { Star } from 'lucide-vue-next';
-import { Input } from '@/core/components/input';
+import { Input } from '@rui/core/components/input';
 </script>
 
 <template>

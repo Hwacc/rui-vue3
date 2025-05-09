@@ -1,5 +1,5 @@
 <script setup lang="tsx">
-import { Progress, CircleProgress } from '@/core/components/progress';
+import { Progress, CircleProgress } from '@rui/core/components/progress';
 import { onMounted, ref } from 'vue';
 
 const progressValue = ref(30);

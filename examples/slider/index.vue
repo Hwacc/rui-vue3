@@ -1,7 +1,7 @@
 <script setup lang="tsx">
-import { Slider, type FloatingTooltipOptions } from '@/add-ons/components/slider';
-import { Switch } from '@/core/components/switch';
-import { Button } from '@/core/components/button';
+import { Slider, type FloatingTooltipOptions } from '@rui/add-ons/components/slider';
+import { Switch } from '@rui/core/components/switch';
+import { Button } from '@rui/core/components/button';
 import { reactive, ref } from 'vue';
 
 const sliderState = ref(30);

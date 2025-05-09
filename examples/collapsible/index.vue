@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ReadMore } from '@/core/components/collapsible';
+import { ReadMore } from '@rui/core/components/collapsible';
 </script>
 
 <template>

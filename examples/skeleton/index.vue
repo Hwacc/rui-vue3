@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { Skeleton } from '@/core/components/skeleton'
+import { Skeleton } from '@rui/core/components/skeleton'
 </script>
 
 <template>

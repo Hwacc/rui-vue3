@@ -1,5 +1,5 @@
 <script setup lang="tsx">
-import { Button } from '@/core/components/button';
+import { Button } from '@rui/core/components/button';
 import {
   Dialog,
   DialogTrigger,
@@ -10,8 +10,8 @@ import {
   DialogCloseFrom,
   DialogScrollContent,
   dialog,
-} from '@/core/components/dialog';
-import DialogClose from '@/core/components/dialog/DialogClose.vue';
+} from '@rui/core/components/dialog';
+import DialogClose from '@rui/core/components/dialog/DialogClose.vue';
 
 const onContentClose = ({ from }: { from: DialogCloseFrom | undefined }) => {
   console.log('on close from:', from);

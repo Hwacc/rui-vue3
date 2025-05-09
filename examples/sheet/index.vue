@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { Button } from '@/core/components/button'
+import { Button } from '@rui/core/components/button'
 import {
   Sheet,
   SheetContent,
@@ -9,7 +9,7 @@ import {
   SheetDescription,
   SheetFooter,
   SheetClose
-} from '@/core/components/sheet'
+} from '@rui/core/components/sheet'
 </script>
 
 <template>

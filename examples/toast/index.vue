@@ -1,8 +1,8 @@
 <script setup lang="tsx">
-import { Button } from '@/core/components/button';
-import { RadioGroup, RadioGroupItem } from '@/core/components/radio-group';
-import { toast, ToastPosition } from '@/core/components/toast';
-import { message } from '@/core/components/message';
+import { Button } from '@rui/core/components/button';
+import { RadioGroup, RadioGroupItem } from '@rui/core/components/radio-group';
+import { toast, ToastPosition } from '@rui/core/components/toast';
+import { message } from '@rui/core/components/message';
 import { Smile } from 'lucide-vue-next';
 
 const { modelValue } = defineProps<{

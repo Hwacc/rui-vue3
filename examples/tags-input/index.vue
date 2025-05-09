@@ -6,7 +6,7 @@ import {
   TagsInputItemDelete,
   TagsInputItemText,
   TagsItemScrollHorizontal,
-} from '@/core/components/tags-input';
+} from '@rui/core/components/tags-input';
 import { ref } from 'vue';
 
 const modelValue = ref(['Apple', 'Banana']);

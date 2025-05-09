@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { Hotkey } from '@/core/components/hotkey'
-import { useMessage } from '@/core/components/message'
+import { Hotkey } from '@rui/core/components/hotkey'
+import { useMessage } from '@rui/core/components/message'
 import { ref, watch } from 'vue'
 
 const hotkey = ref('')

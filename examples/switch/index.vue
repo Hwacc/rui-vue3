@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { Switch } from '@/core/components/switch';
+import { Switch } from '@rui/core/components/switch';
 import { ref } from 'vue';
 
 const switcherState = ref(false);

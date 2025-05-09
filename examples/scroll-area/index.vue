@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { ScrollArea } from '@/core/components/scroll-area';
-import { ScrollArea as PerfectScrollArea } from '@/add-ons/components/scroll-area';
+import { ScrollArea } from '@rui/core/components/scroll-area';
+import { ScrollArea as PerfectScrollArea } from '@rui/add-ons/components/scroll-area';
 import { ref } from 'vue';
 
 const speedRef = ref(1);

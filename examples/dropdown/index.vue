@@ -1,5 +1,5 @@
 <script setup lang="tsx">
-import { Button } from '@/core/components/button';
+import { Button } from '@rui/core/components/button';
 import {
   DropdownMenu,
   DropdownMenuTrigger,
@@ -14,7 +14,7 @@ import {
   DropdownMenuPortal,
   DropdownMenuSubTrigger,
   DropdownMenuSubContent
-} from '@/core/components/dropdown-menu';
+} from '@rui/core/components/dropdown-menu';
 import { Plus } from 'lucide-vue-next';
 import { reactive, ref } from 'vue';
 

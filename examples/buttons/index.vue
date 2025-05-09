@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref } from 'vue'
-import { Button } from '@/core/components/button'
+import { Button } from '@rui/core/components/button'
 import { Camera, Star } from 'lucide-vue-next'
 
 const switcherState = ref(false)

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { Separator } from '@/core/components/separator'
+import { Separator } from '@rui/core/components/separator'
 </script>
 
 <template>

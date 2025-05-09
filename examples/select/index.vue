@@ -8,7 +8,7 @@ import {
   SelectGroup,
   SelectLabel,
   SelectItem,
-} from '@/core/components/select';
+} from '@rui/core/components/select';
 import { ref } from 'vue';
 
 const singleSelected = ref<string | null>(null);
