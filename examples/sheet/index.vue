@@ -2,20 +2,24 @@
 import { Button } from '@rui/core/components/button'
 import {
   Sheet,
+  SheetClose,
   SheetContent,
-  SheetTrigger,
-  SheetHeader,
-  SheetTitle,
   SheetDescription,
   SheetFooter,
-  SheetClose
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
 } from '@rui/core/components/sheet'
 </script>
 
 <template>
   <div class="container flex flex-col items-center gap-4">
-    <Sheet >
-      <SheetTrigger><Button as="div">Open Sheet</Button></SheetTrigger>
+    <Sheet>
+      <SheetTrigger>
+        <Button as="div">
+          Open Sheet
+        </Button>
+      </SheetTrigger>
       <SheetContent side="left">
         <SheetHeader>
           <SheetTitle>Edit profile</SheetTitle>
@@ -28,7 +32,9 @@ import {
         </div>
         <SheetFooter>
           <SheetClose as-child>
-            <Button type="submit"> Save changes </Button>
+            <Button type="submit">
+              Save changes
+            </Button>
           </SheetClose>
         </SheetFooter>
       </SheetContent>

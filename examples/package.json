@@ -1,13 +1,13 @@
 {
   "name": "examples",
   "version": "1.0.0",
+  "packageManager": "pnpm@10.6.5",
   "description": "",
+  "author": "",
+  "license": "ISC",
+  "keywords": [],
   "main": "index.js",
   "scripts": {
     "dev": "rsbuild dev"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "packageManager": "pnpm@10.6.5"
+  }
 }

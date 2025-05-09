@@ -1,12 +1,12 @@
-import { createApp } from 'vue';
-import App from './App.vue';
-import { vTitle } from '@rui/core/directives/title';
+import { vTitle } from '@rui/core/directives/title'
+import { createApp } from 'vue'
+import App from './App.vue'
 
-import './styles/tailwind.css';
-import './styles/index.css';
+import './styles/tailwind.css'
+import './styles/index.css'
 
-const app = createApp(App);
+const app = createApp(App)
 
-app.directive('title', vTitle);
+app.directive('title', vTitle)
 
-app.mount('#root');
+app.mount('#root')

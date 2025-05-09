@@ -6,15 +6,17 @@ import {
   TagsInputItemDelete,
   TagsInputItemText,
   TagsItemScrollHorizontal,
-} from '@rui/core/components/tags-input';
-import { ref } from 'vue';
+} from '@rui/core/components/tags-input'
+import { ref } from 'vue'
 
-const modelValue = ref(['Apple', 'Banana']);
+const modelValue = ref(['Apple', 'Banana'])
 </script>
 
 <template>
   <div class="flex flex-col gap-4">
-    <div class="test-block">tags: {{ modelValue }}</div>
+    <div class="test-block">
+      tags: {{ modelValue }}
+    </div>
     <TagsInput v-model="modelValue" size="sm">
       <TagsInputItem v-for="item in modelValue" :key="item" :value="item">
         <TagsInputItemText />

@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import { ref } from 'vue'
 import { Button } from '@rui/core/components/button'
 import { Camera, Star } from 'lucide-vue-next'
+import { ref } from 'vue'
 
 const switcherState = ref(false)
 </script>
@@ -9,35 +9,77 @@ const switcherState = ref(false)
 <template>
   <div class="container flex flex-col items-center gap-4">
     <div class="flex items-center gap-4">
-      <Button ripple>primary</Button>
-      <Button size="lg">large</Button>
-      <Button size="sm">small</Button>
-      <Button disabled>Disable</Button>
-      <Button :limitWidth="false">B</Button>
+      <Button ripple>
+        primary
+      </Button>
+      <Button size="lg">
+        large
+      </Button>
+      <Button size="sm">
+        small
+      </Button>
+      <Button disabled>
+        Disable
+      </Button>
+      <Button :limit-width="false">
+        B
+      </Button>
     </div>
     <div class="flex items-center gap-4">
-      <Button variant="normal" ripple>normal</Button>
-      <Button variant="normal" size="lg">large</Button>
-      <Button variant="normal" size="sm">small</Button>
-      <Button variant="normal" disabled>Disable</Button>
+      <Button variant="normal" ripple>
+        normal
+      </Button>
+      <Button variant="normal" size="lg">
+        large
+      </Button>
+      <Button variant="normal" size="sm">
+        small
+      </Button>
+      <Button variant="normal" disabled>
+        Disable
+      </Button>
     </div>
     <div class="flex items-center gap-4">
-      <Button variant="outline" ripple>outline</Button>
-      <Button variant="outline" size="lg">large</Button>
-      <Button variant="outline" size="sm">small</Button>
-      <Button variant="outline" disabled>Disable</Button>
+      <Button variant="outline" ripple>
+        outline
+      </Button>
+      <Button variant="outline" size="lg">
+        large
+      </Button>
+      <Button variant="outline" size="sm">
+        small
+      </Button>
+      <Button variant="outline" disabled>
+        Disable
+      </Button>
     </div>
     <div class="flex items-center gap-4">
-      <Button variant="text" ripple>text</Button>
-      <Button variant="text" size="lg">large</Button>
-      <Button variant="text" size="sm">small</Button>
-      <Button variant="text" disabled>Disable</Button>
+      <Button variant="text" ripple>
+        text
+      </Button>
+      <Button variant="text" size="lg">
+        large
+      </Button>
+      <Button variant="text" size="sm">
+        small
+      </Button>
+      <Button variant="text" disabled>
+        Disable
+      </Button>
     </div>
     <div class="flex items-center gap-4">
-      <Button variant="icon" ripple><Camera /></Button>
-      <Button variant="icon" size="lg"><Camera /></Button>
-      <Button variant="icon" size="sm"><Camera /></Button>
-      <Button variant="icon" disabled><Camera /></Button>
+      <Button variant="icon" ripple>
+        <Camera />
+      </Button>
+      <Button variant="icon" size="lg">
+        <Camera />
+      </Button>
+      <Button variant="icon" size="sm">
+        <Camera />
+      </Button>
+      <Button variant="icon" disabled>
+        <Camera />
+      </Button>
     </div>
     <div class="flex items-center gap-4">
       <Button variant="icon" tooltip="camera">
@@ -55,11 +97,13 @@ const switcherState = ref(false)
         variant="icon"
         size="sm"
         tooltip="camera"
-        :tooltipContentProps="{ align: 'end', side: 'bottom', sideOffset: 6 }"
+        :tooltip-content-props="{ align: 'end', side: 'bottom', sideOffset: 6 }"
       >
         <Camera />
       </Button>
-      <Button variant="icon" disabled tooltip="camera"><Camera /></Button>
+      <Button variant="icon" disabled tooltip="camera">
+        <Camera />
+      </Button>
     </div>
     <div class="flex items-center gap-4">
       <Button

@@ -1,6 +1,6 @@
 <script setup lang="tsx">
-import { Button } from '@rui/core/components/button';
-import { Popover, PopoverTrigger, PopoverContent, PopoverArrow } from '@rui/core/components/popover';
+import { Button } from '@rui/core/components/button'
+import { Popover, PopoverArrow, PopoverContent, PopoverTrigger } from '@rui/core/components/popover'
 </script>
 
 <template>
@@ -8,7 +8,9 @@ import { Popover, PopoverTrigger, PopoverContent, PopoverArrow } from '@rui/core
     <div class="flex gap-2">
       <Popover>
         <PopoverTrigger trigger="click" mode="mouse-only">
-          <Button as="div">Trigger</Button>
+          <Button as="div">
+            Trigger
+          </Button>
         </PopoverTrigger>
         <PopoverContent class="flex flex-col items-center">
           popper content
@@ -19,7 +21,9 @@ import { Popover, PopoverTrigger, PopoverContent, PopoverArrow } from '@rui/core
 
       <Popover>
         <PopoverTrigger trigger="click" mode="mouse-only">
-          <Button as="div">Right Trigger</Button>
+          <Button as="div">
+            Right Trigger
+          </Button>
         </PopoverTrigger>
         <PopoverContent class="flex flex-col items-center" side="right" align="start">
           popper content

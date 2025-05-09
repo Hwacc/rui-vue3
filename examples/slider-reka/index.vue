@@ -1,13 +1,15 @@
 <script setup lang="ts">
-import { Slider } from '@rui/core/components/slider';
-import { ref } from 'vue';
+import { Slider } from '@rui/core/components/slider'
+import { ref } from 'vue'
 
-const modelValue = ref([50]);
+const modelValue = ref([50])
 </script>
 
 <template>
   <div class="container flex flex-col items-center gap-4">
-    <p class="test-block gap-2">slider value: {{ modelValue }}</p>
+    <p class="test-block gap-2">
+      slider value: {{ modelValue }}
+    </p>
 
     <div class="w-full flex gap-4">
       <div class="flex-1 border border-hbb rounded p-2 flex flex-col gap-10">

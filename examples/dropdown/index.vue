@@ -1,29 +1,29 @@
 <script setup lang="tsx">
-import { Button } from '@rui/core/components/button';
+import { Button } from '@rui/core/components/button'
 import {
   DropdownMenu,
-  DropdownMenuTrigger,
-  DropdownMenuContent,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuItem,
   DropdownMenuCheckboxItem,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuPortal,
   DropdownMenuRadioGroup,
   DropdownMenuRadioItem,
+  DropdownMenuSeparator,
   DropdownMenuSub,
-  DropdownMenuPortal,
+  DropdownMenuSubContent,
   DropdownMenuSubTrigger,
-  DropdownMenuSubContent
-} from '@rui/core/components/dropdown-menu';
-import { Plus } from 'lucide-vue-next';
-import { reactive, ref } from 'vue';
+  DropdownMenuTrigger,
+} from '@rui/core/components/dropdown-menu'
+import { Plus } from 'lucide-vue-next'
+import { reactive, ref } from 'vue'
 
 const checkboxData = reactive({
   showStatusBar: false,
   showActivityBar: true,
   showPanel: false,
-});
-const position = ref<string>('top');
+})
+const position = ref<string>('top')
 </script>
 
 <template>
@@ -31,7 +31,9 @@ const position = ref<string>('top');
     <div class="flex-c flex-wrap gap-2">
       <DropdownMenu>
         <DropdownMenuTrigger>
-          <Button as="div">Open Dropdown</Button>
+          <Button as="div">
+            Open Dropdown
+          </Button>
         </DropdownMenuTrigger>
         <DropdownMenuContent>
           <DropdownMenuLabel>My Account</DropdownMenuLabel>
@@ -61,7 +63,9 @@ const position = ref<string>('top');
 
       <DropdownMenu>
         <DropdownMenuTrigger>
-          <Button as="div"> Open a Checkbox Menu </Button>
+          <Button as="div">
+            Open a Checkbox Menu
+          </Button>
         </DropdownMenuTrigger>
         <DropdownMenuContent>
           <DropdownMenuLabel>Appearance</DropdownMenuLabel>
@@ -80,22 +84,32 @@ const position = ref<string>('top');
 
       <DropdownMenu>
         <DropdownMenuTrigger>
-          <Button as="div"> Open a Radio Menu </Button>
+          <Button as="div">
+            Open a Radio Menu
+          </Button>
         </DropdownMenuTrigger>
         <DropdownMenuContent>
           <DropdownMenuLabel>Panel Position</DropdownMenuLabel>
           <DropdownMenuSeparator />
           <DropdownMenuRadioGroup v-model="position">
-            <DropdownMenuRadioItem value="top"> Top </DropdownMenuRadioItem>
-            <DropdownMenuRadioItem value="bottom"> Bottom </DropdownMenuRadioItem>
-            <DropdownMenuRadioItem value="right"> Right </DropdownMenuRadioItem>
+            <DropdownMenuRadioItem value="top">
+              Top
+            </DropdownMenuRadioItem>
+            <DropdownMenuRadioItem value="bottom">
+              Bottom
+            </DropdownMenuRadioItem>
+            <DropdownMenuRadioItem value="right">
+              Right
+            </DropdownMenuRadioItem>
           </DropdownMenuRadioGroup>
         </DropdownMenuContent>
       </DropdownMenu>
 
       <DropdownMenu>
         <DropdownMenuTrigger class="rounded">
-          <Button as="div"> Open a Sub Menu </Button>
+          <Button as="div">
+            Open a Sub Menu
+          </Button>
         </DropdownMenuTrigger>
         <DropdownMenuContent>
           <DropdownMenuSub>

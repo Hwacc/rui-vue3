@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import { ScrollArea } from '@rui/core/components/scroll-area';
-import { ScrollArea as PerfectScrollArea } from '@rui/add-ons/components/scroll-area';
-import { ref } from 'vue';
+import { ScrollArea as PerfectScrollArea } from '@rui/add-ons/components/scroll-area'
+import { ScrollArea } from '@rui/core/components/scroll-area'
+import { ref } from 'vue'
 
-const speedRef = ref(1);
+const speedRef = ref(1)
 </script>
 
 <template>
@@ -12,6 +12,7 @@ const speedRef = ref(1);
       <div class="flex flex-col w-200 h-200">
         <div
           v-for="i in 10"
+          :key="i"
           class="w-full h-20 flex items-center"
           :style="{ backgroundColor: `#${Math.floor(Math.random() * 16777215).toString(16)}` }"
         >
@@ -33,6 +34,7 @@ const speedRef = ref(1);
       <div class="flex flex-col w-200 h-200">
         <div
           v-for="i in 10"
+          :key="i"
           class="w-full h-20 flex items-center"
           :style="{ backgroundColor: `#${Math.floor(Math.random() * 16777215).toString(16)}` }"
         >

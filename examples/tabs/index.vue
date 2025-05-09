@@ -1,19 +1,29 @@
 <script lang="ts" setup>
-import { Tabs, TabsContent, TabsList, TabsTrigger, TabsIndicator } from '@rui/core/components/tabs';
+import { Tabs, TabsContent, TabsIndicator, TabsList, TabsTrigger } from '@rui/core/components/tabs'
 </script>
 
 <template>
   <div class="container flex flex-col items-center gap-4">
-    <p class="test-block">Tabs status:</p>
+    <p class="test-block">
+      Tabs status:
+    </p>
     <div class="flex gap-4">
       <Tabs default-value="account" class="w-[400px]">
         <TabsList class="w-full">
-          <TabsTrigger value="account"> Account </TabsTrigger>
-          <TabsTrigger value="password"> Password </TabsTrigger>
+          <TabsTrigger value="account">
+            Account
+          </TabsTrigger>
+          <TabsTrigger value="password">
+            Password
+          </TabsTrigger>
           <TabsIndicator />
         </TabsList>
-        <TabsContent value="account"> Account Content </TabsContent>
-        <TabsContent value="password"> Password Content </TabsContent>
+        <TabsContent value="account">
+          Account Content
+        </TabsContent>
+        <TabsContent value="password">
+          Password Content
+        </TabsContent>
       </Tabs>
       <Tabs default-value="tab10" class="w-[400px]">
         <TabsList class="w-full">

@@ -12,31 +12,32 @@ declare module '*.sss' {}
 
 // SVG
 declare module '*.svg?component' {
-  import type { FunctionalComponent, SVGAttributes } from 'vue';
-  const src: FunctionalComponent<SVGAttributes>;
-  export default src;
+  import type { FunctionalComponent, SVGAttributes } from 'vue'
+
+  const src: FunctionalComponent<SVGAttributes>
+  export default src
 }
 declare module '*.svg?url' {
-  const src: string;
-  export default src;
+  const src: string
+  export default src
 }
 declare module '*.svg?raw' {
-  const src: string;
-  export default src;
+  const src: string
+  export default src
 }
 declare module '*.svg?skipsvgo' {
-  import type { FunctionalComponent, SVGAttributes } from 'vue';
-  const src: FunctionalComponent<SVGAttributes>;
-  export default src;
+  import type { FunctionalComponent, SVGAttributes } from 'vue'
+
+  const src: FunctionalComponent<SVGAttributes>
+  export default src
 }
 
 // VUE
 declare module '*.vue' {
-  import type { DefineComponent } from 'vue';
+  import type { DefineComponent } from 'vue'
   // biome-ignore lint/complexity/noBannedTypes: reason
-  const component: DefineComponent<{}, {}, any>;
-  export default component;
+  const component: DefineComponent<{}, {}, any>
+  export default component
 }
 
-declare type StringOrNumber = string | number;
-
+declare type StringOrNumber = string | number

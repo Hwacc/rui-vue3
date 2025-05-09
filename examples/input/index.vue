@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import { Tooltip, TooltipContent, TooltipTrigger, TooltipArrow } from '@rui/core/components/tooltip';
-import { Star } from 'lucide-vue-next';
-import { Input } from '@rui/core/components/input';
+import { Input } from '@rui/core/components/input'
+import { Tooltip, TooltipArrow, TooltipContent, TooltipTrigger } from '@rui/core/components/tooltip'
+import { Star } from 'lucide-vue-next'
 </script>
 
 <template>
@@ -15,25 +15,25 @@ import { Input } from '@rui/core/components/input';
             </TooltipTrigger>
             <TooltipContent align="start">
               Prefix Star
-              <TooltipArrow variant="css" :width="6" :height="3"></TooltipArrow>
+              <TooltipArrow variant="css" :width="6" :height="3" />
             </TooltipContent>
           </Tooltip>
         </template>
         <template #suffix>
-          <Tooltip :delayDuration="0">
+          <Tooltip :delay-duration="0">
             <TooltipTrigger>
               <Star class="size-3" />
             </TooltipTrigger>
             <TooltipContent>
               Suffix Star
-              <TooltipArrow></TooltipArrow>
+              <TooltipArrow />
             </TooltipContent>
           </Tooltip>
         </template>
       </Input>
       <Input size="lg" placeholder="Large input" />
       <Input size="sm" placeholder="Small input" />
-      <Input readonly placeholder="Readonly input" modelValue="Readonly input" />
+      <Input readonly placeholder="Readonly input" model-value="Readonly input" />
       <Input disabled placeholder="Disabled input" />
     </div>
   </div>

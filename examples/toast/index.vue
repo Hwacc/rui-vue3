@@ -1,47 +1,48 @@
 <script setup lang="tsx">
-import { Button } from '@rui/core/components/button';
-import { RadioGroup, RadioGroupItem } from '@rui/core/components/radio-group';
-import { toast, ToastPosition } from '@rui/core/components/toast';
-import { message } from '@rui/core/components/message';
-import { Smile } from 'lucide-vue-next';
+import type { ToastPosition } from '@rui/core/components/toast'
+import { Button } from '@rui/core/components/button'
+import { message } from '@rui/core/components/message'
+import { RadioGroup, RadioGroupItem } from '@rui/core/components/radio-group'
+import { toast } from '@rui/core/components/toast'
+import { Smile } from 'lucide-vue-next'
 
 const { modelValue } = defineProps<{
-  modelValue: ToastPosition;
-}>();
+  modelValue: ToastPosition
+}>()
 const emits = defineEmits<{
-  'update:modelValue': [ToastPosition];
-}>();
+  'update:modelValue': [ToastPosition]
+}>()
 
-const onOpenToastClick = () => {
+function onOpenToastClick() {
   toast({
     variant: 'error',
     title: 'Toast Title',
     description: 'Toast Description',
     duration: 0,
-  });
-};
+  })
+}
 
-const onOpenRenderToastClick = () => {
+function onOpenRenderToastClick() {
   toast({
     variant: 'success',
     title: 'Toast Title',
     description: () => <p>The VNode Description</p>,
-  });
-};
+  })
+}
 
-const onOpenMessageClick = () => {
+function onOpenMessageClick() {
   message({
     variant: 'success',
     title: 'Message Content',
-  });
-};
+  })
+}
 
-const onOpenCustomMessageClick = () => {
+function onOpenCustomMessageClick() {
   message({
     title: 'Custom Message Content',
-    icon: () => <Smile class={'size-5'} />,
-    duration: 0
-  }) 
+    icon: () => <Smile class="size-5" />,
+    duration: 0,
+  })
 }
 </script>
 
@@ -62,10 +63,18 @@ const onOpenCustomMessageClick = () => {
       <RadioGroupItem value="bottom-right" label="Bottom Right" />
     </RadioGroup>
     <div class="flex-c flex-wrap items-center gap-2">
-      <Button @click="onOpenToastClick">Open a Toast</Button>
-      <Button @click="onOpenRenderToastClick">Open a Render Toast</Button>
-      <Button @click="onOpenMessageClick">Open a Message</Button>
-      <Button @click="onOpenCustomMessageClick">Open a CustomIcon Message</Button>
+      <Button @click="onOpenToastClick">
+        Open a Toast
+      </Button>
+      <Button @click="onOpenRenderToastClick">
+        Open a Render Toast
+      </Button>
+      <Button @click="onOpenMessageClick">
+        Open a Message
+      </Button>
+      <Button @click="onOpenCustomMessageClick">
+        Open a CustomIcon Message
+      </Button>
     </div>
   </div>
 </template>

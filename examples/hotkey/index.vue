@@ -6,24 +6,24 @@ import { ref, watch } from 'vue'
 const hotkey = ref('')
 
 const { message } = useMessage()
-const onChange = (codes: string[]) => {
+function onChange(codes: string[]) {
   if (codes.length === 0) {
     message({
       title: 'Deleted',
-      variant: 'warning'
+      variant: 'warning',
     })
     return
   }
   message({
     title: 'Set success',
-    variant: 'success'
+    variant: 'success',
   })
 }
 </script>
 
 <template>
   <div>
-    <Hotkey v-model:hotkey="hotkey" @change="onChange" class="w-[250px]" />
-    <Hotkey v-model:hotkey="hotkey" @change="onChange" class="w-[250px]" />
+    <Hotkey v-model:hotkey="hotkey" class="w-[250px]" @change="onChange" />
+    <Hotkey v-model:hotkey="hotkey" class="w-[250px]" @change="onChange" />
   </div>
 </template>

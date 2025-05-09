@@ -1,18 +1,18 @@
 <script setup lang="tsx">
 import {
   Select,
-  SelectTrigger,
-  SelectMouseTrigger,
-  SelectValue,
   SelectContent,
   SelectGroup,
-  SelectLabel,
   SelectItem,
-} from '@rui/core/components/select';
-import { ref } from 'vue';
+  SelectLabel,
+  SelectMouseTrigger,
+  SelectTrigger,
+  SelectValue,
+} from '@rui/core/components/select'
+import { ref } from 'vue'
 
-const singleSelected = ref<string | null>(null);
-const multiSelected = ref<string[]>([]);
+const singleSelected = ref<string | null>(null)
+const multiSelected = ref<string[]>([])
 </script>
 
 <template>

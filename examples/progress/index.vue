@@ -1,8 +1,8 @@
 <script setup lang="tsx">
-import { Progress, CircleProgress } from '@rui/core/components/progress';
-import { onMounted, ref } from 'vue';
+import { CircleProgress, Progress } from '@rui/core/components/progress'
+import { onMounted, ref } from 'vue'
 
-const progressValue = ref(30);
+const progressValue = ref(30)
 
 // onMounted(() => {
 //   setInterval(() => {
@@ -16,17 +16,17 @@ const progressValue = ref(30);
 
 <template>
   <div class="container flex-col-c gap-4">
-    <Progress class="w-100" :modelValue="progressValue" variant="default" />
-    <Progress class="w-100" :modelValue="progressValue" variant="robbin" />
-    <Progress class="w-100" :modelValue="progressValue" variant="transfer" /> 
+    <Progress class="w-100" :model-value="progressValue" variant="default" />
+    <Progress class="w-100" :model-value="progressValue" variant="robbin" />
+    <Progress class="w-100" :model-value="progressValue" variant="transfer" />
     <div class="flex-c gap-4">
-      <CircleProgress :modelValue="progressValue" />
-      <CircleProgress type="arc" :modelValue="progressValue" />
+      <CircleProgress :model-value="progressValue" />
+      <CircleProgress type="arc" :model-value="progressValue" />
       <CircleProgress
         type="arc"
-        :strokeWidth="4"
+        :stroke-width="4"
         variant="transfer"
-        :modelValue="progressValue"
+        :model-value="progressValue"
       />
     </div>
   </div>

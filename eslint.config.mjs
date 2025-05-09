@@ -26,6 +26,7 @@ export default antfu({
     'unicorn/prefer-dom-node-text-content': 'off',
     'unicorn/prefer-number-properties': 'off',
     'unused-imports/no-unused-vars': 'off',
+    'unused-imports/no-unused-imports': 'warn',
     'regexp/no-super-linear-backtracking': 'off',
   },
 })
