@@ -8,21 +8,6 @@ import type {
 } from 'reka-ui'
 import type { HTMLAttributes } from 'vue'
 import type { ButtonVariants } from '.'
-import { useRipple } from '@rui/core/hooks/useRipple'
-</script>
-
-<script setup lang="ts">
-import {
-  Tooltip,
-  TooltipArrow,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from '@rui/core/components/tooltip'
-import { cn, getNodeCssVar } from '@rui/core/lib/utils'
-import { Primitive, useForwardExpose } from 'reka-ui'
-import { computed } from 'vue'
-import { buttonVariants } from '.'
 
 interface ButtonProps extends PrimitiveProps {
   variant?: ButtonVariants['variant'] | string
@@ -40,6 +25,21 @@ interface ButtonProps extends PrimitiveProps {
   unstyled?: boolean
   ripple?: boolean
 }
+</script>
+
+<script setup lang="ts">
+import {
+  Tooltip,
+  TooltipArrow,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from '@rui/core/components/tooltip'
+import { useRipple } from '@rui/core/hooks/useRipple'
+import { cn, getNodeCssVar } from '@rui/core/lib/utils'
+import { Primitive, useForwardExpose } from 'reka-ui'
+import { computed } from 'vue'
+import { buttonVariants } from '.'
 
 const {
   as = 'button',
