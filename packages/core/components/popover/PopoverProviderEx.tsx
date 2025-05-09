@@ -1,6 +1,7 @@
+import type { Ref } from 'vue'
 import { useTimeoutFn } from '@vueuse/core'
 import { createContext, injectPopoverRootContext } from 'reka-ui'
-import { defineComponent, ref, Ref, toRefs } from 'vue'
+import { defineComponent, ref, toRefs } from 'vue'
 
 export interface PopoverRootContext {
   triggerElement: Ref<HTMLElement | undefined>
@@ -27,8 +28,8 @@ export interface PopoverRootContextEx extends PopoverRootContext {
   onOpen: () => void
   onClose: () => void
 }
-const [injectPopoverRootContextEx, providePopoverRootContextEx] =
-  createContext<PopoverRootContextEx>('PopoverProviderEx')
+const [injectPopoverRootContextEx, providePopoverRootContextEx]
+  = createContext<PopoverRootContextEx>('PopoverProviderEx')
 export { injectPopoverRootContextEx }
 
 export interface PopoverProviderExProps {
@@ -44,28 +45,28 @@ export const PopoverProviderEx = defineComponent<PopoverProviderExProps>({
   props: {
     disabled: {
       type: Boolean,
-      default: false
+      default: false,
     },
     disableClosingTrigger: {
       type: Boolean,
-      default: false
+      default: false,
     },
     disableHoverableContent: {
       type: Boolean,
-      default: false
+      default: false,
     },
     ignoreNonKeyboardFocus: {
       type: Boolean,
-      default: false
+      default: false,
     },
     delayDuration: {
       type: Number,
-      default: 0
+      default: 0,
     },
     skipDelayDuration: {
       type: Number,
-      default: 0
-    }
+      default: 0,
+    },
   },
   setup(props, { slots }) {
     const propsRefs = toRefs(props)
@@ -81,13 +82,14 @@ export const PopoverProviderEx = defineComponent<PopoverProviderExProps>({
         popoverRootContext.onOpenChange(true)
       },
       propsRefs.delayDuration as Ref<number>,
-      { immediate: false }
+      { immediate: false },
     )
 
     const handleOpen = () => {
       if (isOpenDelayed.value) {
         startOpenTimer()
-      } else {
+      }
+      else {
         popoverRootContext.onOpenChange(true)
       }
     }
@@ -104,8 +106,8 @@ export const PopoverProviderEx = defineComponent<PopoverProviderExProps>({
       isOpenDelayed,
       isPointerInTransitRef,
       onOpen: handleOpen,
-      onClose: handleClose
+      onClose: handleClose,
     })
     return () => slots.default?.()
-  }
+  },
 })

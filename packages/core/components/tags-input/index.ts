@@ -1,11 +1,12 @@
-import { cva, VariantProps } from '@rui/core/lib/cva';
+import type { VariantProps } from '@rui/core/lib/cva'
+import { cva } from '@rui/core/lib/cva'
 
-export { default as TagsInput } from './TagsInput.vue';
-export { default as TagsInputInput } from './TagsInputInput.vue';
-export { default as TagsInputItem } from './TagsInputItem.vue';
-export { default as TagsInputItemDelete } from './TagsInputItemDelete.vue';
-export { default as TagsInputItemText } from './TagsInputItemText.vue';
-export { default as TagsItemScrollHorizontal } from './TagsItemScrollHorizontal.vue';
+export { default as TagsInput } from './TagsInput.vue'
+export { default as TagsInputInput } from './TagsInputInput.vue'
+export { default as TagsInputItem } from './TagsInputItem.vue'
+export { default as TagsInputItemDelete } from './TagsInputItemDelete.vue'
+export { default as TagsInputItemText } from './TagsInputItemText.vue'
+export { default as TagsItemScrollHorizontal } from './TagsItemScrollHorizontal.vue'
 
 export const tagsInputVariants = cva(
   ['flex', 'items-center', 'rounded-md', 'border', 'rounded', 'py-[.375rem]', 'px-2', 'gap-2'],
@@ -24,9 +25,9 @@ export const tagsInputVariants = cva(
   },
   {
     className: ['rui-input', 'rui-tags-input'],
-  }
-);
-export type TagsInputVariants = VariantProps<typeof tagsInputVariants>;
+  },
+)
+export type TagsInputVariants = VariantProps<typeof tagsInputVariants>
 
 export const tagsInputInnerVariants = cva(
   ['focus:outline-none', 'flex-1', 'bg-transparent', 'min-w-5'],
@@ -41,9 +42,9 @@ export const tagsInputInnerVariants = cva(
   },
   {
     className: ['rui-input-inner', 'rui-tags-input-inner'],
-  }
-);
-export type TagsInputInnerVariants = VariantProps<typeof tagsInputInnerVariants>;
+  },
+)
+export type TagsInputInnerVariants = VariantProps<typeof tagsInputInnerVariants>
 
 export const tagsInputItemVariants = cva(
   ['flex', 'items-center', 'gap-1'],
@@ -58,9 +59,9 @@ export const tagsInputItemVariants = cva(
   },
   {
     className: 'rui-tags-input-item',
-  }
-);
-export type TagsInputItemVariants = VariantProps<typeof tagsInputItemVariants>;
+  },
+)
+export type TagsInputItemVariants = VariantProps<typeof tagsInputItemVariants>
 
 export const tagsInputItemTextVariants = cva(
   ['text-sm', 'bg-transparent', 'cursor-default'],
@@ -75,9 +76,9 @@ export const tagsInputItemTextVariants = cva(
   },
   {
     className: 'rui-tags-input-item-text',
-  }
-);
-export type TagsInputItemTextVariants = VariantProps<typeof tagsInputItemTextVariants>;
+  },
+)
+export type TagsInputItemTextVariants = VariantProps<typeof tagsInputItemTextVariants>
 
 export const tagsInputItemDeleteVariants = cva(
   ['flex', 'items-center', 'rounded', 'bg-transparent'],
@@ -92,9 +93,9 @@ export const tagsInputItemDeleteVariants = cva(
   },
   {
     className: 'rui-tags-input-item-delete',
-  }
-);
-export type TagsInputItemDeleteVariants = VariantProps<typeof tagsInputItemDeleteVariants>;
+  },
+)
+export type TagsInputItemDeleteVariants = VariantProps<typeof tagsInputItemDeleteVariants>
 
 export const tagsItemScrollHorizontalVariants = cva(
   [],
@@ -109,5 +110,5 @@ export const tagsItemScrollHorizontalVariants = cva(
   },
   {
     className: 'rui-tags-item-scroll-horizontal',
-  }
-);
+  },
+)

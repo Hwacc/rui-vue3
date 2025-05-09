@@ -1,26 +1,26 @@
 <script lang="ts">
 interface PerfectScrollBarOptions {
-  handlers?: string[];
-  maxScrollbarLength?: number;
-  minScrollbarLength?: number;
-  scrollingThreshold?: number;
-  scrollXMarginOffset?: number;
-  scrollYMarginOffset?: number;
-  suppressScrollX?: boolean;
-  suppressScrollY?: boolean;
-  swipeEasing?: boolean;
-  useBothWheelAxes?: boolean;
-  wheelPropagation?: boolean;
-  wheelSpeed?: number;
+  handlers?: string[]
+  maxScrollbarLength?: number
+  minScrollbarLength?: number
+  scrollingThreshold?: number
+  scrollXMarginOffset?: number
+  scrollYMarginOffset?: number
+  suppressScrollX?: boolean
+  suppressScrollY?: boolean
+  swipeEasing?: boolean
+  useBothWheelAxes?: boolean
+  wheelPropagation?: boolean
+  wheelSpeed?: number
 }
 </script>
 
 <script setup lang="ts">
-import { ref, useId, watchEffect } from 'vue';
-import PerfectScrollbar from 'perfect-scrollbar';
-import { cn } from '@/core/lib/utils';
-import { scrollAreaVariants } from '.';
-import { defaults } from 'lodash-es';
+import { cn } from '@/core/lib/utils'
+import { defaults } from 'lodash-es'
+import PerfectScrollbar from 'perfect-scrollbar'
+import { ref, useId, watchEffect } from 'vue'
+import { scrollAreaVariants } from '.'
 
 const {
   class: propsClass,
@@ -29,12 +29,24 @@ const {
   ...props
 } = defineProps<
   PerfectScrollBarOptions & {
-    class?: string;
-    size?: 'base' | 'sm' | 'xs';
-    unstyled?: false;
+    class?: string
+    size?: 'base' | 'sm' | 'xs'
+    unstyled?: false
   }
->();
+>()
 
+const emits = defineEmits<{
+  'ps-scroll-y': [ps: PerfectScrollbar]
+  'ps-scroll-x': [ps: PerfectScrollbar]
+  'ps-scroll-up': [ps: PerfectScrollbar]
+  'ps-scroll-down': [ps: PerfectScrollbar]
+  'ps-scroll-left': [ps: PerfectScrollbar]
+  'ps-scroll-right': [ps: PerfectScrollbar]
+  'ps-reach-y-start': [ps: PerfectScrollbar]
+  'ps-reach-y-end': [ps: PerfectScrollbar]
+  'ps-reach-x-start': [ps: PerfectScrollbar]
+  'ps-reach-x-end': [ps: PerfectScrollbar]
+}>()
 const scrollEvents = [
   'ps-scroll-y',
   'ps-scroll-x',
@@ -46,27 +58,14 @@ const scrollEvents = [
   'ps-reach-y-end',
   'ps-reach-x-start',
   'ps-reach-x-end',
-];
-const emits = defineEmits<{
-  'ps-scroll-y': [ps: PerfectScrollbar];
-  'ps-scroll-x': [ps: PerfectScrollbar];
-  'ps-scroll-up': [ps: PerfectScrollbar];
-  'ps-scroll-down': [ps: PerfectScrollbar];
-  'ps-scroll-left': [ps: PerfectScrollbar];
-  'ps-scroll-right': [ps: PerfectScrollbar];
-  'ps-reach-y-start': [ps: PerfectScrollbar];
-  'ps-reach-y-end': [ps: PerfectScrollbar];
-  'ps-reach-x-start': [ps: PerfectScrollbar];
-  'ps-reach-x-end': [ps: PerfectScrollbar];
-}>();
-
-const id = useId();
-const containerRef = ref<HTMLElement>();
+]
+const id = useId()
+const containerRef = ref<HTMLElement>()
 watchEffect((cleanup) => {
-  let ps: PerfectScrollbar | null = null;
+  let ps: PerfectScrollbar | null = null
   const events = scrollEvents.map((name) => {
-    return [name, () => emits(name as any, ps as any)];
-  });
+    return [name, () => emits(name as any, ps as any)]
+  })
   if (containerRef.value) {
     ps = new PerfectScrollbar(
       containerRef.value,
@@ -76,27 +75,27 @@ watchEffect((cleanup) => {
         scrollXMarginOffset: 0,
         scrollYMarginOffset: 0,
         scrollingThreshold: 1000,
-        swipeEasing: true
-      })
-    );
+        swipeEasing: true,
+      }),
+    )
     events.forEach(([name, handler]) => {
-      containerRef.value?.addEventListener(name as any, handler as any);
-    });
+      containerRef.value?.addEventListener(name as any, handler as any)
+    })
   }
   cleanup(() => {
     events.forEach(([name, handler]) => {
-      containerRef.value?.removeEventListener(name as any, handler as any);
-    });
-    ps?.destroy();
-  });
-});
+      containerRef.value?.removeEventListener(name as any, handler as any)
+    })
+    ps?.destroy()
+  })
+})
 </script>
 
 <template>
   <div
-    :class="cn(scrollAreaVariants({ size, unstyled }), propsClass)"
     :id="`rui-scroll-area-${id}`"
     ref="containerRef"
+    :class="cn(scrollAreaVariants({ size, unstyled }), propsClass)"
     :data-size="size"
   >
     <slot />

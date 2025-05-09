@@ -1,10 +1,13 @@
 <script lang="ts" setup>
-import {
-  SelectRoot,
+import type {
   SelectRootEmits,
   SelectRootProps,
-  useForwardPropsEmits
 } from 'reka-ui'
+import {
+  SelectRoot,
+  useForwardPropsEmits,
+} from 'reka-ui'
+
 const props = defineProps<SelectRootProps>()
 const emits = defineEmits<SelectRootEmits>()
 

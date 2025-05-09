@@ -1,5 +1,6 @@
+import type { VNode } from 'vue'
 import type { MessageProps } from '.'
-import { computed, ref, VNode } from 'vue'
+import { computed, ref } from 'vue'
 
 const MESSAGE_LIMIT = 1
 const MESSAGE_REMOVE_DELAY = 200
@@ -14,7 +15,7 @@ const actionTypes = {
   ADD_TOAST: 'ADD_TOAST',
   UPDATE_TOAST: 'UPDATE_TOAST',
   DISMISS_TOAST: 'DISMISS_TOAST',
-  REMOVE_TOAST: 'REMOVE_TOAST'
+  REMOVE_TOAST: 'REMOVE_TOAST',
 } as const
 
 let count = 0
@@ -27,21 +28,21 @@ function genId() {
 type ActionType = typeof actionTypes
 type Action =
   | {
-      type: ActionType['ADD_TOAST']
-      message: MessagerToast
-    }
+    type: ActionType['ADD_TOAST']
+    message: MessagerToast
+  }
   | {
-      type: ActionType['UPDATE_TOAST']
-      message: Partial<MessagerToast>
-    }
+    type: ActionType['UPDATE_TOAST']
+    message: Partial<MessagerToast>
+  }
   | {
-      type: ActionType['DISMISS_TOAST']
-      messageId?: MessagerToast['id']
-    }
+    type: ActionType['DISMISS_TOAST']
+    messageId?: MessagerToast['id']
+  }
   | {
-      type: ActionType['REMOVE_TOAST']
-      messageId?: MessagerToast['id']
-    }
+    type: ActionType['REMOVE_TOAST']
+    messageId?: MessagerToast['id']
+  }
 
 interface State {
   messages: MessagerToast[]
@@ -50,13 +51,14 @@ interface State {
 const messageTimeouts = new Map<string, ReturnType<typeof setTimeout>>()
 
 function addToRemoveQueue(msgId: string) {
-  if (messageTimeouts.has(msgId)) return
+  if (messageTimeouts.has(msgId))
+    return
 
   const timeout = setTimeout(() => {
     messageTimeouts.delete(msgId)
     dispatch({
       type: actionTypes.REMOVE_TOAST,
-      messageId: msgId
+      messageId: msgId,
     })
   }, MESSAGE_REMOVE_DELAY)
 
@@ -64,7 +66,7 @@ function addToRemoveQueue(msgId: string) {
 }
 
 const state = ref<State>({
-  messages: []
+  messages: [],
 })
 
 function dispatch(action: Action) {
@@ -72,13 +74,13 @@ function dispatch(action: Action) {
     case actionTypes.ADD_TOAST:
       state.value.messages = [action.message, ...state.value.messages].slice(
         0,
-        MESSAGE_LIMIT
+        MESSAGE_LIMIT,
       )
       break
 
     case actionTypes.UPDATE_TOAST:
-      state.value.messages = state.value.messages.map((t) =>
-        t.id === action.message.id ? { ...t, ...action.message } : t
+      state.value.messages = state.value.messages.map(t =>
+        t.id === action.message.id ? { ...t, ...action.message } : t,
       )
       break
 
@@ -86,28 +88,32 @@ function dispatch(action: Action) {
       const { messageId } = action
       if (messageId) {
         addToRemoveQueue(messageId)
-      } else {
+      }
+      else {
         state.value.messages.forEach((message) => {
           addToRemoveQueue(message.id)
         })
       }
-      state.value.messages = state.value.messages.map((msg) =>
+      state.value.messages = state.value.messages.map(msg =>
         msg.id === messageId || messageId === undefined
           ? {
               ...msg,
-              open: false
+              open: false,
             }
-          : msg
+          : msg,
       )
       break
     }
 
     case actionTypes.REMOVE_TOAST:
-      if (action.messageId === undefined) state.value.messages = []
-      else
+      if (action.messageId === undefined) {
+        state.value.messages = []
+      }
+      else {
         state.value.messages = state.value.messages.filter(
-          (msg) => msg.id !== action.messageId
+          msg => msg.id !== action.messageId,
         )
+      }
       break
   }
 }
@@ -117,7 +123,7 @@ function useMessage() {
     messages: computed(() => state.value.messages),
     message,
     dismiss: (msgId?: string) =>
-      dispatch({ type: actionTypes.DISMISS_TOAST, messageId: msgId })
+      dispatch({ type: actionTypes.DISMISS_TOAST, messageId: msgId }),
   }
 }
 
@@ -129,7 +135,7 @@ function message(props: Toast) {
   const update = (props: MessagerToast) =>
     dispatch({
       type: actionTypes.UPDATE_TOAST,
-      message: { ...props, id }
+      message: { ...props, id },
     })
 
   const dismiss = () =>
@@ -142,15 +148,16 @@ function message(props: Toast) {
       id,
       open: true,
       onOpenChange: (open: boolean) => {
-        if (!open) dismiss()
-      }
-    }
+        if (!open)
+          dismiss()
+      },
+    },
   })
 
   return {
     id,
     dismiss,
-    update
+    update,
   }
 }
 

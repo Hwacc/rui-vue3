@@ -1,14 +1,11 @@
 <script setup lang="ts">
-import { cn } from '@rui/core/lib/utils';
-import {
-  SwitchRoot,
-  type SwitchRootEmits,
-  type SwitchRootProps,
-  SwitchThumb,
-  useForwardPropsEmits,
-} from 'reka-ui';
-import { computed, type HTMLAttributes } from 'vue';
-import { switchThumbVariants, switchVariants, SwitchVariantsProps } from '.';
+import type { SwitchRootEmits, SwitchRootProps } from 'reka-ui'
+import type { HTMLAttributes } from 'vue'
+import type { SwitchVariantsProps } from '.'
+import { cn } from '@rui/core/lib/utils'
+import { SwitchRoot, SwitchThumb, useForwardPropsEmits } from 'reka-ui'
+import { computed } from 'vue'
+import { switchThumbVariants, switchVariants } from '.'
 
 const {
   size = 'base',
@@ -16,33 +13,33 @@ const {
   ...props
 } = defineProps<
   SwitchRootProps & {
-    class?: HTMLAttributes['class'];
-    size?: SwitchVariantsProps['size'];
-    thumbClass?: HTMLAttributes['class'];
-    unstyled?: boolean;
+    class?: HTMLAttributes['class']
+    size?: SwitchVariantsProps['size']
+    thumbClass?: HTMLAttributes['class']
+    unstyled?: boolean
   }
->();
-const emits = defineEmits<SwitchRootEmits>();
-const forwarded = useForwardPropsEmits(props, emits);
+>()
+const emits = defineEmits<SwitchRootEmits>()
+const forwarded = useForwardPropsEmits(props, emits)
 
 const switchRootClassName = computed(() => {
   return cn(
     switchVariants({
       size,
-      unstyled
+      unstyled,
     }),
-    props.class
-  );
-});
+    props.class,
+  )
+})
 const switchThumbClassName = computed(() => {
   return cn(
     switchThumbVariants({
       size,
-      unstyled
+      unstyled,
     }),
-    props.thumbClass
-  );
-});
+    props.thumbClass,
+  )
+})
 </script>
 
 <template>

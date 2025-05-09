@@ -1,6 +1,7 @@
-import { createContext } from 'reka-ui'
-import { defineComponent, PropType, ref, Ref, SlotsType, watch } from 'vue'
+import type { PropType, Ref, SlotsType } from 'vue'
 import { CalendarPanelEnum } from '@rui/core/lib/constants'
+import { createContext } from 'reka-ui'
+import { defineComponent, ref, watch } from 'vue'
 
 const [injectCalendarContextEx, provideCalendarContextEx] = createContext<{
   panel: Ref<CalendarPanelEnum>
@@ -12,8 +13,8 @@ export const CalendarProvider = defineComponent({
   props: {
     modelValue: {
       type: String as PropType<CalendarPanelEnum>,
-      default: CalendarPanelEnum.DAY
-    }
+      default: CalendarPanelEnum.DAY,
+    },
   },
   emits: ['update:modelValue'],
   slots: Object as SlotsType<{
@@ -26,5 +27,5 @@ export const CalendarProvider = defineComponent({
       emit('update:modelValue', newValue)
     })
     return () => slots.default?.({ panel: panel.value })
-  }
+  },
 })

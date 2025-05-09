@@ -1,9 +1,9 @@
-import { cva } from '@/core/lib/cva';
+import { cva } from '@/core/lib/cva'
 
 // import ps css
-import './style.css';
+import './style.css'
 
-export { default as ScrollArea } from './ScrollArea.vue';
+export { default as ScrollArea } from './ScrollArea.vue'
 
 export const scrollAreaVariants = cva(
   ['relative'],
@@ -18,5 +18,5 @@ export const scrollAreaVariants = cva(
   },
   {
     className: 'rui-ps-scroll-area',
-  }
-);
+  },
+)

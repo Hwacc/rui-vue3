@@ -1,21 +1,21 @@
-import { VariantProps } from 'class-variance-authority';
-import { cva } from '@rui/core/lib/cva';
-import { PREFIX } from '@rui/core/lib/constants';
+import type { VariantProps } from 'class-variance-authority'
+import { PREFIX } from '@rui/core/lib/constants'
+import { cva } from '@rui/core/lib/cva'
 
-export { default as Tabs } from './Tabs.vue';
-export { default as TabsContent } from './TabsContent.vue';
-export { default as TabsList } from './TabsList.vue';
-export { default as TabsTrigger } from './TabsTrigger.vue';
-export { default as TabsIndicator } from './TabsIndicator.vue';
+export { default as Tabs } from './Tabs.vue'
+export { default as TabsContent } from './TabsContent.vue'
+export { default as TabsIndicator } from './TabsIndicator.vue'
+export { default as TabsList } from './TabsList.vue'
+export { default as TabsTrigger } from './TabsTrigger.vue'
 
-const prefix = `${PREFIX}-tabs`;
-export const tabsVariants = cva(undefined, { variants: {} }, { className: prefix });
+const prefix = `${PREFIX}-tabs`
+export const tabsVariants = cva(undefined, { variants: {} }, { className: prefix })
 
 export const tabsListVariants = cva(
   ['flex', 'items-center', 'relative', 'overflow-hidden'],
   undefined,
-  { className: `${prefix}-list` }
-);
+  { className: `${prefix}-list` },
+)
 
 export const tabsTriggerVariants = cva(
   [
@@ -38,9 +38,9 @@ export const tabsTriggerVariants = cva(
       },
     },
   },
-  { className: `${prefix}-trigger` }
-);
-export type TabsTriggerVariantsProps = VariantProps<typeof tabsTriggerVariants>;
+  { className: `${prefix}-trigger` },
+)
+export type TabsTriggerVariantsProps = VariantProps<typeof tabsTriggerVariants>
 
 export const tabsIndicatorVariants = cva(
   [
@@ -62,9 +62,9 @@ export const tabsIndicatorVariants = cva(
       },
     },
   },
-  { className: `${prefix}-indicator` }
-);
-export type TabsIndicatorVariantsProps = VariantProps<typeof tabsIndicatorVariants>;
+  { className: `${prefix}-indicator` },
+)
+export type TabsIndicatorVariantsProps = VariantProps<typeof tabsIndicatorVariants>
 
 export const tabsContentVariants = cva(
   ['mt-2', 'data-[state=active]:animate-duration-200'],
@@ -80,6 +80,6 @@ export const tabsContentVariants = cva(
   },
   {
     className: `${prefix}-content`,
-  }
-);
-export type TabsContentVariantsProps = VariantProps<typeof tabsContentVariants>;
+  },
+)
+export type TabsContentVariantsProps = VariantProps<typeof tabsContentVariants>

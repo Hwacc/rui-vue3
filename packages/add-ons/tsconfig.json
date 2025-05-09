@@ -1,38 +1,38 @@
 {
   "compilerOptions": {
-    "baseUrl": ".",
-    "paths": {
-      "@/add-ons/*": ["./*"],
-      "@/core/*": ["../core/*"],
-    },
     "target": "ES2020",
-    "useDefineForClassFields": true,
-    "module": "ESNext",
-    "lib": ["ES2020", "DOM", "DOM.Iterable"],
-    "skipLibCheck": true,
-    "typeRoots": ["./node_modules/@types", "./types"],
-
-    /* Bundler mode */
-    "moduleResolution": "Bundler",
-    "allowImportingTsExtensions": true,
-    "isolatedModules": true,
-    "moduleDetection": "force",
-    "noEmit": true,
     "jsx": "preserve",
     "jsxFactory": "h",
-    "jsxImportSource": "vue",
     "jsxFragmentFactory": "Fragment",
+    "jsxImportSource": "vue",
+    "lib": ["ES2020", "DOM", "DOM.Iterable"],
+
+    "moduleDetection": "force",
+    "useDefineForClassFields": true,
+    "baseUrl": ".",
+    "module": "ESNext",
+    /* Bundler mode */
+    "moduleResolution": "Bundler",
+    "paths": {
+      "@/add-ons/*": ["./*"],
+      "@/core/*": ["../core/*"]
+    },
+    "typeRoots": ["./node_modules/@types", "./types"],
+    "allowImportingTsExtensions": true,
 
     /* Linting */
     "strict": true,
+    "noFallthroughCasesInSwitch": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
-    "noFallthroughCasesInSwitch": true,
+    "noEmit": true,
+    "isolatedModules": true,
+    "skipLibCheck": true,
     "noUncheckedSideEffectImports": true
   },
   "include": [
     "./**/*.ts",
     "./**/*.tsx",
-    "./**/*.vue",
+    "./**/*.vue"
   ]
 }

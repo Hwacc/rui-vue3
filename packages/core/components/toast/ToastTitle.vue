@@ -11,7 +11,7 @@ const {
   unstyled,
   ...props
 } = defineProps<
-  ToastTitleProps & { class?: HTMLAttributes['class']; unstyled?: boolean }
+  ToastTitleProps & { class?: HTMLAttributes['class'], unstyled?: boolean }
 >()
 
 const classNames = computed(() => {

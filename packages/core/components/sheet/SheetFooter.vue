@@ -14,9 +14,9 @@ const props = defineProps<{
     :class="
       cn(
         sheetFooterVariants({
-          unstyled: props.unstyled
+          unstyled: props.unstyled,
         }),
-        props.class
+        props.class,
       )
     "
   >

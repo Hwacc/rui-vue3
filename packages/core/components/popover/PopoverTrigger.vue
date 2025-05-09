@@ -6,18 +6,21 @@ export interface PopoverTriggerProps extends PrimitiveProps {
 </script>
 
 <script setup lang="ts">
-import {
-  Primitive,
-  PopoverAnchor,
+import type {
   PrimitiveProps,
+} from 'reka-ui'
+import type { HTMLAttributes } from 'vue'
+import { cn } from '@rui/core/lib/utils'
+import {
+  injectPopoverRootContext,
+  PopoverAnchor,
+  Primitive,
   useForwardExpose,
   useId,
-  injectPopoverRootContext
 } from 'reka-ui'
-import { injectPopoverRootContextEx } from './PopoverProviderEx'
-import { computed, HTMLAttributes, onMounted, ref, watch } from 'vue'
-import { cn } from '@rui/core/lib/utils'
+import { computed, onMounted, ref, watch } from 'vue'
 import { popoverTriggerVariants } from '.'
+import { injectPopoverRootContextEx } from './PopoverProviderEx'
 
 const {
   class: propsClass,
@@ -25,9 +28,9 @@ const {
   asChild = false,
   trigger = 'click',
   mode = 'mouse-only',
-  unstyled
+  unstyled,
 } = defineProps<
-  PopoverTriggerProps & { class?: HTMLAttributes['class']; unstyled?: boolean }
+  PopoverTriggerProps & { class?: HTMLAttributes['class'], unstyled?: boolean }
 >()
 
 const rootContex = injectPopoverRootContext()
@@ -40,7 +43,7 @@ const {
   disableHoverableContent,
   disableClosingTrigger,
   onOpen,
-  onClose
+  onClose,
 } = injectPopoverRootContextEx()
 
 watch(
@@ -49,13 +52,13 @@ watch(
     triggerType.value = t as 'click' | 'hover' | 'manual'
     triggerMode.value = m as 'mouse-only' | 'touch-simulate'
   },
-  { immediate: true }
+  { immediate: true },
 )
 
 const isPointerDown = ref(false)
 const hasPointerMoveOpened = ref(false)
 
-const handlePointerDown = () => {
+function handlePointerDown() {
   isPointerDown.value = true
   document.addEventListener(
     'pointerup',
@@ -63,29 +66,32 @@ const handlePointerDown = () => {
       setTimeout(() => {
         // 模拟点击
         isPointerDown.value = false
-        if (open.value && disableClosingTrigger.value) return
+        if (open.value && disableClosingTrigger.value)
+          return
         open.value ? onClose() : onOpen()
       })
     },
-    { once: true }
+    { once: true },
   )
 }
 
 // 模拟mouseenter, mouseleave
-const handlePointerMove = (event: PointerEvent) => {
-  if (event.pointerType === 'touch') return
+function handlePointerMove(event: PointerEvent) {
+  if (event.pointerType === 'touch')
+    return
   if (!hasPointerMoveOpened.value && !isPointerInTransitRef.value) {
     onOpen()
     hasPointerMoveOpened.value = true
   }
 }
-const handlePointerLeave = () => {
+function handlePointerLeave() {
   disableHoverableContent.value && onClose()
   hasPointerMoveOpened.value = false
 }
 
 const triggerListeners = computed(() => {
-  if (disabled.value || trigger === 'manual') return {}
+  if (disabled.value || trigger === 'manual')
+    return {}
   if (trigger === 'hover') {
     if (mode === 'mouse-only') {
       return {
@@ -96,12 +102,13 @@ const triggerListeners = computed(() => {
         },
         mouseleave: () => {
           disableHoverableContent.value && onClose()
-        }
+        },
       }
-    } else if (mode === 'touch-simulate') {
+    }
+    else if (mode === 'touch-simulate') {
       return {
         pointerenter: handlePointerMove,
-        pointerleave: handlePointerLeave
+        pointerleave: handlePointerLeave,
       }
     }
   }
@@ -109,24 +116,27 @@ const triggerListeners = computed(() => {
     if (mode === 'mouse-only') {
       return {
         click: () => {
-          if (open.value && disableClosingTrigger.value) return
+          if (open.value && disableClosingTrigger.value)
+            return
           open.value ? onClose() : onOpen()
-        }
+        },
       }
-    } else if (mode === 'touch-simulate') {
+    }
+    else if (mode === 'touch-simulate') {
       return {
         pointerdown: handlePointerDown,
         click: (event: any) => {
           if (
-            !isPointerDown.value &&
-            (event.target as HTMLElement).matches?.(':focus-visible')
+            !isPointerDown.value
+            && (event.target as HTMLElement).matches?.(':focus-visible')
           ) {
             open.value ? onClose() : onOpen()
           }
-        }
+        },
       }
     }
   }
+  return {}
 })
 
 rootContex.triggerId ||= useId(undefined, 'reka-popover-trigger')
@@ -139,18 +149,18 @@ const { forwardRef, currentElement: triggerElement } = useForwardExpose()
 <template>
   <PopoverAnchor as-child>
     <Primitive
-      :class="cn(popoverTriggerVariants({ unstyled }), propsClass)"
       :id="rootContex.triggerId"
       :ref="forwardRef"
+      :class="cn(popoverTriggerVariants({ unstyled }), propsClass)"
       :as="as"
       :as-child="asChild"
-      v-on="triggerListeners"
       aria-haspopup="dialog"
       :aria-expanded="open"
       :aria-controls="rootContex.contentId"
       :data-state="open ? 'open' : 'closed'"
+      v-on="triggerListeners"
     >
-      <slot v-bind="{ disabled: disabled }" />
+      <slot v-bind="{ disabled }" />
     </Primitive>
   </PopoverAnchor>
 </template>

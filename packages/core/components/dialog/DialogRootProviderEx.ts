@@ -1,6 +1,7 @@
+import type { Ref } from 'vue'
+import type { DialogCloseFrom } from '.'
 import { createContext, injectDialogRootContext } from 'reka-ui'
-import { defineComponent, ref, Ref } from 'vue'
-import { DialogCloseFrom } from '.'
+import { defineComponent, ref } from 'vue'
 
 interface DialogRootContext {
   open: Readonly<Ref<boolean>>
@@ -35,8 +36,8 @@ export default defineComponent({
         }
         onOpenChange(value)
       },
-      closeFrom
+      closeFrom,
     })
     return () => slots.default?.()
-  }
+  },
 })

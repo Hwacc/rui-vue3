@@ -27,7 +27,7 @@ const forwardedProps = useForwardProps(props)
       cn(
         dropdownMenuItemVariants({ variant: 'default', unstyled }),
         props.inset && 'pl-8',
-        propsClass
+        propsClass,
       )
     "
     data-variant="default"

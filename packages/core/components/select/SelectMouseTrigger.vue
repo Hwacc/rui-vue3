@@ -1,33 +1,36 @@
-<!-- 
-HACK: 
-Sometimes, we need a simple Trigger that is used only in the browser of a single environment. 
-This Select component only responds to mouse events and allows normal event bubbling, 
-so we have the opportunity to capture mouse events internally. 
+<!--
+HACK:
+Sometimes, we need a simple Trigger that is used only in the browser of a single environment.
+This Select component only responds to mouse events and allows normal event bubbling,
+so we have the opportunity to capture mouse events internally.
 -->
 
 <script lang="ts">
-import type { PrimitiveProps, ReferenceElement } from 'reka-ui';
-import { selectTriggerVariants, selectTriangleVariants } from '.';
-import { cn } from '@rui/core/lib/utils';
-import { isEmpty } from 'lodash-es';
-const OPEN_KEYS = [' ', 'Enter', 'ArrowUp', 'ArrowDown'];
+import type { PrimitiveProps, ReferenceElement } from 'reka-ui'
+import { cn } from '@rui/core/lib/utils'
+import { isEmpty } from 'lodash-es'
+import { selectTriangleVariants, selectTriggerVariants } from '.'
+
+const OPEN_KEYS = [' ', 'Enter', 'ArrowUp', 'ArrowDown']
 interface PopperAnchorProps extends PrimitiveProps {
-  reference?: ReferenceElement;
+  reference?: ReferenceElement
 }
 export interface SelectTriggerProps extends PopperAnchorProps {
-  disabled?: boolean;
+  disabled?: boolean
 }
 </script>
 
 <script setup lang="ts">
-import { computed, HTMLAttributes, onMounted, unref } from 'vue';
-import { injectSelectRootContext, Primitive, useForwardExpose, useId, SelectIcon } from 'reka-ui';
-//@ts-ignore
-import { _ as PopperAnchor } from '../../node_modules/reka-ui/dist/Popper/PopperAnchor.js';
+import type { HTMLAttributes } from 'vue'
+import { injectSelectRootContext, Primitive, SelectIcon, useForwardExpose, useId } from 'reka-ui'
+import { computed, onMounted, unref } from 'vue'
+// @ts-expect-error reka-ui not export PopperAnchor
+// eslint-disable-next-line antfu/no-import-dist, antfu/no-import-node-modules-by-path
+import { _ as PopperAnchor } from '../../node_modules/reka-ui/dist/Popper/PopperAnchor.js'
 
 defineOptions({
   name: 'SelectMouseTrigger',
-});
+})
 
 const {
   as = 'button',
@@ -37,31 +40,31 @@ const {
   ...props
 } = defineProps<
   SelectTriggerProps & {
-    class?: HTMLAttributes['class'];
-    unstyled?: boolean;
+    class?: HTMLAttributes['class']
+    unstyled?: boolean
   }
->();
+>()
 
-const rootContext = injectSelectRootContext();
-const { forwardRef, currentElement: triggerElement } = useForwardExpose();
+const rootContext = injectSelectRootContext()
+const { forwardRef, currentElement: triggerElement } = useForwardExpose()
 
-const isDisabled = computed(() => rootContext.disabled?.value || props.disabled);
+const isDisabled = computed(() => rootContext.disabled?.value || props.disabled)
 const classNames = computed(() => {
-  return cn(selectTriggerVariants({ unstyled }), propsClass);
-});
+  return cn(selectTriggerVariants({ unstyled }), propsClass)
+})
 
-rootContext.contentId ||= useId(undefined, 'reka-select-content');
+rootContext.contentId ||= useId(undefined, 'reka-select-content')
 
 onMounted(() => {
-  rootContext.onTriggerChange(triggerElement.value);
-});
+  rootContext.onTriggerChange(triggerElement.value)
+})
 </script>
 
 <template>
   <PopperAnchor as-child :reference="props.reference">
     <Primitive
-      :class="classNames"
       :ref="forwardRef"
+      :class="classNames"
       role="combobox"
       :type="as === 'button' ? 'button' : undefined"
       :aria-controls="rootContext.contentId"
@@ -93,7 +96,7 @@ onMounted(() => {
       "
     >
       <slot />
-      <slot name="icon" :v-bind="{ open: unref(rootContext.open) }">
+      <slot name="icon" v-bind="{ open: unref(rootContext.open) }">
         <SelectIcon
           as="i"
           :class="selectTriangleVariants({ unstyled })"
@@ -102,10 +105,7 @@ onMounted(() => {
           <svg
             xmlns="http://www.w3.org/2000/svg"
             view-box="0 0 7 3"
-            :class="[
-              'w-[.5rem]',
-              'h-[.25rem]',
-              'transition-transform',
+            class="w-[.5rem] h-[.25rem] transition-transform" :class="[
               unref(rootContext.open) ? ['animate-from', 'rotate-180'] : ['rotate-0'],
             ]"
           >

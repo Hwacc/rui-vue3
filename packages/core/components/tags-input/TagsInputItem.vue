@@ -1,18 +1,20 @@
 <script setup lang="ts">
+import type { TagsInputItemProps } from 'reka-ui'
+import type { HTMLAttributes } from 'vue'
+
+import type { TagsInputItemVariants } from '.'
+import { useCollection } from '@rui/core/components/collection'
 import { cn } from '@rui/core/lib/utils'
+import { onClickOutside } from '@vueuse/core'
+import { last } from 'lodash-es'
 import {
   injectTagsInputRootContext,
   TagsInputItem,
-  type TagsInputItemProps,
-  useForwardProps
+  useForwardProps,
 } from 'reka-ui'
-
-import { useTemplateRef, type HTMLAttributes } from 'vue'
-import { TagsInputItemVariants, tagsInputItemVariants } from '.'
+import { useTemplateRef } from 'vue'
+import { tagsInputItemVariants } from '.'
 import { injectTagsInputContextEx } from './TagsInputProviderEx'
-import { onClickOutside } from '@vueuse/core'
-import { useCollection } from '@rui/core/components/collection'
-import { last } from 'lodash-es'
 
 const {
   class: propsClass,
@@ -25,8 +27,8 @@ const {
   }
 >()
 
-const { selectedElement, onInputKeydown, onRemoveValue } =
-  injectTagsInputRootContext()
+const { selectedElement, onInputKeydown, onRemoveValue }
+  = injectTagsInputRootContext()
 const { size: contextSize, tagsInputElement } = injectTagsInputContextEx()
 
 const tagItem = useTemplateRef('tag-item')
@@ -38,28 +40,31 @@ onClickOutside(tagItem, () => {
 })
 
 const { getItems, CollectionItem } = useCollection({
-  key: 'RuiTagsInputCollection'
+  key: 'RuiTagsInputCollection',
 })
-const handleOnKeydown = (event: KeyboardEvent) => {
+function handleOnKeydown(event: KeyboardEvent) {
   if (event.key === 'Backspace' || event.key === 'Delete') {
     // if delete
     const collection = getItems()
     const lastTag = last(collection)?.ref
     if (selectedElement.value) {
-      const index = getItems().findIndex((i) => i.ref === tagItem.value?.$el)
+      const index = getItems().findIndex(i => i.ref === tagItem.value?.$el)
       onRemoveValue(index)
-      selectedElement.value =
-        selectedElement.value === lastTag
+      selectedElement.value
+        = selectedElement.value === lastTag
           ? collection[index - 1]?.ref
           : collection[index + 1]?.ref
       // if selected element exist make it in focus
-      if (selectedElement.value) selectedElement.value?.click()
+      if (selectedElement.value)
+        selectedElement.value?.click()
       // else we focus on input
       else tagsInputElement.value?.focus()
-    } else if (event.key === 'Backspace') {
+    }
+    else if (event.key === 'Backspace') {
       selectedElement.value = lastTag
     }
-  } else if (event.key === 'ArrowLeft' || event.key === 'ArrowRight') {
+  }
+  else if (event.key === 'ArrowLeft' || event.key === 'ArrowRight') {
     // if arrow control
     switch (event.key) {
       case 'ArrowLeft':
@@ -73,7 +78,8 @@ const handleOnKeydown = (event: KeyboardEvent) => {
         }
         break
     }
-  } else if (event.key === 'Tab') {
+  }
+  else if (event.key === 'Tab') {
     // if tab select
     selectedElement.value = tagItem?.value?.$el
   }
@@ -86,11 +92,11 @@ const forwardedProps = useForwardProps(props)
   <CollectionItem :value="props.value">
     <TagsInputItem
       v-bind="forwardedProps"
+      ref="tag-item"
       :class="
         cn(tagsInputItemVariants({ size: contextSize ?? size }), propsClass)
       "
       :data-size="contextSize ?? size"
-      ref="tag-item"
       @click="
         () => {
           selectedElement = tagItem?.$el
@@ -102,9 +108,9 @@ const forwardedProps = useForwardProps(props)
     </TagsInputItem>
   </CollectionItem>
   <input
-    class="absolue z-[-1] size-0 outline-none"
     ref="key-detector"
+    class="absolue z-[-1] size-0 outline-none"
     readonly
     @keydown="handleOnKeydown"
-  />
+  >
 </template>

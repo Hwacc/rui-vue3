@@ -1,7 +1,8 @@
 <script setup lang="ts">
+import type { DialogDescriptionProps } from 'reka-ui'
+import type { HTMLAttributes } from 'vue'
 import { cn } from '@rui/core/lib/utils'
-import { DialogDescription, type DialogDescriptionProps } from 'reka-ui'
-import { type HTMLAttributes } from 'vue'
+import { DialogDescription } from 'reka-ui'
 import { sheetDescriptionVariants } from '.'
 
 const {

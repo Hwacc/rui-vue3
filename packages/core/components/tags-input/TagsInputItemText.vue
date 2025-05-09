@@ -1,9 +1,11 @@
 <script setup lang="ts">
-import { cn } from '@rui/core/lib/utils';
-import { TagsInputItemText, type TagsInputItemTextProps, useForwardProps } from 'reka-ui';
-import { type HTMLAttributes } from 'vue';
-import { TagsInputItemTextVariants, tagsInputItemTextVariants } from '.';
-import { injectTagsInputContextEx } from './TagsInputProviderEx';
+import type { TagsInputItemTextProps } from 'reka-ui'
+import type { HTMLAttributes } from 'vue'
+import type { TagsInputItemTextVariants } from '.'
+import { cn } from '@rui/core/lib/utils'
+import { TagsInputItemText, useForwardProps } from 'reka-ui'
+import { tagsInputItemTextVariants } from '.'
+import { injectTagsInputContextEx } from './TagsInputProviderEx'
 
 const {
   class: propsClass,
@@ -11,12 +13,12 @@ const {
   ...props
 } = defineProps<
   TagsInputItemTextProps & {
-    class?: HTMLAttributes['class'];
-    size?: TagsInputItemTextVariants['size'];
+    class?: HTMLAttributes['class']
+    size?: TagsInputItemTextVariants['size']
   }
->();
-const { size: contextSize } = injectTagsInputContextEx();
-const forwardedProps = useForwardProps(props);
+>()
+const { size: contextSize } = injectTagsInputContextEx()
+const forwardedProps = useForwardProps(props)
 </script>
 
 <template>

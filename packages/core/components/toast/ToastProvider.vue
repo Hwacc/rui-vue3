@@ -1,15 +1,17 @@
 <script lang="ts">
 import type { ToastProviderProps } from 'reka-ui'
-import { createContext, injectToastProviderContext } from 'reka-ui'
+import type {
+  Ref,
+} from 'vue'
+import type { SwipeDirection, ToastPosition } from '.'
+import { createContext, injectToastProviderContext, ToastProvider } from 'reka-ui'
 import {
   defineComponent,
   reactive,
-  Ref,
   toRefs,
   useSlots,
-  watchEffect
+  watchEffect,
 } from 'vue'
-import { SwipeDirection, ToastPosition } from '.'
 
 export interface ToastProviderPropsEx extends ToastProviderProps {
   position?: ToastPosition
@@ -29,10 +31,10 @@ export interface ToastProviderContextEx {
   position: Ref<ToastPosition>
 }
 
-const [injectToastProviderContextEx, provideToastProviderContextEx] =
-  createContext<ToastProviderContextEx>([
+const [injectToastProviderContextEx, provideToastProviderContextEx]
+  = createContext<ToastProviderContextEx>([
     'ToastProvider',
-    'ToastPostitionProvider'
+    'ToastPostitionProvider',
   ])
 
 export { injectToastProviderContextEx }
@@ -41,8 +43,8 @@ export const ToastPostitionProvider = defineComponent({
   props: {
     position: {
       type: String as () => ToastPosition,
-      default: 'center'
-    }
+      default: 'center',
+    },
   },
   setup(props) {
     const { position } = toRefs(props)
@@ -51,16 +53,14 @@ export const ToastPostitionProvider = defineComponent({
 
     provideToastProviderContextEx({
       ...providerContext,
-      position
+      position,
     })
     return () => slots.default?.()
-  }
+  },
 })
 </script>
 
 <script setup lang="ts">
-import { ToastProvider } from 'reka-ui'
-
 const {
   position = 'center',
   swipeDirection = 'up',
@@ -70,7 +70,7 @@ const {
 
 const swipeOptions = reactive({
   direction: swipeDirection,
-  threshold: swipeThreshold
+  threshold: swipeThreshold,
 })
 
 watchEffect(() => {

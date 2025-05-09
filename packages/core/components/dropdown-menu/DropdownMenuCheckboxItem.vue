@@ -1,13 +1,14 @@
 <script setup lang="ts">
 import type {
   DropdownMenuCheckboxItemEmits,
-  DropdownMenuCheckboxItemProps
+  DropdownMenuCheckboxItemProps,
 } from 'reka-ui'
-import { ref, watch, type HTMLAttributes } from 'vue'
+import type { HTMLAttributes } from 'vue'
+import { Checkbox } from '@rui/core/components/checkbox'
 import { cn } from '@rui/core/lib/utils'
 import { DropdownMenuCheckboxItem, useForwardPropsEmits } from 'reka-ui'
+import { ref, watch } from 'vue'
 import { dropdownMenuItemVariants } from '.'
-import { Checkbox } from '@rui/core/components/checkbox'
 
 const {
   class: propsClass,
@@ -27,10 +28,10 @@ const emits = defineEmits<DropdownMenuCheckboxItemEmits>()
 const innerModelValue = ref(modelValue)
 watch(
   () => modelValue,
-  (val) => (innerModelValue.value = val),
-  { immediate: true }
+  val => (innerModelValue.value = val),
+  { immediate: true },
 )
-watch(innerModelValue, (val) => emits('update:modelValue', val as boolean))
+watch(innerModelValue, val => emits('update:modelValue', val as boolean))
 
 const forwarded = useForwardPropsEmits(props, emits)
 </script>
@@ -42,9 +43,9 @@ const forwarded = useForwardPropsEmits(props, emits)
       cn(
         dropdownMenuItemVariants({
           variant: 'checkbox',
-          unstyled
+          unstyled,
         }),
-        propsClass
+        propsClass,
       )
     "
     data-variant="checkbox"

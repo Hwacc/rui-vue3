@@ -1,18 +1,15 @@
 <script setup lang="ts">
-import { cn } from '@rui/core/lib/utils';
-import {
-  TooltipContent,
-  type TooltipContentEmits,
-  type TooltipContentProps,
-  TooltipPortal,
-  useForwardPropsEmits,
-} from 'reka-ui';
-import { computed, type HTMLAttributes } from 'vue';
-import { tooltipContentVariants, type TooltipContentVariants } from '.';
+import type { TooltipContentEmits, TooltipContentProps } from 'reka-ui'
+import type { HTMLAttributes } from 'vue'
+import type { TooltipContentVariants } from '.'
+import { cn } from '@rui/core/lib/utils'
+import { TooltipContent, TooltipPortal, useForwardPropsEmits } from 'reka-ui'
+import { computed } from 'vue'
+import { tooltipContentVariants } from '.'
 
 defineOptions({
   inheritAttrs: false,
-});
+})
 
 const {
   class: propsClass,
@@ -21,22 +18,26 @@ const {
   ...props
 } = defineProps<
   TooltipContentProps & {
-    class?: HTMLAttributes['class'];
-    theme?: TooltipContentVariants['theme'];
-    unstyled?: boolean;
+    class?: HTMLAttributes['class']
+    theme?: TooltipContentVariants['theme']
+    unstyled?: boolean
   }
->();
-const emits = defineEmits<TooltipContentEmits>();
-const forwarded = useForwardPropsEmits(props, emits);
+>()
+const emits = defineEmits<TooltipContentEmits>()
+const forwarded = useForwardPropsEmits(props, emits)
 
 const classNames = computed(() => {
-  return cn(tooltipContentVariants({ theme, unstyled }), propsClass);
-});
+  return cn(tooltipContentVariants({ theme, unstyled }), propsClass)
+})
 </script>
 
 <template>
   <TooltipPortal>
-    <TooltipContent v-bind="{ ...forwarded, ...$attrs }" :class="classNames" :data-theme="theme">
+    <TooltipContent
+      v-bind="{ ...forwarded, ...$attrs }"
+      :class="classNames"
+      :data-theme="theme"
+    >
       <slot />
     </TooltipContent>
   </TooltipPortal>

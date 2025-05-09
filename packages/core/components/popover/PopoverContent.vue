@@ -1,25 +1,26 @@
 <script setup lang="ts">
+import type { PopoverContentEmits, PopoverContentProps } from 'reka-ui'
+import type { HTMLAttributes } from 'vue'
+import { PopoverContentMotion } from '@rui/core/components/motion/PopoverContentMotion'
 import { cn } from '@rui/core/lib/utils'
+import { AnimatePresence } from 'motion-v'
 import {
   injectPopoverRootContext,
   PopoverContent,
-  type PopoverContentEmits,
-  type PopoverContentProps,
   PopoverPortal,
   useForwardExpose,
-  useForwardPropsEmits
+  useForwardPropsEmits,
 } from 'reka-ui'
-import { ref, watchEffect, type HTMLAttributes } from 'vue'
+import { ref, watchEffect } from 'vue'
 import { popoverContentVariants } from '.'
-import { AnimatePresence } from 'motion-v'
-import { PopoverContentMotion } from '@rui/core/components/motion/PopoverContentMotion'
 
-//@ts-ignore
+// @ts-expect-error reka not export useGraceArea
+// eslint-disable-next-line antfu/no-import-dist, antfu/no-import-node-modules-by-path
 import { u as useGraceArea } from '../../node_modules/reka-ui/dist/shared/useGraceArea.js'
 import { injectPopoverRootContextEx } from './PopoverProviderEx.jsx'
 
 defineOptions({
-  inheritAttrs: false
+  inheritAttrs: false,
 })
 
 const {
@@ -30,23 +31,24 @@ const {
   unstyled,
   ...props
 } = defineProps<
-  PopoverContentProps & { class?: HTMLAttributes['class']; unstyled?: boolean }
+  PopoverContentProps & { class?: HTMLAttributes['class'], unstyled?: boolean }
 >()
 
+const emits = defineEmits<PopoverContentEmits>()
 const { triggerElement } = injectPopoverRootContext()
 const rootContextEx = injectPopoverRootContextEx()
 
 const contentRef = ref<any>(null)
 const { isPointerInTransit, onPointerExit } = useGraceArea(
   triggerElement,
-  contentRef
+  contentRef,
 )
 
 rootContextEx.isPointerInTransitRef = isPointerInTransit
 onPointerExit(() => {
   if (
-    rootContextEx.triggerType.value === 'hover' &&
-    !rootContextEx.disableHoverableContent.value
+    rootContextEx.triggerType.value === 'hover'
+    && !rootContextEx.disableHoverableContent.value
   ) {
     rootContextEx.onClose()
   }
@@ -57,31 +59,33 @@ watchEffect((onCleanup) => {
   const triggerType = rootContextEx.triggerType.value
   const triggerMode = rootContextEx.triggerMode.value
   if (
-    (triggerType === 'click' || triggerType === 'manual') &&
-    currentElement.value
+    (triggerType === 'click' || triggerType === 'manual')
+    && currentElement.value
   ) {
     if (rootContextEx.disableHoverableContent.value) {
       if (triggerMode === 'mouse-only') {
         currentElement.value.addEventListener(
           'mouseenter',
-          rootContextEx.onClose
+          rootContextEx.onClose,
         )
-      } else if (triggerMode === 'touch-simulate') {
+      }
+      else if (triggerMode === 'touch-simulate') {
         currentElement.value.addEventListener(
           'pointerenter',
-          rootContextEx.onClose
+          rootContextEx.onClose,
         )
       }
       onCleanup(() => {
         if (triggerMode === 'mouse-only') {
           currentElement.value?.removeEventListener(
             'mouseenter',
-            rootContextEx.onClose
+            rootContextEx.onClose,
           )
-        } else if (triggerMode === 'touch-simulate') {
+        }
+        else if (triggerMode === 'touch-simulate') {
           currentElement.value?.removeEventListener(
             'pointerenter',
-            rootContextEx.onClose
+            rootContextEx.onClose,
           )
         }
       })
@@ -89,7 +93,6 @@ watchEffect((onCleanup) => {
   }
 })
 
-const emits = defineEmits<PopoverContentEmits>()
 const forwarded = useForwardPropsEmits(props, emits)
 </script>
 
@@ -100,12 +103,12 @@ const forwarded = useForwardPropsEmits(props, emits)
         v-bind="{ ...forwarded, side, align, sideOffset, ...$attrs }"
       >
         <PopoverContentMotion
-          :class="cn(popoverContentVariants({ unstyled }), propsClass)"
-          :side="side"
           :ref="(r: any) => {
             contentRef = r?.$el;
             forwardRef(r);
           }"
+          :class="cn(popoverContentVariants({ unstyled }), propsClass)"
+          :side="side"
         >
           <slot />
         </PopoverContentMotion>

@@ -1,12 +1,17 @@
-<script lang="ts">
-import type { PrimitiveProps } from 'reka-ui'
+<script setup lang="ts">
 import type { DateValue } from '@internationalized/date'
-import { toDate } from 'reka-ui/date'
+import type { PrimitiveProps } from 'reka-ui'
+import type { HtmlHTMLAttributes } from 'vue'
 import { isSameYear } from '@internationalized/date'
-import { computed, HtmlHTMLAttributes } from 'vue'
+import { usePrimitiveElement } from '@rui/core/hooks/usePrimitiveElement'
+import { CalendarPanelEnum } from '@rui/core/lib/constants'
+import { cn } from '@rui/core/lib/utils'
+import { injectCalendarRootContext, Primitive } from 'reka-ui'
+import { toDate } from 'reka-ui/date'
+import { computed } from 'vue'
+import { calendarCellTriggerVariants } from '.'
 import { injectCalendarContextEx } from '../CalendarProvider'
 import { useCellTriggerKeyControl } from './utils'
-import { CalendarPanelEnum } from '@rui/core/lib/constants'
 
 export interface CalendarCellTriggerProps extends PrimitiveProps {
   /** The date value provided to the cell trigger */
@@ -16,15 +21,8 @@ export interface CalendarCellTriggerProps extends PrimitiveProps {
 }
 
 export interface CalendarCellTriggerSlot {
-  default: (props: { selected: boolean; yearValue: string }) => any
+  default: (props: { selected: boolean, yearValue: string }) => any
 }
-</script>
-
-<script setup lang="ts">
-import { Primitive, injectCalendarRootContext } from 'reka-ui'
-import { usePrimitiveElement } from '@rui/core/hooks/usePrimitiveElement'
-import { cn } from '@rui/core/lib/utils'
-import { calendarCellTriggerVariants } from '.'
 
 const {
   class: propsClass,
@@ -51,13 +49,13 @@ const isFocusedDate = computed(() => {
 })
 const isSelectedDate = computed(() => {
   return Array.isArray(context.modelValue.value)
-    ? context.modelValue.value.some((date) => date.year === props.date.year)
+    ? context.modelValue.value.some(date => date.year === props.date.year)
     : context.modelValue.value?.year === props.date.year
 })
 
-const handleClick = () => {
+function handleClick() {
   context.onPlaceholderChange(
-    context.placeholder.value.copy().set({ year: props.date.year })
+    context.placeholder.value.copy().set({ year: props.date.year }),
   )
   contextEx.panel.value = CalendarPanelEnum.MONTH
 }
@@ -70,14 +68,14 @@ const { handleArrowKey } = useCellTriggerKeyControl({
   onNextPage: (placeholder) => {
     return placeholder.add({ years: 12 })
   },
-  onSelect: handleClick
+  onSelect: handleClick,
 })
 </script>
 
 <template>
   <Primitive
-    :class="cn(calendarCellTriggerVariants({ unstyled }), propsClass)"
     ref="primitiveElement"
+    :class="cn(calendarCellTriggerVariants({ unstyled }), propsClass)"
     :as="as"
     v-bind="props"
     role="button"

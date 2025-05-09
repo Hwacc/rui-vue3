@@ -1,5 +1,6 @@
+import type { VariantProps } from '@rui/core/lib/cva'
 import { PREFIX } from '@rui/core/lib/constants'
-import { cva, type VariantProps } from '@rui/core/lib/cva'
+import { cva } from '@rui/core/lib/cva'
 
 export { default as Skeleton } from './Skeleton.vue'
 
@@ -15,13 +16,13 @@ export const skeletonVariants = cva(
       },
       shape: {
         rect: 'rounded',
-        circle: 'rounded-full'
-      }
-    }
+        circle: 'rounded-full',
+      },
+    },
   },
   {
-    className: `${prefix}`
-  }
+    className: `${prefix}`,
+  },
 )
 
 export type SkeletonVariantsType = VariantProps<typeof skeletonVariants>

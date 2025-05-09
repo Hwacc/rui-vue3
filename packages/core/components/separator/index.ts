@@ -1,5 +1,6 @@
+import type { VariantProps } from '@rui/core/lib/cva'
 import { PREFIX } from '@rui/core/lib/constants'
-import { cva, VariantProps } from '@rui/core/lib/cva'
+import { cva } from '@rui/core/lib/cva'
 
 export { default as Separator } from './Separator.vue'
 
@@ -9,13 +10,13 @@ export const separatorVariants = cva(
     variants: {
       orientation: {
         vertical: ['w-px h-full'],
-        horizontal: ['h-px w-full']
-      }
-    }
+        horizontal: ['h-px w-full'],
+      },
+    },
   },
   {
-    className: `${PREFIX}-separator`
-  }
+    className: `${PREFIX}-separator`,
+  },
 )
 export type SeparatorProps = VariantProps<typeof separatorVariants>
 
@@ -29,17 +30,17 @@ export const separatorLabelVariants = cva(
     '-translate-y-1/2',
     'flex',
     'justify-center',
-    'items-center'
+    'items-center',
   ],
   {
     variants: {
       orientation: {
         vertical: ['w-px px-1 py-2'],
-        horizontal: ['h-px py-1 px-2']
-      }
-    }
+        horizontal: ['h-px py-1 px-2'],
+      },
+    },
   },
   {
-    className: `${PREFIX}-separator-label`
-  }
+    className: `${PREFIX}-separator-label`,
+  },
 )

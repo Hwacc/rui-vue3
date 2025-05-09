@@ -1,29 +1,28 @@
 <script setup lang="ts">
 import type { DialogContentEmits } from 'reka-ui'
 import type { HTMLAttributes } from 'vue'
+import type { DialogContentPropsImp } from './DialogContent.vue'
 import { cn } from '@rui/core/lib/utils'
 import { X } from 'lucide-vue-next'
 import {
   DialogContent,
+  DialogDescription,
   DialogOverlay,
   DialogPortal,
   DialogTitle,
-  DialogDescription,
+  useForwardExpose,
   useForwardPropsEmits,
-  useForwardExpose
 } from 'reka-ui'
 import { computed, ref, useSlots, watch } from 'vue'
 import {
-  DialogCloseFrom,
   DialogClose,
-  dialogOverlayVariants,
+  DialogCloseFrom,
+  dialogCloseVariants,
   dialogContentVariants,
-  dialogCloseVariants
+  dialogOverlayVariants,
 } from '.'
-import { DialogContentPropsImp } from './DialogContent.vue'
 import { injectDialogContext } from './DialogRootProviderEx'
 
-const { open, closeFrom } = injectDialogContext()
 const {
   class: propsClass,
   showClose = true,
@@ -34,10 +33,6 @@ const {
   unstyled,
   ...props
 } = defineProps<DialogContentPropsImp & { class?: HTMLAttributes['class'] }>()
-
-const { forwardRef } = useForwardExpose()
-const originContentRef = ref<{ $el?: HTMLDivElement } | null>(null)
-
 const emits = defineEmits<
   DialogContentEmits & {
     open: []
@@ -46,25 +41,30 @@ const emits = defineEmits<
     closed: [{ from: DialogCloseFrom | undefined }]
   }
 >()
+const { open, closeFrom } = injectDialogContext()
+const { forwardRef } = useForwardExpose()
+const originContentRef = ref<{ $el?: HTMLDivElement } | null>(null)
 
 const slots = useSlots()
-const hasDialogHeader = () => {
-  if (!slots.default) return false
+function hasDialogHeader() {
+  if (!slots.default)
+    return false
   const defaultSlot = slots.default()
   const checkVNode = (vnode: any): boolean => {
-    if ((vnode.type as any)?.__name === 'DialogHeader') return true
+    if ((vnode.type as any)?.__name === 'DialogHeader')
+      return true
     if (vnode.children) {
       return vnode.children?.some?.((child: any) => checkVNode(child))
     }
     return false
   }
-  return defaultSlot?.some?.((vnode) => checkVNode(vnode))
+  return defaultSlot?.some?.(vnode => checkVNode(vnode))
 }
 const showContentClose = computed(() => {
   return showClose && !hasDialogHeader()
 })
 
-const onPointerDownOutside = (e: any) => {
+function onPointerDownOutside(e: any) {
   emits('pointerDownOutside', e)
   closeFrom.value = DialogCloseFrom.Overlay
 }
@@ -74,7 +74,8 @@ watch(open, (value) => {
       emits('opened')
     })
     emits('open')
-  } else {
+  }
+  else {
     originContentRef.value?.$el?.addEventListener('animationend', () => {
       emits('closed', { from: closeFrom.value })
     })
@@ -88,10 +89,10 @@ const classNames = computed(() => {
 const overlayClassNames = computed(() => {
   return cn(
     dialogOverlayVariants({
-      unstyled
+      unstyled,
     }),
     'overflow-y-auto',
-    overlay.class
+    overlay.class,
   )
 })
 const forwarded = useForwardPropsEmits(props, emits)
@@ -101,15 +102,15 @@ const forwarded = useForwardPropsEmits(props, emits)
   <DialogPortal v-bind="portal">
     <DialogOverlay :class="overlayClassNames" data-variant="scroll">
       <DialogContent
-        :class="classNames"
         v-bind="forwarded"
-        data-variant="scroll"
         :ref="
           (ref) => {
             forwardRef(ref);
             originContentRef = ref as any;
           }
         "
+        :class="classNames"
+        data-variant="scroll"
         @open-auto-focus="
           (event) => {
             emits('openAutoFocus', event)
@@ -152,8 +153,8 @@ const forwarded = useForwardPropsEmits(props, emits)
         </slot>
         <!-- for remove warning -->
         <template v-if="!hasDialogHeader()">
-          <DialogTitle class="!hidden select-none"></DialogTitle>
-          <DialogDescription class="!hidden select-none"></DialogDescription>
+          <DialogTitle class="!hidden select-none" />
+          <DialogDescription class="!hidden select-none" />
         </template>
         <!-- ---end--- -->
       </DialogContent>

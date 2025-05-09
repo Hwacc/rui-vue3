@@ -1,12 +1,10 @@
 <script lang="ts" setup>
+import type { CalendarHeadCellVariantsProps } from '@rui/core/components/calendar'
 import type { RangeCalendarHeadCellProps } from 'reka-ui'
 import type { HTMLAttributes } from 'vue'
+import { calendarHeadCellVariants } from '@rui/core/components/calendar'
 import { cn } from '@rui/core/lib/utils'
 import { RangeCalendarHeadCell, useForwardProps } from 'reka-ui'
-import {
-  calendarHeadCellVariants,
-  type CalendarHeadCellVariantsProps
-} from '@rui/core/components/calendar'
 
 const {
   class: propsClass,
@@ -30,9 +28,9 @@ const forwardedProps = useForwardProps(props)
       cn(
         calendarHeadCellVariants({
           unstyled,
-          size
+          size,
         }),
-        propsClass
+        propsClass,
       )
     "
     v-bind="forwardedProps"

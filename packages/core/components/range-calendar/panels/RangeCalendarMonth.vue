@@ -1,17 +1,17 @@
 <script setup lang="ts">
 import type { DateValue } from '@internationalized/date'
-import { createYear } from 'reka-ui/date'
-import { RangeCalendarGridProps } from 'reka-ui'
-import {
-  RangeCalendarGrid,
-  RangeCalendarCell,
-  RangeCalendarGridBody,
-  RangeCalendarGridRow
-} from '../parts'
-import { computed } from 'vue'
+import type { CalendarVariantsProps } from '@rui/core/components/calendar'
+import type { RangeCalendarGridProps } from 'reka-ui'
 import { chunk } from 'lodash-es'
-import { type CalendarVariantsProps } from '@rui/core/components/calendar'
-import { RangeCalendarCellMonthTrigger } from '../parts'
+import { createYear } from 'reka-ui/date'
+import { computed } from 'vue'
+import {
+  RangeCalendarCell,
+  RangeCalendarCellMonthTrigger,
+  RangeCalendarGrid,
+  RangeCalendarGridBody,
+  RangeCalendarGridRow,
+} from '../parts'
 
 const {
   date,
@@ -33,7 +33,7 @@ const monthGrid = computed(() => {
 const variants = computed(() => ({
   size,
   unstyled,
-  variant: 'month' as any
+  variant: 'month' as any,
 }))
 </script>
 

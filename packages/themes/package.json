@@ -1,15 +1,15 @@
 {
   "name": "themes",
   "version": "1.0.0",
+  "packageManager": "pnpm@10.6.5",
   "description": "",
+  "author": "",
+  "license": "ISC",
+  "keywords": [],
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "packageManager": "pnpm@10.6.5",
   "devDependencies": {
     "tailwindcss-animated": "^1.1.2",
     "tailwindcss-motion": "^1.1.0"

@@ -1,15 +1,12 @@
 <script setup lang="ts">
-import { cn } from '@rui/core/lib/utils';
-import {
-  TagsInputRoot,
-  type TagsInputRootEmits,
-  type TagsInputRootProps,
-  useForwardPropsEmits,
-} from 'reka-ui';
-import { type HTMLAttributes } from 'vue';
-import { TagsInputVariants, tagsInputVariants } from '.';
-import { TagsInputProviderEx } from './TagsInputProviderEx';
-import { useCollection } from '../collection';
+import type { TagsInputRootEmits, TagsInputRootProps } from 'reka-ui'
+import type { HTMLAttributes } from 'vue'
+import type { TagsInputVariants } from '.'
+import { cn } from '@rui/core/lib/utils'
+import { TagsInputRoot, useForwardPropsEmits } from 'reka-ui'
+import { tagsInputVariants } from '.'
+import { useCollection } from '../collection'
+import { TagsInputProviderEx } from './TagsInputProviderEx'
 
 const {
   class: propsClass,
@@ -17,17 +14,17 @@ const {
   ...props
 } = defineProps<
   TagsInputRootProps & {
-    class?: HTMLAttributes['class'];
-    size?: TagsInputVariants['size'];
+    class?: HTMLAttributes['class']
+    size?: TagsInputVariants['size']
   }
->();
-const emits = defineEmits<TagsInputRootEmits>();
+>()
+const emits = defineEmits<TagsInputRootEmits>()
 
 const { CollectionSlot } = useCollection({
   key: 'RuiTagsInputCollection',
   isProvider: true,
-});
-const forwarded = useForwardPropsEmits(props, emits);
+})
+const forwarded = useForwardPropsEmits(props, emits)
 </script>
 
 <template>

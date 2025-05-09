@@ -3,11 +3,12 @@ export { default as TooltipContent } from './TooltipContent.vue'
 export { default as TooltipProvider } from './TooltipProvider.vue'
 export { default as TooltipTrigger } from './TooltipTrigger.vue'
 
-import { type VariantProps } from 'class-variance-authority'
+import type { VariantProps } from 'class-variance-authority'
+import type { TooltipArrowProps } from 'reka-ui'
+import { PREFIX } from '@rui/core/lib/constants'
 import { cva } from '@rui/core/lib/cva'
 import TooltipArrow from './TooltipArrow.vue'
-import { TooltipArrowProps } from 'reka-ui'
-import { PREFIX } from '@rui/core/lib/constants'
+
 export { TooltipArrow, type TooltipArrowProps }
 
 const prefix = `${PREFIX}-tooltip`
@@ -27,19 +28,19 @@ export const tooltipContentVariants = cva(
     'py-[.3125rem]',
     'rounded',
     'text-xs',
-    'border'
+    'border',
   ],
   {
     variants: {
       theme: {
         default: '',
-        dark: ''
-      }
-    }
+        dark: '',
+      },
+    },
   },
   {
-    className: `${prefix}-content`
-  }
+    className: `${prefix}-content`,
+  },
 )
 export type TooltipContentVariants = VariantProps<typeof tooltipContentVariants>
 
@@ -49,7 +50,7 @@ export const toolTipArrowVariants = cva(
     variants: {
       theme: {
         default: '',
-        dark: ''
+        dark: '',
       },
       variant: {
         svg: '',
@@ -69,7 +70,7 @@ export const toolTipArrowVariants = cva(
             'before:border-y-(length:--reka-tooltip-arrow-border-height)',
             'before:border-b-transparent',
             'before:border-x-(length:--reka-tooltip-arrow-border-width)',
-            'before:border-x-transparent'
+            'before:border-x-transparent',
           ],
           [
             'after:absolute',
@@ -80,14 +81,14 @@ export const toolTipArrowVariants = cva(
             'after:border-y-(length:--reka-tooltip-arrow-border-height)',
             'after:border-b-transparent',
             'after:border-x-(length:--reka-tooltip-arrow-border-width)',
-            'after:border-x-transparent'
-          ]
-        ]
-      }
-    }
+            'after:border-x-transparent',
+          ],
+        ],
+      },
+    },
   },
   {
-    className: `${prefix}-arrow`
-  }
+    className: `${prefix}-arrow`,
+  },
 )
 export type ToolTipArrowVariants = VariantProps<typeof toolTipArrowVariants>

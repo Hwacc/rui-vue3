@@ -1,17 +1,17 @@
 <script setup lang="ts">
-import type { SelectSeparatorProps } from 'reka-ui';
-import type { HTMLAttributes } from 'vue';
-import { cn } from '@rui/core/lib/utils';
-import { SelectSeparator } from 'reka-ui';
-import { selectSeparatorVariants } from '.';
+import type { SelectSeparatorProps } from 'reka-ui'
+import type { HTMLAttributes } from 'vue'
+import { cn } from '@rui/core/lib/utils'
+import { SelectSeparator } from 'reka-ui'
+import { selectSeparatorVariants } from '.'
 
 const {
   class: propsClass,
   unstyled,
   ...props
 } = defineProps<
-  SelectSeparatorProps & { class?: HTMLAttributes['class']; unstyled?: boolean }
->();
+  SelectSeparatorProps & { class?: HTMLAttributes['class'], unstyled?: boolean }
+>()
 </script>
 
 <template>

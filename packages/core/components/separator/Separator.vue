@@ -1,8 +1,9 @@
 <script setup lang="ts">
+import type { SeparatorProps } from 'reka-ui'
+import type { HTMLAttributes } from 'vue'
 import { cn } from '@rui/core/lib/utils'
-import { Separator, type SeparatorProps } from 'reka-ui'
-import { type HTMLAttributes } from 'vue'
-import { separatorVariants, separatorLabelVariants } from '.'
+import { Separator } from 'reka-ui'
+import { separatorLabelVariants, separatorVariants } from '.'
 
 const {
   class: propsClass,
@@ -27,9 +28,9 @@ const {
       cn(
         separatorVariants({
           orientation: props.orientation,
-          unstyled: unstyled
+          unstyled,
         }),
-        propsClass
+        propsClass,
       )
     "
   >
@@ -39,9 +40,9 @@ const {
         cn(
           separatorLabelVariants({
             orientation: props.orientation,
-            unstyled: unstyled
+            unstyled,
           }),
-          labelClass
+          labelClass,
         )
       "
     >

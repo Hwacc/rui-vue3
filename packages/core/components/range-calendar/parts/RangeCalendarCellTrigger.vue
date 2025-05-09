@@ -1,12 +1,10 @@
 <script lang="ts" setup>
+import type { CalendarCellTriggerVariantsProps } from '@rui/core/components/calendar'
 import type { RangeCalendarCellTriggerProps } from 'reka-ui'
-import { type HTMLAttributes } from 'vue'
+import type { HTMLAttributes } from 'vue'
+import { calendarCellTriggerVariants } from '@rui/core/components/calendar'
 import { cn } from '@rui/core/lib/utils'
 import { RangeCalendarCellTrigger, useForwardProps } from 'reka-ui'
-import {
-  calendarCellTriggerVariants,
-  type CalendarCellTriggerVariantsProps
-} from '@rui/core/components/calendar'
 
 const {
   class: propsClass,
@@ -31,9 +29,9 @@ const forwardedProps = useForwardProps({ day, month, ...props })
       cn(
         calendarCellTriggerVariants({
           size,
-          unstyled
+          unstyled,
         }),
-        propsClass
+        propsClass,
       )
     "
     v-bind="forwardedProps"

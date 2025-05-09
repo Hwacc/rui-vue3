@@ -1,40 +1,37 @@
-import { type ClassValue, clsx } from 'clsx';
-import { twMerge } from 'tailwind-merge';
+import type { ClassValue } from 'clsx'
+import { clsx } from 'clsx'
+import { twMerge } from 'tailwind-merge'
 
-export const cn = (...inputs: ClassValue[]) => {
-  return twMerge(clsx(inputs));
-};
+export function cn(...inputs: ClassValue[]) {
+  return twMerge(clsx(inputs))
+}
 
-export const px2rem = (px: number) => {
-  const base = parseFloat(window.getComputedStyle(document.documentElement).fontSize || '16px');
-  return px / base;
-};
+export function px2rem(px: number) {
+  const base = parseFloat(window.getComputedStyle(document.documentElement).fontSize || '16px')
+  return px / base
+}
 
-export const rem2px = (rem: number) => {
-  const base = parseFloat(window.getComputedStyle(document.documentElement).fontSize || '16px');
-  return rem * base;
-};
+export function rem2px(rem: number) {
+  const base = parseFloat(window.getComputedStyle(document.documentElement).fontSize || '16px')
+  return rem * base
+}
 
-export const spaceTimes = (times: number) => {
-  const spacing = parseFloat(getCssVar('--spacing') ?? '.25rem');
-  return times * rem2px(spacing);
-};
+export function spaceTimes(times: number) {
+  const spacing = parseFloat(getCssVar('--spacing') ?? '.25rem')
+  return times * rem2px(spacing)
+}
 
-export const getNodeCssVar = <T>(
-  node: HTMLElement | null | undefined,
-  variableName: string,
-  fallback?: T
-) => {
+export function getNodeCssVar<T>(node: HTMLElement | null | undefined, variableName: string, fallback?: T) {
   if (!node) {
-    return getComputedStyle(document.documentElement).getPropertyValue(variableName) || fallback;
+    return getComputedStyle(document.documentElement).getPropertyValue(variableName) || fallback
   }
-  return getComputedStyle(node).getPropertyValue(variableName) || fallback;
-};
+  return getComputedStyle(node).getPropertyValue(variableName) || fallback
+}
 
-export const getCssVar = (variableName: string, fallback?: string) => {
-  return getNodeCssVar(null, variableName, fallback);
-};
+export function getCssVar(variableName: string, fallback?: string) {
+  return getNodeCssVar(null, variableName, fallback)
+}
 
-export const getCssColor = (colorName: string, fallback?: string) => {
-  return getCssVar(`--color-${colorName}`, fallback);
-};
+export function getCssColor(colorName: string, fallback?: string) {
+  return getCssVar(`--color-${colorName}`, fallback)
+}

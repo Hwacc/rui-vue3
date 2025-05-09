@@ -1,11 +1,14 @@
 <script setup lang="ts">
-import { cn } from '@rui/core/lib/utils'
-import { computed, HTMLAttributes, toRefs } from 'vue'
-import {
-  circleProgressVariants,
-  circleProgressIndicatorVariants,
+import type { HTMLAttributes } from 'vue'
+import type {
+  CircleProgressIndicatorVariants,
   CircleProgressVariants,
-  CircleProgressIndicatorVariants
+} from '.'
+import { cn } from '@rui/core/lib/utils'
+import { computed, toRefs } from 'vue'
+import {
+  circleProgressIndicatorVariants,
+  circleProgressVariants,
 } from '.'
 import { useIndicatorTransfer } from './useIndicatorTransfer'
 
@@ -41,13 +44,14 @@ const { modelValue } = toRefs(props)
 const progress = computed(() => {
   if (type === 'arc') {
     return arc.value - ((modelValue.value ?? 0) / 100) * arc.value
-  } else {
+  }
+  else {
     return area.value - ((modelValue.value ?? 0) / 100) * area.value
   }
 })
 const { indicatorRef, transferStyle } = useIndicatorTransfer(
   variant,
-  modelValue
+  modelValue,
 )
 </script>
 
@@ -58,14 +62,14 @@ const { indicatorRef, transferStyle } = useIndicatorTransfer(
   >
     <div
       v-if="type === 'arc'"
+      ref="indicatorRef"
       :class="
         cn(
           circleProgressIndicatorVariants({ unstyled, variant }),
-          indicatorClass
+          indicatorClass,
         )
       "
       :data-variant="variant"
-      ref="indicatorRef"
     >
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 56">
         <g fill="none">
@@ -108,14 +112,14 @@ const { indicatorRef, transferStyle } = useIndicatorTransfer(
     </div>
     <div
       v-else
+      ref="indicatorRef"
       :class="
         cn(
           circleProgressIndicatorVariants({ unstyled, variant }),
-          indicatorClass
+          indicatorClass,
         )
       "
       :data-variant="variant"
-      ref="indicatorRef"
     >
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 56">
         <g fill="none">

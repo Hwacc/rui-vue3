@@ -1,6 +1,6 @@
-import { DirectiveBinding } from 'vue';
-import { computePosition, flip, shift, offset, hide } from '@floating-ui/vue';
-import { cva } from '@rui/core/lib/cva';
+import type { DirectiveBinding } from 'vue'
+import { computePosition, flip, hide, offset, shift } from '@floating-ui/vue'
+import { cva } from '@rui/core/lib/cva'
 
 const titleTipVariants = cva(
   [
@@ -37,34 +37,34 @@ const titleTipVariants = cva(
       visible: false,
     },
   },
-  { className: 'rui-v-title' }
-);
+  { className: 'rui-v-title' },
+)
 
 class TitleTooltip {
-  titleTipNode: HTMLDivElement;
-  titleTipTextNode: Text;
-  showTimer: number = 0;
+  titleTipNode: HTMLDivElement
+  titleTipTextNode: Text
+  showTimer: number = 0
 
   constructor() {
-    this.titleTipNode = document.createElement('div');
-    this.titleTipNode.className = titleTipVariants();
-    this.titleTipTextNode = document.createTextNode('');
-    this.titleTipNode.appendChild(this.titleTipTextNode);
-    document.body.appendChild(this.titleTipNode);
+    this.titleTipNode = document.createElement('div')
+    this.titleTipNode.className = titleTipVariants()
+    this.titleTipTextNode = document.createTextNode('')
+    this.titleTipNode.appendChild(this.titleTipTextNode)
+    document.body.appendChild(this.titleTipNode)
     document.addEventListener('scroll', () => {
       if (this.showTimer) {
-        this.onMouseLeave();
+        this.onMouseLeave()
       }
-    });
+    })
   }
 
   async onMouseEnter(el: Element, binding: DirectiveBinding) {
-    this.showTimer && clearTimeout(this.showTimer);
+    this.showTimer && clearTimeout(this.showTimer)
     this.showTimer = setTimeout(async () => {
       try {
-        this.titleTipNode.removeChild(this.titleTipTextNode);
-        this.titleTipTextNode = document.createTextNode(binding.value);
-        this.titleTipNode.appendChild(this.titleTipTextNode);
+        this.titleTipNode.removeChild(this.titleTipTextNode)
+        this.titleTipTextNode = document.createTextNode(binding.value)
+        this.titleTipNode.appendChild(this.titleTipTextNode)
         const getClassName = (hidden: boolean = false, visible: boolean = false) => {
           return titleTipVariants({
             theme: (binding.arg as any) ?? 'default',
@@ -72,49 +72,51 @@ class TitleTooltip {
             unstyled: binding.modifiers.unstyled,
             hidden,
             visible,
-          });
-        };
-        this.titleTipNode.className = getClassName(false);
-        this.titleTipNode.dataset.theme = binding.arg ?? 'default';
+          })
+        }
+        this.titleTipNode.className = getClassName(false)
+        this.titleTipNode.dataset.theme = binding.arg ?? 'default'
 
         const { x, y, middlewareData } = await computePosition(el, this.titleTipNode, {
           placement: 'bottom',
           middleware: [flip(), shift(), offset(4), hide()],
-        });
+        })
         if (!middlewareData.hide?.referenceHidden) {
-          console.log(x, y);
+          console.log(x, y)
           Object.assign(this.titleTipNode.style, {
             left: `${x}px`,
             top: `${y}px`,
-          });
-          this.titleTipNode.className = getClassName(false, true);
-        } else {
-          this.titleTipNode.className = getClassName(true);
+          })
+          this.titleTipNode.className = getClassName(false, true)
         }
-      } catch (error) {
-        console.error(error);
+        else {
+          this.titleTipNode.className = getClassName(true)
+        }
       }
-    }, 500) as unknown as number;
+      catch (error) {
+        console.error(error)
+      }
+    }, 500) as unknown as number
   }
 
   onMouseLeave() {
     if (this.showTimer) {
-      clearTimeout(this.showTimer);
-      this.showTimer = 0;
+      clearTimeout(this.showTimer)
+      this.showTimer = 0
     }
     this.titleTipNode.className = titleTipVariants({
       visible: false,
       hidden: true,
-    });
+    })
   }
 }
 
-let instance: TitleTooltip;
+let instance: TitleTooltip
 if (window) {
-  instance = new TitleTooltip();
+  instance = new TitleTooltip()
 }
 
-export const vTitle = (el: Element, binding: DirectiveBinding) => {
-  el.addEventListener('mouseenter', () => instance.onMouseEnter(el, binding));
-  el.addEventListener('mouseleave', () => instance.onMouseLeave());
-};
+export function vTitle(el: Element, binding: DirectiveBinding) {
+  el.addEventListener('mouseenter', () => instance.onMouseEnter(el, binding))
+  el.addEventListener('mouseleave', () => instance.onMouseLeave())
+}

@@ -1,7 +1,8 @@
 <script setup lang="ts">
+import type { PrimitiveProps } from 'reka-ui'
+import type { HTMLAttributes } from 'vue'
 import { cn } from '@rui/core/lib/utils'
-import { Primitive, PrimitiveProps } from 'reka-ui'
-import { HTMLAttributes } from 'vue'
+import { Primitive } from 'reka-ui'
 import { dialogContentBodyVariants } from '.'
 
 const {
@@ -9,7 +10,7 @@ const {
   unstyled,
   ...props
 } = defineProps<
-  PrimitiveProps & { class?: HTMLAttributes['class']; unstyled?: boolean }
+  PrimitiveProps & { class?: HTMLAttributes['class'], unstyled?: boolean }
 >()
 </script>
 

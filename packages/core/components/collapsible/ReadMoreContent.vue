@@ -14,18 +14,19 @@ export type ReadMoreContentEmits = {
 </script>
 
 <script setup lang="ts">
-import { HTMLAttributes, ref, watchEffect } from 'vue'
+import type { HTMLAttributes } from 'vue'
+import { cn } from '@rui/core/lib/utils'
+import { useEventListener, useResizeObserver } from '@vueuse/core'
 import {
-  Primitive,
   injectCollapsibleRootContext,
+  Primitive,
   useForwardExpose,
   useForwardPropsEmits,
-  useId
+  useId,
 } from 'reka-ui'
-import { useEventListener, useResizeObserver } from '@vueuse/core'
-import { cn } from '@rui/core/lib/utils'
-import { injectReadMoreContext } from './ReadMore.vue'
+import { ref, watchEffect } from 'vue'
 import { readMoreContentVariant } from '.'
+import { injectReadMoreContext } from './ReadMore.vue'
 
 const {
   class: propsClass,
@@ -34,10 +35,9 @@ const {
   unstyled,
   ...props
 } = defineProps<ReadMoreContentProps>()
+const emits = defineEmits<ReadMoreContentEmits>()
 const { showTrigger } = injectReadMoreContext({ showTrigger: ref(false) })
 const { forwardRef, currentElement } = useForwardExpose()
-const emits = defineEmits<ReadMoreContentEmits>()
-
 const rootContext = injectCollapsibleRootContext()
 rootContext.contentId ||= useId(undefined, 'reka-readmore-content')
 
@@ -49,7 +49,7 @@ useResizeObserver(measureRef, (entries) => {
   const { height } = entry.contentRect
   if (measureRef.value) {
     const computedStyle = window.getComputedStyle(
-      measureRef.value.children[0] ?? measureRef.value
+      measureRef.value.children[0] ?? measureRef.value,
     )
     measureLineHeight.value = parseFloat(computedStyle.lineHeight)
   }
@@ -69,12 +69,12 @@ watchEffect(
     maxHeight.value = isOpen
       ? measureHeight.value
       : collapsedLine
-      ? Math.ceil(measureLineHeight.value * collapsedLine)
-      : collapsedHeight
+        ? Math.ceil(measureLineHeight.value * collapsedLine)
+        : collapsedHeight
   },
   {
-    flush: 'post'
-  }
+    flush: 'post',
+  },
 )
 
 useEventListener(currentElement, 'beforematch', () => {
@@ -90,17 +90,17 @@ const forwarded = useForwardPropsEmits(props, emits)
 <template>
   <Primitive
     v-bind="forwarded"
+    :id="rootContext.contentId"
     :ref="forwardRef"
     :class="cn(readMoreContentVariant({ unstyled }), propsClass)"
-    :id="rootContext.contentId"
     :data-state="rootContext.open.value ? 'open' : 'closed'"
     :data-disabled="rootContext.disabled?.value ? '' : undefined"
     :style="{
       [`--reka-readmore-max-height`]: `${maxHeight}px`,
-      [`--reka-readmore-collapsed-line`]: collapsedLine ? collapsedLine : 'none'
+      [`--reka-readmore-collapsed-line`]: collapsedLine ? collapsedLine : 'none',
     }"
   >
-    <div class="w-fit h-fit" ref="measureRef">
+    <div ref="measureRef" class="w-fit h-fit">
       <slot />
     </div>
   </Primitive>

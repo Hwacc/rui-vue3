@@ -1,10 +1,8 @@
-<script lang="ts"></script>
-
 <script setup lang="ts">
 import type { HTMLAttributes } from 'vue'
-import { cn } from '@rui/core/lib/utils'
-import { dialogFooterVariants, DialogClose, DialogCloseFrom } from '.'
 import { Button } from '@rui/core/components/button'
+import { cn } from '@rui/core/lib/utils'
+import { DialogClose, DialogCloseFrom, dialogFooterVariants } from '.'
 
 const { class: propsClass, unstyled } = defineProps<{
   class?: HTMLAttributes['class']

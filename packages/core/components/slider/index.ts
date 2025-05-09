@@ -1,6 +1,5 @@
 export { default as Slider } from './Slider.vue'
 
-
 export const sliderClass = [
   'relative',
   'flex',
@@ -22,7 +21,7 @@ export const sliderTrackClass = [
   'overflow-hidden',
   'rounded-full',
   'bg-h33',
-];
+]
 
 export const sliderRangeClass = [
   'absolute',
@@ -44,4 +43,3 @@ export const sliderThumbClass = [
   'disabled:pointer-events-none',
   'disabled:opacity-(--disabled-opacity)',
 ]
-

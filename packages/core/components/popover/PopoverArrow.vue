@@ -1,8 +1,11 @@
 <script setup lang="ts">
-import { PopoverArrow, type PopoverArrowProps } from 'reka-ui'
-import { computed, HTMLAttributes, ref, watch } from 'vue'
-import { popoverArrowVariants, PopoverArrowVariants } from '.'
+import type { PopoverArrowProps } from 'reka-ui'
+import type { HTMLAttributes } from 'vue'
+import type { PopoverArrowVariants } from '.'
 import { cn, rem2px } from '@rui/core/lib/utils'
+import { PopoverArrow } from 'reka-ui'
+import { computed, ref, watch } from 'vue'
+import { popoverArrowVariants } from '.'
 
 const {
   class: propsClass,
@@ -38,7 +41,7 @@ const style = computed(() => {
     '--reka-popover-arrow-width': `${width}px`,
     '--reka-popover-arrow-height': `${height}px`,
     '--reka-popover-arrow-border-width': `${width / 2}px`,
-    '--reka-popover-arrow-border-height': `${height / 2}px`
+    '--reka-popover-arrow-border-height': `${height / 2}px`,
   }
 })
 
@@ -46,12 +49,13 @@ const classNames = computed(() =>
   cn(
     popoverArrowVariants({
       variant,
-      unstyled
+      unstyled,
     }),
-    propsClass
-  )
+    propsClass,
+  ),
 )
 </script>
+
 <template>
   <PopoverArrow
     ref="arrowRef"
@@ -63,6 +67,6 @@ const classNames = computed(() =>
     :height="height"
     :data-arrow-variant="variant"
   >
-    <span v-if="variant === 'css'"></span>
+    <span v-if="variant === 'css'" />
   </PopoverArrow>
 </template>

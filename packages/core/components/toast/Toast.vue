@@ -14,17 +14,16 @@ const {
   unstyled,
   ...props
 } = defineProps<ToastProps>()
-const { position, swipeDirection } = injectToastProviderContextEx()
 const emits = defineEmits<ToastRootEmits>()
-
+const { position, swipeDirection } = injectToastProviderContextEx()
 const classNames = computed(() => {
   return cn(
     toastVariants({
       position: unref(position),
       swipeDirection: unref(swipeDirection),
-      unstyled
+      unstyled,
     }),
-    propsClass
+    propsClass,
   )
 })
 const forwarded = useForwardPropsEmits(props, emits)
@@ -34,8 +33,8 @@ const forwarded = useForwardPropsEmits(props, emits)
   <ToastRoot
     v-bind="forwarded"
     :class="classNames"
-    @update:open="onOpenChange"
     :data-variant="variant"
+    @update:open="onOpenChange"
   >
     <slot />
   </ToastRoot>

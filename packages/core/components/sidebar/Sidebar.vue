@@ -9,20 +9,20 @@ export interface SidebarProps {
 </script>
 
 <script setup lang="ts">
-import { cn } from '@rui/core/lib/utils'
+import type { HTMLAttributes } from 'vue'
 import { Sheet, SheetContent } from '@rui/core/components/sheet'
+import { cn } from '@rui/core/lib/utils'
+import { sidebarInnerVariants, sidebarVariants } from '.'
 import { SIDEBAR_WIDTH_MOBILE, useSidebar } from './utils'
-import { HTMLAttributes } from 'vue'
-import { sidebarVariants, sidebarInnerVariants } from '.'
 
 defineOptions({
-  inheritAttrs: false
+  inheritAttrs: false,
 })
 
 const props = withDefaults(defineProps<SidebarProps>(), {
   side: 'left',
   collapsible: 'offcanvas',
-  layout: 'block'
+  layout: 'block',
 })
 
 const { isMobile, state, openMobile, setOpenMobile } = useSidebar()
@@ -48,18 +48,18 @@ const { isMobile, state, openMobile, setOpenMobile } = useSidebar()
       data-sidebar="sidebar"
       data-mobile="true"
       :side="side"
-      :showClose="false"
+      :show-close="false"
       :class="
         cn(
           ['w-(--sidebar-width)', 'p-0'],
           sidebarVariants({
-            unstyled: props.unstyled
+            unstyled: props.unstyled,
           }),
-          props.class
+          props.class,
         )
       "
       :style="{
-        '--sidebar-width': SIDEBAR_WIDTH_MOBILE
+        '--sidebar-width': SIDEBAR_WIDTH_MOBILE,
       }"
     >
       <div class="flex flex-col h-full w-full">
@@ -82,7 +82,7 @@ const { isMobile, state, openMobile, setOpenMobile } = useSidebar()
       :class="
         cn(
           sidebarVariants({ ...props, placeholder: true, layout: 'block' }),
-          props.class
+          props.class,
         )
       "
     />

@@ -1,21 +1,20 @@
 <script setup lang="ts">
+import type { DialogContentEmits, DialogContentProps } from 'reka-ui'
+import type { HTMLAttributes } from 'vue'
+import type { SheetVariants } from '.'
 import { cn } from '@rui/core/lib/utils'
 import { X } from 'lucide-vue-next'
 import {
   DialogClose,
   DialogContent,
-  type DialogContentEmits,
-  type DialogContentProps,
   DialogOverlay,
   DialogPortal,
-  useForwardPropsEmits
+  useForwardPropsEmits,
 } from 'reka-ui'
-import { type HTMLAttributes } from 'vue'
 import {
-  type SheetVariants,
-  sheetVariants,
+  sheetContentCloseVariants,
   sheetOverlayVariants,
-  sheetContentCloseVariants
+  sheetVariants,
 } from '.'
 
 interface SheetProps extends DialogContentProps {
@@ -26,7 +25,7 @@ interface SheetProps extends DialogContentProps {
 }
 
 defineOptions({
-  inheritAttrs: false
+  inheritAttrs: false,
 })
 
 const {
@@ -53,10 +52,7 @@ const forwarded = useForwardPropsEmits(props, emits)
       <DialogClose
         v-if="showClose"
         :class="
-          cn(
-            'absolute p-2 -m-2',
-            sheetContentCloseVariants({ unstyled })
-          )
+          cn('absolute p-2 -m-2', sheetContentCloseVariants({ unstyled }))
         "
       >
         <slot name="close">

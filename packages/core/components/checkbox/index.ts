@@ -1,5 +1,6 @@
+import type { VariantProps } from '@rui/core/lib/cva'
 import { PREFIX } from '@rui/core/lib/constants'
-import { cva, type VariantProps } from '@rui/core/lib/cva'
+import { cva } from '@rui/core/lib/cva'
 
 export { default as Checkbox } from './Checkbox.vue'
 export { default as CheckboxGroup } from './CheckboxGroup.vue'
@@ -10,11 +11,11 @@ export const checkboxRootVariants = cva(
   {
     variants: {
       disabled: {
-        true: ['opacity-(--disabled-opacity)']
-      }
-    }
+        true: ['opacity-(--disabled-opacity)'],
+      },
+    },
   },
-  { className: `${prefix}-root` }
+  { className: `${prefix}-root` },
 )
 
 export const checkboxVariants = cva(
@@ -24,14 +25,14 @@ export const checkboxVariants = cva(
       size: {
         base: ['size-3.5'],
         sm: ['size-3'],
-        lg: ['size-4']
+        lg: ['size-4'],
       },
       disabled: {
-        true: ''
-      }
-    }
+        true: '',
+      },
+    },
   },
-  { className: prefix }
+  { className: prefix },
 )
 export type CheckboxVariantsProps = VariantProps<typeof checkboxVariants>
 
@@ -42,11 +43,11 @@ export const checkboxLabelVariants = cva(
       size: {
         base: ['text-sm'],
         sm: ['text-xs'],
-        lg: ['text-base']
-      }
-    }
+        lg: ['text-base'],
+      },
+    },
   },
   {
-    className: `${prefix}-label`
-  }
+    className: `${prefix}-label`,
+  },
 )

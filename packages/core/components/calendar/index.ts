@@ -1,11 +1,12 @@
+import type { VariantProps } from '@rui/core/lib/cva'
 import { PREFIX } from '@rui/core/lib/constants'
-import { cva, type VariantProps } from '@rui/core/lib/cva'
+import { cva } from '@rui/core/lib/cva'
 
 export { default as Calendar } from './Calendar.vue'
 
 export * from './CalendarProvider'
-export * from './parts/index'
 export * from './panels'
+export * from './parts/index'
 
 const prefix = `${PREFIX}-calendar`
 export const calendarRootVariants = cva(
@@ -15,12 +16,12 @@ export const calendarRootVariants = cva(
       size: {
         base: ['p-3', '[&_[data-calendar-panel]]:mt-4'],
         sm: ['p-2', '[&_[data-calendar-panel]]:mt-2'],
-        lg: ['p-4', '[&_[data-calendar-panel]]:mt-6']
-      }
-    }
+        lg: ['p-4', '[&_[data-calendar-panel]]:mt-6'],
+      },
+    },
   },
   {
-    className: prefix
-  }
+    className: prefix,
+  },
 )
 export type CalendarVariantsProps = VariantProps<typeof calendarRootVariants>

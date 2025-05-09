@@ -1,31 +1,31 @@
 <script setup lang="ts">
-import type { SelectItemProps } from 'reka-ui';
-import type { HTMLAttributes } from 'vue';
-import { cn } from '@rui/core/lib/utils';
-import { Check } from 'lucide-vue-next';
+import type { SelectItemProps } from 'reka-ui'
+import type { HTMLAttributes } from 'vue'
+import { cn } from '@rui/core/lib/utils'
+import { isFunction } from 'lodash-es'
+import { Check } from 'lucide-vue-next'
 import {
   injectSelectRootContext,
   SelectItem,
   SelectItemIndicator,
   SelectItemText,
   useForwardProps,
-} from 'reka-ui';
-import { selectItemVariants } from '.';
-import { isFunction } from 'lodash-es';
+} from 'reka-ui'
+import { selectItemVariants } from '.'
 
 const {
   class: propsClass,
   unstyled,
   ...props
-} = defineProps<SelectItemProps & { class?: HTMLAttributes['class']; unstyled?: boolean }>();
-const { multiple } = injectSelectRootContext();
-
+} = defineProps<SelectItemProps & { class?: HTMLAttributes['class'], unstyled?: boolean }>()
 const slots = defineSlots<{
-  default: () => any;
-  indicator?: () => any;
-}>();
+  default: () => any
+  indicator?: () => any
+}>()
 
-const forwardedProps = useForwardProps(props);
+const { multiple } = injectSelectRootContext()
+
+const forwardedProps = useForwardProps(props)
 </script>
 
 <template>
@@ -35,9 +35,9 @@ const forwardedProps = useForwardProps(props);
       cn(
         selectItemVariants({
           indicator: multiple || isFunction(slots.indicator),
-          unstyled
+          unstyled,
         }),
-        propsClass
+        propsClass,
       )
     "
   >

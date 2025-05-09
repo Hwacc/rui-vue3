@@ -1,5 +1,6 @@
 <script lang="ts">
-import { createContext } from 'reka-ui'
+import { createContext, Primitive, useForwardPropsEmits } from 'reka-ui'
+
 interface CheckboxGroupContext {
   size: Ref<CheckboxVariantsProps['size']>
   unstyled: Ref<boolean>
@@ -14,25 +15,16 @@ interface CheckboxGroupContext {
     isPrimary: boolean
   ) => void
 }
-export const [injectCheckboxGroupContext, provideCheckboxGroupContext] =
-  createContext<CheckboxGroupContext>('CheckboxGroup')
+export const [injectCheckboxGroupContext, provideCheckboxGroupContext]
+  = createContext<CheckboxGroupContext>('CheckboxGroup')
 </script>
 
 <script setup lang="ts">
-import { Primitive, useForwardPropsEmits, type PrimitiveProps } from 'reka-ui'
-import {
-  ComponentInternalInstance,
-  HTMLAttributes,
-  reactive,
-  Ref,
-  ref,
-  toRefs,
-  unref,
-  watch,
-  watchEffect
-} from 'vue'
+import type { PrimitiveProps } from 'reka-ui'
+import type { ComponentInternalInstance, HTMLAttributes, Ref } from 'vue'
+import type { CheckboxVariantsProps } from '.'
 import { union } from 'lodash-es'
-import { CheckboxVariantsProps } from '.'
+import { reactive, ref, toRefs, unref, watch, watchEffect } from 'vue'
 
 const {
   class: propsClass,
@@ -49,7 +41,7 @@ const {
 
 const emits = defineEmits<{
   'update:collection': [collection: string[]]
-  change: [collection: string[]]
+  'change': [collection: string[]]
 }>()
 
 const innerCollection = ref(propsCollection)
@@ -57,7 +49,7 @@ watch(
   () => propsCollection,
   (val) => {
     innerCollection.value = val
-  }
+  },
 )
 
 const treeStructure = reactive<{
@@ -65,7 +57,7 @@ const treeStructure = reactive<{
   children?: ComponentInternalInstance[]
 }>({
   primary: undefined,
-  children: []
+  children: [],
 })
 const isAllChecked = ref(false)
 const isIndeterminate = ref(false)
@@ -80,13 +72,13 @@ watchEffect(
     })
     if (treeStructure.primary) {
       treeStructure.primary.exposed?.setChecked(
-        _allChecked ? true : _oneChecked ? 'indeterminate' : false
+        _allChecked ? true : _oneChecked ? 'indeterminate' : false,
       )
     }
     isAllChecked.value = _allChecked as boolean
     isIndeterminate.value = (!_allChecked && _oneChecked) as boolean
   },
-  { flush: 'post' }
+  { flush: 'post' },
 )
 
 const { size, unstyled } = toRefs(props)
@@ -97,30 +89,30 @@ provideCheckboxGroupContext({
   onChecked: (
     name?: string,
     value?: boolean | 'indeterminate' | null,
-    isPrimary?: boolean
+    isPrimary?: boolean,
   ) => {
-    if (value === 'indeterminate') {
-      return
-    } else {
+    if (value !== 'indeterminate') {
       if (!isPrimary && name) {
         value
           ? (innerCollection.value = [
-              ...new Set([...innerCollection.value, name])
+              ...new Set([...innerCollection.value, name]),
             ])
           : (innerCollection.value = innerCollection.value.filter(
-              (item) => item !== name
+              item => item !== name,
             ))
-      } else if (isPrimary) {
-        const _allChildrenNames =
-          treeStructure.children?.map((item) => item.exposed?.name) || []
+      }
+      else if (isPrimary) {
+        const _allChildrenNames
+          = treeStructure.children?.map(item => item.exposed?.name) || []
         if (value) {
           innerCollection.value = union(
             innerCollection.value,
-            _allChildrenNames
+            _allChildrenNames,
           )
-        } else {
+        }
+        else {
           innerCollection.value = innerCollection.value.filter(
-            (item) => !_allChildrenNames.includes(item)
+            item => !_allChildrenNames.includes(item),
           )
         }
       }
@@ -132,22 +124,23 @@ provideCheckboxGroupContext({
     if (instance) {
       if (isPrimary) {
         treeStructure.primary = instance
-      } else {
+      }
+      else {
         treeStructure.children?.push(instance)
       }
     }
-  }
+  },
 })
 
 defineExpose({
   isAllChecked,
-  isIndeterminate
+  isIndeterminate,
 })
 const forwarded = useForwardPropsEmits(props, emits)
 </script>
 
 <template>
   <Primitive :class="propsClass" v-bind="forwarded">
-    <slot></slot>
+    <slot />
   </Primitive>
 </template>

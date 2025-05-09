@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import type { DialogCloseProps } from 'reka-ui'
-import { DialogClose } from 'reka-ui'
-import { DialogCloseFrom } from '.'
-import { HTMLAttributes } from 'vue'
+import type { HTMLAttributes } from 'vue'
+import type { DialogCloseFrom } from '.'
 import { cn } from '@rui/core/lib/utils'
+import { DialogClose } from 'reka-ui'
 import { injectDialogContext } from './DialogRootProviderEx'
 
 const {
@@ -19,7 +19,8 @@ const {
   }
 >()
 const { closeFrom: contextCloseFrom } = injectDialogContext()
-const onClose = () => {
+
+function onClose() {
   contextCloseFrom.value = closeFrom
 }
 </script>

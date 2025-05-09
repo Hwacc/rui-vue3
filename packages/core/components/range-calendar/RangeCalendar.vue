@@ -1,32 +1,30 @@
 <script lang="ts" setup>
+import type { CalendarVariantsProps } from '@rui/core/components/calendar'
 import type {
   DateValue,
   RangeCalendarRootEmits,
-  RangeCalendarRootProps
+  RangeCalendarRootProps,
 } from 'reka-ui'
 import type { HTMLAttributes } from 'vue'
+import { calendarRootVariants } from '@rui/core/components/calendar'
+import { CalendarPanelMotion } from '@rui/core/components/motion/CalendarPanelMotion'
+import { CalendarPanelEnum } from '@rui/core/lib/constants'
 import { cn } from '@rui/core/lib/utils'
+import { AnimatePresence } from 'motion-v'
 import { RangeCalendarRoot, useForwardPropsEmits } from 'reka-ui'
 import { computed, ref } from 'vue'
 import {
-  type CalendarVariantsProps,
-  calendarRootVariants
-} from '@rui/core/components/calendar'
-import {
-  RangeCalendarProvider,
   RangeCalendarHeader,
-  RangeCalendarPrevButton,
   RangeCalendarHeading,
-  RangeCalendarNextButton
+  RangeCalendarNextButton,
+  RangeCalendarPrevButton,
+  RangeCalendarProvider,
 } from '.'
 import {
   RangeCalendarDayPanel,
   RangeCalendarMonthPanel,
-  RangeCalendarYearPanel
+  RangeCalendarYearPanel,
 } from './panels'
-import { CalendarPanelEnum } from '@rui/core/lib/constants'
-import { CalendarPanelMotion } from '@rui/core/components/motion/CalendarPanelMotion'
-import { AnimatePresence } from 'motion-v'
 
 const {
   class: propsClass,
@@ -41,8 +39,9 @@ const {
   }
 >()
 
+const emits = defineEmits<RangeCalendarRootEmits>()
 const curPanel = ref<CalendarPanelEnum>(CalendarPanelEnum.DAY)
-const onPrevPage = (placeholder: DateValue) => {
+function onPrevPage(placeholder: DateValue) {
   switch (curPanel.value) {
     case CalendarPanelEnum.DAY:
       return placeholder.subtract({ months: 1 })
@@ -54,7 +53,7 @@ const onPrevPage = (placeholder: DateValue) => {
       return placeholder
   }
 }
-const onNextPage = (placeholder: DateValue) => {
+function onNextPage(placeholder: DateValue) {
   switch (curPanel.value) {
     case CalendarPanelEnum.DAY:
       return placeholder.add({ months: 1 })
@@ -68,14 +67,13 @@ const onNextPage = (placeholder: DateValue) => {
 }
 
 const variants = computed(() => ({ size, unstyled }))
-const emits = defineEmits<RangeCalendarRootEmits>()
 const forwarded = useForwardPropsEmits(props, emits)
 </script>
 
 <template>
   <RangeCalendarRoot
-    :class="cn(calendarRootVariants({ size, unstyled }), propsClass)"
     v-slot="{ date }"
+    :class="cn(calendarRootVariants({ size, unstyled }), propsClass)"
     v-bind="forwarded"
     data-range-calendar
   >
@@ -86,7 +84,7 @@ const forwarded = useForwardPropsEmits(props, emits)
       <div class="group/calendar-header" data-calendar-header>
         <RangeCalendarHeader v-bind="variants">
           <RangeCalendarPrevButton v-bind="variants" :prev-page="onPrevPage" />
-          <RangeCalendarHeading v-bind="variants"></RangeCalendarHeading>
+          <RangeCalendarHeading v-bind="variants" />
           <RangeCalendarNextButton v-bind="variants" :next-page="onNextPage" />
         </RangeCalendarHeader>
       </div>

@@ -1,13 +1,14 @@
-import { defineComponent, ref, Ref, toRefs } from 'vue';
-import { TagsInputVariants } from '.';
-import { createContext } from 'reka-ui';
+import type { Ref } from 'vue'
+import type { TagsInputVariants } from '.'
+import { createContext } from 'reka-ui'
+import { defineComponent, ref, toRefs } from 'vue'
 
 const [injectTagsInputContextEx, provideTagsInputContextEx] = createContext<{
-  size?: Ref<TagsInputVariants['size']>;
-  tagsInputElement: Ref<HTMLElement | undefined>;
-}>('TagsInputProviderEx');
+  size?: Ref<TagsInputVariants['size']>
+  tagsInputElement: Ref<HTMLElement | undefined>
+}>('TagsInputProviderEx')
 
-export { injectTagsInputContextEx };
+export { injectTagsInputContextEx }
 
 export const TagsInputProviderEx = defineComponent({
   name: 'TagsInputProviderEx',
@@ -18,9 +19,9 @@ export const TagsInputProviderEx = defineComponent({
     },
   },
   setup(props, { slots }) {
-    const { size } = toRefs(props);
-    const tagsInputElement = ref<HTMLElement | undefined>(undefined);
-    provideTagsInputContextEx({ size, tagsInputElement });
-    return () => slots.default?.();
+    const { size } = toRefs(props)
+    const tagsInputElement = ref<HTMLElement | undefined>(undefined)
+    provideTagsInputContextEx({ size, tagsInputElement })
+    return () => slots.default?.()
   },
-});
+})

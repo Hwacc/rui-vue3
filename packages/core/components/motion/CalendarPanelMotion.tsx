@@ -1,6 +1,7 @@
+import type { MotionHTMLAttributes, MotionProps } from 'motion-v'
 import { useAnimationParams } from '@rui/core/hooks/useAnimationParams'
 import { merge } from 'lodash-es'
-import { motion, MotionHTMLAttributes, MotionProps } from 'motion-v'
+import { motion } from 'motion-v'
 import { computed, defineComponent } from 'vue'
 
 export const CalendarPanelMotion = defineComponent<
@@ -16,13 +17,13 @@ export const CalendarPanelMotion = defineComponent<
           initial: { opacity: 0, scale: 0.9 },
           animate: { opacity: 1, scale: 1 },
           exit: { opacity: 0, scale: 0.9 },
-          transition: { duration: animationDuration, easings: animationEase }
+          transition: { duration: animationDuration, easings: animationEase },
         },
-        props
+        props,
       )
     })
     return () => {
       return <motion.div {...mergedProps.value}>{slots.default?.()}</motion.div>
     }
-  }
+  },
 })

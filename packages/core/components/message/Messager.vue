@@ -1,16 +1,18 @@
 <script setup lang="ts">
-import { useMessage } from './use-message'
-import { CircleCheck, CircleAlert, Info, CircleX } from 'lucide-vue-next'
-import {
-  ToastProvider,
+import type {
   ToastProviderPropsEx,
-  Toast,
-  ToastTitle,
-  ToastViewport
 } from '@rui/core/components/toast'
-import { messageVariants } from '.'
-import { isVNode } from 'vue'
+import {
+  Toast,
+  ToastProvider,
+  ToastTitle,
+  ToastViewport,
+} from '@rui/core/components/toast'
 import { isFunction } from 'lodash-es'
+import { CircleAlert, CircleCheck, CircleX, Info } from 'lucide-vue-next'
+import { isVNode } from 'vue'
+import { messageVariants } from '.'
+import { useMessage } from './use-message'
 
 const props = defineProps<
   Omit<ToastProviderPropsEx, 'position' | 'swipeDirection'> & {

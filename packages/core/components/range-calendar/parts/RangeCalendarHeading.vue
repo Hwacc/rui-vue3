@@ -1,20 +1,19 @@
 <script lang="tsx" setup>
+import type { CalendarHeadingVariantsProps } from '@rui/core/components/calendar'
 import type { DateValue, RangeCalendarHeadingProps } from 'reka-ui'
-import { computed, type HTMLAttributes } from 'vue'
+import type { HTMLAttributes } from 'vue'
+import { calendarHeadingVariants } from '@rui/core/components/calendar'
+import { CalendarPanelEnum } from '@rui/core/lib/constants'
 import { cn } from '@rui/core/lib/utils'
 import {
   injectRangeCalendarRootContext,
   RangeCalendarHeading,
   useDateFormatter,
-  useForwardProps
+  useForwardProps,
 } from 'reka-ui'
-import {
-  calendarHeadingVariants,
-  type CalendarHeadingVariantsProps
-} from '@rui/core/components/calendar'
-import { injectRangeCalendarContextEx } from '../RangeCalendarProvider'
-import { CalendarPanelEnum } from '@rui/core/lib/constants'
 import { toDate } from 'reka-ui/date'
+import { computed } from 'vue'
+import { injectRangeCalendarContextEx } from '../RangeCalendarProvider'
 
 const {
   class: propsClass,
@@ -46,14 +45,15 @@ const Heading = computed(() => {
   const generateYear = (date: DateValue) => {
     return (
       <div
-        class='cursor-default'
-        role='button'
-        tabindex='0'
-        aria-label='Heading Year'
+        class="cursor-default"
+        role="button"
+        tabindex="0"
+        aria-label="Heading Year"
         onKeydown={(e) => {
           e.code === 'Enter' && (contextEx.panel.value = CalendarPanelEnum.YEAR)
         }}
-        onClick={() => (contextEx.panel.value = CalendarPanelEnum.YEAR)}>
+        onClick={() => (contextEx.panel.value = CalendarPanelEnum.YEAR)}
+      >
         {formatter.fullYear(toDate(date))}
       </div>
     )
@@ -61,15 +61,16 @@ const Heading = computed(() => {
   const generateMonth = (date: DateValue) => {
     return (
       <div
-        class='cursor-default'
-        role='button'
-        tabindex='0'
-        aria-label='Heading Month'
+        class="cursor-default"
+        role="button"
+        tabindex="0"
+        aria-label="Heading Month"
         onKeydown={(e) => {
-          e.code === 'Enter' &&
-            (contextEx.panel.value = CalendarPanelEnum.MONTH)
+          e.code === 'Enter'
+          && (contextEx.panel.value = CalendarPanelEnum.MONTH)
         }}
-        onClick={() => (contextEx.panel.value = CalendarPanelEnum.MONTH)}>
+        onClick={() => (contextEx.panel.value = CalendarPanelEnum.MONTH)}
+      >
         {formatter.fullMonth(toDate(date))}
       </div>
     )
@@ -78,11 +79,14 @@ const Heading = computed(() => {
   const year = generateYear(grid[0].value)
   const month = generateMonth(grid[0].value)
   if (panel !== CalendarPanelEnum.DAY) {
-    return <div class='flex items-center'>{year}</div>
+    return <div class="flex items-center">{year}</div>
   }
   return (
-    <div class='flex items-center gap-2'>
-      {month} - {year}
+    <div class="flex items-center gap-2">
+      {month}
+      {' '}
+      -
+      {year}
     </div>
   )
 })

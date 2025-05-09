@@ -1,7 +1,8 @@
 <script setup lang="ts">
 import type { HTMLAttributes } from 'vue'
+import type { SkeletonVariantsType } from '.'
 import { cn } from '@rui/core/lib/utils'
-import { skeletonVariants, SkeletonVariantsType } from '.'
+import { skeletonVariants } from '.'
 
 interface SkeletonProps {
   class?: HTMLAttributes['class']
@@ -14,7 +15,7 @@ const {
   class: propsClass,
   variant = 'pulse',
   shape = 'rect',
-  unstyled
+  unstyled,
 } = defineProps<SkeletonProps>()
 </script>
 
@@ -25,14 +26,14 @@ const {
         skeletonVariants({
           shape,
           variant,
-          unstyled
+          unstyled,
         }),
-        propsClass
+        propsClass,
       )
     "
     :data-shape="shape"
     :data-variant="variant"
   >
-    <slot></slot>
+    <slot />
   </div>
 </template>

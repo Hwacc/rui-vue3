@@ -1,1 +1,1 @@
-declare type StatusVariants = 'success' | 'error' | 'warning' | 'info';
+declare type StatusVariants = 'success' | 'error' | 'warning' | 'info'

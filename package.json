@@ -1,20 +1,26 @@
 {
   "name": "rui-vue3",
   "version": "1.0.0",
+  "packageManager": "pnpm@10.6.5",
   "description": "",
+  "author": "",
+  "license": "ISC",
+  "keywords": [],
   "main": "index.js",
   "scripts": {
     "dev": "pnpm --filter examples run dev",
-    "dev:story": "pnpm --filter story run storybook"
+    "dev:story": "pnpm --filter story run storybook",
+    "fix": "eslint --ext .ts,.tsx,.js,.jsx,.vue packages/**/*"
   },
   "dependencies": {
     "@vueuse/core": "^12.8.2",
     "clsx": "^2.1.1",
-    "vue": "^3.5.13",
     "lodash-es": "^4.17.21",
-    "lucide-vue-next": "^0.469.0"
+    "lucide-vue-next": "^0.469.0",
+    "vue": "^3.5.13"
   },
   "devDependencies": {
+    "@antfu/eslint-config": "^4.13.0",
     "@rsbuild/core": "1.2.12",
     "@rsbuild/plugin-babel": "^1.0.4",
     "@rsbuild/plugin-sass": "^1.2.2",
@@ -23,14 +29,11 @@
     "@tailwindcss/postcss": "^4.0.15",
     "@types/lodash-es": "^4.17.12",
     "autoprefixer": "^10.4.21",
+    "eslint": "^9.26.0",
     "postcss-import": "^16.1.0",
     "postcss-nested": "^7.0.2",
     "rsbuild-plugin-svg": "^0.0.2",
     "tailwindcss": "^4.0.15",
     "typescript": "^5.8.2"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "packageManager": "pnpm@10.6.5"
+  }
 }

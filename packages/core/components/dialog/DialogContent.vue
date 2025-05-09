@@ -15,30 +15,31 @@ import type {
   DialogContentEmits,
   DialogContentProps,
   DialogOverlayProps,
-  DialogPortalProps
+  DialogPortalProps,
 } from 'reka-ui'
 import type { HTMLAttributes } from 'vue'
 import { cn } from '@rui/core/lib/utils'
 import { X } from 'lucide-vue-next'
 import {
   DialogContent,
+  DialogDescription,
   DialogOverlay,
   DialogPortal,
+  DialogTitle,
   useForwardExpose,
-  useForwardPropsEmits
+  useForwardPropsEmits,
 } from 'reka-ui'
+
 import { computed, ref, useSlots, watch } from 'vue'
 import {
+  DialogClose,
+  DialogCloseFrom,
+  dialogCloseVariants,
   dialogContentVariants,
   dialogOverlayVariants,
-  dialogCloseVariants,
-  DialogCloseFrom,
-  DialogClose
 } from '.'
-import { DialogTitle, DialogDescription } from 'reka-ui'
 import { injectDialogContext } from './DialogRootProviderEx'
 
-const { open, closeFrom } = injectDialogContext()
 const {
   class: propsClass,
   showClose = true,
@@ -49,7 +50,6 @@ const {
   unstyled,
   ...props
 } = defineProps<DialogContentPropsImp>()
-
 const emits = defineEmits<
   DialogContentEmits & {
     open: []
@@ -58,28 +58,30 @@ const emits = defineEmits<
     closed: [{ from: DialogCloseFrom | undefined }]
   }
 >()
-
+const { open, closeFrom } = injectDialogContext()
 const { forwardRef } = useForwardExpose()
 const originContentRef = ref<{ $el?: HTMLDivElement } | null>(null)
 
 const slots = useSlots()
-const hasDialogHeader = () => {
-  if (!slots.default) return false
+function hasDialogHeader() {
+  if (!slots.default)
+    return false
   const defaultSlot = slots.default()
   const checkVNode = (vnode: any): boolean => {
-    if ((vnode.type as any)?.__name === 'DialogHeader') return true
+    if ((vnode.type as any)?.__name === 'DialogHeader')
+      return true
     if (vnode.children) {
       return vnode.children?.some?.((child: any) => checkVNode(child))
     }
     return false
   }
-  return defaultSlot?.some?.((vnode) => checkVNode(vnode))
+  return defaultSlot?.some?.(vnode => checkVNode(vnode))
 }
 const showContentClose = computed(() => {
   return showClose && !hasDialogHeader()
 })
 
-const onPointerDownOutside = (e: any) => {
+function onPointerDownOutside(e: any) {
   emits('pointerDownOutside', e)
   closeFrom.value = DialogCloseFrom.Overlay
 }
@@ -93,7 +95,7 @@ watch(open, (value, _, onCleanup) => {
   onCleanup(() => {
     originContentRef.value?.$el?.removeEventListener(
       'animationend',
-      _onAnimationEnd
+      _onAnimationEnd,
     )
   })
 })
@@ -112,13 +114,13 @@ const forwarded = useForwardPropsEmits(props, emits)
     <DialogOverlay :class="overlayClassNames" data-variant="default" />
     <DialogContent
       v-bind="forwarded"
-      data-variant="default"
       :ref="
         (ref) => {
           forwardRef(ref);
           originContentRef = ref as any;
         }
       "
+      data-variant="default"
       :class="classNames"
       @open-auto-focus="
         (event) => {
@@ -155,8 +157,8 @@ const forwarded = useForwardPropsEmits(props, emits)
       </slot>
       <!-- for remove warning -->
       <template v-if="!hasDialogHeader()">
-        <DialogTitle class="!hidden select-none"></DialogTitle>
-        <DialogDescription class="!hidden select-none"></DialogDescription>
+        <DialogTitle class="!hidden select-none" />
+        <DialogDescription class="!hidden select-none" />
       </template>
       <!-- ---end--- -->
     </DialogContent>

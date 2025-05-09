@@ -15,9 +15,9 @@ const props = defineProps<{
     :class="
       cn(
         sidebarFooterVariants({
-          unstyled: props.unstyled
+          unstyled: props.unstyled,
         }),
-        props.class
+        props.class,
       )
     "
   >

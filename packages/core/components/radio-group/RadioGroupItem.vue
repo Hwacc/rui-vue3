@@ -1,19 +1,12 @@
 <script setup lang="ts">
-import { cn } from '@rui/core/lib/utils';
-import { Circle, Check } from 'lucide-vue-next';
-import {
-  RadioGroupIndicator,
-  RadioGroupItem,
-  type RadioGroupItemProps,
-  useForwardProps,
-} from 'reka-ui';
-import { computed, type HTMLAttributes } from 'vue';
-import {
-  RadioGroupItemVariants,
-  radioGroupItemVariants,
-  radioGroupItemInnerVariants,
-  RadioGroupItemInnerVariants,
-} from '.';
+import type { RadioGroupItemProps } from 'reka-ui'
+import type { HTMLAttributes } from 'vue'
+import type { RadioGroupItemInnerVariants, RadioGroupItemVariants } from '.'
+import { cn } from '@rui/core/lib/utils'
+import { Check, Circle } from 'lucide-vue-next'
+import { RadioGroupIndicator, RadioGroupItem, useForwardProps } from 'reka-ui'
+import { computed } from 'vue'
+import { radioGroupItemInnerVariants, radioGroupItemVariants } from '.'
 
 const {
   wrapClass,
@@ -27,27 +20,30 @@ const {
   ...props
 } = defineProps<
   RadioGroupItemProps & {
-    variant?: RadioGroupItemInnerVariants['variant'];
-    wrapClass?: HTMLAttributes['class'];
-    innerClass?: HTMLAttributes['class'];
-    labelClass?: HTMLAttributes['class'];
-    class?: HTMLAttributes['class'];
-    size?: RadioGroupItemVariants['size'];
-    label?: string;
-    unstyled?: RadioGroupItemInnerVariants['unstyled'];
+    variant?: RadioGroupItemInnerVariants['variant']
+    wrapClass?: HTMLAttributes['class']
+    innerClass?: HTMLAttributes['class']
+    labelClass?: HTMLAttributes['class']
+    class?: HTMLAttributes['class']
+    size?: RadioGroupItemVariants['size']
+    label?: string
+    unstyled?: RadioGroupItemInnerVariants['unstyled']
   }
->();
-const forwardedProps = useForwardProps(props);
+>()
+const forwardedProps = useForwardProps(props)
 
 const wrapClassName = computed(() => {
-  return cn(['flex items-center gap-2.5'], wrapClass);
-});
+  return cn(['flex items-center gap-2.5'], wrapClass)
+})
 const radioGroupItemClassName = computed(() => {
-  return cn(radioGroupItemVariants({ size, unstyled }), propsClass);
-});
+  return cn(radioGroupItemVariants({ size, unstyled }), propsClass)
+})
 const radioGroupItemInnerClassName = computed(() => {
-  return cn(radioGroupItemInnerVariants({ variant, size, unstyled }), innerClass);
-});
+  return cn(
+    radioGroupItemInnerVariants({ variant, size, unstyled }),
+    innerClass,
+  )
+})
 const labelClassName = computed(() => {
   return cn(
     [
@@ -56,9 +52,9 @@ const labelClassName = computed(() => {
       size === 'sm' && 'text-xs',
       size === 'lg' && 'text-base',
     ],
-    labelClass
-  );
-});
+    labelClass,
+  )
+})
 </script>
 
 <template>
@@ -69,7 +65,10 @@ const labelClassName = computed(() => {
       :class="radioGroupItemClassName"
       :data-variant="variant"
     >
-      <RadioGroupIndicator :class="['flex items-center justify-center']" :data-variant="variant">
+      <RadioGroupIndicator
+        class="flex items-center justify-center"
+        :data-variant="variant"
+      >
         <Circle
           v-if="variant === 'default'"
           :class="radioGroupItemInnerClassName"
@@ -83,7 +82,11 @@ const labelClassName = computed(() => {
       </RadioGroupIndicator>
     </RadioGroupItem>
     <slot name="label">
-      <label v-if="label" :class="labelClassName" :for="forwardedProps.id || label">
+      <label
+        v-if="label"
+        :class="labelClassName"
+        :for="forwardedProps.id || label"
+      >
         {{ label }}
       </label>
     </slot>

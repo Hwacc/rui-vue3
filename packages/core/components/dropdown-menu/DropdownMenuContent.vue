@@ -1,18 +1,18 @@
 <script setup lang="ts">
 import type {
   DropdownMenuContentEmits,
-  DropdownMenuContentProps
+  DropdownMenuContentProps,
 } from 'reka-ui'
 import type { HTMLAttributes } from 'vue'
+import { PopoverContentMotion } from '@rui/core/components/motion/PopoverContentMotion'
 import { cn } from '@rui/core/lib/utils'
+import { AnimatePresence } from 'motion-v'
 import {
   DropdownMenuContent,
   DropdownMenuPortal,
-  useForwardPropsEmits
+  useForwardPropsEmits,
 } from 'reka-ui'
 import { dropdownMenuContentVariants } from '.'
-import { AnimatePresence } from 'motion-v'
-import { PopoverContentMotion } from '@rui/core/components/motion/PopoverContentMotion'
 
 const {
   class: propsClass,
@@ -33,9 +33,9 @@ const forwarded = useForwardPropsEmits(
   {
     side,
     align,
-    ...props
+    ...props,
   },
-  emits
+  emits,
 )
 </script>
 

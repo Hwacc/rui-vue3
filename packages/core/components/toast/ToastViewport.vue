@@ -4,8 +4,8 @@ import type { HTMLAttributes } from 'vue'
 import { cn } from '@rui/core/lib/utils'
 import { ToastViewport } from 'reka-ui'
 import { computed } from 'vue'
-import { injectToastProviderContextEx } from './ToastProvider.vue'
 import { toastViewportVariants } from '.'
+import { injectToastProviderContextEx } from './ToastProvider.vue'
 
 const {
   class: propsClass,

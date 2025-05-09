@@ -1,11 +1,12 @@
 <script setup lang="ts">
-import type { TabsTriggerProps } from 'reka-ui';
-import type { HTMLAttributes } from 'vue';
-import { cn } from '@rui/core/lib/utils';
-import { TabsTrigger, useForwardProps } from 'reka-ui';
-import { computed, onMounted } from 'vue';
-import { tabsTriggerVariants, TabsTriggerVariantsProps } from '.';
-import { injectTabsContext } from './Tabs.vue';
+import type { TabsTriggerProps } from 'reka-ui'
+import type { HTMLAttributes } from 'vue'
+import type { TabsTriggerVariantsProps } from '.'
+import { cn } from '@rui/core/lib/utils'
+import { TabsTrigger, useForwardProps } from 'reka-ui'
+import { computed, onMounted } from 'vue'
+import { tabsTriggerVariants } from '.'
+import { injectTabsContext } from './Tabs.vue'
 
 const {
   class: propsClass,
@@ -14,22 +15,22 @@ const {
   ...props
 } = defineProps<
   TabsTriggerProps & {
-    class?: HTMLAttributes['class'];
-    size?: TabsTriggerVariantsProps['size'];
-    unstyled?: boolean;
+    class?: HTMLAttributes['class']
+    size?: TabsTriggerVariantsProps['size']
+    unstyled?: boolean
   }
->();
+>()
 
-const { initTabTrigger } = injectTabsContext();
+const { initTabTrigger } = injectTabsContext()
 
 onMounted(() => {
-  initTabTrigger();
-});
+  initTabTrigger()
+})
 
-const forwardedProps = useForwardProps(props);
+const forwardedProps = useForwardProps(props)
 const classNames = computed(() => {
-  return cn(tabsTriggerVariants({ size, unstyled }), propsClass);
-});
+  return cn(tabsTriggerVariants({ size, unstyled }), propsClass)
+})
 </script>
 
 <template>

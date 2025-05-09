@@ -1,9 +1,11 @@
 <script lang="ts" setup>
-import type { TabsIndicatorProps } from 'reka-ui';
-import { computed, type HTMLAttributes } from 'vue';
-import { cn } from '@rui/core/lib/utils';
-import { TabsIndicator, useForwardProps } from 'reka-ui';
-import { tabsIndicatorVariants, TabsIndicatorVariantsProps } from '.';
+import type { TabsIndicatorProps } from 'reka-ui'
+import type { HTMLAttributes } from 'vue'
+import type { TabsIndicatorVariantsProps } from '.'
+import { cn } from '@rui/core/lib/utils'
+import { TabsIndicator, useForwardProps } from 'reka-ui'
+import { computed } from 'vue'
+import { tabsIndicatorVariants } from '.'
 
 const {
   class: propsClass,
@@ -12,16 +14,16 @@ const {
   ...props
 } = defineProps<
   TabsIndicatorProps & {
-    class?: HTMLAttributes['class'];
-    size?: TabsIndicatorVariantsProps['size'];
-    unstyled?: boolean;
+    class?: HTMLAttributes['class']
+    size?: TabsIndicatorVariantsProps['size']
+    unstyled?: boolean
   }
->();
-const forwardedProps = useForwardProps(props);
+>()
+const forwardedProps = useForwardProps(props)
 
 const classNames = computed(() => {
-  return cn(tabsIndicatorVariants({ size, unstyled }), propsClass);
-});
+  return cn(tabsIndicatorVariants({ size, unstyled }), propsClass)
+})
 </script>
 
 <template>

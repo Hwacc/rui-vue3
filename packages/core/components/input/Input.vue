@@ -1,5 +1,6 @@
 <script lang="ts">
 import type { InputVariants } from './index'
+
 interface Props extends PrimitiveProps {
   defaultValue?: string | number
   modelValue?: string | number
@@ -15,12 +16,14 @@ interface Props extends PrimitiveProps {
 </script>
 
 <script setup lang="ts">
-import { computed, ref, type HTMLAttributes } from 'vue'
+import type { PrimitiveProps } from 'reka-ui'
+import type { HTMLAttributes } from 'vue'
 import { cn } from '@rui/core/lib/utils'
 import { useVModel } from '@vueuse/core'
-import { Primitive, PrimitiveProps, useForwardExpose } from 'reka-ui'
-import { inputInnerVariants, inputVariants, inputClearableVariants } from '.'
 import { CircleX } from 'lucide-vue-next'
+import { Primitive, useForwardExpose } from 'reka-ui'
+import { computed, ref } from 'vue'
+import { inputClearableVariants, inputInnerVariants, inputVariants } from '.'
 
 const {
   class: propsClass,
@@ -42,18 +45,20 @@ const emits = defineEmits<{
 
 const modelValue = useVModel(props, 'modelValue', emits, {
   passive: true,
-  defaultValue: props.defaultValue
+  defaultValue: props.defaultValue,
 })
 
 const isFocus = ref(false)
 const inputState = computed(() => {
-  if (disabled) return 'disabled'
-  if (readonly) return 'readonly'
+  if (disabled)
+    return 'disabled'
+  if (readonly)
+    return 'readonly'
   return isFocus.value ? 'focused' : 'blur'
 })
 const inputRef = ref<HTMLInputElement | null>(null)
 const rejectBlur = ref(false)
-const onBlur = (event: Event) => {
+function onBlur(event: Event) {
   setTimeout(() => {
     emits('blur', event)
     if (rejectBlur.value) {
@@ -65,26 +70,26 @@ const onBlur = (event: Event) => {
 }
 
 const className = computed(() =>
-  cn(inputVariants({ size, unstyled }), propsClass)
+  cn(inputVariants({ size, unstyled }), propsClass),
 )
 const innerClassName = computed(() =>
-  cn(inputInnerVariants({ size, unstyled }), innerClass)
+  cn(inputInnerVariants({ size, unstyled }), innerClass),
 )
 const { forwardRef } = useForwardExpose()
 </script>
 
 <template>
   <Primitive :class="className" :data-state="inputState" v-bind="props">
-    <slot name="prefix"></slot>
+    <slot name="prefix" />
     <input
-      :class="innerClassName"
-      v-model="modelValue"
       :ref="
         (r: any) => {
           inputRef = r as HTMLInputElement;
           forwardRef(r);
         }
       "
+      v-model="modelValue"
+      :class="innerClassName"
       :placeholder="props.placeholder"
       :data-state="inputState"
       :disabled="disabled ? true : undefined"
@@ -98,7 +103,7 @@ const { forwardRef } = useForwardExpose()
       @blur="onBlur"
       @input="(e: Event) => emits('input', e, modelValue)"
       @change="(e: Event) => emits('change', e, modelValue)"
-    />
+    >
     <div
       v-if="inputState === 'focused' && clearable && modelValue"
       :class="inputClearableVariants({ size, unstyled })"
@@ -112,6 +117,6 @@ const { forwardRef } = useForwardExpose()
     >
       <CircleX />
     </div>
-    <slot name="suffix"></slot>
+    <slot name="suffix" />
   </Primitive>
 </template>

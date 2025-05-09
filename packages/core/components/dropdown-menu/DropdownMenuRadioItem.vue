@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type {
   DropdownMenuRadioItemEmits,
-  DropdownMenuRadioItemProps
+  DropdownMenuRadioItemProps,
 } from 'reka-ui'
 import type { HTMLAttributes } from 'vue'
 import { cn } from '@rui/core/lib/utils'
@@ -9,7 +9,7 @@ import { Circle } from 'lucide-vue-next'
 import {
   DropdownMenuItemIndicator,
   DropdownMenuRadioItem,
-  useForwardPropsEmits
+  useForwardPropsEmits,
 } from 'reka-ui'
 import { dropdownMenuItemVariants } from '.'
 
@@ -38,9 +38,9 @@ const forwarded = useForwardPropsEmits(props, emits)
       cn(
         dropdownMenuItemVariants({
           variant: 'radio',
-          unstyled
+          unstyled,
         }),
-        propsClass
+        propsClass,
       )
     "
     data-variant="radio"

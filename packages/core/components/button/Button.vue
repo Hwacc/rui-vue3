@@ -1,14 +1,28 @@
 <script lang="ts">
+import type { TooltipContentVariants } from '@rui/core/components/tooltip'
 import type {
   PrimitiveProps,
+  TooltipArrowProps,
   TooltipContentProps,
   TooltipRootProps,
-  TooltipArrowProps
 } from 'reka-ui'
 import type { HTMLAttributes } from 'vue'
-import type { TooltipContentVariants } from '@rui/core/components/tooltip'
 import type { ButtonVariants } from '.'
 import { useRipple } from '@rui/core/hooks/useRipple'
+</script>
+
+<script setup lang="ts">
+import {
+  Tooltip,
+  TooltipArrow,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from '@rui/core/components/tooltip'
+import { cn, getNodeCssVar } from '@rui/core/lib/utils'
+import { Primitive, useForwardExpose } from 'reka-ui'
+import { computed } from 'vue'
+import { buttonVariants } from '.'
 
 interface ButtonProps extends PrimitiveProps {
   variant?: ButtonVariants['variant'] | string
@@ -26,20 +40,6 @@ interface ButtonProps extends PrimitiveProps {
   unstyled?: boolean
   ripple?: boolean
 }
-</script>
-
-<script setup lang="ts">
-import { computed } from 'vue'
-import { cn, getNodeCssVar } from '@rui/core/lib/utils'
-import { Primitive, useForwardExpose } from 'reka-ui'
-import { buttonVariants } from '.'
-import {
-  Tooltip,
-  TooltipTrigger,
-  TooltipContent,
-  TooltipArrow,
-  TooltipProvider
-} from '@rui/core/components/tooltip'
 
 const {
   as = 'button',
@@ -55,27 +55,27 @@ const {
   tooltipRootProps = {
     delayDuration: 0,
     disableHoverableContent: true,
-    ignoreNonKeyboardFocus: true
+    ignoreNonKeyboardFocus: true,
   },
   tooltipContentClass,
   tooltipContentProps = {
     side: 'top',
     align: 'start',
-    sideOffset: 6
+    sideOffset: 6,
   },
   tooltipArrowClass,
   tooltipArrowProps = {
     width: 6,
-    height: 3
-  }
+    height: 3,
+  },
 } = defineProps<ButtonProps>()
 
+const emits = defineEmits<{
+  click: [event: MouseEvent]
+}>()
 const slots = defineSlots<{
   default?: () => any
   tooltip?: () => any
-}>()
-const emits = defineEmits<{
-  click: [event: MouseEvent]
 }>()
 const { forwardRef, currentElement } = useForwardExpose()
 
@@ -83,18 +83,18 @@ const rippleColor = computed(() => {
   return getNodeCssVar(
     currentElement.value,
     '--rui-ripple-color',
-    'transparent'
+    'transparent',
   )
 })
 const {
   onRipple,
   referenceRef: rippleReferenceRef,
-  Ripple
+  Ripple,
 } = useRipple({
-  color: rippleColor
+  color: rippleColor,
 })
 
-const onClick = (event: MouseEvent) => {
+function onClick(event: MouseEvent) {
   onRipple(event)
   emits('click', event)
 }
@@ -104,10 +104,10 @@ const buttonClass = computed(() =>
     buttonVariants({
       variant: variant as ButtonVariants['variant'],
       size,
-      unstyled
+      unstyled,
     }),
-    propsClass
-  )
+    propsClass,
+  ),
 )
 </script>
 
@@ -116,16 +116,16 @@ const buttonClass = computed(() =>
     <Tooltip v-bind="{ ...tooltipRootProps, disabled }">
       <!-- data-state 已被Tooltip占用, 故使用data-switch-state -->
       <TooltipTrigger
-        :as="as"
-        :asChild="asChild"
-        :class="buttonClass"
-        :disabled="disabled"
         :ref="
           (r) => {
             forwardRef(r)
             rippleReferenceRef = r
           }
         "
+        :as="as"
+        :as-child="asChild"
+        :class="buttonClass"
+        :disabled="disabled"
         :data-variant="variant"
         :data-ripple="ripple ? true : undefined"
         :data-switch-state="
@@ -158,15 +158,15 @@ const buttonClass = computed(() =>
   </TooltipProvider>
   <Primitive
     v-else
-    :as="as"
-    :as-child="asChild"
-    :class="buttonClass"
     :ref="
       (r) => {
         forwardRef(r)
         rippleReferenceRef = r
       }
     "
+    :as="as"
+    :as-child="asChild"
+    :class="buttonClass"
     :disabled="disabled"
     :data-variant="variant"
     :data-ripple="ripple ? true : undefined"

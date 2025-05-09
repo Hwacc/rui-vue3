@@ -1,3 +1,6 @@
+import { useAnimationParams } from '@rui/core/hooks/useAnimationParams'
+import { spaceTimes } from '@rui/core/lib/utils'
+import { motion } from 'motion-v'
 /*
  *  NOTICE:
  *  在Select的Content组件中,其实现为reka-ui Presence(bug), Dropdown Content实现为对的
@@ -5,17 +8,14 @@
  *  see: line#48 https://github.com/unovue/reka-ui/blob/v2/packages/core/src/Select/SelectContent.vue
  */
 import { computed, defineComponent, toRefs } from 'vue'
-import { motion } from 'motion-v'
-import { spaceTimes } from '@rui/core/lib/utils'
-import { useAnimationParams } from '@rui/core/hooks/useAnimationParams'
 
 export const PopoverContentMotion = defineComponent({
   name: 'PopoverContentMotion',
   props: {
     side: {
       type: String as () => 'bottom' | 'top' | 'left' | 'right',
-      default: 'bottom'
-    }
+      default: 'bottom',
+    },
   },
   setup(props, { slots }) {
     const { side } = toRefs(props)
@@ -25,39 +25,39 @@ export const PopoverContentMotion = defineComponent({
         {
           // initial
           opacity: 0,
-          scale: 0.95
+          scale: 0.95,
         },
         {
           // animate
           opacity: 1,
-          scale: 1
+          scale: 1,
         },
         {
           // exit
           opacity: 0,
-          scale: 0.9
-        }
+          scale: 0.9,
+        },
       ]
       switch (side.value) {
         case 'bottom':
-          _anime[0]['y'] = spaceTimes(2)
-          _anime[1]['y'] = 0
-          _anime[2]['y'] = spaceTimes(2)
+          _anime[0].y = spaceTimes(2)
+          _anime[1].y = 0
+          _anime[2].y = spaceTimes(2)
           break
         case 'top':
-          _anime[0]['y'] = -spaceTimes(2)
-          _anime[1]['y'] = 0
-          _anime[2]['y'] = -spaceTimes(2)
+          _anime[0].y = -spaceTimes(2)
+          _anime[1].y = 0
+          _anime[2].y = -spaceTimes(2)
           break
         case 'left':
-          _anime[0]['x'] = -spaceTimes(2)
-          _anime[1]['x'] = 0
-          _anime[2]['x'] = -spaceTimes(2)
+          _anime[0].x = -spaceTimes(2)
+          _anime[1].x = 0
+          _anime[2].x = -spaceTimes(2)
           break
         case 'right':
-          _anime[0]['x'] = spaceTimes(2)
-          _anime[1]['x'] = 0
-          _anime[2]['x'] = spaceTimes(2)
+          _anime[0].x = spaceTimes(2)
+          _anime[1].x = 0
+          _anime[2].x = spaceTimes(2)
           break
       }
       return _anime
@@ -69,12 +69,13 @@ export const PopoverContentMotion = defineComponent({
         exit={animation.value[2]}
         transition={{
           duration: animationDuration,
-          easings: animationEase
-        }}>
+          easings: animationEase,
+        }}
+      >
         {{
-          default: slots.default
+          default: slots.default,
         }}
       </motion.div>
     )
-  }
+  },
 })

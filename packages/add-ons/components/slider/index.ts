@@ -1,18 +1,18 @@
-import { PREFIX } from '@/core/lib/constants';
-import { cva } from '@/core/lib/cva';
+import { PREFIX } from '@/core/lib/constants'
+import { cva } from '@/core/lib/cva'
 
 /**
  * @author razer.hua
  * vue-3-slider-component 增强版
  * 使用floating-ui 增强tooltip的显示效果
  */
-export { default as Slider, useFloatingTooltip } from './Slider.vue';
-export type { SLIDER_ERROR_TYPE, FloatingTooltipOptions } from './Slider.vue';
+export { default as Slider, useFloatingTooltip } from './Slider.vue'
+export type { FloatingTooltipOptions, SLIDER_ERROR_TYPE } from './Slider.vue'
 
-const prefix = `${PREFIX}-vue-slider`;
+const prefix = `${PREFIX}-vue-slider`
 export const sliderVariants = cva([], undefined, {
   className: prefix,
-});
+})
 
 export const sliderDotVariants = cva(
   ['w-full', 'h-full', 'rounded-full', 'transition-transform'],
@@ -21,15 +21,15 @@ export const sliderDotVariants = cva(
       size: {
         sm: 'border-[.0625rem]',
         lg: 'border-[.25rem]',
-        base: 'border-[.125rem]'
+        base: 'border-[.125rem]',
       },
       scale: {
         true: 'scale-125',
       },
     },
   },
-  { className: `${prefix}-dot` }
-);
+  { className: `${prefix}-dot` },
+)
 
 export const sliderTooltipVariants = cva(
   ['flex', 'px-2', 'py-1', 'rounded', 'text-xs', 'font-rob-bold'],
@@ -79,5 +79,5 @@ export const sliderTooltipVariants = cva(
       },
     },
   },
-  { className: `${prefix}-tooltip` }
-);
+  { className: `${prefix}-tooltip` },
+)

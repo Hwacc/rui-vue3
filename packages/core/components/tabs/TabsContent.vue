@@ -1,26 +1,26 @@
 <script setup lang="ts">
-import type { TabsContentProps } from 'reka-ui';
-import type { HTMLAttributes } from 'vue';
-import { cn } from '@rui/core/lib/utils';
-import { TabsContent } from 'reka-ui';
-import { computed, ref, watch } from 'vue';
-import { tabsContentVariants } from '.';
-import { injectTabsContext } from './Tabs.vue';
-
-const { index } = injectTabsContext();
+import type { TabsContentProps } from 'reka-ui'
+import type { HTMLAttributes } from 'vue'
+import { cn } from '@rui/core/lib/utils'
+import { TabsContent } from 'reka-ui'
+import { computed, ref, watch } from 'vue'
+import { tabsContentVariants } from '.'
+import { injectTabsContext } from './Tabs.vue'
 
 const {
   class: propsClass,
   unstyled,
   ...props
 } = defineProps<
-  TabsContentProps & { class?: HTMLAttributes['class']; unstyled?: boolean }
->();
+  TabsContentProps & { class?: HTMLAttributes['class'], unstyled?: boolean }
+>()
 
-const direction = ref(0);
+const { index } = injectTabsContext()
+
+const direction = ref(0)
 watch(index, (newIndex, oldIndex) => {
-  direction.value = newIndex - oldIndex;
-});
+  direction.value = newIndex - oldIndex
+})
 
 const classNames = computed(() => {
   return cn(
@@ -29,9 +29,9 @@ const classNames = computed(() => {
       next: direction.value > 0,
       unstyled,
     }),
-    propsClass
-  );
-});
+    propsClass,
+  )
+})
 </script>
 
 <template>

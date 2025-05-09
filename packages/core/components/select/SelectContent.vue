@@ -1,16 +1,16 @@
 <script setup lang="ts">
-import type { SelectContentEmits, SelectContentProps } from 'reka-ui';
-import type { HTMLAttributes } from 'vue';
-import { cn } from '@rui/core/lib/utils';
-import { SelectContent, SelectPortal, SelectViewport, useForwardPropsEmits } from 'reka-ui';
-import { computed } from 'vue';
-import { selectContentVariants, SelectScrollDownButton, SelectScrollUpButton } from '.';
-import { AnimatePresence } from 'motion-v';
-import { PopoverContentMotion } from '@rui/core/components/motion/PopoverContentMotion';
+import type { SelectContentEmits, SelectContentProps } from 'reka-ui'
+import type { HTMLAttributes } from 'vue'
+import { PopoverContentMotion } from '@rui/core/components/motion/PopoverContentMotion'
+import { cn } from '@rui/core/lib/utils'
+import { AnimatePresence } from 'motion-v'
+import { SelectContent, SelectPortal, SelectViewport, useForwardPropsEmits } from 'reka-ui'
+import { computed } from 'vue'
+import { selectContentVariants, SelectScrollDownButton, SelectScrollUpButton } from '.'
 
 defineOptions({
   inheritAttrs: false,
-});
+})
 
 const {
   class: propsClass,
@@ -23,17 +23,17 @@ const {
   ...props
 } = defineProps<
   SelectContentProps & {
-    class?: HTMLAttributes['class'];
-    scrollButton?: boolean;
-    unstyled?: boolean;
+    class?: HTMLAttributes['class']
+    scrollButton?: boolean
+    unstyled?: boolean
   }
->();
-const emits = defineEmits<SelectContentEmits>();
+>()
+const emits = defineEmits<SelectContentEmits>()
 
 const classNames = computed(() => {
-  return cn(selectContentVariants({ position, unstyled }), propsClass);
-});
-const forwarded = useForwardPropsEmits(props, emits);
+  return cn(selectContentVariants({ position, unstyled }), propsClass)
+})
+const forwarded = useForwardPropsEmits(props, emits)
 </script>
 
 <template>

@@ -1,13 +1,15 @@
 <script setup lang="ts">
-import { cn } from '@rui/core/lib/utils';
+import type { ScrollAreaScrollbarProps } from 'reka-ui'
+import type { HTMLAttributes } from 'vue'
+import type { ScrollBarVariants } from '.'
+import { cn } from '@rui/core/lib/utils'
 import {
-  ScrollAreaScrollbar,
-  type ScrollAreaScrollbarProps,
-  ScrollAreaThumb,
   injectScrollAreaRootContext,
-} from 'reka-ui';
-import { ref, watchEffect, type HTMLAttributes } from 'vue';
-import { scrollBarVariants, ScrollBarVariants, scrollThumbVariants } from '.';
+  ScrollAreaScrollbar,
+  ScrollAreaThumb,
+} from 'reka-ui'
+import { ref, watchEffect } from 'vue'
+import { scrollBarVariants, scrollThumbVariants } from '.'
 
 const {
   class: propsClass,
@@ -19,31 +21,31 @@ const {
   ...props
 } = defineProps<
   ScrollAreaScrollbarProps & {
-    class?: HTMLAttributes['class'];
-    size?: ScrollBarVariants['size'];
-    theme?: string;
-    thumbClass?: HTMLAttributes['class'];
-    unstyled?: boolean;
+    class?: HTMLAttributes['class']
+    size?: ScrollBarVariants['size']
+    theme?: string
+    thumbClass?: HTMLAttributes['class']
+    unstyled?: boolean
   }
->();
+>()
 
-const { viewport } = injectScrollAreaRootContext();
-const scrollState = ref<'scrolling' | 'static'>('static');
+const { viewport } = injectScrollAreaRootContext()
+const scrollState = ref<'scrolling' | 'static'>('static')
 
 watchEffect((onCleanup) => {
   const onScroll = () => {
-    scrollState.value = 'scrolling';
-  };
+    scrollState.value = 'scrolling'
+  }
   const onScrollEnd = () => {
-    scrollState.value = 'static';
-  };
-  viewport.value?.addEventListener('scroll', onScroll);
-  viewport.value?.addEventListener('scrollend', onScrollEnd);
+    scrollState.value = 'static'
+  }
+  viewport.value?.addEventListener('scroll', onScroll)
+  viewport.value?.addEventListener('scrollend', onScrollEnd)
   onCleanup(() => {
-    viewport.value?.removeEventListener('scroll', onScroll);
-    viewport.value?.removeEventListener('scrollend', onScrollEnd);
-  });
-});
+    viewport.value?.removeEventListener('scroll', onScroll)
+    viewport.value?.removeEventListener('scrollend', onScrollEnd)
+  })
+})
 </script>
 
 <template>

@@ -1,9 +1,9 @@
 <script lang="ts" setup>
 import type { RangeCalendarGridRowProps } from 'reka-ui'
 import type { HTMLAttributes } from 'vue'
+import { prefix } from '@rui/core/components/calendar'
 import { cn } from '@rui/core/lib/utils'
 import { RangeCalendarGridRow, useForwardProps } from 'reka-ui'
-import { prefix } from '@rui/core/components/calendar'
 
 const {
   class: propsClass,

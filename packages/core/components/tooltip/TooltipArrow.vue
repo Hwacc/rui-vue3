@@ -1,8 +1,11 @@
 <script lang="ts" setup>
-import { TooltipArrow, type TooltipArrowProps } from 'reka-ui';
-import { computed, HTMLAttributes, ref, watch } from 'vue';
-import { toolTipArrowVariants, ToolTipArrowVariants } from '.';
-import { cn } from '@rui/core/lib/utils';
+import type { TooltipArrowProps } from 'reka-ui'
+import type { HTMLAttributes } from 'vue'
+import type { ToolTipArrowVariants } from '.'
+import { cn } from '@rui/core/lib/utils'
+import { TooltipArrow } from 'reka-ui'
+import { computed, ref, watch } from 'vue'
+import { toolTipArrowVariants } from '.'
 
 const {
   force = false,
@@ -15,41 +18,41 @@ const {
   ...props
 } = defineProps<
   TooltipArrowProps & {
-    class?: HTMLAttributes['class'];
-    force?: boolean;
-    theme?: ToolTipArrowVariants['theme'];
-    variant?: ToolTipArrowVariants['variant'];
-    unstyled?: boolean;
+    class?: HTMLAttributes['class']
+    force?: boolean
+    theme?: ToolTipArrowVariants['theme']
+    variant?: ToolTipArrowVariants['variant']
+    unstyled?: boolean
   }
->();
-const arrowRef = ref<{ $el: HTMLElement } | null>(null);
+>()
+const arrowRef = ref<{ $el: HTMLElement } | null>(null)
 
 watch(arrowRef, () => {
   if (force && arrowRef.value?.$el) {
     setTimeout(() => {
       if (arrowRef.value?.$el) {
-        arrowRef.value.$el.style.visibility = 'visible';
+        arrowRef.value.$el.style.visibility = 'visible'
       }
-    }, 100);
+    }, 100)
   }
-});
+})
 
 const style = computed(() => {
-  if(variant === 'css') {
+  if (variant === 'css') {
     // makes square
-    const line = Math.max(width, height);
+    const line = Math.max(width, height)
     return {
       '--reka-tooltip-arrow-width': `${line}px`,
       '--reka-tooltip-arrow-height': `${line}px`,
       '--reka-tooltip-arrow-border-width': `${line / 2}px`,
       '--reka-tooltip-arrow-border-height': `${line / 2}px`,
-    };
+    }
   }
   return {
     '--reka-tooltip-arrow-width': `${width}px`,
     '--reka-tooltip-arrow-height': `${height}px`,
-  };
-});
+  }
+})
 
 const classNames = computed(() =>
   cn(
@@ -58,9 +61,9 @@ const classNames = computed(() =>
       variant,
       unstyled,
     }),
-    propsClass
-  )
-);
+    propsClass,
+  ),
+)
 </script>
 
 <template>
@@ -75,6 +78,6 @@ const classNames = computed(() =>
     :data-arrow-variant="variant"
     :data-theme="theme"
   >
-    <span v-if="variant === 'css'"></span>
+    <span v-if="variant === 'css'" />
   </TooltipArrow>
 </template>

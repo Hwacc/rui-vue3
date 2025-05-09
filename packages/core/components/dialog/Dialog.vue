@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type { DialogRootEmits, DialogRootProps } from 'reka-ui'
 import { DialogRoot, useForwardPropsEmits } from 'reka-ui'
-import { default as DialogProvider } from './DialogRootProviderEx'
+import DialogProvider from './DialogRootProviderEx'
 
 const props = defineProps<DialogRootProps>()
 const emits = defineEmits<DialogRootEmits>()

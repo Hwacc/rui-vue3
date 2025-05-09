@@ -1,13 +1,10 @@
 <script setup lang="ts">
-import { cn } from '@rui/core/lib/utils';
-import {
-  ScrollAreaCorner,
-  ScrollAreaRoot,
-  type ScrollAreaRootProps,
-  ScrollAreaViewport,
-} from 'reka-ui';
-import { getCurrentInstance, ref, watch, type HTMLAttributes } from 'vue';
-import { scrollAreaVariants } from '.';
+import type { ScrollAreaRootProps } from 'reka-ui'
+import type { HTMLAttributes } from 'vue'
+import { cn } from '@rui/core/lib/utils'
+import { ScrollAreaCorner, ScrollAreaRoot, ScrollAreaViewport } from 'reka-ui'
+import { getCurrentInstance, ref, watch } from 'vue'
+import { scrollAreaVariants } from '.'
 
 const {
   class: propsClass,
@@ -16,32 +13,33 @@ const {
   ...props
 } = defineProps<
   ScrollAreaRootProps & {
-    class?: HTMLAttributes['class'];
-    theme?: string;
-    unstyled?: boolean;
+    class?: HTMLAttributes['class']
+    theme?: string
+    unstyled?: boolean
   }
->();
+>()
 
 const emits = defineEmits<{
-  scroll: [event: Event];
-  scrollEnd: [event: Event];
-}>();
+  scroll: [event: Event]
+  scrollEnd: [event: Event]
+}>()
 
 // expose root
-const instance = getCurrentInstance();
-const rootRef = ref<any>();
+const instance = getCurrentInstance()
+const rootRef = ref<any>()
 watch(rootRef, () => {
-  if (!instance) return;
-  instance.exposed = { ...rootRef.value };
-  instance.exposeProxy = rootRef.value;
-});
+  if (!instance)
+    return
+  instance.exposed = { ...rootRef.value }
+  instance.exposeProxy = rootRef.value
+})
 </script>
 
 <template>
   <ScrollAreaRoot
     v-bind="props"
-    :class="cn(scrollAreaVariants({ unstyled }), propsClass)"
     ref="rootRef"
+    :class="cn(scrollAreaVariants({ unstyled }), propsClass)"
   >
     <ScrollAreaViewport
       class="h-full w-full rounded-[inherit]"

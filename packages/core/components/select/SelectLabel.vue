@@ -1,14 +1,14 @@
 <script setup lang="ts">
-import type { SelectLabelProps } from 'reka-ui';
-import type { HTMLAttributes } from 'vue';
-import { cn } from '@rui/core/lib/utils';
-import { injectSelectRootContext, SelectLabel } from 'reka-ui';
-import { selectLabelVariants } from '.';
+import type { SelectLabelProps } from 'reka-ui'
+import type { HTMLAttributes } from 'vue'
+import { cn } from '@rui/core/lib/utils'
+import { injectSelectRootContext, SelectLabel } from 'reka-ui'
+import { selectLabelVariants } from '.'
 
 const props = defineProps<
-  SelectLabelProps & { class?: HTMLAttributes['class']; unstyled?: boolean }
->();
-const { multiple } = injectSelectRootContext();
+  SelectLabelProps & { class?: HTMLAttributes['class'], unstyled?: boolean }
+>()
+const { multiple } = injectSelectRootContext()
 </script>
 
 <template>
@@ -17,7 +17,7 @@ const { multiple } = injectSelectRootContext();
       cn(
         selectLabelVariants({ unstyled: props.unstyled }),
         multiple && 'pl-8',
-        props.class
+        props.class,
       )
     "
   >

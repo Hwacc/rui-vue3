@@ -1,5 +1,9 @@
 <script setup lang="ts">
 import type { CheckboxRootEmits, CheckboxRootProps } from 'reka-ui'
+import type { HTMLAttributes } from 'vue'
+import type {
+  CheckboxVariantsProps,
+} from '.'
 import { cn } from '@rui/core/lib/utils'
 import { Check, Minus } from 'lucide-vue-next'
 import { CheckboxIndicator, CheckboxRoot, useForwardPropsEmits } from 'reka-ui'
@@ -8,20 +12,14 @@ import {
   getCurrentInstance,
   ref,
   watch,
-  type HTMLAttributes
 } from 'vue'
 import {
-  checkboxVariants,
-  CheckboxVariantsProps,
+  checkboxLabelVariants,
   checkboxRootVariants,
-  checkboxLabelVariants
+  checkboxVariants,
 } from '.'
 import { injectCheckboxGroupContext } from './CheckboxGroup.vue'
 
-/**
- * create checkbox group context, if not exist it will be null
- */
-const groupContext = injectCheckboxGroupContext(null)
 const {
   primary,
   size = 'base',
@@ -43,7 +41,10 @@ const {
   }
 >()
 const emits = defineEmits<CheckboxRootEmits>()
-
+/**
+ * create checkbox group context, if not exist it will be null
+ */
+const groupContext = injectCheckboxGroupContext(null)
 const innerModelValue = ref(modelValue)
 if (groupContext) {
   // set instances
@@ -57,12 +58,12 @@ if (groupContext) {
         innerModelValue.value = collection.includes(props.name as string)
       }
     },
-    { immediate: true }
+    { immediate: true },
   )
 }
 watch(
   () => modelValue,
-  (val) => (innerModelValue.value = val)
+  val => (innerModelValue.value = val),
 )
 watch(innerModelValue, (val) => {
   if (groupContext) {
@@ -76,7 +77,7 @@ defineExpose({
   primary,
   innerModelValue,
   setChecked: (value: boolean | 'indeterminate' | null) =>
-    (innerModelValue.value = value)
+    (innerModelValue.value = value),
 })
 
 const mergeSize = computed(() => {
@@ -87,9 +88,9 @@ const checkboxClassName = computed(() =>
     checkboxVariants({
       size: mergeSize.value,
       disabled: props.disabled,
-      unstyled: groupContext?.unstyled?.value || unstyled
-    })
-  )
+      unstyled: groupContext?.unstyled?.value || unstyled,
+    }),
+  ),
 )
 const forwarded = useForwardPropsEmits(props, emits)
 </script>
@@ -100,9 +101,9 @@ const forwarded = useForwardPropsEmits(props, emits)
       cn(
         checkboxRootVariants({
           disabled: props.disabled,
-          unstyled: groupContext?.unstyled?.value || unstyled
+          unstyled: groupContext?.unstyled?.value || unstyled,
         }),
-        props.class
+        props.class,
       )
     "
     :disabled="props.disabled || undefined"
@@ -150,9 +151,9 @@ const forwarded = useForwardPropsEmits(props, emits)
           cn(
             checkboxLabelVariants({
               size: mergeSize,
-              unstyled: groupContext?.unstyled?.value || unstyled
+              unstyled: groupContext?.unstyled?.value || unstyled,
             }),
-            labelClass
+            labelClass,
           )
         "
       >

@@ -1,19 +1,19 @@
 <script setup lang="ts">
-import type { SelectScrollDownButtonProps } from 'reka-ui';
-import type { HTMLAttributes } from 'vue';
-import { cn } from '@rui/core/lib/utils';
-import { ChevronDown } from 'lucide-vue-next';
-import { SelectScrollDownButton, useForwardProps } from 'reka-ui';
-import { selectScrollButtonVariants } from '.';
+import type { SelectScrollDownButtonProps } from 'reka-ui'
+import type { HTMLAttributes } from 'vue'
+import { cn } from '@rui/core/lib/utils'
+import { ChevronDown } from 'lucide-vue-next'
+import { SelectScrollDownButton, useForwardProps } from 'reka-ui'
+import { selectScrollButtonVariants } from '.'
 
 const {
   class: propsClass,
   unstyled,
   ...props
 } = defineProps<
-  SelectScrollDownButtonProps & { class?: HTMLAttributes['class']; unstyled?: boolean }
->();
-const forwardedProps = useForwardProps(props);
+  SelectScrollDownButtonProps & { class?: HTMLAttributes['class'], unstyled?: boolean }
+>()
+const forwardedProps = useForwardProps(props)
 </script>
 
 <template>

@@ -1,23 +1,25 @@
-import { computed, ComputedRef, MaybeRef, ref, unref, watchEffect } from 'vue'
+import type { ComputedRef, MaybeRef } from 'vue'
+import { computed, ref, unref, watchEffect } from 'vue'
 
 type MaybeRefOrComputedRef<T> = MaybeRef<T> | ComputedRef<T>
 
-type Options = {
+interface Options {
   duration?: MaybeRefOrComputedRef<number | undefined>
   color?: MaybeRefOrComputedRef<string | undefined>
 }
 
-export const useRipple = ({
+export function useRipple({
   duration = 600,
-  color = '#44D62C'
-}: Options = {}) => {
+  color = '#44D62C',
+}: Options = {}) {
   const referenceRef = ref<any>(null)
   const ripples = ref<
-    Array<{ x: number; y: number; size: number; key: number }>
+    Array<{ x: number, y: number, size: number, key: number }>
   >([])
 
   const onRipple = (event: MouseEvent) => {
-    if (!referenceRef.value) return
+    if (!referenceRef.value)
+      return
     const reference = referenceRef.value.$el ?? referenceRef.value
     if (getComputedStyle(reference).position === 'static') {
       reference.classList.add('relative')
@@ -38,11 +40,13 @@ export const useRipple = ({
       const lastRipple = ripples.value[ripples.value.length - 1]
       setTimeout(() => {
         ripples.value = ripples.value.filter(
-          (ripple) => ripple.key !== lastRipple.key
+          ripple => ripple.key !== lastRipple.key,
         )
       }, unref(duration))
-    } else {
-      if (!referenceRef.value) return
+    }
+    else {
+      if (!referenceRef.value)
+        return
       const reference = referenceRef.value.$el ?? referenceRef.value
       reference.classList.remove('relative')
       reference.classList.remove('overflow-hidden')
@@ -53,20 +57,21 @@ export const useRipple = ({
     <span
       class={[
         'pointer-events-none absolute inset-0',
-        !ripples.value.length && 'hidden'
-      ]}>
-      {ripples.value.map((ripple) => (
+        !ripples.value.length && 'hidden',
+      ]}
+    >
+      {ripples.value.map(ripple => (
         <span
           key={ripple.key}
-          class='animate-rippling absolute rounded-full bg-transparent opacity-30'
+          class="animate-rippling absolute rounded-full bg-transparent opacity-30"
           style={{
-            width: ripple.size + 'px',
-            height: ripple.size + 'px',
-            top: ripple.y + 'px',
-            left: ripple.x + 'px',
+            width: `${ripple.size}px`,
+            height: `${ripple.size}px`,
+            top: `${ripple.y}px`,
+            left: `${ripple.x}px`,
             backgroundColor: unref(color),
             transform: 'scale(0)',
-            animationDuration: unref(duration) + 'ms'
+            animationDuration: `${unref(duration)}ms`,
           }}
         />
       ))}
@@ -76,6 +81,6 @@ export const useRipple = ({
   return {
     Ripple,
     onRipple,
-    referenceRef
+    referenceRef,
   }
 }

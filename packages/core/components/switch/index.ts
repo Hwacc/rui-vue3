@@ -1,9 +1,10 @@
-import { VariantProps } from 'class-variance-authority';
-import { cva } from '@rui/core/lib/cva';
-import { PREFIX } from '@rui/core/lib/constants';
-export { default as Switch } from './Switch.vue';
+import type { VariantProps } from 'class-variance-authority'
+import { PREFIX } from '@rui/core/lib/constants'
+import { cva } from '@rui/core/lib/cva'
 
-const prefix = `${PREFIX}-switch`;
+export { default as Switch } from './Switch.vue'
+
+const prefix = `${PREFIX}-switch`
 export const switchVariants = cva(
   [
     'peer',
@@ -24,10 +25,10 @@ export const switchVariants = cva(
       },
     },
   },
-  { className: prefix }
-);
+  { className: prefix },
+)
 
-export type SwitchVariantsProps = VariantProps<typeof switchVariants>;
+export type SwitchVariantsProps = VariantProps<typeof switchVariants>
 
 export const switchThumbVariants = cva(
   [
@@ -57,6 +58,6 @@ export const switchThumbVariants = cva(
   },
   {
     className: `${prefix}-thumb`,
-  }
-);
-export type SwitchThumbVariantsProps = VariantProps<typeof switchThumbVariants>;
+  },
+)
+export type SwitchThumbVariantsProps = VariantProps<typeof switchThumbVariants>

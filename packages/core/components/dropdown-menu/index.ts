@@ -13,15 +13,15 @@ export { default as DropdownMenuSubTrigger } from './DropdownMenuSubTrigger.vue'
 export { default as DropdownMenuTrigger } from './DropdownMenuTrigger.vue'
 
 export {
-  DropdownMenuPortal,
-  DropdownMenuGroup,
   DropdownMenuRoot as DropdownMenu,
+  DropdownMenuGroup,
+  DropdownMenuPortal,
   DropdownMenuRadioGroup,
-  DropdownMenuSub
+  DropdownMenuSub,
 } from 'reka-ui'
 export type {
+  DropdownMenuRootEmits as DropdownMenuEmits,
   DropdownMenuRootProps as DropdownMenuProps,
-  DropdownMenuRootEmits as DropdownMenuEmits
 } from 'reka-ui'
 
 const prefix = `${PREFIX}-dropdown-menu`
@@ -30,8 +30,8 @@ export const dropdownMenuTriggerVariants = cva(
   ['group', 'rounded'],
   undefined,
   {
-    className: `${prefix}-trigger`
-  }
+    className: `${prefix}-trigger`,
+  },
 )
 
 export const dropdownMenuContentVariants = cva(
@@ -42,10 +42,10 @@ export const dropdownMenuContentVariants = cva(
     'rounded',
     'border',
     'px-2',
-    'py-1.5'
+    'py-1.5',
   ],
   undefined,
-  { className: `${prefix}-content` }
+  { className: `${prefix}-content` },
 )
 
 export const dropdownMenuItemVariants = cva(
@@ -63,18 +63,18 @@ export const dropdownMenuItemVariants = cva(
     'outline-none',
     'transition-colors',
     'data-[disabled]:pointer-events-none',
-    'data-[disabled]:opacity-(--disabled-opacity)'
+    'data-[disabled]:opacity-(--disabled-opacity)',
   ],
   {
     variants: {
       variant: {
         default: ['[&>svg]:size-4', '[&>svg]:shrink-0'],
         checkbox: ['pr-2', 'pl-8'],
-        radio: ['pl-8', 'pr-2']
-      }
-    }
+        radio: ['pl-8', 'pr-2'],
+      },
+    },
   },
-  { className: `${prefix}-item` }
+  { className: `${prefix}-item` },
 )
 
 export const dropdownMenuSubTriggerVariants = cva(
@@ -87,10 +87,10 @@ export const dropdownMenuSubTriggerVariants = cva(
     'px-2',
     'py-1.5',
     'text-sm',
-    'outline-none'
+    'outline-none',
   ],
   undefined,
-  { className: `${prefix}-sub-trigger` }
+  { className: `${prefix}-sub-trigger` },
 )
 
 export const dropdownMenuSubContentVariants = cva(
@@ -101,10 +101,10 @@ export const dropdownMenuSubContentVariants = cva(
     'py-1.5',
     'rounded',
     'border',
-    'overflow-hidden'
+    'overflow-hidden',
   ],
   undefined,
-  { className: `${prefix}-sub-content` }
+  { className: `${prefix}-sub-content` },
 )
 
 export const dropdownMenuLabelVariants = cva(
@@ -112,17 +112,17 @@ export const dropdownMenuLabelVariants = cva(
   {
     variants: {
       inset: {
-        true: 'pl-8'
-      }
-    }
+        true: 'pl-8',
+      },
+    },
   },
-  { className: `${prefix}-label` }
+  { className: `${prefix}-label` },
 )
 
 export const dropdownMenuSeparatorVariants = cva(
   ['-mx-2 my-1.5 h-px'],
   undefined,
   {
-    className: `${prefix}-separator`
-  }
+    className: `${prefix}-separator`,
+  },
 )

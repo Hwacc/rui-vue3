@@ -14,9 +14,9 @@ const props = defineProps<{
     :class="
       cn(
         sidebarContentVariants({
-          unstyled: props.unstyled
+          unstyled: props.unstyled,
         }),
-        props.class
+        props.class,
       )
     "
     data-sidebar="content"

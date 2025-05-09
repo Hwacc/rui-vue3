@@ -29,7 +29,7 @@ const forwardedProps = useForwardProps(delegatedProps)
     :class="
       cn(
         dropdownMenuLabelVariants({ inset, unstyled: props.unstyled }),
-        props.class
+        props.class,
       )
     "
   >

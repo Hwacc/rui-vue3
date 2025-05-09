@@ -1,18 +1,18 @@
 <script setup lang="ts">
+import type { ToastProviderPropsEx } from './ToastProvider.vue'
+import { isFunction } from 'lodash-es'
+import { CircleAlert, CircleCheck, CircleX, Info } from 'lucide-vue-next'
 import { isVNode } from 'vue'
 import {
   Toast,
   ToastClose,
   ToastDescription,
+  toastIconVariants,
   ToastProvider,
   ToastTitle,
   ToastViewport,
-  toastIconVariants
 } from '.'
 import { useToast } from './use-toast'
-import { ToastProviderPropsEx } from './ToastProvider.vue'
-import { isFunction } from 'lodash-es'
-import { CircleCheck, CircleAlert, Info, CircleX } from 'lucide-vue-next'
 
 const props = defineProps<ToastProviderPropsEx>()
 const { toasts } = useToast()
@@ -21,7 +21,7 @@ const toastIcons: Record<StatusVariants, any> = {
   success: CircleCheck,
   warning: CircleAlert,
   info: Info,
-  error: CircleX
+  error: CircleX,
 }
 </script>
 
@@ -36,8 +36,8 @@ const toastIcons: Record<StatusVariants, any> = {
       <div class="w-full flex items-center gap-4">
         <template v-if="!toast.icon">
           <component
-            v-if="toast.variant"
             :is="toastIcons[toast.variant]"
+            v-if="toast.variant"
             :class="toastIconVariants({ unstyled: toast.unstyled })"
             :data-variant="toast.variant"
           />

@@ -1,5 +1,6 @@
+import type { VariantProps } from '@rui/core/lib/cva'
 import { PREFIX } from '@rui/core/lib/constants'
-import { cva, type VariantProps } from '@rui/core/lib/cva'
+import { cva } from '@rui/core/lib/cva'
 
 export { default as Button } from './Button.vue'
 
@@ -23,7 +24,7 @@ export const buttonVariants = cva(
     'disabled:opacity-(--disabled-opacity)',
     '[&_svg]:pointer-events-none',
     '[&_svg]:size-3.5',
-    '[&_svg]:shrink-0'
+    '[&_svg]:shrink-0',
   ],
   {
     variants: {
@@ -38,38 +39,38 @@ export const buttonVariants = cva(
           'gap-[.6875rem]',
           'px-3',
           'text-xs',
-          '[&_svg]:size-[.625rem]'
-        ]
+          '[&_svg]:size-[.625rem]',
+        ],
       },
       size: {
         base: 'h-[1.75rem]',
         sm: 'h-[1.5rem] text-xs',
-        lg: 'h-[2rem] text-base'
-      }
+        lg: 'h-[2rem] text-base',
+      },
     },
     compoundVariants: [
       {
         variant: 'icon',
         size: 'lg',
-        className: '[&_svg]:size-4'
+        className: '[&_svg]:size-4',
       },
       {
         variant: 'icon',
         size: 'sm',
-        className: '[&_svg]:size-3'
+        className: '[&_svg]:size-3',
       },
       {
         variant: 'switch',
         size: 'lg',
-        className: '[&_svg]:size-3'
-      }
+        className: '[&_svg]:size-3',
+      },
     ],
     defaultVariants: {
       variant: 'default',
-      size: 'base'
-    }
+      size: 'base',
+    },
   },
-  { className: prefix }
+  { className: prefix },
 )
 
 export type ButtonVariants = VariantProps<typeof buttonVariants>

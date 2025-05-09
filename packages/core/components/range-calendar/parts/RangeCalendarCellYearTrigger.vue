@@ -1,12 +1,13 @@
 <script lang="ts">
-import type { PrimitiveProps } from 'reka-ui'
 import type { DateValue } from '@internationalized/date'
-import { isBetween, toDate } from 'reka-ui/date'
+import type { PrimitiveProps } from 'reka-ui'
+import type { HtmlHTMLAttributes } from 'vue'
 import { isSameYear } from '@internationalized/date'
-import { computed, HtmlHTMLAttributes } from 'vue'
+import { CalendarPanelEnum } from '@rui/core/lib/constants'
+import { isBetween, toDate } from 'reka-ui/date'
+import { computed } from 'vue'
 import { injectRangeCalendarContextEx } from '../RangeCalendarProvider'
 import { useRangeCellTriggerKeyControl } from './utils'
-import { CalendarPanelEnum } from '@rui/core/lib/constants'
 
 export interface CalendarCellTriggerProps extends PrimitiveProps {
   /** The date value provided to the cell trigger */
@@ -16,15 +17,15 @@ export interface CalendarCellTriggerProps extends PrimitiveProps {
 }
 
 export interface CalendarCellTriggerSlot {
-  default: (props: { selected: boolean; yearValue: string }) => any
+  default: (props: { selected: boolean, yearValue: string }) => any
 }
 </script>
 
 <script setup lang="ts">
-import { Primitive, injectRangeCalendarRootContext } from 'reka-ui'
+import { calendarCellTriggerVariants } from '@rui/core/components/calendar'
 import { usePrimitiveElement } from '@rui/core/hooks/usePrimitiveElement'
 import { cn } from '@rui/core/lib/utils'
-import { calendarCellTriggerVariants } from '@rui/core/components/calendar'
+import { injectRangeCalendarRootContext, Primitive } from 'reka-ui'
 
 const {
   class: propsClass,
@@ -50,25 +51,29 @@ const isFocusedDate = computed(() => {
   )
 })
 const isSelectionStart = computed(() => {
-  if (!context.startValue.value) return false
+  if (!context.startValue.value)
+    return false
   return isSameYear(context.startValue.value, props.date)
 })
 const isSelectionEnd = computed(() => {
-  if (!context.endValue.value) return false
+  if (!context.endValue.value)
+    return false
   return isSameYear(context.endValue.value, props.date)
 })
 const isSelectedDate = computed(() => {
   const { startValue, endValue } = context
-  if (startValue.value && isSameYear(startValue.value, props.date)) return true
-  if (endValue.value && isSameYear(endValue.value, props.date)) return true
+  if (startValue.value && isSameYear(startValue.value, props.date))
+    return true
+  if (endValue.value && isSameYear(endValue.value, props.date))
+    return true
   if (endValue.value && startValue.value)
     return isBetween(props.date, startValue.value, endValue.value)
   return false
 })
 
-const handleClick = () => {
+function handleClick() {
   context.onPlaceholderChange(
-    context.placeholder.value.copy().set({ year: props.date.year })
+    context.placeholder.value.copy().set({ year: props.date.year }),
   )
   contextEx.panel.value = CalendarPanelEnum.MONTH
 }
@@ -81,14 +86,14 @@ const { handleArrowKey } = useRangeCellTriggerKeyControl({
   onNextPage: (placeholder) => {
     return placeholder.add({ years: 12 })
   },
-  onSelect: handleClick
+  onSelect: handleClick,
 })
 </script>
 
 <template>
   <Primitive
-    :class="cn(calendarCellTriggerVariants({ unstyled }), propsClass)"
     ref="primitiveElement"
+    :class="cn(calendarCellTriggerVariants({ unstyled }), propsClass)"
     :as="as"
     v-bind="props"
     role="button"

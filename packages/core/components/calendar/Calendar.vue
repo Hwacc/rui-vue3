@@ -1,23 +1,26 @@
 <script lang="ts" setup>
 import type { CalendarRootEmits, CalendarRootProps, DateValue } from 'reka-ui'
-import { computed, ref, type HTMLAttributes } from 'vue'
-import { cn } from '@rui/core/lib/utils'
-import { CalendarRoot, useForwardPropsEmits } from 'reka-ui'
-import {
-  CalendarHeader,
-  CalendarHeading,
-  CalendarNextButton,
-  CalendarPrevButton,
-  calendarRootVariants,
+import type { HTMLAttributes } from 'vue'
+import type {
   CalendarVariantsProps,
-  CalendarProvider,
-  CalendarDayPanel,
-  CalendarMonthPanel,
-  CalendarYearPanel
 } from '.'
 import { CalendarPanelMotion } from '@rui/core/components/motion/CalendarPanelMotion.tsx'
-import { AnimatePresence } from 'motion-v'
 import { CalendarPanelEnum } from '@rui/core/lib/constants'
+import { cn } from '@rui/core/lib/utils'
+import { AnimatePresence } from 'motion-v'
+import { CalendarRoot, useForwardPropsEmits } from 'reka-ui'
+import { computed, ref } from 'vue'
+import {
+  CalendarDayPanel,
+  CalendarHeader,
+  CalendarHeading,
+  CalendarMonthPanel,
+  CalendarNextButton,
+  CalendarPrevButton,
+  CalendarProvider,
+  calendarRootVariants,
+  CalendarYearPanel,
+} from '.'
 
 const {
   class: propsClass,
@@ -32,8 +35,9 @@ const {
   }
 >()
 
+const emits = defineEmits<CalendarRootEmits>()
 const curPanel = ref<CalendarPanelEnum>(CalendarPanelEnum.DAY)
-const onPrevPage = (placeholder: DateValue) => {
+function onPrevPage(placeholder: DateValue) {
   switch (curPanel.value) {
     case CalendarPanelEnum.DAY:
       return placeholder.subtract({ months: 1 })
@@ -45,7 +49,7 @@ const onPrevPage = (placeholder: DateValue) => {
       return placeholder
   }
 }
-const onNextPage = (placeholder: DateValue) => {
+function onNextPage(placeholder: DateValue) {
   switch (curPanel.value) {
     case CalendarPanelEnum.DAY:
       return placeholder.add({ months: 1 })
@@ -59,14 +63,13 @@ const onNextPage = (placeholder: DateValue) => {
 }
 
 const variants = computed(() => ({ size, unstyled }))
-const emits = defineEmits<CalendarRootEmits>()
 const forwarded = useForwardPropsEmits(props, emits)
 </script>
 
 <template>
   <CalendarRoot
-    v-bind="forwarded"
     v-slot="{ date }"
+    v-bind="forwarded"
     :class="cn(calendarRootVariants({ size, unstyled }), propsClass)"
     :data-size="size"
   >
@@ -77,7 +80,7 @@ const forwarded = useForwardPropsEmits(props, emits)
       <div class="group/calendar-header" data-calendar-header>
         <CalendarHeader v-bind="variants">
           <CalendarPrevButton v-bind="variants" :prev-page="onPrevPage" />
-          <CalendarHeading v-bind="variants"></CalendarHeading>
+          <CalendarHeading v-bind="variants" />
           <CalendarNextButton v-bind="variants" :next-page="onNextPage" />
         </CalendarHeader>
       </div>

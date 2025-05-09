@@ -1,7 +1,8 @@
 <script lang="ts" setup>
+import type { ButtonVariants } from '@rui/core/components/button'
 import type { CalendarNextProps } from 'reka-ui'
 import type { HTMLAttributes } from 'vue'
-import { ButtonVariants, buttonVariants } from '@rui/core/components/button'
+import { buttonVariants } from '@rui/core/components/button'
 import { cn } from '@rui/core/lib/utils'
 import { ChevronRight } from 'lucide-vue-next'
 import { CalendarNext, useForwardProps } from 'reka-ui'
@@ -29,7 +30,7 @@ const forwardedProps = useForwardProps(props)
       cn(
         buttonVariants({ variant, unstyled }),
         [!unstyled && `${prefix}-next`],
-        propsClass
+        propsClass,
       )
     "
     :data-variant="variant"

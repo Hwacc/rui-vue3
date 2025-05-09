@@ -1,17 +1,19 @@
 <script lang="tsx" setup>
-import { computed, type HTMLAttributes } from 'vue'
+import type { CalendarHeadingProps } from 'reka-ui'
+import type { HTMLAttributes } from 'vue'
+import type { CalendarHeadingVariantsProps } from '.'
+import { CalendarPanelEnum } from '@rui/core/lib/constants'
 import { cn } from '@rui/core/lib/utils'
 import {
   CalendarHeading,
   injectCalendarRootContext,
   useDateFormatter,
   useForwardProps,
-  type CalendarHeadingProps
 } from 'reka-ui'
-import { calendarHeadingVariants, type CalendarHeadingVariantsProps } from '.'
-import { injectCalendarContextEx } from '..'
 import { toDate } from 'reka-ui/date'
-import { CalendarPanelEnum } from '@rui/core/lib/constants'
+import { computed } from 'vue'
+import { calendarHeadingVariants } from '.'
+import { injectCalendarContextEx } from '..'
 
 const {
   class: propsClass,
@@ -40,40 +42,45 @@ const Heading = computed(() => {
   const panel = contextEx.panel.value
   const year = (
     <div
-      class='cursor-default'
-      role='button'
-      tabindex='0'
-      aria-label='Heading Year'
+      class="cursor-default"
+      role="button"
+      tabindex="0"
+      aria-label="Heading Year"
       onKeydown={(e) => {
         e.code === 'Enter' && (contextEx.panel.value = CalendarPanelEnum.YEAR)
       }}
-      onClick={() => (contextEx.panel.value = CalendarPanelEnum.YEAR)}>
+      onClick={() => (contextEx.panel.value = CalendarPanelEnum.YEAR)}
+    >
       {formatter.fullYear(toDate(grid[0].value))}
     </div>
   )
   const month = (
     <div
-      class='cursor-default'
-      role='button'
-      tabindex='0'
-      aria-label='Heading Month'
+      class="cursor-default"
+      role="button"
+      tabindex="0"
+      aria-label="Heading Month"
       onKeydown={(e) => {
         e.code === 'Enter' && (contextEx.panel.value = CalendarPanelEnum.MONTH)
       }}
-      onClick={() => (contextEx.panel.value = CalendarPanelEnum.MONTH)}>
+      onClick={() => (contextEx.panel.value = CalendarPanelEnum.MONTH)}
+    >
       {formatter.fullMonth(toDate(grid[0].value))}
     </div>
   )
   if (panel === CalendarPanelEnum.YEAR) {
-    return <div class='flex items-center'>{year}</div>
+    return <div class="flex items-center">{year}</div>
   }
 
   if (panel === CalendarPanelEnum.MONTH) {
-    return <div class='flex items-center'>{year}</div>
+    return <div class="flex items-center">{year}</div>
   }
+
   return (
-    <div class='flex items-center gap-2'>
-      {month} - {year}
+    <div class="flex items-center gap-2">
+      {month}
+      <span>-</span>
+      {year}
     </div>
   )
 })

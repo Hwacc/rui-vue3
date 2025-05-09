@@ -1,9 +1,12 @@
 <script setup lang="ts">
-import { cn } from '@rui/core/lib/utils';
-import { ProgressIndicator, ProgressRoot, type ProgressRootProps } from 'reka-ui';
-import { toRefs, type HTMLAttributes } from 'vue';
-import { progressVariants, progressIndicatorVariants, ProgressIndicatorVariants } from '.';
-import { useIndicatorTransfer } from './useIndicatorTransfer';
+import type { ProgressRootProps } from 'reka-ui'
+import type { HTMLAttributes } from 'vue'
+import type { ProgressIndicatorVariants } from '.'
+import { cn } from '@rui/core/lib/utils'
+import { ProgressIndicator, ProgressRoot } from 'reka-ui'
+import { toRefs } from 'vue'
+import { progressIndicatorVariants, progressVariants } from '.'
+import { useIndicatorTransfer } from './useIndicatorTransfer'
 
 const {
   class: propsClass,
@@ -12,20 +15,20 @@ const {
   ...props
 } = defineProps<
   ProgressRootProps & {
-    class?: HTMLAttributes['class'];
-    variant?: ProgressIndicatorVariants['variant'];
-    unstyled?: boolean;
+    class?: HTMLAttributes['class']
+    variant?: ProgressIndicatorVariants['variant']
+    unstyled?: boolean
   }
->();
-const { modelValue } = toRefs(props);
-const { indicatorRef, transferStyle } = useIndicatorTransfer(variant, modelValue);
+>()
+const { modelValue } = toRefs(props)
+const { indicatorRef, transferStyle } = useIndicatorTransfer(variant, modelValue)
 </script>
 
 <template>
   <ProgressRoot v-bind="props" :class="cn(progressVariants({ unstyled }), propsClass)">
     <ProgressIndicator
-      :class="progressIndicatorVariants({ unstyled, variant })"
       ref="indicatorRef"
+      :class="progressIndicatorVariants({ unstyled, variant })"
       :data-variant="variant"
       :style="
         variant === 'transfer'

@@ -2,13 +2,13 @@ import { PREFIX } from '@rui/core/lib/constants'
 import { cva } from '@rui/core/lib/cva'
 
 export { default as SidebarContent } from './SidebarContent.vue'
-export { default as SidebarHeader } from './SidebarHeader.vue'
 export { default as SidebarFooter } from './SidebarFooter.vue'
+export { default as SidebarHeader } from './SidebarHeader.vue'
 
 const prefix = `${PREFIX}-sidebar`
 
 export const sidebarHeaderVariants = cva('flex flex-col', undefined, {
-  className: `${prefix}-header`
+  className: `${prefix}-header`,
 })
 
 export const sidebarContentVariants = cva(
@@ -20,14 +20,14 @@ export const sidebarContentVariants = cva(
     'gap-2',
     'overflow-x-hidden',
     'overflow-y-auto',
-    'group-data-[collapsible=icon]:overflow-hidden'
+    'group-data-[collapsible=icon]:overflow-hidden',
   ],
   undefined,
   {
-    className: `${prefix}-content`
-  }
+    className: `${prefix}-content`,
+  },
 )
 
 export const sidebarFooterVariants = cva('flex flex-col', undefined, {
-  className: `${prefix}-footer`
+  className: `${prefix}-footer`,
 })

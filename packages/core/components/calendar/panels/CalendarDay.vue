@@ -1,5 +1,7 @@
 <script setup lang="ts">
-import { CalendarGridProps, injectCalendarRootContext } from 'reka-ui'
+import type { CalendarGridProps } from 'reka-ui'
+import type { CalendarVariantsProps } from '..'
+import { injectCalendarRootContext } from 'reka-ui'
 import { computed } from 'vue'
 import {
   CalendarCell,
@@ -8,9 +10,8 @@ import {
   CalendarGridBody,
   CalendarGridHead,
   CalendarGridRow,
-  CalendarHeadCell
+  CalendarHeadCell,
 } from '../parts'
-import { CalendarVariantsProps } from '..'
 
 const props = defineProps<
   CalendarGridProps & {
@@ -22,7 +23,7 @@ const props = defineProps<
 const { grid, weekDays } = injectCalendarRootContext()
 const variants = computed(() => ({
   size: props.size,
-  unstyled: props.unstyled
+  unstyled: props.unstyled,
 }))
 </script>
 

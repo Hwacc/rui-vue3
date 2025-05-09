@@ -1,4 +1,4 @@
-import { DirectiveBinding } from 'vue'
+import type { DirectiveBinding } from 'vue'
 
 interface ElementExband extends Element {
   __aria_keydown__?: (event: KeyboardEvent) => void
@@ -6,17 +6,20 @@ interface ElementExband extends Element {
 
 const directive = {
   inserted(el: ElementExband, binding: DirectiveBinding) {
-    if (!binding.value || !el) return
+    if (!binding.value || !el)
+      return
     const { index = 0, action, role, pt, ...rest } = binding.value
 
     let targetEl = el
     if (pt && typeof pt === 'string') {
       targetEl = el.querySelector(pt) || el
-    } else if (pt) {
+    }
+    else if (pt) {
       targetEl = el.querySelector('& [tabindex]') || el
     }
     targetEl.setAttribute('tabindex', binding.arg ?? index)
-    if (role) targetEl.setAttribute('role', role)
+    if (role)
+      targetEl.setAttribute('role', role)
 
     if (action) {
       targetEl.__aria_keydown__ = (event: KeyboardEvent) => {
@@ -33,7 +36,8 @@ const directive = {
     for (const key in rest) {
       if (key.startsWith('aria-')) {
         targetEl.setAttribute(key, rest[key])
-      } else {
+      }
+      else {
         targetEl.setAttribute(`aria-${key}`, rest[key])
       }
     }
@@ -49,7 +53,7 @@ const directive = {
       el.removeEventListener('keydown', el.__aria_keydown__ as any)
       delete el.__aria_keydown__
     }
-  }
+  },
 }
 
 export default directive
