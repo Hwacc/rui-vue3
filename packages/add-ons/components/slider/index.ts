@@ -1,6 +1,5 @@
-import { PREFIX } from '@/core/lib/constants'
-import { cva } from '@/core/lib/cva'
-
+import { PREFIX } from '@rui/core/lib/constants'
+import { cva } from '@rui/core/lib/cva'
 /**
  * @author razer.hua
  * vue-3-slider-component 增强版

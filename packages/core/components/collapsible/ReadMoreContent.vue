@@ -1,6 +1,5 @@
 <script lang="ts">
 import type { PrimitiveProps } from 'reka-ui'
-
 export interface ReadMoreContentProps extends PrimitiveProps {
   class?: HTMLAttributes['class']
   unstyled?: boolean
@@ -27,6 +26,7 @@ import {
 import { ref, watchEffect } from 'vue'
 import { readMoreContentVariant } from '.'
 import { injectReadMoreContext } from './ReadMore.vue'
+import { useAnimationParams } from '@rui/core/hooks/useAnimationParams'
 
 const {
   class: propsClass,
@@ -41,6 +41,8 @@ const { forwardRef, currentElement } = useForwardExpose()
 const rootContext = injectCollapsibleRootContext()
 rootContext.contentId ||= useId(undefined, 'reka-readmore-content')
 
+const { animationDuration } = useAnimationParams()
+
 const measureRef = ref<HTMLElement>()
 const measureHeight = ref(0)
 const measureLineHeight = ref(0)
@@ -49,7 +51,7 @@ useResizeObserver(measureRef, (entries) => {
   const { height } = entry.contentRect
   if (measureRef.value) {
     const computedStyle = window.getComputedStyle(
-      measureRef.value.children[0] ?? measureRef.value,
+      measureRef.value.children[0] ?? measureRef.value
     )
     measureLineHeight.value = parseFloat(computedStyle.lineHeight)
   }
@@ -57,7 +59,7 @@ useResizeObserver(measureRef, (entries) => {
     setTimeout(() => {
       const viewHeight = currentElement.value.getBoundingClientRect().height
       showTrigger.value = height - viewHeight > 5
-    }, 300) // 动画时间
+    }, animationDuration * 1000) // 动画时间
   }
   measureHeight.value = Math.ceil(height)
 })
@@ -69,12 +71,12 @@ watchEffect(
     maxHeight.value = isOpen
       ? measureHeight.value
       : collapsedLine
-        ? Math.ceil(measureLineHeight.value * collapsedLine)
-        : collapsedHeight
+      ? Math.ceil(measureLineHeight.value * collapsedLine)
+      : collapsedHeight
   },
   {
     flush: 'post',
-  },
+  }
 )
 
 useEventListener(currentElement, 'beforematch', () => {
@@ -97,7 +99,9 @@ const forwarded = useForwardPropsEmits(props, emits)
     :data-disabled="rootContext.disabled?.value ? '' : undefined"
     :style="{
       [`--reka-readmore-max-height`]: `${maxHeight}px`,
-      [`--reka-readmore-collapsed-line`]: collapsedLine ? collapsedLine : 'none',
+      [`--reka-readmore-collapsed-line`]: collapsedLine
+        ? collapsedLine
+        : 'none',
     }"
   >
     <div ref="measureRef" class="w-fit h-fit">

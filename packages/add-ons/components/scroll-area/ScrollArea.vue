@@ -16,7 +16,7 @@ interface PerfectScrollBarOptions {
 </script>
 
 <script setup lang="ts">
-import { cn } from '@/core/lib/utils'
+import { cn } from '@rui/core/lib/utils'
 import { defaults } from 'lodash-es'
 import PerfectScrollbar from 'perfect-scrollbar'
 import { ref, useId, watchEffect } from 'vue'

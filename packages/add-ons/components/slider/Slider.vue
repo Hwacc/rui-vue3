@@ -17,7 +17,7 @@ import type {
   TooltipFormatter,
   Value,
 } from 'vue-3-slider-component'
-import { useForwardPropsEmits } from '@/add-ons/lib/useFowardPropsEmits'
+import { useForwardPropsEmits } from '@rui/add-ons/lib/useFowardPropsEmits'
 import { arrow, autoUpdate, offset, shift, useFloating } from '@floating-ui/vue'
 import { isNil, isNumber, isObject, merge, omit } from 'lodash-es'
 import { computed, onMounted, ref, Teleport, toRefs, unref, watch } from 'vue'
@@ -288,7 +288,7 @@ import type {
   MaybeRef,
   Ref,
 } from 'vue'
-import { cn, getNodeCssVar, rem2px } from '@/core/lib/utils'
+import { cn, getNodeCssVar, rem2px } from '@rui/core/lib/utils'
 
 import Slider from 'vue-3-slider-component'
 import { sliderDotVariants, sliderTooltipVariants, sliderVariants } from '.'

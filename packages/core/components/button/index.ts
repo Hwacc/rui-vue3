@@ -3,6 +3,7 @@ import { PREFIX } from '@rui/core/lib/constants'
 import { cva } from '@rui/core/lib/cva'
 
 export { default as Button } from './Button.vue'
+export type { ButtonProps } from './Button.vue'
 
 const prefix = `${PREFIX}-btn`
 export const buttonVariants = cva(

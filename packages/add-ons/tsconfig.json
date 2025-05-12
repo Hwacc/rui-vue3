@@ -14,8 +14,8 @@
     /* Bundler mode */
     "moduleResolution": "Bundler",
     "paths": {
-      "@/add-ons/*": ["./*"],
-      "@/core/*": ["../core/*"]
+      "@rui/add-ons/*": ["./*"],
+      "@rui/core/*": ["../core/*"]
     },
     "typeRoots": ["./node_modules/@types", "./types"],
     "allowImportingTsExtensions": true,

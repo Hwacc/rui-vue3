@@ -1,4 +1,4 @@
-import { cva } from '@/core/lib/cva'
+import { cva } from '@rui/core/lib/cva'
 
 // import ps css
 import './style.css'

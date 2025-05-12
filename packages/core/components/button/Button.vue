@@ -9,7 +9,7 @@ import type {
 import type { HTMLAttributes } from 'vue'
 import type { ButtonVariants } from '.'
 
-interface ButtonProps extends PrimitiveProps {
+export interface ButtonProps extends PrimitiveProps {
   variant?: ButtonVariants['variant'] | string
   size?: ButtonVariants['size']
   class?: HTMLAttributes['class']
