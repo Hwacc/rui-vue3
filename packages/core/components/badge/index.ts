@@ -7,42 +7,48 @@ export const badgeVariants = cva(
   [
     'inline-flex',
     'items-center',
-    'rounded-full',
-    'border',
-    'px-2.5',
-    'py-0.5',
-    'text-xs',
-    'font-semibold',
+    'rounded',
+    'uppercase',
+    'outline-none',
     'transition-colors',
-    'focus:outline-none',
-    'focus:ring-2',
-    'focus:ring-ring',
-    'focus:ring-offset-2',
   ],
   {
     variants: {
       variant: {
-        default:
-          'border-transparent bg-primary text-primary-foreground hover:bg-primary/80',
-        secondary:
-          'border-transparent bg-secondary text-secondary-foreground hover:bg-secondary/80',
-        destructive:
-          'border-transparent bg-destructive text-destructive-foreground hover:bg-destructive/80',
-        outline: 'text-foreground',
+        default: '',
+        secondary: '',
+        dot: ['rounded-full', '-top-[.5em]', '-right-[.5em]'],
       },
       size: {
-        base: [],
-        sm: ['text-sm'],
-        lg: ['text-lg'],
+        base: ['text-[.625rem]', 'py-[.0625rem]', 'px-[.3125rem]'],
+        sm: 'text-[.5rem] py-[.0625rem] px-[.25rem]',
+        lg: ['text-xs', 'py-[.125rem]', 'px-[.375rem]'],
       },
     },
+    compoundVariants: [
+      {
+        variant: 'dot',
+        size: 'base',
+        class: ['p-0', 'w-[.375rem]', 'h-[.375rem]'],
+      },
+      {
+        variant: 'dot',
+        size: 'sm',
+        class: ['p-0','w-[.25rem]', 'h-[.25rem]'],
+      },
+      {
+        variant: 'dot',
+        size: 'lg',
+        class: ['p-0','w-[.5rem]', 'h-[.5rem]'],
+      },
+    ],
     defaultVariants: {
       variant: 'default',
     },
   },
   {
     className: 'rui-badge',
-  },
+  }
 )
 
 export type BadgeVariants = VariantProps<typeof badgeVariants>
