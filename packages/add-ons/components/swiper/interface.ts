@@ -20,3 +20,11 @@ export interface SwiperProps extends SwiperOptions {
 export interface SwiperEmits extends SwiperEvents {
   swiper: (swiper: Swiper) => void
 }
+
+export interface SwiperSlots {
+  'default': () => any
+  'container-start': () => any
+  'container-end': () => any
+  'wrapper-start': () => any
+  'wrapper-end': () => any
+}

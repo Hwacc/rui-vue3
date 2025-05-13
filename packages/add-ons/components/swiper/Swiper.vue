@@ -1,25 +1,38 @@
 <script lang="ts" setup>
-import type { SwiperEmits, SwiperProps } from './interface'
+import type { SwiperEmits, SwiperProps, SwiperSlots } from './interface'
 import { useForwardPropsEmits } from '@rui/add-ons/lib/useFowardPropsEmits'
 import { Swiper } from 'swiper/vue'
+import { Swiper as SwiperClass } from 'swiper/types'
+import { ref } from 'vue'
+import { useForwardExpose } from '@rui/add-ons/lib/useForwardExpose'
 
 defineOptions({
-  inheritAttrs: false,
+  inheritAttrs: false
 })
 
 const props = withDefaults(defineProps<SwiperProps>(), {})
 const emits = defineEmits<SwiperEmits>()
+defineSlots<SwiperSlots>()
+
+const swiperInstance = ref<SwiperClass | null>(null)
+
+function onSwiperInit(swiper: SwiperClass) {
+  swiperInstance.value = swiper
+}
 
 function onKeyDown(e: KeyboardEvent) {
   if (e.key === 'ArrowLeft') {
-    console.log('left')
-  }
-  else if (e.key === 'ArrowRight') {
-    console.log('right')
+    swiperInstance.value?.slidePrev()
+  } else if (e.key === 'ArrowRight') {
+    swiperInstance.value?.slideNext()
   }
 }
 
-const fowarded = useForwardPropsEmits(props, emits)
+defineExpose({
+  swiperInstance
+})
+const { forwardRef } = useForwardExpose()
+const forwarded = useForwardPropsEmits(props, emits)
 </script>
 
 <template>
@@ -32,9 +45,25 @@ const fowarded = useForwardPropsEmits(props, emits)
   >
     <!-- @vue-expect-error -->
     <Swiper
-      v-bind="{ ...fowarded, ...$attrs }"
+      :ref="forwardRef"
+      v-bind="{ ...forwarded, ...$attrs }"
+      @swiper="onSwiperInit"
     >
-      <slot />
+      <template #default>
+        <slot />
+      </template>
+      <template #container-start>
+        <slot name="container-start" />
+      </template>
+      <template #container-end>
+        <slot name="container-end" />
+      </template>
+      <template #wrapper-start>
+        <slot name="wrapper-start" />
+      </template>
+      <template #wrapper-end>
+        <slot name="wrapper-end" />
+      </template>
     </Swiper>
   </div>
 </template>

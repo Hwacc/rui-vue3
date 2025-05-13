@@ -1,14 +1,15 @@
 import type { Meta, StoryObj } from '@storybook/vue3'
 import { Swiper, SwiperSlide } from '@rui/add-ons/components/swiper'
+import { ref, watch } from 'vue'
 
 const meta = {
   title: 'RUI/Swiper',
   component: Swiper,
   subcomponents: {
-    SwiperSlide,
+    SwiperSlide
   },
   tags: ['autodocs'],
-  argTypes: {},
+  argTypes: {}
 } satisfies Meta<typeof Swiper>
 
 export default meta
@@ -20,14 +21,22 @@ export const Default: Story = {
     return {
       components: {
         Swiper,
-        SwiperSlide,
+        SwiperSlide
       },
       setup() {
+        const swiperRef = ref<any | null>(null)
+        watch(swiperRef, (val) => {
+          console.log('ref', val)
+        })
         return () => {
           return (
             <Swiper
-              class="w-[400px] h-[200px]"
-              tag="div"
+              ref={swiperRef}
+              class='w-[400px] h-[200px]'
+              tag='div'
+              onSwiper={() => {
+                console.log('on swiper')
+              }}
               // onInit={(swiper: any) => {
               //   console.log('init', swiper)
               // }}
@@ -48,12 +57,12 @@ export const Default: Story = {
                       <SwiperSlide>Slide 2</SwiperSlide>
                     </>
                   )
-                },
+                }
               }}
             </Swiper>
           )
         }
-      },
+      }
     }
-  },
+  }
 }
