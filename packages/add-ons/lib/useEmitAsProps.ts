@@ -26,7 +26,13 @@ export function useEmitAsProps<Name extends string>(
   }
 
   events?.forEach((ev) => {
-    result[toHandlerKey(camelize(ev))] = (...arg: any) => emit(ev, ...arg)
+    result[toHandlerKey(camelize(ev))] = (...arg: any) => {
+      /*
+        this is for jsx usage to exicute if we use on={{...}} to add listeners
+      */
+      ;(vm?.props?.on as Record<Name, (...arg: any) => any>)?.[ev]?.(...arg)
+      return emit(ev, ...arg)
+    }
   })
   return result
 }

@@ -39,29 +39,43 @@ export const Default: Story = {
         CarouselTween,
       },
       setup() {
+        const numberWithinRange = (value: number, min: number, max: number) => {
+          return Math.min(Math.max(value, min), max)
+        }
+
         return () => {
           return (
-            <Carousel class="w-[400px] h-[200px]" {...args}>
+            <Carousel
+              class="w-[400px] h-[200px]"
+              opts={{ loop: true }}
+              {...args}
+            >
               <CarouselViewport>
                 <CarouselContainer class="gap-2">
-                  <CarouselItem class="h-[200px]">
-                    <CarouselTween asChild>
-                      {{
-                        default: ({ tweenValue }) => (
-                          <div class="bg-rz-red h-full">{tweenValue}</div>
-                        ),
-                      }}
-                    </CarouselTween>
-                  </CarouselItem>
-                  <CarouselItem class="h-[200px]">
-                    <CarouselTween asChild>
-                      {{
-                        default: ({ tweenValue }) => (
-                          <div class="bg-rz-blue h-full">{tweenValue}</div>
-                        ),
-                      }}
-                    </CarouselTween>
-                  </CarouselItem>
+                  {Array.from({ length: 2 }).map((_, i) => (
+                    <CarouselItem class="basis-[200px] h-[200px]" key={i}>
+                      <CarouselTween asChild index={i}>
+                        {{
+                          default: ({ tweenValue }: any) => {
+                            return (
+                              <div
+                                class="bg-rz-green h-full"
+                                style={{
+                                  opacity: `${numberWithinRange(
+                                    1 - Math.abs(tweenValue * 0.2 * 2),
+                                    0,
+                                    1,
+                                  )}`,
+                                }}
+                              >
+                                {`${tweenValue}`}
+                              </div>
+                            )
+                          },
+                        }}
+                      </CarouselTween>
+                    </CarouselItem>
+                  ))}
                 </CarouselContainer>
               </CarouselViewport>
               <CarouselPrev />

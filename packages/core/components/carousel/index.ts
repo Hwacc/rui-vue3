@@ -22,7 +22,7 @@ export const carouselViewportVariant = cva(['overflow-hidden'], undefined, {
 })
 
 export const carouselContainerVariant = cva(
-  ['flex', 'transition-transform'],
+  ['flex'],
   {
     variants: {
       orientation: {

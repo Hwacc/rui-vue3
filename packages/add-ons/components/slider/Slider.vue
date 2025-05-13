@@ -17,8 +17,8 @@ import type {
   TooltipFormatter,
   Value,
 } from 'vue-3-slider-component'
-import { useForwardPropsEmits } from '@rui/add-ons/lib/useFowardPropsEmits'
 import { arrow, autoUpdate, offset, shift, useFloating } from '@floating-ui/vue'
+import { useForwardPropsEmits } from '@rui/add-ons/lib/useFowardPropsEmits'
 import { isNil, isNumber, isObject, merge, omit } from 'lodash-es'
 import { computed, onMounted, ref, Teleport, toRefs, unref, watch } from 'vue'
 
