@@ -24,13 +24,12 @@ export function useSwiperToggleEnabled(swiperRef: Ref<MaybeEmptySwiper>) {
   watchEffect((cleanup) => {
     const swiper = unref(swiperRef)
     if (!swiper) return
-    if (swiper.params.loop || swiper.params.rewind) {
+    if (swiper.params?.loop || swiper.params?.rewind) {
       isCanPrev.value = true
       isCanNext.value = true
       return
     }
     const onSlideChange = () => {
-      console.log('slideChange')
       isCanPrev.value = !swiper.isBeginning
       isCanNext.value = !swiper.isEnd
     }

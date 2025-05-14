@@ -46,8 +46,8 @@ export const Default: Story = {
                   default: () => {
                     return (
                       <>
-                        <SwiperSlide>Slide 1</SwiperSlide>
-                        <SwiperSlide>Slide 2</SwiperSlide>
+                        <SwiperSlide swiperRef={swiperRef.value}>Slide 1</SwiperSlide>
+                        <SwiperSlide swiperRef={swiperRef.value}>Slide 2</SwiperSlide>
                       </>
                     )
                   },
@@ -93,8 +93,8 @@ export const WithNavigation: Story = {
                   'default': () => {
                     return (
                       <>
-                        <SwiperSlide>Slide 1</SwiperSlide>
-                        <SwiperSlide>Slide 2</SwiperSlide>
+                        <SwiperSlide swiperRef={swiperRef.value}>Slide 1</SwiperSlide>
+                        <SwiperSlide swiperRef={swiperRef.value}>Slide 2</SwiperSlide>
                       </>
                     )
                   },
