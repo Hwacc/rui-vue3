@@ -10,6 +10,7 @@ declare module '*.stylus' {}
 declare module '*.pcss' {}
 declare module '*.sss' {}
 declare module 'swiper/css'
+declare module 'swiper/css/navigation'
 
 // SVG
 declare module '*.svg?component' {

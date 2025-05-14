@@ -1,36 +1,53 @@
 <script lang="ts" setup>
+import type { Swiper as SwiperClass } from 'swiper/types'
 import type { SwiperEmits, SwiperProps, SwiperSlots } from './interface'
+import { useForwardExpose } from '@rui/add-ons/lib/useForwardExpose'
 import { useForwardPropsEmits } from '@rui/add-ons/lib/useFowardPropsEmits'
 import { Swiper } from 'swiper/vue'
-import { Swiper as SwiperClass } from 'swiper/types'
 import { ref } from 'vue'
-import { useForwardExpose } from '@rui/add-ons/lib/useForwardExpose'
+import { useSwiperModule } from './utils'
 
 defineOptions({
-  inheritAttrs: false
+  inheritAttrs: false,
 })
 
-const props = withDefaults(defineProps<SwiperProps>(), {})
+const { direction = 'horizontal', ...props } = defineProps<SwiperProps>()
 const emits = defineEmits<SwiperEmits>()
 defineSlots<SwiperSlots>()
 
 const swiperInstance = ref<SwiperClass | null>(null)
+const { hasModule } = useSwiperModule(swiperInstance)
 
 function onSwiperInit(swiper: SwiperClass) {
   swiperInstance.value = swiper
 }
-
-function onKeyDown(e: KeyboardEvent) {
-  if (e.key === 'ArrowLeft') {
+function onFocusIn() {
+  if (hasModule('Keyboard')) {
+    swiperInstance.value?.keyboard.enable()
+  }
+}
+function onFocusOut() {
+  if (hasModule('Keyboard')) {
+    swiperInstance.value?.keyboard.disable()
+  }
+}
+function onKeyDown(event: KeyboardEvent) {
+  if (hasModule('Keyboard'))
+    return
+  const prevKey = direction === 'vertical' ? 'ArrowUp' : 'ArrowLeft'
+  const nextKey = direction === 'vertical' ? 'ArrowDown' : 'ArrowRight'
+  if (event.key === prevKey) {
+    event.preventDefault()
     swiperInstance.value?.slidePrev()
-  } else if (e.key === 'ArrowRight') {
+    return
+  }
+  if (event.key === nextKey) {
+    event.preventDefault()
     swiperInstance.value?.slideNext()
   }
 }
 
-defineExpose({
-  swiperInstance
-})
+defineExpose({ swiperInstance })
 const { forwardRef } = useForwardExpose()
 const forwarded = useForwardPropsEmits(props, emits)
 </script>
@@ -41,12 +58,15 @@ const forwarded = useForwardPropsEmits(props, emits)
     role="region"
     aria-roledescription="carousel"
     tabindex="0"
+    @focusin="onFocusIn"
+    @focusout="onFocusOut"
     @keydown="onKeyDown"
   >
     <!-- @vue-expect-error -->
     <Swiper
       :ref="forwardRef"
       v-bind="{ ...forwarded, ...$attrs }"
+      :direction="direction"
       @swiper="onSwiperInit"
     >
       <template #default>
