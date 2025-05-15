@@ -1,8 +1,5 @@
 import { cva } from '@rui/core/lib/cva'
 
-// import ps css
-import './style.css'
-
 export { default as ScrollArea } from './ScrollArea.vue'
 
 export const scrollAreaVariants = cva(

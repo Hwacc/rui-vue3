@@ -1,4 +1,9 @@
-import type { Swiper, SwiperEvents, SwiperOptions } from 'swiper/types'
+import type {
+  PaginationOptions,
+  Swiper,
+  SwiperEvents,
+  SwiperOptions,
+} from 'swiper/types'
 
 export interface SwiperProps extends SwiperOptions {
   /**
@@ -27,4 +32,8 @@ export interface SwiperSlots {
   'container-end': () => any
   'wrapper-start': () => any
   'wrapper-end': () => any
+}
+
+export interface SwiperPaginationProps extends Omit<PaginationOptions, 'type'> {
+  type: PaginationOptions['type'] | 'autoplay-bullets'
 }

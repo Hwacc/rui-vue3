@@ -137,6 +137,10 @@ importers:
         version: 8.6.0
 
   packages/themes:
+    dependencies:
+      swiper:
+        specifier: ^11.2.6
+        version: 11.2.6
     devDependencies:
       tailwindcss-animated:
         specifier: ^1.1.2

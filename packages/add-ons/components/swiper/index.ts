@@ -1,16 +1,18 @@
 import type { VariantProps } from '@rui/core/lib/cva'
 import { PREFIX } from '@rui/core/lib/constants'
 import { cva } from '@rui/core/lib/cva'
-import 'swiper/css'
 
 export { default as Swiper } from './Swiper.vue'
 export { default as SwiperNavigationNext } from './SwiperNavigationNext.vue'
 export { default as SwiperNavigationPrev } from './SwiperNavigationPrev.vue'
 export { default as SwiperNext } from './SwiperNext.vue'
+export { default as SwiperPagination } from './SwiperPagination.vue'
 export { default as SwiperPrev } from './SwiperPrev.vue'
+
 export { SwiperSlide } from 'swiper/vue'
 
-const prefix = `${PREFIX}-swiper`
+export const prefix = `${PREFIX}-swiper`
+
 export const swiperNavigationVariant = cva(
   [
     'absolute',
@@ -19,6 +21,7 @@ export const swiperNavigationVariant = cva(
     'translate-y-[-50%]',
     'flex',
     'items-center',
+    'rounded',
   ],
   {
     variants: {
@@ -30,7 +33,7 @@ export const swiperNavigationVariant = cva(
   },
   {
     className: `${prefix}-navigation`,
-  },
+  }
 )
 export type SwiperNavigationVariant = VariantProps<
   typeof swiperNavigationVariant

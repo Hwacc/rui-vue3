@@ -1,19 +1,17 @@
 import type { Swiper } from 'swiper/types'
-import type { MaybeRef, Ref } from 'vue'
-import { computed, ref, unref, watch, watchEffect } from 'vue'
+import type { ComputedRef, MaybeRef, Ref } from 'vue'
+import { ref, unref, watchEffect } from 'vue'
 
 type MaybeEmptySwiper = Swiper | null | undefined
 
 export function useSwiperModule(
-  swiper: MaybeRef<MaybeEmptySwiper> | MaybeEmptySwiper
+  swiper: MaybeRef<MaybeEmptySwiper> | ComputedRef<MaybeEmptySwiper>
 ) {
-  const _swiper = unref(swiper)
-
   function hasModule(moduleName: string) {
+    const _swiper = unref(swiper)
     if (!_swiper) return false
     return _swiper.modules.some((module) => module.name === moduleName)
   }
-
   return { hasModule }
 }
 

@@ -1,8 +1,9 @@
 <script lang="ts" setup>
 import type { Swiper as SwiperClass } from 'swiper/types'
+import type { HTMLAttributes } from 'vue'
 import type { SwiperEmits, SwiperProps, SwiperSlots } from './interface'
-import { useForwardExpose } from '@rui/add-ons/lib/useForwardExpose'
 import { useForwardPropsEmits } from '@rui/add-ons/lib/useFowardPropsEmits'
+import { cn } from '@rui/core/lib/utils'
 import { Swiper } from 'swiper/vue'
 import { ref } from 'vue'
 import { useSwiperModule } from './utils'
@@ -11,16 +12,24 @@ defineOptions({
   inheritAttrs: false,
 })
 
-const { direction = 'horizontal', ...props } = defineProps<SwiperProps>()
+const {
+  class: propsClass,
+  direction = 'horizontal',
+  ...props
+} = defineProps<SwiperProps & { class?: HTMLAttributes['class'] }>()
 const emits = defineEmits<SwiperEmits>()
+
 defineSlots<SwiperSlots>()
 
 const swiperInstance = ref<SwiperClass | null>(null)
+const swiperEl = ref<HTMLElement>()
 const { hasModule } = useSwiperModule(swiperInstance)
 
 function onSwiperInit(swiper: SwiperClass) {
+  swiperEl.value = swiper.el
   swiperInstance.value = swiper
 }
+
 function onFocusIn() {
   if (hasModule('Keyboard')) {
     swiperInstance.value?.keyboard.enable()
@@ -32,8 +41,7 @@ function onFocusOut() {
   }
 }
 function onKeyDown(event: KeyboardEvent) {
-  if (hasModule('Keyboard'))
-    return
+  if (hasModule('Keyboard')) return
   const prevKey = direction === 'vertical' ? 'ArrowUp' : 'ArrowLeft'
   const nextKey = direction === 'vertical' ? 'ArrowDown' : 'ArrowRight'
   if (event.key === prevKey) {
@@ -47,8 +55,8 @@ function onKeyDown(event: KeyboardEvent) {
   }
 }
 
-defineExpose({ swiperInstance })
-const { forwardRef } = useForwardExpose()
+defineExpose({ swiper: swiperInstance, $el: swiperEl })
+
 const forwarded = useForwardPropsEmits(props, emits)
 </script>
 
@@ -64,7 +72,7 @@ const forwarded = useForwardPropsEmits(props, emits)
   >
     <!-- @vue-expect-error -->
     <Swiper
-      :ref="forwardRef"
+      :class="cn('relative', propsClass)"
       v-bind="{ ...forwarded, ...$attrs }"
       :direction="direction"
       @swiper="onSwiperInit"

@@ -1,18 +1,21 @@
 <script setup lang="ts">
 import type { Swiper as SwiperClass } from 'swiper/types'
+import { computed } from 'vue'
 import { useSwiperToggleEnabled } from './utils'
-import { toRefs } from 'vue'
+import { useSwiper } from 'swiper/vue'
 
-const props = defineProps<{ swiper?: SwiperClass }>()
-const { swiper } = toRefs(props)
-const { isCanPrev } = useSwiperToggleEnabled(swiper)
-
+const { swiper } = defineProps<{ swiper?: SwiperClass }>()
 defineSlots<{
   default: (props: { disabled: boolean }) => any
 }>()
 
+const effectiveSwiper = computed(() => {
+  return swiper ?? useSwiper()?.value
+})
+const { isCanPrev } = useSwiperToggleEnabled(effectiveSwiper)
+
 function onClick() {
-  isCanPrev.value && swiper.value?.slidePrev()
+  isCanPrev.value && effectiveSwiper.value?.slidePrev()
 }
 </script>
 

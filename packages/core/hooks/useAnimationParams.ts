@@ -6,7 +6,9 @@ export function useAnimationParams() {
   if (twDuration?.endsWith('ms')) {
     animationDuration = Number.parseFloat(twDuration) / 1000
   }
-  const animationEase
-    = getCssVar('--tw-ease') ?? 'cubic-bezier(0.165, 0.84, 0.44, 1)'
+  const animationEase = getCssVar(
+    '--tw-ease',
+    'cubic-bezier(0.165, 0.84, 0.44, 1)'
+  )
   return { animationDuration, animationEase }
 }

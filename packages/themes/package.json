@@ -13,5 +13,8 @@
   "devDependencies": {
     "tailwindcss-animated": "^1.1.2",
     "tailwindcss-motion": "^1.1.0"
+  },
+  "dependencies": {
+    "swiper": "^11.2.6"
   }
 }

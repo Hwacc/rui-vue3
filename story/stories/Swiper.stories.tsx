@@ -4,11 +4,12 @@ import {
   SwiperNavigationNext,
   SwiperNavigationPrev,
   SwiperNext,
+  SwiperPagination,
   SwiperPrev,
   SwiperSlide,
 } from '@rui/add-ons/components/swiper'
 import Button from '@rui/core/components/button/Button.vue'
-import { Keyboard, Navigation } from 'swiper/modules'
+import { Keyboard, Navigation, Pagination, Autoplay } from 'swiper/modules'
 import { ref } from 'vue'
 
 const meta = {
@@ -20,6 +21,7 @@ const meta = {
     SwiperPrev,
     SwiperNavigationPrev,
     SwiperNavigationNext,
+    SwiperPagination,
   },
   tags: ['autodocs'],
   argTypes: {},
@@ -38,29 +40,25 @@ export const Default: Story = {
           return (
             <div>
               <Swiper
-                class="w-[400px] h-[200px]"
+                class='w-[400px] h-[200px]'
                 ref={swiperRef}
-                modules={[Keyboard]}
-              >
+                modules={[Keyboard]}>
                 {{
                   default: () => {
-                    return (
-                      <>
-                        <SwiperSlide swiperRef={swiperRef.value}>Slide 1</SwiperSlide>
-                        <SwiperSlide swiperRef={swiperRef.value}>Slide 2</SwiperSlide>
-                      </>
-                    )
+                    return Array.from({ length: 10 }).map((_, i) => (
+                      <SwiperSlide key={i}>{`Slide ${i + 1}`}</SwiperSlide>
+                    ))
                   },
                 }}
               </Swiper>
-              <SwiperPrev swiper={swiperRef.value?.swiperInstance}>
+              <SwiperPrev swiper={swiperRef.value?.swiper}>
                 {{
                   default: ({ disabled }: { disabled: boolean }) => {
                     return <Button disabled={disabled}>Prev</Button>
                   },
                 }}
               </SwiperPrev>
-              <SwiperNext swiper={swiperRef.value?.swiperInstance}>
+              <SwiperNext swiper={swiperRef.value?.swiper}>
                 {{
                   default: ({ disabled }: { disabled: boolean }) => {
                     return <Button disabled={disabled}>Next</Button>
@@ -85,18 +83,14 @@ export const WithNavigation: Story = {
           return (
             <div>
               <Swiper
-                class="relative w-[400px] h-[200px]"
+                class='w-[400px] h-[200px]'
                 ref={swiperRef}
-                modules={[Navigation]}
-              >
+                modules={[Navigation]}>
                 {{
                   'default': () => {
-                    return (
-                      <>
-                        <SwiperSlide swiperRef={swiperRef.value}>Slide 1</SwiperSlide>
-                        <SwiperSlide swiperRef={swiperRef.value}>Slide 2</SwiperSlide>
-                      </>
-                    )
+                    return Array.from({ length: 10 }).map((_, i) => (
+                      <SwiperSlide key={i}>{`Slide ${i + 1}`}</SwiperSlide>
+                    ))
                   },
                   'container-start': () => {
                     return (
@@ -106,6 +100,47 @@ export const WithNavigation: Story = {
                       </>
                     )
                   },
+                }}
+              </Swiper>
+            </div>
+          )
+        }
+      },
+    }
+  },
+}
+
+export const WithPagination: Story = {
+  args: {},
+  render: (args) => {
+    return {
+      setup() {
+        const swiperRef = ref<any | null>(null)
+        return () => {
+          return (
+            <div>
+              <Swiper
+                class='w-[400px] h-[200px]'
+                ref={swiperRef}
+                modules={[Autoplay, Pagination]}
+                autoplay={{
+                  delay: 5000,
+                  disableOnInteraction: false,
+                }}
+              >
+                {{
+                  'default': () => {
+                    return Array.from({ length: 10 }).map((_, i) => (
+                      <SwiperSlide key={i}>{`Slide ${i + 1}`}</SwiperSlide>
+                    ))
+                  },
+                  'container-end': () => (
+                    <SwiperPagination
+                      type='autoplay-bullets'
+                      dynamicBullets={true}
+                      clickable={true}
+                    />
+                  ),
                 }}
               </Swiper>
             </div>

@@ -3,38 +3,52 @@ import type { HTMLAttributes } from 'vue'
 import { cn } from '@rui/core/lib/utils'
 import { ChevronRight } from 'lucide-vue-next'
 import { useSwiper } from 'swiper/vue'
-import { useTemplateRef, watch, watchEffect } from 'vue'
+import { computed, useTemplateRef, watchEffect } from 'vue'
 import { swiperNavigationVariant } from '.'
 import { useSwiperModule, useSwiperToggleEnabled } from './utils'
+import { NavigationOptions, Swiper } from 'swiper/types'
+import { merge } from 'lodash-es'
 
-const { class: propsClass, unstyled } = defineProps<{
-  class?: HTMLAttributes['class']
-  unstyled?: boolean
-}>()
+const {
+  class: propsClass,
+  unstyled,
+  swiper,
+  nextEl,
+  prevEl,
+  ...props
+} = defineProps<
+  NavigationOptions & {
+    class?: HTMLAttributes['class']
+    unstyled?: boolean
+    swiper?: Swiper
+  }
+>()
 
-const swiper = useSwiper()
-const { hasModule } = useSwiperModule(swiper)
-const { isCanNext } = useSwiperToggleEnabled(swiper)
+const effectiveSwiper = computed(() => {
+  return swiper ?? useSwiper()?.value
+})
+const { hasModule } = useSwiperModule(effectiveSwiper)
+const { isCanNext } = useSwiperToggleEnabled(effectiveSwiper)
 const navRef = useTemplateRef('navigation')
 
-watch(isCanNext, (canNext) => {
-  console.log('canNext', canNext)
-})
-
 watchEffect(() => {
-  if (hasModule('Navigation') && navRef.value) {
-    if (swiper.value.params?.navigation) {
-      if (typeof swiper.value.params.navigation === 'boolean') {
-        swiper.value.params.navigation = {
-          nextEl: navRef.value,
-        }
-      } else {
-        swiper.value.params.navigation.nextEl = navRef.value
+  if (effectiveSwiper.value && hasModule('Navigation') && navRef.value) {
+    const options = merge(
+      {},
+      typeof effectiveSwiper.value.params.navigation === 'boolean'
+        ? {
+            enabled: effectiveSwiper.value.params.navigation,
+          }
+        : effectiveSwiper.value.params.navigation,
+      props,
+      {
+        nextEl: navRef.value,
       }
-    }
-    swiper.value.navigation.destroy()
-    swiper.value.navigation.init()
-    swiper.value.navigation.update()
+    )
+    effectiveSwiper.value.params.navigation = options
+    effectiveSwiper.value.navigation.destroy()
+    effectiveSwiper.value.navigation.init()
+    effectiveSwiper.value.navigation.update()
   }
 })
 </script>
