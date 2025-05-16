@@ -52,25 +52,50 @@ watchEffect((cleanup) => {
       }
       const onPaginationRender = () => {
         if (props.dynamicBullets) {
-          // TODO: 判断swiper方向
-          const sizeVar = getNodeCssVar(
-            pagiRef.value,
-            '--swiper-pagination-bullet-size',
-            '0'
+          const getMinBulletSize = (): number => {
+            if (pagiRef.value) {
+              const bullets = pagiRef.value.querySelectorAll(
+                `.${props.bulletClass ?? 'swiper-pagination-bullet'}`
+              )
+              if (bullets.length === 0) return 0
+              let minSize = Infinity
+              bullets.forEach((bullet: Element) => {
+                const style = window.getComputedStyle(bullet)
+                const dir = effectiveSwiper.value?.params.direction
+                if (dir === 'horizontal') {
+                  const width =
+                    parseFloat(style.width) +
+                    parseFloat(style.marginLeft) +
+                    parseFloat(style.marginRight)
+                  if (width < minSize) {
+                    minSize = width
+                  }
+                } else if (dir === 'vertical') {
+                  const height =
+                    parseFloat(style.height) +
+                    parseFloat(style.marginTop) +
+                    parseFloat(style.marginBottom)
+                  if (height < minSize) {
+                    minSize = height
+                  }
+                }
+              })
+              return minSize
+            }
+            return 0
+          }
+          const activeBulletSize = rem2px(
+            getNodeCssVar(
+              pagiRef.value,
+              '--swiper-pagination-bullet-autoplay-active-bullet-size',
+              '2.5rem'
+            )
           )
-          const size = rem2px(parseFloat(sizeVar))
-
-          const gapVar = getNodeCssVar(
-            pagiRef.value,
-            '--swiper-pagination-bullet-horizontal-gap',
-            '.25rem'
-          )
-          const gap = rem2px(parseFloat(gapVar))
           nextTick(() => {
             if (pagiRef.value) {
-              // TODO: 40 应动态获取
               pagiRef.value.style.width = `${
-                (size + gap * 2) * (5 + (props.dynamicMainBullets ?? 1)) + 40
+                getMinBulletSize() * (5 + (props.dynamicMainBullets ?? 1)) +
+                activeBulletSize
               }px`
             }
           })
