@@ -37,3 +37,17 @@ export interface SwiperSlots {
 export interface SwiperPaginationProps extends Omit<PaginationOptions, 'type'> {
   type: PaginationOptions['type'] | 'autoplay-bullets'
 }
+
+export interface SwiperPaginationEmits {
+  paginationHide: (swiper: Swiper) => void
+  paginationRender: (swiper: Swiper, paginationEl: HTMLElement) => void
+  paginationShow: (swiper: Swiper) => void
+  paginationUpdate: (swiper: Swiper, paginationEl: HTMLElement) => void
+}
+
+export interface SwiperNavigationEmits {
+  navigationHide: (swiper: Swiper) => void
+  navigationNext: (swiper: Swiper, navigationEl: HTMLElement) => void
+  navigationPrev: (swiper: Swiper) => void
+  navigationShow: (swiper: Swiper, navigationEl: HTMLElement) => void
+}

@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import type { Swiper as SwiperClass } from 'swiper/types'
+import { useSwiper } from 'swiper/vue'
 import { computed } from 'vue'
 import { useSwiperToggleEnabled } from './utils'
-import { useSwiper } from 'swiper/vue'
 
 const { swiper } = defineProps<{ swiper?: SwiperClass }>()
 defineSlots<{

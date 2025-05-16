@@ -1,13 +1,13 @@
 <script setup lang="ts">
-import type { Swiper } from 'swiper/types'
+import type { PaginationEvents, Swiper } from 'swiper/types'
 import type { HTMLAttributes } from 'vue'
+import type { SwiperPaginationProps } from './interface'
 import { cn, getNodeCssVar, rem2px } from '@rui/core/lib/utils'
 import { merge } from 'lodash-es'
 import { useSwiper } from 'swiper/vue'
 import { computed, nextTick, useTemplateRef, watchEffect } from 'vue'
-import { useSwiperModule } from './utils'
 import { prefix } from '.'
-import { SwiperPaginationProps } from './interface'
+import { useRegistSwiperEmits, useSwiperModule } from './utils'
 
 const {
   class: propsClass,
@@ -21,6 +21,7 @@ const {
     swiper?: Swiper
   }
 >()
+const emit = defineEmits<PaginationEvents>()
 
 const effectiveSwiper = computed(() => {
   return swiper ?? useSwiper()?.value
@@ -28,53 +29,44 @@ const effectiveSwiper = computed(() => {
 const { hasModule } = useSwiperModule(effectiveSwiper)
 const pagiRef = useTemplateRef('pagination')
 
-function reRenderPagination() {
-  if (effectiveSwiper.value && hasModule('Pagination')) {
-    effectiveSwiper.value.pagination.destroy()
-    effectiveSwiper.value.pagination.init()
-    effectiveSwiper.value.pagination.render()
-    effectiveSwiper.value.pagination.update()
-  }
-}
-
 watchEffect((cleanup) => {
   if (effectiveSwiper.value && hasModule('Pagination') && pagiRef.value) {
     if (props.type === 'autoplay-bullets' && hasModule('Autoplay')) {
       const onAutoplayTimeLeft = (
         _swiper: Swiper,
         _timeLeft: number,
-        percentage: number
+        percentage: number,
       ) => {
         pagiRef.value?.style.setProperty(
           '--rui-swiper-autoplay-percentage',
-          `${Math.max(0, Math.min(1, 1 - percentage)) * 100}%`
+          `${Math.max(0, Math.min(1, 1 - percentage)) * 100}%`,
         )
       }
       const onPaginationRender = () => {
         if (props.dynamicBullets) {
           const getMinBulletSize = (): number => {
             if (pagiRef.value) {
-              const bullets = pagiRef.value.querySelectorAll(
-                `.${props.bulletClass ?? 'swiper-pagination-bullet'}`
-              )
-              if (bullets.length === 0) return 0
+              const bullets = effectiveSwiper.value.pagination.bullets
+              if (bullets.length === 0)
+                return 0
               let minSize = Infinity
               bullets.forEach((bullet: Element) => {
                 const style = window.getComputedStyle(bullet)
                 const dir = effectiveSwiper.value?.params.direction
                 if (dir === 'horizontal') {
-                  const width =
-                    parseFloat(style.width) +
-                    parseFloat(style.marginLeft) +
-                    parseFloat(style.marginRight)
+                  const width
+                    = parseFloat(style.width)
+                      + parseFloat(style.marginLeft)
+                      + parseFloat(style.marginRight)
                   if (width < minSize) {
                     minSize = width
                   }
-                } else if (dir === 'vertical') {
-                  const height =
-                    parseFloat(style.height) +
-                    parseFloat(style.marginTop) +
-                    parseFloat(style.marginBottom)
+                }
+                else if (dir === 'vertical') {
+                  const height
+                    = parseFloat(style.height)
+                      + parseFloat(style.marginTop)
+                      + parseFloat(style.marginBottom)
                   if (height < minSize) {
                     minSize = height
                   }
@@ -88,14 +80,14 @@ watchEffect((cleanup) => {
             getNodeCssVar(
               pagiRef.value,
               '--swiper-pagination-bullet-autoplay-active-bullet-size',
-              '2.5rem'
-            )
+              '2.5rem',
+            ),
           )
           nextTick(() => {
             if (pagiRef.value) {
               pagiRef.value.style.width = `${
-                getMinBulletSize() * (5 + (props.dynamicMainBullets ?? 1)) +
-                activeBulletSize
+                getMinBulletSize() * (5 + (props.dynamicMainBullets ?? 1))
+                + activeBulletSize
               }px`
             }
           })
@@ -119,11 +111,25 @@ watchEffect((cleanup) => {
       {
         el: pagiRef.value,
         type: props.type === 'autoplay-bullets' ? 'bullets' : props.type,
-      }
+      },
     )
     effectiveSwiper.value.params.pagination = options
-    reRenderPagination()
+    effectiveSwiper.value.pagination.destroy()
+    effectiveSwiper.value.pagination.init()
+    effectiveSwiper.value.pagination.render()
+    effectiveSwiper.value.pagination.update()
   }
+})
+
+useRegistSwiperEmits({
+  swiperRef: effectiveSwiper,
+  emit,
+  events: [
+    'paginationHide',
+    'paginationRender',
+    'paginationShow',
+    'paginationUpdate',
+  ],
 })
 </script>
 

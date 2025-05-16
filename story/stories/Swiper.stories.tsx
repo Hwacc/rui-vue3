@@ -6,10 +6,17 @@ import {
   SwiperNext,
   SwiperPagination,
   SwiperPrev,
+  SwiperScrollbar,
   SwiperSlide,
 } from '@rui/add-ons/components/swiper'
 import Button from '@rui/core/components/button/Button.vue'
-import { Keyboard, Navigation, Pagination, Autoplay } from 'swiper/modules'
+import {
+  Autoplay,
+  Keyboard,
+  Navigation,
+  Pagination,
+  Scrollbar,
+} from 'swiper/modules'
 import { ref } from 'vue'
 
 const meta = {
@@ -22,6 +29,7 @@ const meta = {
     SwiperNavigationPrev,
     SwiperNavigationNext,
     SwiperPagination,
+    SwiperScrollbar,
   },
   tags: ['autodocs'],
   argTypes: {},
@@ -40,9 +48,10 @@ export const Default: Story = {
           return (
             <div>
               <Swiper
-                class='w-[400px] h-[200px]'
+                class="w-[400px] h-[200px]"
                 ref={swiperRef}
-                modules={[Keyboard]}>
+                modules={[Keyboard]}
+              >
                 {{
                   default: () => {
                     return Array.from({ length: 10 }).map((_, i) => (
@@ -83,9 +92,10 @@ export const WithNavigation: Story = {
           return (
             <div>
               <Swiper
-                class='w-[400px] h-[200px]'
+                class="w-[400px] h-[200px]"
                 ref={swiperRef}
-                modules={[Navigation]}>
+                modules={[Navigation]}
+              >
                 {{
                   'default': () => {
                     return Array.from({ length: 10 }).map((_, i) => (
@@ -120,7 +130,7 @@ export const WithPagination: Story = {
           return (
             <div>
               <Swiper
-                class='w-[400px] h-[200px]'
+                class="w-[400px] h-[200px]"
                 ref={swiperRef}
                 modules={[Autoplay, Pagination]}
                 autoplay={{
@@ -136,10 +146,43 @@ export const WithPagination: Story = {
                   },
                   'container-end': () => (
                     <SwiperPagination
-                      type='autoplay-bullets'
+                      type="autoplay-bullets"
                       dynamicBullets={true}
                       clickable={true}
                     />
+                  ),
+                }}
+              </Swiper>
+            </div>
+          )
+        }
+      },
+    }
+  },
+}
+
+export const WithScrollbar: Story = {
+  args: {},
+  render: (args) => {
+    return {
+      setup() {
+        const swiperRef = ref<any | null>(null)
+        return () => {
+          return (
+            <div>
+              <Swiper
+                class="w-[400px] h-[200px]"
+                ref={swiperRef}
+                modules={[Scrollbar]}
+              >
+                {{
+                  'default': () => {
+                    return Array.from({ length: 10 }).map((_, i) => (
+                      <SwiperSlide key={i}>{`Slide ${i + 1}`}</SwiperSlide>
+                    ))
+                  },
+                  'container-end': () => (
+                    <SwiperScrollbar draggable={true} snapOnRelease={true} />
                   ),
                 }}
               </Swiper>

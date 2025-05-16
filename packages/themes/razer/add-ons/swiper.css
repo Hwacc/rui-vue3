@@ -1,6 +1,7 @@
 @layer components {
   @import 'swiper/css';
   @import 'swiper/css/pagination';
+  @import 'swiper/css/scrollbar';
 
   .rui-swiper-navigation {
     @apply flex-col items-center justify-center h-[3.125rem];
@@ -61,5 +62,17 @@
         }
       }
     }
+  }
+
+  .rui-swiper-scrollbar {
+    --swiper-scrollbar-border-radius: .625rem;
+    --swiper-scrollbar-top: auto;
+    --swiper-scrollbar-bottom: .25rem;
+    --swiper-scrollbar-left: auto;
+    --swiper-scrollbar-right: .25rem;
+    --swiper-scrollbar-sides-offset: 1%;
+    --swiper-scrollbar-bg-color: rgba(255, 255, 255, 0.1);
+    --swiper-scrollbar-drag-bg-color: var(--color-rz-green);
+    --swiper-scrollbar-size: .25rem;
   }
 }
