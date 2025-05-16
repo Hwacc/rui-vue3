@@ -1,0 +1,5 @@
+@layer components{
+  .rui-spin-mask{
+    @apply bg-h00/30;
+  }
+}

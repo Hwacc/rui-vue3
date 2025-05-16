@@ -10,6 +10,7 @@
   --animate-collapsible-up: collapsible-up var(--tw-animate-duration, 200ms) var(--tw-animate-easing, ease-in-out);
   --animate-quick-squeeze-x: squeeze-x var(--tw-animate-duration, 200ms) var(--tw-animate-easing, ease-in-out);
   --animate-rippling: rippling var(--tw-ripple-duration, 600ms) ease-out;
+  --animate-spin: spin 1s linear infinite;
 
   /* toast exit animations */
   --animate-toast-exit-right: toast-exit-right var(--tw-animate-duration, 200ms) var(--tw-animate-easing, ease-out);
@@ -163,6 +164,11 @@
     to {
       background-position-x: -200%;
     }
+  }
+
+  @keyframes spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
   }
 
 }

@@ -6,7 +6,7 @@ import { reactive, ref, unref, watchEffect } from 'vue'
 
 export function useIndicatorTransfer(
   variant: MaybeRef<ProgressIndicatorVariants['variant']>,
-  progress: MaybeRef<number | null | undefined>
+  progress: MaybeRef<number | null | undefined>,
 ) {
   const indicatorRef = ref<any>(null)
   const transferStyle = reactive({
@@ -23,16 +23,17 @@ export function useIndicatorTransfer(
           100 - (unref(progress) ?? 0)
         }%)`
         const { type: fromType, value: fromValue } = detectCssColorType(
-          getNodeCssVar(indicatorEl, '--transfer-from', '#000')
+          getNodeCssVar(indicatorEl, '--transfer-from', '#000'),
         )
         const { type: toType, value: toValue } = detectCssColorType(
-          getNodeCssVar(indicatorEl, '--transfer-to', '#fff')
+          getNodeCssVar(indicatorEl, '--transfer-to', '#fff'),
         )
 
-        if (fromType !== toType)
+        if (fromType !== toType) {
           throw new Error(
-            'transfer indicator from and to must be same color type'
+            'transfer indicator from and to must be same color type',
           )
+        }
         const step = (unref(progress) ?? 0) / 100
         switch (fromType) {
           case 'lab': {
@@ -66,7 +67,7 @@ export function useIndicatorTransfer(
         }
       }
     },
-    { flush: 'post' }
+    { flush: 'post' },
   )
   return {
     indicatorRef,

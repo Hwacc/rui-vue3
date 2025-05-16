@@ -77,19 +77,19 @@ const forwarded = useForwardPropsEmits(props, emits)
       :direction="direction"
       @swiper="onSwiperInit"
     >
-      <template #default>
+      <template v-if="$slots.default" #default>
         <slot />
       </template>
-      <template #container-start>
+      <template v-if="$slots['container-start']" #container-start>
         <slot name="container-start" />
       </template>
-      <template #container-end>
+      <template v-if="$slots['container-end']" #container-end>
         <slot name="container-end" />
       </template>
-      <template #wrapper-start>
+      <template v-if="$slots['wrapper-start']" #wrapper-start>
         <slot name="wrapper-start" />
       </template>
-      <template #wrapper-end>
+      <template v-if="$slots['wrapper-end']" #wrapper-end>
         <slot name="wrapper-end" />
       </template>
     </Swiper>
