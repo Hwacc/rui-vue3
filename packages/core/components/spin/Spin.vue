@@ -15,13 +15,13 @@ const {
   mode,
   size = 'base',
   unstyled,
-  delay, // 新增的 props
+  delay,
 } = defineProps<{
   show?: boolean
   mode?: 'fullscreen'
   size?: SpinVariantsProps['size']
   unstyled?: boolean
-  delay?: number // 延迟时间（ms）
+  delay?: number
 }>()
 
 const { renderIcon }

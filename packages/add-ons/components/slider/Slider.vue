@@ -289,7 +289,6 @@ import type {
   Ref,
 } from 'vue'
 import { cn, getNodeCssVar, rem2px } from '@rui/core/lib/utils'
-
 import Slider from 'vue-3-slider-component'
 import { sliderDotVariants, sliderTooltipVariants, sliderVariants } from '.'
 
