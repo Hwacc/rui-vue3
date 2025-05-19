@@ -10,11 +10,12 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "dependencies": {
+    "@grapoza/vue-tree": "^7.0.2",
+    "swiper": "^11.2.6"
+  },
   "devDependencies": {
     "tailwindcss-animated": "^1.1.2",
     "tailwindcss-motion": "^1.1.0"
-  },
-  "dependencies": {
-    "swiper": "^11.2.6"
   }
 }

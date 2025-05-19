@@ -135,6 +135,9 @@ importers:
 
   packages/themes:
     dependencies:
+      '@grapoza/vue-tree':
+        specifier: ^7.0.2
+        version: 7.0.2(typescript@5.8.2)
       swiper:
         specifier: ^11.2.6
         version: 11.2.6

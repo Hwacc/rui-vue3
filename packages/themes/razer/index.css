@@ -270,4 +270,5 @@
 @import './components/calendar.css';
 @import './components/badge.css';
 @import './add-ons/swiper.css';
-@import './components/spin.css'
+@import './components/spin.css';
+@import './add-ons/tree.css';
