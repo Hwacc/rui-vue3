@@ -1,27 +1,60 @@
 <script setup lang="ts">
-import { computed, onBeforeUnmount, onMounted } from 'vue'
+import type { VNode } from 'vue'
+import type { SpinVariantsProps } from '.'
+import { Primitive } from 'reka-ui'
+import { computed, inject, onBeforeUnmount, onMounted, ref, watch } from 'vue'
 import {
-  injectSpinContext,
   spinIndicatorVariants,
   spinMaskVariants,
+  spinTextVariants,
   spinVariants,
 } from '.'
 
-const { modelValue, mode } = defineProps<{
-  modelValue?: boolean
+const {
+  show,
+  mode,
+  size = 'base',
+  unstyled,
+  delay, // 新增的 props
+} = defineProps<{
+  show?: boolean
   mode?: 'fullscreen'
-}>()
-const emit = defineEmits<{
-  (e: 'update:modelValue', value: boolean): void
+  size?: SpinVariantsProps['size']
+  unstyled?: boolean
+  delay?: number // 延迟时间（ms）
 }>()
 
-const { icon } = injectSpinContext()
+const { renderIcon }
+  = inject<{
+    renderIcon: (props: {
+      mode?: SpinVariantsProps['mode']
+      size?: SpinVariantsProps['size']
+      unstyled?: boolean
+    }) => VNode | null
+  }>('SpinProvider') ?? {}
 
-const loading = computed({
-  get: () => modelValue,
-  set: val => emit('update:modelValue', val),
-})
 const isFullscreen = computed(() => mode === 'fullscreen')
+const isVisible = ref(show)
+let timeoutId: number | null = null
+watch(
+  () => show,
+  (newVal) => {
+    if (!newVal && delay) {
+      timeoutId = window.setTimeout(() => {
+        isVisible.value = false
+        timeoutId = null
+      }, delay)
+    }
+    else {
+      if (timeoutId) {
+        clearTimeout(timeoutId)
+        timeoutId = null
+      }
+      isVisible.value = newVal
+    }
+  },
+  { immediate: true },
+)
 
 onMounted(() => {
   if (isFullscreen.value) {
@@ -29,6 +62,9 @@ onMounted(() => {
   }
 })
 onBeforeUnmount(() => {
+  if (timeoutId) {
+    clearTimeout(timeoutId)
+  }
   if (isFullscreen.value) {
     document.body.style.position = ''
   }
@@ -36,12 +72,23 @@ onBeforeUnmount(() => {
 </script>
 
 <template>
-  <div v-show="loading" :class="spinVariants({ mode })">
+  <div v-show="isVisible" :class="spinVariants({ mode })">
     <div :class="spinMaskVariants()" />
     <div :class="spinIndicatorVariants()">
-      <slot>
-        <icon />
+      <slot v-bind="{ mode, size, unstyled }">
+        <component :is="renderIcon?.({ mode, size, unstyled })" />
       </slot>
+      <Primitive
+        :class="
+          spinTextVariants({
+            size,
+            unstyled,
+          })
+        "
+        :as-child="true"
+      >
+        <slot name="text" />
+      </Primitive>
     </div>
   </div>
 </template>

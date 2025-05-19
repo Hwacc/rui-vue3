@@ -3,7 +3,7 @@ import { PREFIX } from '@rui/core/lib/constants'
 import { cva } from '@rui/core/lib/cva'
 
 export { default as Spin } from './Spin.vue'
-export { injectSpinContext, SpinProvider } from './SpinProvider'
+export { SpinProvider } from './SpinProvider'
 
 export const prefix = `${PREFIX}-spin`
 export const spinVariants = cva(
@@ -31,7 +31,7 @@ export const spinVariants = cva(
     className: prefix,
   },
 )
-export type SpinVariants = VariantProps<typeof spinVariants>
+export type SpinVariantsProps = VariantProps<typeof spinVariants>
 
 export const spinMaskVariants = cva(
   ['absolute', 'top-0', 'left-0', 'size-full'],
@@ -52,6 +52,7 @@ export const spinIndicatorVariants = cva(
     'flex',
     'items-center',
     'justify-center',
+    'gap-2',
   ],
   undefined,
   {
@@ -60,21 +61,33 @@ export const spinIndicatorVariants = cva(
 )
 
 export const spinIconVariants = cva(
-  'animate-spin inline-block',
+  'inline-block',
   {
     variants: {
       size: {
-        sm: '',
-        base: '',
-        lg: '',
-      },
-      mode: {
-        default: '',
-        fullscreen: '',
+        sm: 'size-6',
+        base: 'size-8',
+        lg: 'size-10',
       },
     },
   },
   {
-    className: prefix,
+    className: `${prefix}-icon`,
+  },
+)
+
+export const spinTextVariants = cva(
+  '',
+  {
+    variants: {
+      size: {
+        sm: 'text-xs',
+        base: 'text-sm',
+        lg: 'text-base',
+      },
+    },
+  },
+  {
+    className: `${prefix}-text`,
   },
 )

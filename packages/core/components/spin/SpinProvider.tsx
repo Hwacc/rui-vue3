@@ -1,26 +1,50 @@
-import type { PropType, VNode } from 'vue'
-import type { SpinVariants } from '.'
-import { createContext } from 'reka-ui'
-import { defineComponent, watch } from 'vue'
+import { cn } from '@rui/core/lib/utils'
+import { LoaderCircle } from 'lucide-vue-next'
+import { Primitive } from 'reka-ui'
+import { defineComponent, provide } from 'vue'
+import { spinIconVariants } from '.'
 
-const [injectSpinContext, providerSpinContext] = createContext<{
-  icon: VNode | null
-}>('SpinProvider')
-
-export { injectSpinContext }
 export const SpinProvider = defineComponent({
   name: 'SpinProvider',
-  props: {
-    size: {
-      type: String as PropType<SpinVariants['size']>,
-      default: 'base',
-    },
-  },
-  setup(props, { slots }) {
-    // const icon = slots.icon?.(props.size)
-    const icon = slots.icon?.()
-    providerSpinContext({
-      icon: icon ? icon[0] : null,
+  setup(_props, { slots }) {
+    const renderIcon = (props: any) => {
+      const icon = slots.icon?.({
+        mode: props.mode,
+        size: props.size,
+        unstyled: props.unstyled,
+      })
+      if (icon) {
+        return (
+          <Primitive
+            class={cn(
+              spinIconVariants({
+                size: props.size,
+                unstyled: props.unstyled,
+              }),
+            )}
+            asChild
+            data-variant="custom"
+          >
+            {icon[0]}
+          </Primitive>
+        )
+      }
+      else {
+        return (
+          <LoaderCircle
+            class={cn(
+              spinIconVariants({
+                size: props.size,
+                unstyled: props.unstyled,
+              }),
+            )}
+            data-variant="default"
+          />
+        )
+      }
+    }
+    provide('SpinProvider', {
+      renderIcon,
     })
     return () => slots.default?.()
   },
