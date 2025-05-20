@@ -15,7 +15,11 @@
     "swiper": "^11.2.6"
   },
   "devDependencies": {
+    "@wsfe/vue-tree": "^4.1.1",
     "tailwindcss-animated": "^1.1.2",
     "tailwindcss-motion": "^1.1.0"
+  },
+  "peerDependencies": {
+    "@wsfe/vue-tree": "^4.1.1"
   }
 }

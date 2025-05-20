@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/vue3'
-import { Tree } from '@rui/add-ons/components/tree'
-import { reactive } from 'vue'
+import { Tree } from '@rui/add-ons/components/tree1'
+import { ref } from 'vue'
 
 const meta = {
   title: 'RUI/Tree',
@@ -16,48 +16,83 @@ type Story = StoryObj<typeof meta>
 export const Default: Story = {
   args: {},
   render: (args: any) => {
-    return {
-      setup() {
-        const treeData = reactive([
+    const data = ref([
+      {
+        title: 'node-1',
+        id: 'node-1',
+        children: [
           {
-            id: 'static-node1',
-            label: 'My First Node',
-            children: [],
-          },
-          {
-            id: 'static-node2',
-            label: 'My Second Node',
+            title: 'node-1-1',
+            id: 'node-1-1',
             children: [
               {
-                id: 'static-subnode1',
-                label: 'This is a subnode',
-                children: [],
+                title: 'node-1-1-1',
+                id: 'node-1-1-1',
               },
               {
-                id: 'static-subnode2',
-                label: 'This is another subnode',
-                children: [
-                  {
-                    id: 'static-subsubnode1',
-                    label: 'An even deeper node',
-                    children: [],
-                  },
-                ],
+                title: 'node-1-1-2',
+                id: 'node-1-1-2',
+              },
+              {
+                title: 'node-1-1-3',
+                id: 'node-1-1-3',
               },
             ],
           },
-        ])
-
-        function modelDefaults() {
-          return {
-            expandable: false,
-            state: {
-              expanded: true,
-            },
-          }
-        }
-
-        return () => <Tree {...args} v-model={treeData} modelDefaults={modelDefaults} />
+          {
+            title: 'node-1-2',
+            id: 'node-1-2',
+            children: [
+              {
+                title: 'node-1-2-1',
+                id: 'node-1-2-1',
+              },
+              {
+                title: 'node-1-2-2',
+                id: 'node-1-2-2',
+              },
+            ],
+          },
+          {
+            title: 'node-1-3',
+            id: 'node-1-3',
+            children: [
+              {
+                title: 'node-1-3-1',
+                id: 'node-1-3-1',
+              },
+              {
+                title: 'node-1-3-2',
+                id: 'node-1-3-2',
+              },
+            ],
+          },
+        ],
+      },
+      {
+        title: 'node-2',
+        id: 'node-2',
+        children: [
+          {
+            title: 'node-2-1',
+            id: 'node-2-1',
+            children: [
+              {
+                title: 'node-2-1-1',
+                id: 'node-2-1-1',
+              },
+              {
+                title: 'node-2-1-2',
+                id: 'node-2-1-2',
+              },
+            ],
+          },
+        ],
+      },
+    ])
+    return {
+      setup() {
+        return () => <Tree {...args} data={data.value} />
       },
     }
   },

@@ -80,6 +80,9 @@ importers:
       '@grapoza/vue-tree':
         specifier: ^7.0.2
         version: 7.0.2(typescript@5.8.2)
+      '@wsfe/vue-tree':
+        specifier: ^4.1.1
+        version: 4.1.1
       class-variance-authority:
         specifier: ^0.7.1
         version: 0.7.1
@@ -142,6 +145,9 @@ importers:
         specifier: ^11.2.6
         version: 11.2.6
     devDependencies:
+      '@wsfe/vue-tree':
+        specifier: ^4.1.1
+        version: 4.1.1
       tailwindcss-animated:
         specifier: ^1.1.2
         version: 1.1.2(tailwindcss@4.0.15)
@@ -1848,6 +1854,9 @@ packages:
 
   '@webassemblyjs/wast-printer@1.14.1':
     resolution: {integrity: sha512-kPSSXE6De1XOR820C90RIo2ogvZG+c3KiHzqUoO/F34Y2shGzesfqv7o57xrxovZJH/MetF5UjroJ/R/3isoiw==}
+
+  '@wsfe/vue-tree@4.1.1':
+    resolution: {integrity: sha512-loQeThj5aaJwYRAL5vE/yzv/4PJiaC8Z5JoicvnnFug0I9vBU75b17TyjVeqtliqKDKJzE7kR3odkLTB50wlhg==}
 
   '@xtuc/ieee754@1.2.0':
     resolution: {integrity: sha512-DX8nKgqcGwsc0eJSqYt5lwP4DH5FlHnmuWWBRy7X0NcaGR0ZtuyeESgMwTYVEtxmsNGY+qit4QYT/MIYTOTPeA==}
@@ -7044,6 +7053,8 @@ snapshots:
     dependencies:
       '@webassemblyjs/ast': 1.14.1
       '@xtuc/long': 4.2.2
+
+  '@wsfe/vue-tree@4.1.1': {}
 
   '@xtuc/ieee754@1.2.0': {}
 
