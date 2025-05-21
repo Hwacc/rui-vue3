@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
 export interface TreeData {
   title: string
   children?: TreeData[]
@@ -7,29 +7,49 @@ export interface TreeData {
 </script>
 
 <script setup lang="ts">
-import type { TreeRootProps } from 'reka-ui'
-import type { HTMLAttributes } from 'vue'
-import { TreeItem, TreeRoot } from '.'
+import {
+  useForwardExpose,
+  useForwardPropsEmits,
+  type TreeRootEmits,
+  type TreeRootProps
+} from 'reka-ui'
+import { TreeItem, TreeRoot, TreeRootVariants } from '.'
+import TreeItemContent from './TreeItemContent.vue'
 
-const props = defineProps<
+defineOptions({
+  inheritAttrs: false
+})
+
+const {
+  unstyled,
+  size = 'base',
+  ...props
+} = defineProps<
   TreeRootProps<TreeData> & {
-    class?: HTMLAttributes['class']
+    size?: TreeRootVariants['size']
     unstyled?: boolean
   }
 >()
+const emit = defineEmits<TreeRootEmits<TreeData>>()
 
-function getKey(item: TreeData) {
-  return item.id ?? item.title
-}
+const { forwardRef } = useForwardExpose()
+const forward = useForwardPropsEmits(props, emit)
 </script>
 
 <template>
   <div region="tree">
-    <TreeRoot v-bind="props" :get-key="getKey">
+    <TreeRoot
+      v-bind="{ ...forward, ...$attrs }"
+      :unstyled="unstyled"
+      :size="size"
+      :ref="forwardRef"
+    >
       <template #default="{ flattenItems }">
         <TreeItem v-for="item in flattenItems" :key="item._id" v-bind="item">
           <template #default="slotProps">
-            <slot v-bind="{ node: item, ...slotProps }"></slot>
+            <slot v-bind="{ item, ...slotProps }">
+              <TreeItemContent :item="item"></TreeItemContent>
+            </slot>
           </template>
         </TreeItem>
       </template>
