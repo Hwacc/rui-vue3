@@ -7,7 +7,7 @@ const meta = {
   component: Tree,
   subcomponents: {},
   tags: ['autodocs'],
-  argTypes: {}
+  argTypes: {},
 } satisfies Meta<typeof Tree>
 
 export default meta
@@ -15,7 +15,7 @@ export default meta
 type Story = StoryObj<typeof meta>
 export const Default: Story = {
   args: {
-    getKey: (item) => item.title
+    getKey: item => item.title,
   },
   render: (args: any) => {
     return {
@@ -27,10 +27,13 @@ export const Default: Story = {
             children: [
               {
                 title: 'useAuth.ts',
-                icon: 'vscode-icons:file-type-typescript'
+                icon: 'vscode-icons:file-type-typescript',
               },
-              { title: 'useUser.ts', icon: 'vscode-icons:file-type-typescript' }
-            ]
+              {
+                title: 'useUser.ts',
+                icon: 'vscode-icons:file-type-typescript',
+              },
+            ],
           },
           {
             title: 'components',
@@ -41,13 +44,13 @@ export const Default: Story = {
                 icon: 'lucide:folder',
                 children: [
                   { title: 'Card.vue', icon: 'vscode-icons:file-type-vue' },
-                  { title: 'Button.vue', icon: 'vscode-icons:file-type-vue' }
-                ]
-              }
-            ]
+                  { title: 'Button.vue', icon: 'vscode-icons:file-type-vue' },
+                ],
+              },
+            ],
           },
           { title: 'app.vue', icon: 'vscode-icons:file-type-vue' },
-          { title: 'nuxt.config.ts', icon: 'vscode-icons:file-type-nuxt' }
+          { title: 'nuxt.config.ts', icon: 'vscode-icons:file-type-nuxt' },
         ]
 
         const treeRef = ref()
@@ -57,9 +60,9 @@ export const Default: Story = {
         })
 
         return () => (
-          <Tree items={items} getKey={(item) => item.title} ref={treeRef}/>
+          <Tree items={items} getKey={item => item.title} ref={treeRef} />
         )
-      }
+      },
     }
-  }
+  },
 }
