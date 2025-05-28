@@ -1,5 +1,6 @@
+import type { VariantProps } from '@rui/core/lib/cva'
 import { PREFIX } from '@rui/core/lib/constants'
-import { cva, VariantProps } from '@rui/core/lib/cva'
+import { cva } from '@rui/core/lib/cva'
 
 export { default as Tree } from './Tree.vue'
 export { default as TreeItem } from './TreeItem.vue'
@@ -13,13 +14,13 @@ export const treeRootVariants = cva(
       size: {
         sm: ['text-sm'],
         base: ['text-base'],
-        lg: ['text-lg']
-      }
-    }
+        lg: ['text-lg'],
+      },
+    },
   },
   {
-    className: `${prefix}-root`
-  }
+    className: `${prefix}-root`,
+  },
 )
 
 export type TreeRootVariants = VariantProps<typeof treeRootVariants>
@@ -35,11 +36,11 @@ export const treeItemVariants = cva(
       size: {
         sm: ['text-sm'],
         base: ['text-base'],
-        lg: ['text-lg']
-      }
-    }
+        lg: ['text-lg'],
+      },
+    },
   },
   {
-    className: `${prefix}-item`
-  }
+    className: `${prefix}-item`,
+  },
 )

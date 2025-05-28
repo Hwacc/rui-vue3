@@ -1,7 +1,7 @@
 {
   "name": "rui-vue3",
   "version": "1.0.0",
-  "packageManager": "pnpm@10.6.5",
+  "packageManager": "pnpm@10.11.0",
   "description": "",
   "author": "",
   "license": "ISC",

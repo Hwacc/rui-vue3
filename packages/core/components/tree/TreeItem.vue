@@ -13,10 +13,11 @@ export interface TreeItemSlots {
 <script setup lang="ts" generic="T extends Record<string, any>">
 import type { TreeItemEmits, TreeItemProps } from 'reka-ui'
 import type { HTMLAttributes } from 'vue'
-import { TreeItem, useForwardPropsEmits } from 'reka-ui'
-import { treeItemVariants, TreeRootVariants } from '.'
+import type { TreeRootVariants } from '.'
 import { cn } from '@rui/core/lib/utils'
 import { Motion } from 'motion-v'
+import { TreeItem, useForwardPropsEmits } from 'reka-ui'
+import { treeItemVariants } from '.'
 
 const {
   class: propsClass,
@@ -38,8 +39,8 @@ const forward = useForwardPropsEmits(props, emit)
 
 <template>
   <Motion
-    as-child
     :key="props.value.title"
+    as-child
     :initial="{ height: 0, opacity: 0, rotateX: 90 }"
     :animate="{ height: 'auto', opacity: 1, rotateX: 0 }"
     :exit="{ height: 0, opacity: 0, rotateX: -90 }"

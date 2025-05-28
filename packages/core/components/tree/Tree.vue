@@ -7,17 +7,15 @@ export interface TreeData {
 </script>
 
 <script setup lang="ts">
-import {
-  useForwardExpose,
-  useForwardPropsEmits,
-  type TreeRootEmits,
-  type TreeRootProps
-} from 'reka-ui'
-import { TreeItem, TreeRoot, TreeRootVariants } from '.'
+import type { TreeRootEmits, TreeRootProps } from 'reka-ui'
+import type { TreeRootVariants } from '.'
+import { useForwardExpose, useForwardPropsEmits } from 'reka-ui'
+import { TreeItem, TreeRoot } from '.'
+
 import TreeItemContent from './TreeItemContent.vue'
 
 defineOptions({
-  inheritAttrs: false
+  inheritAttrs: false,
 })
 
 const {
@@ -40,15 +38,19 @@ const forward = useForwardPropsEmits(props, emit)
   <div region="tree">
     <TreeRoot
       v-bind="{ ...forward, ...$attrs }"
+      :ref="forwardRef"
       :unstyled="unstyled"
       :size="size"
-      :ref="forwardRef"
     >
       <template #default="{ flattenItems }">
-        <TreeItem v-for="item in flattenItems" :key="item._id" v-bind="item">
+        <TreeItem
+          v-for="item in flattenItems"
+          :key="item._id"
+          v-bind="item"
+        >
           <template #default="slotProps">
             <slot v-bind="{ item, ...slotProps }">
-              <TreeItemContent :item="item"></TreeItemContent>
+              <TreeItemContent :item="item" />
             </slot>
           </template>
         </TreeItem>
