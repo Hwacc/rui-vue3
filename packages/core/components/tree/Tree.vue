@@ -32,25 +32,45 @@ const emit = defineEmits<TreeRootEmits<TreeData>>()
 
 const { forwardRef } = useForwardExpose()
 const forward = useForwardPropsEmits(props, emit)
+
+console.log('tree root forward', forward)
 </script>
 
 <template>
   <div region="tree">
     <TreeRoot
-      v-bind="{ ...forward, ...$attrs }"
-      :ref="forwardRef"
-      :unstyled="unstyled"
-      :size="size"
+      v-bind="forward"
     >
       <template #default="{ flattenItems }">
         <TreeItem
           v-for="item in flattenItems"
           :key="item._id"
-          v-bind="item"
+          v-bind="item.bind"
+          @select="
+            (event: any) => {
+              if (event.detail.originalEvent.type === 'click') event.preventDefault()
+            }
+          "
+          @toggle="
+            (event: any) => {
+              if (event.detail.originalEvent.type === 'keydown') event.preventDefault()
+            }
+          "
         >
           <template #default="slotProps">
             <slot v-bind="{ item, ...slotProps }">
-              <TreeItemContent :item="item" />
+              <div>{{ `isIndeterminate: ${slotProps.isIndeterminate}` }}</div>
+              <TreeItemContent
+                :item="item"
+                v-bind="slotProps"
+              >
+                <template #icon="iconProps">
+                  <slot
+                    name="icon"
+                    v-bind="iconProps"
+                  />
+                </template>
+              </TreeItemContent>
             </slot>
           </template>
         </TreeItem>

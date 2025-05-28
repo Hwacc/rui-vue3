@@ -14,10 +14,14 @@ export interface TreeItemSlots {
 import type { TreeItemEmits, TreeItemProps } from 'reka-ui'
 import type { HTMLAttributes } from 'vue'
 import type { TreeRootVariants } from '.'
+import { TreeItemMotion } from '@rui/core/components/motion/TreeItemMotion'
 import { cn } from '@rui/core/lib/utils'
-import { Motion } from 'motion-v'
-import { TreeItem, useForwardPropsEmits } from 'reka-ui'
+import { TreeItem, useForwardExpose, useForwardPropsEmits } from 'reka-ui'
 import { treeItemVariants } from '.'
+
+defineOptions({
+  inheritAttrs: false,
+})
 
 const {
   class: propsClass,
@@ -35,22 +39,21 @@ const emit = defineEmits<TreeItemEmits<T>>()
 defineSlots<TreeItemSlots>()
 
 const forward = useForwardPropsEmits(props, emit)
+const { forwardRef } = useForwardExpose()
 </script>
 
 <template>
-  <Motion
-    :key="props.value.title"
-    as-child
-    :initial="{ height: 0, opacity: 0, rotateX: 90 }"
-    :animate="{ height: 'auto', opacity: 1, rotateX: 0 }"
-    :exit="{ height: 0, opacity: 0, rotateX: -90 }"
-  >
+  <TreeItemMotion>
     <TreeItem
       v-slot="slotProps"
-      v-bind="forward"
+      v-bind="{ ...forward, ...$attrs }"
+      :ref="forwardRef"
       :class="cn(treeItemVariants({ unstyled, size }), propsClass)"
+      :style="{
+        '--rui-tree-item-level': props.level,
+      }"
     >
       <slot v-bind="slotProps" />
     </TreeItem>
-  </Motion>
+  </TreeItemMotion>
 </template>

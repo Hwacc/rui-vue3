@@ -44,3 +44,23 @@ export const treeItemVariants = cva(
     className: `${prefix}-item`,
   },
 )
+
+export const treeItemContentVariants = cva(
+  [
+    'flex',
+    'items-center',
+    'outline-none',
+  ],
+  {
+    variants: {
+      size: {
+        sm: ['text-sm'],
+        base: ['text-base'],
+        lg: ['text-lg'],
+      },
+    },
+  },
+  {
+    className: `${prefix}-item-content`,
+  },
+)

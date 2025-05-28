@@ -59,8 +59,22 @@ export const Default: Story = {
           console.log('tree', tree)
         })
 
+        const modelValue = ref([])
+        watch(modelValue, (value) => {
+          console.log('modelValue', value)
+        })
+
         return () => (
-          <Tree items={items} getKey={item => item.title} ref={treeRef} />
+          <Tree
+            v-model={modelValue.value}
+            items={items}
+            getKey={item => item.title}
+            ref={treeRef}
+            // @ts-expect-error multiple is not a valid prop
+            multiple={true}
+            bubbleSelect
+            propagateSelect
+          />
         )
       },
     }

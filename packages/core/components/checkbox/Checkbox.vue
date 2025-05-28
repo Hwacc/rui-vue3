@@ -1,23 +1,12 @@
 <script setup lang="ts">
 import type { CheckboxRootEmits, CheckboxRootProps } from 'reka-ui'
 import type { HTMLAttributes } from 'vue'
-import type {
-  CheckboxVariantsProps,
-} from '.'
+import type { CheckboxVariantsProps } from '.'
 import { cn } from '@rui/core/lib/utils'
 import { Check, Minus } from 'lucide-vue-next'
-import { CheckboxIndicator, CheckboxRoot, useForwardPropsEmits } from 'reka-ui'
-import {
-  computed,
-  getCurrentInstance,
-  ref,
-  watch,
-} from 'vue'
-import {
-  checkboxLabelVariants,
-  checkboxRootVariants,
-  checkboxVariants,
-} from '.'
+import { CheckboxIndicator, CheckboxRoot, useForwardProps } from 'reka-ui'
+import { computed, getCurrentInstance, ref, watch } from 'vue'
+import { checkboxLabelVariants, checkboxRootVariants, checkboxVariants } from '.'
 import { injectCheckboxGroupContext } from './CheckboxGroup.vue'
 
 const {
@@ -69,6 +58,7 @@ watch(innerModelValue, (val) => {
   if (groupContext) {
     groupContext.onChecked(props.name, val, primary)
   }
+  // console.log('emits', val)
   emits('update:modelValue', val || false)
 })
 
@@ -76,8 +66,7 @@ defineExpose({
   name: props.name,
   primary,
   innerModelValue,
-  setChecked: (value: boolean | 'indeterminate' | null) =>
-    (innerModelValue.value = value),
+  setChecked: (value: boolean | 'indeterminate' | null) => (innerModelValue.value = value),
 })
 
 const mergeSize = computed(() => {
@@ -92,7 +81,7 @@ const checkboxClassName = computed(() =>
     }),
   ),
 )
-const forwarded = useForwardPropsEmits(props, emits)
+const forwarded = useForwardProps(props)
 </script>
 
 <template>
@@ -129,10 +118,11 @@ const forwarded = useForwardPropsEmits(props, emits)
       :class="checkboxClassName"
       :data-size="mergeSize"
     >
-      <CheckboxIndicator
-        class="flex h-full w-full items-center justify-center text-inherit"
-      >
-        <slot name="indicator" v-bind="{ modelValue: innerModelValue }">
+      <CheckboxIndicator class="flex h-full w-full items-center justify-center text-inherit">
+        <slot
+          name="indicator"
+          v-bind="{ modelValue: innerModelValue }"
+        >
           <Check
             v-if="innerModelValue !== 'indeterminate'"
             class="size-full stroke-black stroke-[.125rem] [&_path]:animate-check-dash"

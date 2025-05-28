@@ -1,0 +1,11 @@
+@import './checkbox.css';
+
+@layer components {
+  .rui-tree-root {
+  }
+
+  .rui-tree-item {
+    padding-left: calc((var(--rui-tree-item-level) - 1) * 2rem);
+    @apply flex items-center outline-none;
+  }
+}
