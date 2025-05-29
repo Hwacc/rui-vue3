@@ -27,6 +27,7 @@ import SwitchExample from './switch/index.vue'
 import TabsExample from './tabs/index.vue'
 import TagsInputExample from './tags-input/index.vue'
 import ToastExample from './toast/index.vue'
+import TreeExample from './tree/index.vue'
 
 import VTitleExample from './v-title/index.vue'
 
@@ -73,6 +74,7 @@ const toastPosition = ref<ToastPosition>('bottom-right')
       <SeparatorExample />
       <SheetExample />
       <SkeletonExample />
+      <TreeExample />
     </div>
   </TooltipProvider>
   <Toaster :position="toastPosition" :duration="5000" />

@@ -61,12 +61,8 @@ const forward = useForwardProps(props)
     <Checkbox
       :model-value="isIndeterminate ? 'indeterminate' : isSelected"
       stop-propagation
-      @update:model-value="
-        (e) => {
-          console.log(item.value.title, 'handleSelect', e, item.value)
-          handleSelect()
-        }
-      "
+      @click.stop
+      @update:model-value="handleSelect"
     />
     <slot
       name="icon"

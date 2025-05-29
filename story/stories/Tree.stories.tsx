@@ -74,6 +74,7 @@ export const Default: Story = {
             multiple={true}
             bubbleSelect
             propagateSelect
+            selectionBehavior="replace"
           />
         )
       },
