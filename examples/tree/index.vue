@@ -1,70 +1,88 @@
 <script setup lang="ts">
 import { TreeItem, TreeRoot } from '@rui/core/components/tree-raw'
+import { ref } from 'vue'
 
-const items = [
+const treeData = ref([
   {
-    title: 'composables',
-    icon: 'lucide:folder',
-    children: [
-      { title: 'useAuth.ts', icon: 'vscode-icons:file-type-typescript' },
-      { title: 'useUser.ts', icon: 'vscode-icons:file-type-typescript' },
-    ],
-  },
-  {
-    title: 'components',
-    icon: 'lucide:folder',
+    title: 'node-1',
+    id: 'node-1',
     children: [
       {
-        title: 'Home',
-        icon: 'lucide:folder',
+        title: 'node-1-1',
+        id: 'node-1-1',
         children: [
-          { title: 'Card.vue', icon: 'vscode-icons:file-type-vue' },
-          { title: 'Button.vue', icon: 'vscode-icons:file-type-vue' },
+          {
+            title: 'node-1-1-1',
+            id: 'node-1-1-1',
+          },
+          {
+            title: 'node-1-1-2',
+            id: 'node-1-1-2',
+          },
+          {
+            title: 'node-1-1-3',
+            id: 'node-1-1-3',
+          },
+        ],
+      },
+      {
+        title: 'node-1-2',
+        id: 'node-1-2',
+        children: [
+          {
+            title: 'node-1-2-1',
+            id: 'node-1-2-1',
+          },
+          {
+            title: 'node-1-2-2',
+            id: 'node-1-2-2',
+          },
+        ],
+      },
+      {
+        title: 'node-1-3',
+        id: 'node-1-3',
+        children: [
+          {
+            title: 'node-1-3-1',
+            id: 'node-1-3-1',
+          },
+          {
+            title: 'node-1-3-2',
+            id: 'node-1-3-2',
+          },
         ],
       },
     ],
   },
-  { title: 'app.vue', icon: 'vscode-icons:file-type-vue' },
-  { title: 'nuxt.config.ts', icon: 'vscode-icons:file-type-nuxt' },
-]
+  {
+    title: 'node-2',
+    id: 'node-2',
+    children: [
+      {
+        title: 'node-2-1',
+        id: 'node-2-1',
+        children: [
+          {
+            title: 'node-2-1-1',
+            id: 'node-2-1-1',
+          },
+          {
+            title: 'node-2-1-2',
+            id: 'node-2-1-2',
+          },
+        ],
+      },
+    ],
+  },
+])
 </script>
 
 <template>
   <TreeRoot
-    v-slot="{ flattenItems }"
-    class="list-none select-none w-56  text-blackA11 rounded-lg p-2 text-sm font-medium"
-    :items="items"
-    :get-key="(item) => item.title"
-    :default-expanded="['components']"
-  >
-    <h2 class="font-semibold !text-base text-blackA11 px-2 pt-1">
-      Directory Structure
-    </h2>
-    <TreeItem
-      v-for="item in flattenItems"
-      v-slot="{ isExpanded }"
-      :key="item._id"
-      :style="{ 'padding-left': `${item.level + 0.5}rem` }"
-      v-bind="item.bind"
-      class="flex items-center py-1 px-2 my-0.5 rounded outline-none focus:ring-grass8 focus:ring-2 data-[selected]:bg-grass4"
-    >
-      <template v-if="item.hasChildren">
-        <span
-          v-if="!isExpanded"
-          class="h-4 w-4"
-        />
-        <span
-          v-else
-          class="h-4 w-4"
-        />
-      </template>
-      <span
-        v-else
-        class="h-4 w-4"
-      />
-      <div class="pl-2">
-        {{ item.value.title }}
-      </div>
-    </TreeItem>
-  </TreeRoot>
+    class="list-none select-none w-56 text-blackA11 rounded-lg p-2 text-sm font-medium"
+    :data="treeData"
+    key-field="id"
+    title-field="title"
+  />
 </template>

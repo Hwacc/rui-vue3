@@ -70,11 +70,9 @@ export const Default: Story = {
             items={items}
             getKey={item => item.title}
             ref={treeRef}
-            // @ts-expect-error multiple is not a valid prop
-            multiple={true}
+            multiple
             bubbleSelect
             propagateSelect
-            selectionBehavior="replace"
           />
         )
       },

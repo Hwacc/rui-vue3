@@ -9,12 +9,14 @@ export interface TreeRootSlots<T extends Record<string, any>> {
 </script>
 
 <script setup lang="ts" generic="T extends Record<string, any>">
-import type { FlattenedItem, TreeRootEmits, TreeRootProps } from 'reka-ui'
+import type { TreeRootProps } from '@rui/core/components/tree-raw'
+import type { FlattenedItem, TreeRootEmits } from 'reka-ui'
 import type { HTMLAttributes } from 'vue'
 import type { TreeRootVariants } from '.'
+import { TreeRoot } from '@rui/core/components/tree-raw'
 import { cn } from '@rui/core/lib/utils'
 import { AnimatePresence } from 'motion-v'
-import { TreeRoot, useForwardPropsEmits } from 'reka-ui'
+import { useForwardPropsEmits } from 'reka-ui'
 import { treeRootVariants } from '.'
 
 const {

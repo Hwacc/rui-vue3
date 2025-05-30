@@ -7,7 +7,8 @@ export interface TreeData {
 </script>
 
 <script setup lang="ts">
-import type { TreeRootEmits, TreeRootProps } from 'reka-ui'
+import type { TreeRootProps } from '@rui/core/components/tree-raw'
+import type { TreeRootEmits } from 'reka-ui'
 import type { TreeRootVariants } from '.'
 import { useForwardExpose, useForwardPropsEmits } from 'reka-ui'
 import { TreeItem, TreeRoot } from '.'
@@ -38,9 +39,7 @@ console.log('tree root forward', forward)
 
 <template>
   <div region="tree">
-    <TreeRoot
-      v-bind="forward"
-    >
+    <TreeRoot v-bind="forward">
       <template #default="{ flattenItems }">
         <TreeItem
           v-for="item in flattenItems"

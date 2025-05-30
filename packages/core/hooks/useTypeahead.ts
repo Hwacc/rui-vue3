@@ -1,28 +1,30 @@
-import { refAutoReset } from '@vueuse/core'
 import { getActiveElement } from '@rui/core/lib/element'
+import { refAutoReset } from '@vueuse/core'
 
 export function useTypeahead(callback?: (search: string) => void) {
   // Reset `search` 1 second after it was last updated
   const search = refAutoReset('', 1000)
 
-  const handleTypeaheadSearch = (key: string, items: { ref: HTMLElement; value?: any }[]) => {
+  const handleTypeaheadSearch = (key: string, items: { ref: HTMLElement, value?: any }[]) => {
     search.value = search.value + key
 
     if (callback) {
       callback(key)
-    } else {
+    }
+    else {
       const currentItem = getActiveElement()
-      const itemsWithTextValue = items.map((item) => ({
+      const itemsWithTextValue = items.map(item => ({
         ...item,
         textValue: item.value?.textValue ?? item.ref.textContent?.trim() ?? '',
       }))
-      const currentMatch = itemsWithTextValue.find((item) => item.ref === currentItem)
-      const values = itemsWithTextValue.map((item) => item.textValue)
+      const currentMatch = itemsWithTextValue.find(item => item.ref === currentItem)
+      const values = itemsWithTextValue.map(item => item.textValue)
       const nextMatch = getNextMatch(values, search.value, currentMatch?.textValue)
 
-      const newItem = itemsWithTextValue.find((item) => item.textValue === nextMatch)
+      const newItem = itemsWithTextValue.find(item => item.textValue === nextMatch)
 
-      if (newItem) (newItem.ref as HTMLElement).focus()
+      if (newItem)
+        (newItem.ref as HTMLElement).focus()
       return newItem?.ref
     }
   }
@@ -64,14 +66,15 @@ export function wrapArray<T>(array: T[], startIndex: number) {
  * don't want focus to move if the current match still matches.
  */
 export function getNextMatch(values: string[], search: string, currentMatch?: string) {
-  const isRepeated = search.length > 1 && Array.from(search).every((char) => char === search[0])
+  const isRepeated = search.length > 1 && Array.from(search).every(char => char === search[0])
   const normalizedSearch = isRepeated ? search[0] : search
   const currentMatchIndex = currentMatch ? values.indexOf(currentMatch) : -1
   let wrappedValues = wrapArray(values, Math.max(currentMatchIndex, 0))
   const excludeCurrentMatch = normalizedSearch.length === 1
-  if (excludeCurrentMatch) wrappedValues = wrappedValues.filter((v) => v !== currentMatch)
-  const nextMatch = wrappedValues.find((value) =>
-    value.toLowerCase().startsWith(normalizedSearch.toLowerCase())
+  if (excludeCurrentMatch)
+    wrappedValues = wrappedValues.filter(v => v !== currentMatch)
+  const nextMatch = wrappedValues.find(value =>
+    value.toLowerCase().startsWith(normalizedSearch.toLowerCase()),
   )
   return nextMatch !== currentMatch ? nextMatch : undefined
 }

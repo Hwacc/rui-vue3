@@ -15,8 +15,9 @@ import type { TreeItemEmits, TreeItemProps } from 'reka-ui'
 import type { HTMLAttributes } from 'vue'
 import type { TreeRootVariants } from '.'
 import { TreeItemMotion } from '@rui/core/components/motion/TreeItemMotion'
+import { TreeItem } from '@rui/core/components/tree-raw'
 import { cn } from '@rui/core/lib/utils'
-import { TreeItem, useForwardExpose, useForwardPropsEmits } from 'reka-ui'
+import { useForwardExpose, useForwardPropsEmits } from 'reka-ui'
 import { treeItemVariants } from '.'
 
 defineOptions({
