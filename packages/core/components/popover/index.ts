@@ -2,13 +2,13 @@ import type { VariantProps } from 'class-variance-authority'
 import { PREFIX } from '@rui/core/lib/constants.js'
 import { cva } from '@rui/core/lib/cva'
 
-// @ts-expect-error reka-ui not export useGraceArea
-export { u as useGraceArea } from '../../node_modules/reka-ui/dist/shared/useGraceArea.js'
 export { default as Popover } from './Popover.vue'
 export { default as PopoverArrow } from './PopoverArrow.vue'
 export { default as PopoverContent } from './PopoverContent.vue'
-
 export { default as PopoverTrigger } from './PopoverTrigger.vue'
+
+// @ts-expect-error reka-ui not export useGraceArea
+export { useGraceArea } from '@rui/core/vendor/useGraceArea.js'
 
 export { PopoverAnchor } from 'reka-ui'
 

@@ -3,6 +3,8 @@ import type { PopoverContentEmits, PopoverContentProps } from 'reka-ui'
 import type { HTMLAttributes } from 'vue'
 import { PopoverContentMotion } from '@rui/core/components/motion/PopoverContentMotion'
 import { cn } from '@rui/core/lib/utils'
+// @ts-expect-error reka not export useGraceArea
+import { useGraceArea } from '@rui/core/vendor/useGraceArea.js'
 import { AnimatePresence } from 'motion-v'
 import {
   injectPopoverRootContext,
@@ -12,11 +14,8 @@ import {
   useForwardPropsEmits,
 } from 'reka-ui'
 import { ref, watchEffect } from 'vue'
-import { popoverContentVariants } from '.'
 
-// @ts-expect-error reka not export useGraceArea
-// eslint-disable-next-line antfu/no-import-dist, antfu/no-import-node-modules-by-path
-import { u as useGraceArea } from '../../node_modules/reka-ui/dist/shared/useGraceArea.js'
+import { popoverContentVariants } from '.'
 import { injectPopoverRootContextEx } from './PopoverProviderEx.jsx'
 
 defineOptions({

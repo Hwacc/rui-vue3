@@ -26,7 +26,7 @@ import { injectSelectRootContext, Primitive, SelectIcon, useForwardExpose, useId
 import { computed, onMounted, unref } from 'vue'
 // @ts-expect-error reka-ui not export PopperAnchor
 // eslint-disable-next-line antfu/no-import-dist, antfu/no-import-node-modules-by-path
-import { _ as PopperAnchor } from '../../node_modules/reka-ui/dist/Popper/PopperAnchor.js'
+import { PopperAnchor_default as PopperAnchor } from '../../node_modules/reka-ui/dist/Popper/PopperAnchor.js'
 
 defineOptions({
   name: 'SelectMouseTrigger',
@@ -61,7 +61,10 @@ onMounted(() => {
 </script>
 
 <template>
-  <PopperAnchor as-child :reference="props.reference">
+  <PopperAnchor
+    as-child
+    :reference="props.reference"
+  >
     <Primitive
       :ref="forwardRef"
       :class="classNames"
@@ -96,7 +99,10 @@ onMounted(() => {
       "
     >
       <slot />
-      <slot name="icon" v-bind="{ open: unref(rootContext.open) }">
+      <slot
+        name="icon"
+        v-bind="{ open: unref(rootContext.open) }"
+      >
         <SelectIcon
           as="i"
           :class="selectTriangleVariants({ unstyled })"
@@ -105,9 +111,8 @@ onMounted(() => {
           <svg
             xmlns="http://www.w3.org/2000/svg"
             view-box="0 0 7 3"
-            class="w-[.5rem] h-[.25rem] transition-transform" :class="[
-              unref(rootContext.open) ? ['animate-from', 'rotate-180'] : ['rotate-0'],
-            ]"
+            class="w-[.5rem] h-[.25rem] transition-transform"
+            :class="[unref(rootContext.open) ? ['animate-from', 'rotate-180'] : ['rotate-0']]"
           >
             <path d="M0 0 L3.5 3 L7 0 Z" />
           </svg>
