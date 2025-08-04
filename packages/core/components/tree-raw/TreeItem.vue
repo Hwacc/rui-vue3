@@ -4,6 +4,8 @@ import { TREE_NODE_EVENTS } from './constants'
 
 const props = defineProps<TreeItemProps>()
 const emit = defineEmits([...TREE_NODE_EVENTS])
+
+console.log('TreeItem', props)
 </script>
 
 <template>

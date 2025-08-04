@@ -20,7 +20,7 @@ const store = reactive(
     defaultExpandAll: props.defaultExpandAll,
     load: props.load,
     expandOnFilter: props.expandOnFilter,
-  }),
+  })
 )
 const blockNodes = ref<TreeNode[]>([])
 
@@ -30,8 +30,7 @@ provideTreeRootContext({
 })
 
 const renderNodes = computed(() => {
-  const result = filter(store.mapData, node => node.visible && (node._level === 0 || node.expand))
-  console.log('render nodes', result)
+  const result = filter(store.mapData, (node) => node.visible)
   return result
 })
 
@@ -53,8 +52,7 @@ onMounted(() => {
       store.setExpandKeys(props.defaultExpandedKeys, true)
     }
     console.log('set data', store, store.data)
-  }
-  else if (typeof props.load === 'function' && props.autoLoad) {
+  } else if (typeof props.load === 'function' && props.autoLoad) {
     // Load root data from remote
     if (props.modelValue || props.unloadDataList) {
       store.setData([])
@@ -70,6 +68,13 @@ onMounted(() => {
     orientation="vertical"
   >
     <Primitive role="tree">
+      <slot
+        v-bind="{
+          mapData: store.mapData,
+          flatData: store.flatData,
+        }"
+      />
+
       <div
         v-for="node in renderNodes"
         :key="node.id"

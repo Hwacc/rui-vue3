@@ -372,7 +372,6 @@ export default class TreeStore extends TreeEventTarget {
   ): Promise<void> {
     const node = this.mapData[key]
 
-    debugger
     if (!node || (!expandParent && node.isLeaf))
       return
 

@@ -123,8 +123,8 @@ importers:
         specifier: ^1.0.1
         version: 1.1.1(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(vue@3.5.15(typescript@5.8.3))
       reka-ui:
-        specifier: ^2.3.0
-        version: 2.3.0(typescript@5.8.3)(vue@3.5.15(typescript@5.8.3))
+        specifier: ^2.4.1
+        version: 2.4.1(typescript@5.8.3)(vue@3.5.15(typescript@5.8.3))
       tailwind-merge:
         specifier: ^3.0.2
         version: 3.3.0
@@ -4266,8 +4266,8 @@ packages:
     resolution: {integrity: sha512-cnE+y8bz4NhMjISKbgeVJtqNbtf5QpjZP+Bslo+UqkIt9QPnX9q095eiRRASJG1/tz6dlNr6Z5NsBiWYokp6EQ==}
     hasBin: true
 
-  reka-ui@2.3.0:
-    resolution: {integrity: sha512-HKvJej9Sc0KYEvTAbsGHgOxpEWL4FWSR70Q6Ld+bVNuaCxK6LP3jyTtyTWS+A44hHA9/aYfOBZ1Q8WkgZsGZpA==}
+  reka-ui@2.4.1:
+    resolution: {integrity: sha512-NB7DrCsODN8MH02BWtgiExygfFcuuZ5/PTn6fMgjppmFHqePvNhmSn1LEuF35nel6PFbA4v+gdj0IoGN1yZ+vw==}
     peerDependencies:
       vue: '>= 3.2.0'
 
@@ -4977,11 +4977,11 @@ packages:
       typescript:
         optional: true
 
-  vue-component-type-helpers@2.2.10:
-    resolution: {integrity: sha512-iDUO7uQK+Sab2tYuiP9D1oLujCWlhHELHMgV/cB13cuGbG4qwkLHvtfWb6FzvxrIOPDnU0oHsz2MlQjhYDeaHA==}
-
   vue-component-type-helpers@2.2.8:
     resolution: {integrity: sha512-4bjIsC284coDO9om4HPA62M7wfsTvcmZyzdfR0aUlFXqq4tXxM1APyXpNVxPC8QazKw9OhmZNHBVDA6ODaZsrA==}
+
+  vue-component-type-helpers@3.0.5:
+    resolution: {integrity: sha512-uoNZaJ+a1/zppa/Vgmi8zIOP2PHXDN2rT8NyF+zQRK6ZG94lNB9prcV0GdLJbY9i9lrD47JOVIH92SaiA7oJ1A==}
 
   vue-demi@0.14.10:
     resolution: {integrity: sha512-nMZBOwuzabUO0nLgIcc6rycZEebF6eeUfaiQx9+WSk8e29IbLvPU9feI6tqW4kTo3hvoYAJkMh8n8D0fuISphg==}
@@ -6402,7 +6402,7 @@ snapshots:
       ts-dedent: 2.2.0
       type-fest: 2.19.0
       vue: 3.5.15(typescript@5.7.3)
-      vue-component-type-helpers: 2.2.10
+      vue-component-type-helpers: 3.0.5
 
   '@stylistic/eslint-plugin@4.2.0(eslint@9.27.0(jiti@2.4.2))(typescript@5.8.3)':
     dependencies:
@@ -9692,7 +9692,7 @@ snapshots:
     dependencies:
       jsesc: 3.0.2
 
-  reka-ui@2.3.0(typescript@5.8.3)(vue@3.5.15(typescript@5.8.3)):
+  reka-ui@2.4.1(typescript@5.8.3)(vue@3.5.15(typescript@5.8.3)):
     dependencies:
       '@floating-ui/dom': 1.7.0
       '@floating-ui/vue': 1.1.6(vue@3.5.15(typescript@5.8.3))
@@ -10405,9 +10405,9 @@ snapshots:
     optionalDependencies:
       typescript: 5.7.3
 
-  vue-component-type-helpers@2.2.10: {}
-
   vue-component-type-helpers@2.2.8: {}
+
+  vue-component-type-helpers@3.0.5: {}
 
   vue-demi@0.14.10(vue@3.5.15(typescript@5.8.3)):
     dependencies:
