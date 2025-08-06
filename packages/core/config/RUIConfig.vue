@@ -13,9 +13,9 @@ const { tooltip, toaster, messager, iconify } = defineProps<{
   toaster?: ComponentProps<typeof Toaster>
   messager?: ComponentProps<typeof Messager>
   iconify?: {
-    addIcons: Array<[string, IconifyIcon | null]>
-    addCollections: Array<[IconifyJSON, string | undefined]>
-    addAPIProviders: Array<[string, PartialIconifyAPIConfig]>
+    addIcons?: Array<[string, IconifyIcon | null]>
+    addCollections?: Array<[IconifyJSON, string | undefined]>
+    addAPIProviders?: Array<[string, PartialIconifyAPIConfig]>
   }
 }>()
 
