@@ -41,7 +41,7 @@ const { forwardRef, currentElement } = useForwardExpose()
 const rootContext = injectCollapsibleRootContext()
 rootContext.contentId ||= useId(undefined, 'reka-readmore-content')
 
-const { animationDuration } = useAnimationParams()
+const { duration } = useAnimationParams()
 
 const measureRef = ref<HTMLElement>()
 const measureHeight = ref(0)
@@ -59,7 +59,7 @@ useResizeObserver(measureRef, (entries) => {
     setTimeout(() => {
       const viewHeight = currentElement.value.getBoundingClientRect().height
       showTrigger.value = height - viewHeight > 5
-    }, animationDuration * 1000) // 动画时间
+    }, duration * 1000) // 动画时间
   }
   measureHeight.value = Math.ceil(height)
 })

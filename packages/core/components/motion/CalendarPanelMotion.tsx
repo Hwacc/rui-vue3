@@ -9,7 +9,7 @@ export const CalendarPanelMotion = defineComponent<
 >({
   name: 'CalendarPanelMotion',
   setup(props, { slots }) {
-    const { animationDuration, animationEase } = useAnimationParams()
+    const { duration, ease } = useAnimationParams();
     const mergedProps = computed(() => {
       return merge(
         {},
@@ -17,13 +17,13 @@ export const CalendarPanelMotion = defineComponent<
           initial: { opacity: 0, scale: 0.9 },
           animate: { opacity: 1, scale: 1 },
           exit: { opacity: 0, scale: 0.9 },
-          transition: { duration: animationDuration, easings: animationEase },
+          transition: { duration, ease },
         },
-        props,
-      )
-    })
+        props
+      );
+    });
     return () => {
-      return <motion.div {...mergedProps.value}>{slots.default?.()}</motion.div>
-    }
+      return <motion.div {...mergedProps.value}>{slots.default?.()}</motion.div>;
+    };
   },
-})
+});

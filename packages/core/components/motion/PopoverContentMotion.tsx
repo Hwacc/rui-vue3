@@ -7,7 +7,7 @@ import { motion } from 'motion-v'
  *  但却在卸载中使用v-if来卸载组件，导致退出动画无法生效，故使用motion-v来实现动画
  *  see: line#48 https://github.com/unovue/reka-ui/blob/v2/packages/core/src/Select/SelectContent.vue
  */
-import { computed, defineComponent, toRefs } from 'vue'
+import { computed, defineComponent, toRefs } from 'vue';
 
 export const PopoverContentMotion = defineComponent({
   name: 'PopoverContentMotion',
@@ -18,8 +18,8 @@ export const PopoverContentMotion = defineComponent({
     },
   },
   setup(props, { slots }) {
-    const { side } = toRefs(props)
-    const { animationDuration, animationEase } = useAnimationParams()
+    const { side } = toRefs(props);
+    const { duration, ease } = useAnimationParams();
     const animation = computed(() => {
       const _anime: Array<Record<string, number>> = [
         {
@@ -37,45 +37,45 @@ export const PopoverContentMotion = defineComponent({
           opacity: 0,
           scale: 0.9,
         },
-      ]
+      ];
       switch (side.value) {
         case 'bottom':
-          _anime[0].y = spaceTimes(2)
-          _anime[1].y = 0
-          _anime[2].y = spaceTimes(2)
-          break
+          _anime[0].y = spaceTimes(2);
+          _anime[1].y = 0;
+          _anime[2].y = spaceTimes(2);
+          break;
         case 'top':
-          _anime[0].y = -spaceTimes(2)
-          _anime[1].y = 0
-          _anime[2].y = -spaceTimes(2)
-          break
+          _anime[0].y = -spaceTimes(2);
+          _anime[1].y = 0;
+          _anime[2].y = -spaceTimes(2);
+          break;
         case 'left':
-          _anime[0].x = -spaceTimes(2)
-          _anime[1].x = 0
-          _anime[2].x = -spaceTimes(2)
-          break
+          _anime[0].x = -spaceTimes(2);
+          _anime[1].x = 0;
+          _anime[2].x = -spaceTimes(2);
+          break;
         case 'right':
-          _anime[0].x = spaceTimes(2)
-          _anime[1].x = 0
-          _anime[2].x = spaceTimes(2)
-          break
+          _anime[0].x = spaceTimes(2);
+          _anime[1].x = 0;
+          _anime[2].x = spaceTimes(2);
+          break;
       }
-      return _anime
-    })
+      return _anime;
+    });
     return () => (
       <motion.div
         initial={animation.value[0]}
         animate={animation.value[1]}
         exit={animation.value[2]}
         transition={{
-          duration: animationDuration,
-          easings: animationEase,
+          duration,
+          ease,
         }}
       >
         {{
           default: slots.default,
         }}
       </motion.div>
-    )
+    );
   },
-})
+});
