@@ -23,7 +23,7 @@ export interface CalendarCellTriggerSlot {
 
 <script setup lang="ts">
 import { calendarCellTriggerVariants } from '@rui/core/components/calendar'
-import { usePrimitiveElement } from '@rui/core/hooks/usePrimitiveElement'
+import { usePrimitiveElement } from '@rui/core/composables/usePrimitiveElement'
 import { cn } from '@rui/core/lib/utils'
 import {
   injectRangeCalendarRootContext,

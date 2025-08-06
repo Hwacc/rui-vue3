@@ -1,9 +1,7 @@
 <script lang="ts" setup>
 import type { ToastPosition } from '@rui/core/components/toast'
 import { Button } from '@rui/core/components/button'
-import { Messager } from '@rui/core/components/message'
-import { Toaster } from '@rui/core/components/toast'
-import { TooltipProvider } from '@rui/core/components/tooltip'
+import { Config } from '@rui/core/config'
 
 import { ref } from 'vue'
 import ButtonExample from './buttons/index.vue'
@@ -35,14 +33,16 @@ const toastPosition = ref<ToastPosition>('bottom-right')
 </script>
 
 <template>
-  <TooltipProvider>
+  <Config
+    :toaster="{
+      position: toastPosition,
+      duration: 5000,
+    }"
+  >
     <div class="flex items-center gap-2">
       <Button
         size="sm"
-        @click="
-          () =>
-            compSize === 'default' ? (compSize = 'sm') : (compSize = 'default')
-        "
+        @click="() => (compSize === 'default' ? (compSize = 'sm') : (compSize = 'default'))"
       >
         Change Size
       </Button>
@@ -74,9 +74,7 @@ const toastPosition = ref<ToastPosition>('bottom-right')
       <SheetExample />
       <SkeletonExample />
     </div>
-  </TooltipProvider>
-  <Toaster :position="toastPosition" :duration="5000" />
-  <Messager :duration="2000" />
+  </Config>
 </template>
 
 <style scoped>

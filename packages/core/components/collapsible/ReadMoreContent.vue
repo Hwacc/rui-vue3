@@ -26,7 +26,7 @@ import {
 import { ref, watchEffect } from 'vue'
 import { readMoreContentVariant } from '.'
 import { injectReadMoreContext } from './ReadMore.vue'
-import { useAnimationParams } from '@rui/core/hooks/useAnimationParams'
+import { useAnimationParams } from '@rui/core/composables/useAnimationParams'
 
 const {
   class: propsClass,

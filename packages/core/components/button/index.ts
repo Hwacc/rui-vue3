@@ -24,7 +24,6 @@ export const buttonVariants = cva(
     'disabled:pointer-events-none',
     'disabled:opacity-(--disabled-opacity)',
     '[&_svg]:pointer-events-none',
-    '[&_svg]:size-3.5',
     '[&_svg]:shrink-0',
   ],
   {
@@ -40,7 +39,6 @@ export const buttonVariants = cva(
           'gap-[.6875rem]',
           'px-3',
           'text-xs',
-          '[&_svg]:size-[.625rem]',
         ],
       },
       size: {
@@ -49,23 +47,6 @@ export const buttonVariants = cva(
         lg: 'h-[2rem] text-base',
       },
     },
-    compoundVariants: [
-      {
-        variant: 'icon',
-        size: 'lg',
-        className: '[&_svg]:size-4',
-      },
-      {
-        variant: 'icon',
-        size: 'sm',
-        className: '[&_svg]:size-3',
-      },
-      {
-        variant: 'switch',
-        size: 'lg',
-        className: '[&_svg]:size-3',
-      },
-    ],
     defaultVariants: {
       variant: 'default',
       size: 'base',

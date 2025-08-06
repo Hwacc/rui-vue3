@@ -31,6 +31,8 @@
     "tailwind-merge": "^3.0.2"
   },
   "devDependencies": {
-    "@internationalized/date": "^3.8.0"
+    "@iconify/vue": "^5.0.0",
+    "@internationalized/date": "^3.8.0",
+    "vue-component-type-helpers": "^3.0.5"
   }
 }

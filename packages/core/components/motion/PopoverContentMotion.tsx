@@ -1,4 +1,4 @@
-import { useAnimationParams } from '@rui/core/hooks/useAnimationParams'
+import { useAnimationParams } from '@rui/core/composables/useAnimationParams'
 import { spaceTimes } from '@rui/core/lib/utils'
 import { motion } from 'motion-v'
 /*

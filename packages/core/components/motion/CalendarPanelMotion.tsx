@@ -1,5 +1,5 @@
 import type { MotionHTMLAttributes, MotionProps } from 'motion-v'
-import { useAnimationParams } from '@rui/core/hooks/useAnimationParams'
+import { useAnimationParams } from '@rui/core/composables/useAnimationParams'
 import { merge } from 'lodash-es'
 import { motion } from 'motion-v'
 import { computed, defineComponent } from 'vue'

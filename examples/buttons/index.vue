@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { Button } from '@rui/core/components/button'
-import { Camera, Star } from 'lucide-vue-next'
+import { Icon } from '@rui/core/components/icon'
 import { ref } from 'vue'
 
 const switcherState = ref(false)
@@ -69,25 +69,25 @@ const switcherState = ref(false)
     </div>
     <div class="flex items-center gap-4">
       <Button variant="icon" ripple>
-        <Camera />
+        <Icon icon="lucide:camera" />
       </Button>
       <Button variant="icon" size="lg">
-        <Camera />
+        <Icon icon="lucide:camera" />
       </Button>
       <Button variant="icon" size="sm">
-        <Camera />
+        <Icon icon="lucide:camera" />
       </Button>
       <Button variant="icon" disabled>
-        <Camera />
+        <Icon icon="lucide:camera" />
       </Button>
     </div>
     <div class="flex items-center gap-4">
       <Button variant="icon" tooltip="camera">
-        <Camera />
+        <Icon icon="lucide:camera" />
       </Button>
       <Button variant="icon" size="lg">
         <template #default>
-          <Camera />
+          <Icon icon="lucide:camera" />
         </template>
         <template #tooltip>
           <span>custome tooltip</span>
@@ -99,10 +99,10 @@ const switcherState = ref(false)
         tooltip="camera"
         :tooltip-content-props="{ align: 'end', side: 'bottom', sideOffset: 6 }"
       >
-        <Camera />
+        <Icon icon="lucide:camera" />
       </Button>
       <Button variant="icon" disabled tooltip="camera">
-        <Camera />
+        <Icon icon="lucide:camera" />
       </Button>
     </div>
     <div class="flex items-center gap-4">
@@ -111,7 +111,7 @@ const switcherState = ref(false)
         :checked="switcherState"
         @click="switcherState = !switcherState"
       >
-        <Star :class="[switcherState && 'fill-hff']" />
+        <Icon :class="[switcherState && '[&>path]:fill-hff']" icon="lucide:star" />
         <span>Favorite</span>
       </Button>
       <Button
@@ -120,7 +120,7 @@ const switcherState = ref(false)
         :checked="switcherState"
         @click="switcherState = !switcherState"
       >
-        <Star :class="[switcherState && 'fill-hff']" />
+        <Icon :class="[switcherState && '[&>path]:fill-hff']" icon="lucide:star" />
         <span>Favorite</span>
       </Button>
       <Button
@@ -130,11 +130,11 @@ const switcherState = ref(false)
         tooltip="Favorite"
         @click="switcherState = !switcherState"
       >
-        <Star :class="[switcherState && 'fill-hff']" />
+        <Icon :class="[switcherState && '[&>path]:fill-hff']" icon="lucide:star" />
         <span>Favorite</span>
       </Button>
       <Button variant="switch" :checked="switcherState" disabled>
-        <Star :class="[switcherState && 'fill-hff']" />
+        <Icon :class="[switcherState && '[&>path]:fill-hff']" icon="lucide:star" />
         <span>Favorite</span>
       </Button>
     </div>

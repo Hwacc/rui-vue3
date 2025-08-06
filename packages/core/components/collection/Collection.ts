@@ -1,5 +1,5 @@
 import type { Ref } from 'vue'
-import { usePrimitiveElement } from '@rui/core/hooks/usePrimitiveElement'
+import { usePrimitiveElement } from '@rui/core/composables/usePrimitiveElement'
 import { Slot } from 'reka-ui'
 import {
   computed,

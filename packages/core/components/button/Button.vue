@@ -35,7 +35,7 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from '@rui/core/components/tooltip'
-import { useRipple } from '@rui/core/hooks/useRipple'
+import { useRipple } from '@rui/core/composables/useRipple'
 import { cn, getNodeCssVar } from '@rui/core/lib/utils'
 import { Primitive, useForwardExpose } from 'reka-ui'
 import { computed } from 'vue'
