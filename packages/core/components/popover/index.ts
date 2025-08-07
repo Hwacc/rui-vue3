@@ -16,7 +16,6 @@ const prefix = `${PREFIX}-popover`
 
 export const tvTrigger = tv({
   base: ['group', 'rounded'],
-  variants: {},
 }, {
   class: `${prefix}-trigger`,
 })
