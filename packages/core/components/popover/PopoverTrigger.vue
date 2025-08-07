@@ -19,7 +19,7 @@ import {
   useId,
 } from 'reka-ui'
 import { computed, onMounted, ref, watch } from 'vue'
-import { popoverTriggerVariants } from '.'
+import { tvTrigger } from '.'
 import { injectPopoverRootContextEx } from './PopoverProviderEx'
 
 const {
@@ -151,7 +151,7 @@ const { forwardRef, currentElement: triggerElement } = useForwardExpose()
     <Primitive
       :id="rootContex.triggerId"
       :ref="forwardRef"
-      :class="cn(popoverTriggerVariants({ unstyled }), propsClass)"
+      :class="cn(tvTrigger({ unstyled }), propsClass)"
       :as="as"
       :as-child="asChild"
       aria-haspopup="dialog"
