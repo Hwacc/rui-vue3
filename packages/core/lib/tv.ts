@@ -6,7 +6,7 @@ import type {
   TVReturnType,
   TVVariants,
 } from 'tailwind-variants'
-import { merge } from 'lodash-es'
+import { concat, each, isEmpty, merge } from 'lodash-es'
 import { tv as originTv } from 'tailwind-variants'
 
 type TVSlots = Record<string, ClassValue> | undefined
@@ -39,7 +39,11 @@ export function tv<
     compoundSlots?: TVCompoundSlots<V & { unstyled: { true: ClassValue, false: ClassValue } }, S, B>
     defaultVariants?: DV
   },
-  ruiConfig?: { class?: ClassValue, className?: ClassValue },
+  ruiConfig?: {
+    class?: ClassValue
+    className?: ClassValue
+    slots?: Record<keyof S, ClassValue>
+  },
   config?: any,
 ) {
   type mergedV = V & { unstyled: { true: ClassValue, false: ClassValue } }
@@ -49,7 +53,18 @@ export function tv<
       false: ruiConfig?.class ?? ruiConfig?.className ?? '',
     },
   })
+
+  const unstyledCompoundSlots: any[] = []
+  each(ruiConfig?.slots, (value, key) => {
+    unstyledCompoundSlots.push({
+      slots: [key],
+      unstyled: false,
+      class: value,
+    })
+  })
+
   options.variants = variants
+  options.compoundSlots = concat(options.compoundSlots ?? [], unstyledCompoundSlots)
   return originTv<
     mergedV,
     TVCompoundVariants<mergedV, S, B, EV, ES>,

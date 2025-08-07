@@ -33,9 +33,6 @@ const {
   PopoverContentProps & {
     class?: HTMLAttributes['class']
     ui?: {
-      portal?: {
-        class?: HTMLAttributes['class']
-      }
       wrapper?: {
         class?: HTMLAttributes['class']
       }
@@ -49,7 +46,7 @@ const {
 
 const emits = defineEmits<PopoverContentEmits>()
 
-const { portal, wrapper, content } = tvContent({ unstyled })
+const { wrapper, content } = tvContent({ unstyled })
 
 const { triggerElement } = injectPopoverRootContext()
 const rootContextEx = injectPopoverRootContextEx()
@@ -92,7 +89,7 @@ const forwarded = useForwardPropsEmits(props, emits)
 </script>
 
 <template>
-  <PopoverPortal :class="portal({ class: ui?.portal?.class })">
+  <PopoverPortal>
     <AnimatePresence>
       <PopoverContent
         v-bind="{ ...forwarded, side, align, sideOffset, ...$attrs }"

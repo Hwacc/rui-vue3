@@ -23,7 +23,6 @@ export const tvTrigger = tv({
 
 export const tvContent = tv({
   slots: {
-    portal: '',
     wrapper: '',
     content: [
       'z-50',
@@ -35,23 +34,11 @@ export const tvContent = tv({
       'outline-none',
     ],
   },
-  compoundSlots: [
-    {
-      slots: ['portal'],
-      unstyled: false,
-      class: `${prefix}-portal`,
-    },
-    {
-      slots: ['wrapper'],
-      unstyled: false,
-      class: `${prefix}-wrapper`,
-    },
-    {
-      slots: ['content'],
-      unstyled: false,
-      class: `${prefix}-content`,
-    },
-  ],
+}, {
+  slots: {
+    wrapper: `${prefix}-wrapper`,
+    content: `${prefix}-content`,
+  },
 })
 
 export const tvArrow = tv({
