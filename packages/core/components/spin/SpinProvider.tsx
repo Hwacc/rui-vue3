@@ -2,7 +2,7 @@ import { cn } from '@rui/core/lib/utils'
 import { LoaderCircle } from 'lucide-vue-next'
 import { Primitive } from 'reka-ui'
 import { defineComponent, provide } from 'vue'
-import { spinIconVariants } from '.'
+import { tvSpin } from '.'
 
 export const SpinProvider = defineComponent({
   name: 'SpinProvider',
@@ -13,13 +13,17 @@ export const SpinProvider = defineComponent({
         size: props.size,
         unstyled: props.unstyled,
       })
+      const { icon: iconVariant } = tvSpin({
+        mode: props.mode,
+        size: props.size,
+        unstyled: props.unstyled,
+      });
       if (icon) {
         return (
           <Primitive
             class={cn(
-              spinIconVariants({
-                size: props.size,
-                unstyled: props.unstyled,
+              iconVariant({
+                class: props.class,
               }),
             )}
             asChild
@@ -33,9 +37,8 @@ export const SpinProvider = defineComponent({
         return (
           <LoaderCircle
             class={cn(
-              spinIconVariants({
-                size: props.size,
-                unstyled: props.unstyled,
+              iconVariant({
+                class: props.class,
               }),
             )}
             data-variant="default"

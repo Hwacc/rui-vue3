@@ -1,93 +1,96 @@
-import type { VariantProps } from '@rui/core/lib/cva'
+import type { VariantProps } from 'tailwind-variants'
 import { PREFIX } from '@rui/core/lib/constants'
-import { cva } from '@rui/core/lib/cva'
+import { tv } from '@rui/core/lib/tv'
 
 export { default as Spin } from './Spin.vue'
 export { SpinProvider } from './SpinProvider'
 
 export const prefix = `${PREFIX}-spin`
-export const spinVariants = cva(
-  'relative size-full',
-  {
-    variants: {
-      mode: {
-        fullscreen: [
-          'fixed',
-          'top-0',
-          'left-0',
-          'w-screen',
-          'h-screen',
-          'z-[9999]',
-        ],
-      },
-      size: {
-        sm: '',
-        base: '',
-        lg: '',
-      },
+
+export const tvSpin = tv({
+  slots: {
+    base: 'relative size-full',
+    mask: ['absolute', 'top-0', 'left-0', 'size-full'],
+    indicator:  [
+      'absolute',
+      'top-1/2',
+      'left-1/2',
+      'transform',
+      'translate-x-[-50%]',
+      'translate-y-[-50%]',
+      'flex',
+      'items-center',
+      'justify-center',
+      'gap-2',
+    ],
+    icon: [
+      'inline-block',
+      'size-6',
+    ],
+    text: [
+      'text-xs',
+    ],
+  },
+  variants: {
+    mode: { fullscreen: ''},
+    size: {
+      sm: '',
+      base: '',
+      lg: '',
+    }, 
+  },
+  compoundSlots: [
+    {
+      slots: ['base'],
+      mode: 'fullscreen',
+      class:[
+        'fixed',
+        'top-0',
+        'left-0',
+        'w-screen',
+        'h-screen',
+        'z-[9999]',
+      ],
     },
-  },
-  {
-    className: prefix,
-  },
-)
-export type SpinVariantsProps = VariantProps<typeof spinVariants>
-
-export const spinMaskVariants = cva(
-  ['absolute', 'top-0', 'left-0', 'size-full'],
-  undefined,
-  {
-    className: `${prefix}-mask`,
-  },
-)
-
-export const spinIndicatorVariants = cva(
-  [
-    'absolute',
-    'top-1/2',
-    'left-1/2',
-    'transform',
-    'translate-x-[-50%]',
-    'translate-y-[-50%]',
-    'flex',
-    'items-center',
-    'justify-center',
-    'gap-2',
+    {
+      slots: ['icon'],
+      size: 'sm',
+      class: 'size-6',
+    },
+    {
+      slots: ['icon'],
+      size:'base',
+      class:'size-8',
+    },
+    {
+      slots: ['icon'],
+      size:'lg',
+      class:'size-10',
+    },
+    {
+      slots: ['text'],
+      size:'sm',
+      class:'text-xs',
+    },
+    {
+      slots: ['text'],
+      size:'base',
+      class:'text-sm',
+    },
+    {
+      slots: ['text'],
+      size:'lg',
+      class:'text-base',
+    },
   ],
-  undefined,
-  {
-    className: `${prefix}-indicator`,
-  },
-)
+}, {
+  slots: {
+    base: prefix,
+    mask: `${prefix}-mask`,
+    indicator: `${prefix}-indicator`,
+    icon: `${prefix}-icon`,
+    text: `${prefix}-text`,
+  }
+})
 
-export const spinIconVariants = cva(
-  'inline-block',
-  {
-    variants: {
-      size: {
-        sm: 'size-6',
-        base: 'size-8',
-        lg: 'size-10',
-      },
-    },
-  },
-  {
-    className: `${prefix}-icon`,
-  },
-)
-
-export const spinTextVariants = cva(
-  '',
-  {
-    variants: {
-      size: {
-        sm: 'text-xs',
-        base: 'text-sm',
-        lg: 'text-base',
-      },
-    },
-  },
-  {
-    className: `${prefix}-text`,
-  },
-)
+export type SpinVariants = VariantProps<typeof tvSpin>

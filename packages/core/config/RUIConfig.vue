@@ -7,6 +7,7 @@ import { Toaster } from '@rui/core/components/toast'
 import { TooltipProvider } from '@rui/core/components/tooltip'
 import { merge } from 'lodash-es'
 import { computed } from 'vue'
+import { SpinProvider } from '@rui/core/components/spin'
 
 const { tooltip, toaster, messager, iconify } = defineProps<{
   tooltip?: ComponentProps<typeof TooltipProvider>
@@ -40,7 +41,9 @@ if (iconify?.addAPIProviders) {
 
 <template>
   <TooltipProvider v-bind="tooltipOptions">
-    <slot />
+    <SpinProvider >
+      <slot />
+    </SpinProvider>
     <Toaster v-bind="toasterOptions" />
     <Messager v-bind="messagerOptions" />
   </TooltipProvider>
