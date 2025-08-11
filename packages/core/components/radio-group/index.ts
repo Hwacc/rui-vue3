@@ -1,55 +1,119 @@
-import type { VariantProps } from 'class-variance-authority'
-import { PREFIX } from '@rui/core/lib/constants'
-import { cva } from '@rui/core/lib/cva'
+import { PREFIX } from '@rui/core/lib/constants';
+import { tv } from '@rui/core/lib/tv';
+import type { VariantProps } from 'tailwind-variants';
 
-export { default as RadioGroup } from './RadioGroup.vue'
-export { default as RadioGroupItem } from './RadioGroupItem.vue'
+export { default as RadioGroup } from './RadioGroup.vue';
+export { default as RadioGroupItem } from './RadioGroupItem.vue';
 
-const prefix = `${PREFIX}-radio-group`
-export const radioGroupItemVariants = cva(
-  [
-    'aspect-square',
-    'rounded-full',
-    'border',
-    'disabled:opacity-(--disabled-opacity)',
-    'disabled:active:bg-transparent',
-  ],
+export const prefix = `${PREFIX}-radio-group`;
+
+export const tvRadioGroupItem = tv(
   {
-    variants: {
-      size: {
-        base: ['size-3.5'],
-        sm: ['size-3'],
-        lg: ['size-4'],
-      },
+    slots: {
+      wrapper:['flex items-center gap-2.5'],
+      root: [
+        'aspect-square',
+        'rounded-full',
+        'border',
+        'disabled:opacity-(--disabled-opacity)',
+        'disabled:active:bg-transparent',
+      ],
+      indicator: ['flex', 'items-center', 'justify-center'],
+      inner: '',
+      label: ['text-sm'],
     },
-  },
-  { className: `${prefix}-item` },
-)
-export type RadioGroupItemVariants = VariantProps<typeof radioGroupItemVariants>
-
-export const radioGroupItemInnerVariants = cva(
-  '',
-  {
     variants: {
       size: {
-        base: ['size-1.5'],
-        sm: ['size-1'],
-        lg: ['size-2'],
+        base: '',
+        sm: '',
+        lg: '',
       },
       variant: {
-        default: [
-          'motion-scale-in-0',
-        ],
-        checkbox: [
-          'size-full',
-          'stroke-[.125rem]',
-          '[&>path]:animate-check-dash',
-        ],
+        default: '',
+        checkbox: ''
       },
+      disabled: {
+        true: '',
+        false: ''
+      }
     },
+    defaultVariants: {
+      size: 'base',
+      variant: 'default',
+      disabled: false
+    },
+    compoundSlots: [
+      {
+        slots: ['root'],
+        size: 'base',
+        class: 'size-3.5'
+      },
+      {
+        slots: ['root'],
+        size: 'sm',
+        class: 'size-3'
+      },
+      {
+        slots: ['root'],
+        size: 'lg',
+        class: 'size-4'
+      },
+      {
+        slots: ['inner'],
+        size: 'base',
+        class: 'size-1.5'
+      },
+      {
+        slots: ['inner'],
+        size: 'sm',
+        class: 'size-1'
+      },
+      {
+        slots: ['inner'],
+        size: 'lg',
+        class: 'size-2'
+      },
+      {
+        slots: ['inner'],
+        variant: 'default',
+        class: 'motion-scale-in-0'
+      },
+      {
+        slots: ['inner'],
+        variant: 'checkbox',
+        class: 'size-full stroke-[.125rem] [&>path]:animate-check-dash'
+      },
+      {
+        slots: ['label'],
+        size: 'base',
+        class: 'text-sm'
+      },
+      {
+        slots: ['label'],
+        size: 'sm',
+        class: 'text-xs'
+      },
+      {
+        slots: ['label'],
+        size: 'lg',
+        class: 'text-base'
+      },
+      {
+        slots: ['label'],
+        disabled: true,
+        class: 'opacity-(--disabled-opacity)'
+      },
+    ]
   },
-  { className: `${prefix}-item-inner` },
-)
-export type RadioGroupItemInnerVariants = VariantProps<
-  typeof radioGroupItemInnerVariants
->
+  {
+    slots: {
+      wrapper: `${prefix}-wrapper`,
+      root: `${prefix}-root`,
+      indicator: `${prefix}-indicator`,
+      inner: `${prefix}-inner`,
+      label: `${prefix}-label`,
+    },
+  }
+);
+
+export type RadioGroupItemVariants = VariantProps<typeof tvRadioGroupItem>;

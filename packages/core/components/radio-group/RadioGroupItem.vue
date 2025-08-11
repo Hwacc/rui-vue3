@@ -1,82 +1,74 @@
 <script setup lang="ts">
-import type { RadioGroupItemProps } from 'reka-ui'
-import type { HTMLAttributes } from 'vue'
-import type { RadioGroupItemInnerVariants, RadioGroupItemVariants } from '.'
-import { cn } from '@rui/core/lib/utils'
-import { Check, Circle } from 'lucide-vue-next'
-import { RadioGroupIndicator, RadioGroupItem, useForwardProps } from 'reka-ui'
-import { computed } from 'vue'
-import { radioGroupItemInnerVariants, radioGroupItemVariants } from '.'
+import type { RadioGroupItemProps } from 'reka-ui';
+import type { HTMLAttributes } from 'vue';
+import type { RadioGroupItemVariants } from '.';
+import { Check, Circle } from 'lucide-vue-next';
+import { RadioGroupIndicator, RadioGroupItem, useForwardProps } from 'reka-ui';
+import { computed } from 'vue';
+import { tvRadioGroupItem } from '.';
 
 const {
-  wrapClass,
-  innerClass,
-  labelClass,
   class: propsClass,
   size = 'base',
   label,
   variant = 'default',
   unstyled,
+  ui,
   ...props
 } = defineProps<
   RadioGroupItemProps & {
-    variant?: RadioGroupItemInnerVariants['variant']
-    wrapClass?: HTMLAttributes['class']
-    innerClass?: HTMLAttributes['class']
-    labelClass?: HTMLAttributes['class']
-    class?: HTMLAttributes['class']
-    size?: RadioGroupItemVariants['size']
-    label?: string
-    unstyled?: RadioGroupItemInnerVariants['unstyled']
+    variant?: RadioGroupItemVariants['variant'];
+    class?: HTMLAttributes['class'];
+    size?: RadioGroupItemVariants['size'];
+    label?: string;
+    unstyled?: RadioGroupItemVariants['unstyled'];
+    ui?: {
+      root?: {
+        class?: HTMLAttributes['class'];
+      };
+      wrapper?: {
+        class?: HTMLAttributes['class'];
+      };
+      indicator?: {
+        class?: HTMLAttributes['class'];
+      };
+      inner?: {
+        class?: HTMLAttributes['class'];
+      };
+      label?: {
+        class?: HTMLAttributes['class'];
+      };
+    };
   }
->()
-const forwardedProps = useForwardProps(props)
+>();
 
-const wrapClassName = computed(() => {
-  return cn(['flex items-center gap-2.5'], wrapClass)
-})
-const radioGroupItemClassName = computed(() => {
-  return cn(radioGroupItemVariants({ size, unstyled }), propsClass)
-})
-const radioGroupItemInnerClassName = computed(() => {
-  return cn(
-    radioGroupItemInnerVariants({ variant, size, unstyled }),
-    innerClass,
-  )
-})
-const labelClassName = computed(() => {
-  return cn(
-    [
-      'text-hcc text-sm hover:text-hff',
-      props.disabled && ['opacity-(--disabled-opacity)', 'hover:text-hcc'],
-      size === 'sm' && 'text-xs',
-      size === 'lg' && 'text-base',
-    ],
-    labelClass,
-  )
-})
+const tvRadioGroupItemSlots = computed(() => {
+  return tvRadioGroupItem({ disabled: props.disabled, variant, size, unstyled });
+});
+
+const forwardedProps = useForwardProps(props);
 </script>
 
 <template>
-  <div :class="wrapClassName">
+  <div :class="tvRadioGroupItemSlots.wrapper({ class: [ui?.wrapper?.class, propsClass] })">
     <RadioGroupItem
       v-bind="forwardedProps"
       :id="forwardedProps.id || label"
-      :class="radioGroupItemClassName"
+      :class="tvRadioGroupItemSlots.root({ class: ui?.root?.class })"
       :data-variant="variant"
     >
       <RadioGroupIndicator
-        class="flex items-center justify-center"
+        :class="tvRadioGroupItemSlots.indicator({ class: ui?.indicator?.class })"
         :data-variant="variant"
       >
         <Circle
           v-if="variant === 'default'"
-          :class="radioGroupItemInnerClassName"
+          :class="tvRadioGroupItemSlots.inner({ class: ui?.inner?.class })"
           :data-variant="variant"
         />
         <Check
           v-if="variant === 'checkbox'"
-          :class="radioGroupItemInnerClassName"
+          :class="tvRadioGroupItemSlots.inner({ class: ui?.inner?.class })"
           :data-variant="variant"
         />
       </RadioGroupIndicator>
@@ -84,7 +76,7 @@ const labelClassName = computed(() => {
     <slot name="label">
       <label
         v-if="label"
-        :class="labelClassName"
+        :class="tvRadioGroupItemSlots.label({ class: ui?.label?.class })"
         :for="forwardedProps.id || label"
       >
         {{ label }}
