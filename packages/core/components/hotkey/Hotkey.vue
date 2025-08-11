@@ -75,7 +75,6 @@ const placeholder = ref('');
 
 function setInnerHotkey(hk?: string) {
   const _hotkey = hk || hotkey;
-  console.log('_hotkey', _hotkey);
   const _placeholder =
     typeof propsPlaceholder === 'function' ? propsPlaceholder(isFocus.value) : propsPlaceholder;
   if (isEmpty(_hotkey)) {

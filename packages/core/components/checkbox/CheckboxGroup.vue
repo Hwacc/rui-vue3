@@ -2,7 +2,7 @@
 import { createContext, Primitive, useForwardPropsEmits } from 'reka-ui'
 
 interface CheckboxGroupContext {
-  size: Ref<CheckboxVariantsProps['size']>
+  size: Ref<CheckboxVariants['size']>
   unstyled: Ref<boolean>
   collection: Ref<string[]>
   onChecked: (
@@ -22,7 +22,7 @@ export const [injectCheckboxGroupContext, provideCheckboxGroupContext]
 <script setup lang="ts">
 import type { PrimitiveProps } from 'reka-ui'
 import type { ComponentInternalInstance, HTMLAttributes, Ref } from 'vue'
-import type { CheckboxVariantsProps } from '.'
+import type { CheckboxVariants } from '.'
 import { union } from 'lodash-es'
 import { reactive, ref, toRefs, unref, watch, watchEffect } from 'vue'
 
@@ -33,7 +33,7 @@ const {
 } = defineProps<
   PrimitiveProps & {
     class?: HTMLAttributes['class']
-    size?: CheckboxVariantsProps['size']
+    size?: CheckboxVariants['size']
     collection?: string[]
     unstyled?: boolean
   }

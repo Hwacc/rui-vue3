@@ -1,53 +1,71 @@
-import type { VariantProps } from '@rui/core/lib/cva'
 import { PREFIX } from '@rui/core/lib/constants'
-import { cva } from '@rui/core/lib/cva'
+import { tv } from '@rui/core/lib/tv'
+import type { VariantProps } from 'tailwind-variants'
 
 export { default as Checkbox } from './Checkbox.vue'
 export { default as CheckboxGroup } from './CheckboxGroup.vue'
 
 const prefix = `${PREFIX}-checkbox`
-export const checkboxRootVariants = cva(
-  ['flex', 'items-center', 'gap-2.5'],
-  {
-    variants: {
-      disabled: {
-        true: ['opacity-(--disabled-opacity)'],
-      },
-    },
-  },
-  { className: `${prefix}-root` },
-)
 
-export const checkboxVariants = cva(
-  ['peer', 'shrink-0', 'rounded-xs', 'border'],
-  {
-    variants: {
-      size: {
-        base: ['size-3.5'],
-        sm: ['size-3'],
-        lg: ['size-4'],
-      },
-      disabled: {
-        true: '',
-      },
-    },
+export const tvCheckbox = tv({
+  slots: {
+    root: ['flex', 'items-center', 'gap-2.5'],
+    box: ['peer', 'shrink-0', 'rounded-xs', 'border'],
+    indicator: ['flex'  , 'h-full', 'w-full', 'items-center', 'justify-center', 'text-inherit'],
+    label: '',
   },
-  { className: prefix },
-)
-export type CheckboxVariantsProps = VariantProps<typeof checkboxVariants>
+  variants: {
+    disabled: {
+      true: '',
+      false: ''
+    },
+    size: {
+      base: '',
+      sm: '',
+      lg: ''
+    }
+  },
+  defaultVariants: {
+    size: 'base'
+  },
+  compoundSlots: [
+    {
+      slots: ['root'],
+      disabled: true,
+      class: 'opacity-(--disabled-opacity)'
+    }, {
+      slots: ['box'],
+      size: 'base',
+      class: 'size-3.5'
+    }, {
+      slots: ['box'],
+      size: 'sm',
+      class: 'size-3'
+    }, {
+      slots: ['box'],
+      size: 'lg',
+      class: 'size-4'
+    }, {
+      slots: ['label'],
+      size: 'base',
+      class: 'text-sm'
+    }, {
+      slots: ['label'],
+      size: 'sm',
+      class: 'text-xs'
+    }, {
+      slots: ['label'],
+      size: 'lg',
+      class: 'text-base'
+    }
+  ]
+}, {
+  slots: {
+    root: `${prefix}-root`,
+    box: prefix,
+    indicator: `${prefix}-indicator`,
+    label: `${prefix}-label`
+  }
+})
 
-export const checkboxLabelVariants = cva(
-  '',
-  {
-    variants: {
-      size: {
-        base: ['text-sm'],
-        sm: ['text-xs'],
-        lg: ['text-base'],
-      },
-    },
-  },
-  {
-    className: `${prefix}-label`,
-  },
-)
+export type CheckboxVariants = VariantProps<typeof tvCheckbox>
