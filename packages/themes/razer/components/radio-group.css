@@ -1,5 +1,5 @@
 @layer components {
-  .rui-radio-group-item {
+  .rui-radio-group-item-root {
     @apply bg-transparent active:bg-h28 border-h70 
          hover:border-rz-green active:border-rz-green 
            disabled:hover:bg-transparent disabled:hover:border-h70;
@@ -18,6 +18,13 @@
     @apply fill-rz-green stroke-rz-green;
     &[data-variant="checkbox"] {
       @apply fill-transparent stroke-h00;
+    }
+  }
+
+  .rui-radio-group-item-label {
+    @apply text-hcc hover:text-hff;
+    &[disabled] {
+      @apply hover:text-hcc;
     }
   }
 }

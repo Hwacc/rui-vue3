@@ -6,7 +6,7 @@ import type {
   TVReturnType,
   TVVariants,
 } from 'tailwind-variants'
-import { concat, each, isEmpty, merge } from 'lodash-es'
+import { concat, each, merge } from 'lodash-es'
 import { tv as originTv } from 'tailwind-variants'
 
 type TVSlots = Record<string, ClassValue> | undefined

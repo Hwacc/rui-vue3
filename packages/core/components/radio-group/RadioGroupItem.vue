@@ -1,11 +1,11 @@
 <script setup lang="ts">
-import type { RadioGroupItemProps } from 'reka-ui';
-import type { HTMLAttributes } from 'vue';
-import type { RadioGroupItemVariants } from '.';
-import { Check, Circle } from 'lucide-vue-next';
-import { RadioGroupIndicator, RadioGroupItem, useForwardProps } from 'reka-ui';
-import { computed } from 'vue';
-import { tvRadioGroupItem } from '.';
+import type { RadioGroupItemProps } from 'reka-ui'
+import type { HTMLAttributes } from 'vue'
+import type { RadioGroupItemVariants } from '.'
+import { Check, Circle } from 'lucide-vue-next'
+import { RadioGroupIndicator, RadioGroupItem, useForwardProps } from 'reka-ui'
+import { computed } from 'vue'
+import { tvRadioGroupItem } from '.'
 
 const {
   class: propsClass,
@@ -17,36 +17,35 @@ const {
   ...props
 } = defineProps<
   RadioGroupItemProps & {
-    variant?: RadioGroupItemVariants['variant'];
-    class?: HTMLAttributes['class'];
-    size?: RadioGroupItemVariants['size'];
-    label?: string;
-    unstyled?: RadioGroupItemVariants['unstyled'];
+    variant?: RadioGroupItemVariants['variant']
+    class?: HTMLAttributes['class']
+    size?: RadioGroupItemVariants['size']
+    label?: string
+    unstyled?: boolean
     ui?: {
       root?: {
-        class?: HTMLAttributes['class'];
-      };
+        class?: HTMLAttributes['class']
+      }
       wrapper?: {
-        class?: HTMLAttributes['class'];
-      };
+        class?: HTMLAttributes['class']
+      }
       indicator?: {
-        class?: HTMLAttributes['class'];
-      };
+        class?: HTMLAttributes['class']
+      }
       inner?: {
-        class?: HTMLAttributes['class'];
-      };
+        class?: HTMLAttributes['class']
+      }
       label?: {
-        class?: HTMLAttributes['class'];
-      };
-    };
+        class?: HTMLAttributes['class']
+      }
+    }
   }
->();
+>()
 
 const tvRadioGroupItemSlots = computed(() => {
-  return tvRadioGroupItem({ disabled: props.disabled, variant, size, unstyled });
-});
-
-const forwardedProps = useForwardProps(props);
+  return tvRadioGroupItem({ disabled: props.disabled, variant, size, unstyled })
+})
+const forwardedProps = useForwardProps(props)
 </script>
 
 <template>
@@ -78,6 +77,7 @@ const forwardedProps = useForwardProps(props);
         v-if="label"
         :class="tvRadioGroupItemSlots.label({ class: ui?.label?.class })"
         :for="forwardedProps.id || label"
+        :disabled="props.disabled ? '' : undefined"
       >
         {{ label }}
       </label>

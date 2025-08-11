@@ -1,12 +1,12 @@
 <script setup lang="ts">
-import type { CheckboxRootEmits, CheckboxRootProps } from 'reka-ui';
-import type { HTMLAttributes } from 'vue';
-import type { CheckboxVariants } from '.';
-import { Check, Minus } from 'lucide-vue-next';
-import { CheckboxIndicator, CheckboxRoot, useForwardPropsEmits } from 'reka-ui';
-import { computed, getCurrentInstance, ref, watch } from 'vue';
-import { tvCheckbox } from '.';
-import { injectCheckboxGroupContext } from './CheckboxGroup.vue';
+import type { CheckboxRootEmits, CheckboxRootProps } from 'reka-ui'
+import type { HTMLAttributes } from 'vue'
+import type { CheckboxVariants } from '.'
+import { Check, Minus } from 'lucide-vue-next'
+import { CheckboxIndicator, CheckboxRoot, useForwardPropsEmits } from 'reka-ui'
+import { computed, getCurrentInstance, ref, watch } from 'vue'
+import { tvCheckbox } from '.'
+import { injectCheckboxGroupContext } from './CheckboxGroup.vue'
 
 const {
   primary,
@@ -18,79 +18,79 @@ const {
   ...props
 } = defineProps<
   CheckboxRootProps & {
-    primary?: boolean;
-    label?: string;
-    class?: HTMLAttributes['class'];
-    size?: CheckboxVariants['size'];
-    stopPropagation?: boolean; // 有时checkbox作为checkable-item的子组件，需要阻止事件冒泡
-    unstyled?: boolean;
+    primary?: boolean
+    label?: string
+    class?: HTMLAttributes['class']
+    size?: CheckboxVariants['size']
+    stopPropagation?: boolean // 有时checkbox作为checkable-item的子组件，需要阻止事件冒泡
+    unstyled?: boolean
     ui?: {
       root?: {
-        class?: HTMLAttributes['class'];
-      };
+        class?: HTMLAttributes['class']
+      }
       box?: {
-        class?: HTMLAttributes['class'];
-      };
+        class?: HTMLAttributes['class']
+      }
       indicator?: {
-        class?: HTMLAttributes['class'];
-      };
+        class?: HTMLAttributes['class']
+      }
       label?: {
-        class?: HTMLAttributes['class'];
-      };
-    };
+        class?: HTMLAttributes['class']
+      }
+    }
   }
->();
-const emits = defineEmits<CheckboxRootEmits>();
+>()
+const emits = defineEmits<CheckboxRootEmits>()
 /**
  * create checkbox group context, if not exist it will be null
  */
-const groupContext = injectCheckboxGroupContext(null);
-const innerModelValue = ref(modelValue);
+const groupContext = injectCheckboxGroupContext(null)
+const innerModelValue = ref(modelValue)
 if (groupContext) {
   // set instances
-  const instance = getCurrentInstance();
-  groupContext.setCheckboxInstance(instance, primary);
+  const instance = getCurrentInstance()
+  groupContext.setCheckboxInstance(instance, primary)
   // sync innerChecked
   watch(
     groupContext.collection,
     (collection) => {
       if (!primary) {
-        innerModelValue.value = collection.includes(props.name as string);
+        innerModelValue.value = collection.includes(props.name as string)
       }
     },
-    { immediate: true }
-  );
+    { immediate: true },
+  )
 }
 watch(
   () => modelValue,
-  (val) => (innerModelValue.value = val)
-);
+  val => (innerModelValue.value = val),
+)
 watch(innerModelValue, (val) => {
   if (groupContext) {
-    groupContext.onChecked(props.name, val, primary);
+    groupContext.onChecked(props.name, val, primary)
   }
-  emits('update:modelValue', val || false);
-});
+  emits('update:modelValue', val || false)
+})
 
 defineExpose({
   name: props.name,
   primary,
   innerModelValue,
   setChecked: (value: boolean | 'indeterminate' | null) => (innerModelValue.value = value),
-});
+})
 
 const mergeSize = computed(() => {
-  return groupContext?.size?.value || size;
-});
+  return groupContext?.size?.value || size
+})
 
 const tvSlots = computed(() => {
   return tvCheckbox({
     size: mergeSize.value,
     disabled: props.disabled,
     unstyled: groupContext?.unstyled?.value || unstyled,
-  });
-});
-const forwarded = useForwardPropsEmits(props, emits);
+  })
+})
+const forwarded = useForwardPropsEmits(props, emits)
 </script>
 
 <template>
@@ -100,15 +100,15 @@ const forwarded = useForwardPropsEmits(props, emits);
     :data-size="mergeSize"
     @click="
       (event) => {
-        stopPropagation && event.stopPropagation();
+        stopPropagation && event.stopPropagation()
       }
     "
     @keydown="
       (event) => {
         if (event.key === 'Enter') {
-          stopPropagation && event.stopPropagation();
-          if (innerModelValue === 'indeterminate') innerModelValue = true;
-          innerModelValue = !innerModelValue;
+          stopPropagation && event.stopPropagation()
+          if (innerModelValue === 'indeterminate') innerModelValue = true
+          innerModelValue = !innerModelValue
         }
       }
     "
@@ -119,9 +119,7 @@ const forwarded = useForwardPropsEmits(props, emits);
       :class="tvSlots.box({ class: props.ui?.box?.class })"
       :data-size="mergeSize"
     >
-      <CheckboxIndicator
-        :class="tvSlots.indicator({ class: props.ui?.indicator?.class })"
-      >
+      <CheckboxIndicator :class="tvSlots.indicator({ class: props.ui?.indicator?.class })">
         <slot
           name="indicator"
           v-bind="{ modelValue: innerModelValue }"
@@ -141,6 +139,7 @@ const forwarded = useForwardPropsEmits(props, emits);
       <span
         v-if="label"
         :class="tvSlots.label({ class: props.ui?.label?.class })"
+        :disabled="props.disabled ? '' : undefined"
       >
         {{ label }}
       </span>

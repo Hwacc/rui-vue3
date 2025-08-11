@@ -1,16 +1,16 @@
-import { PREFIX } from '@rui/core/lib/constants';
-import { tv } from '@rui/core/lib/tv';
-import type { VariantProps } from 'tailwind-variants';
+import type { VariantProps } from 'tailwind-variants'
+import { PREFIX } from '@rui/core/lib/constants'
+import { tv } from '@rui/core/lib/tv'
 
-export { default as RadioGroup } from './RadioGroup.vue';
-export { default as RadioGroupItem } from './RadioGroupItem.vue';
+export { default as RadioGroup } from './RadioGroup.vue'
+export { default as RadioGroupItem } from './RadioGroupItem.vue'
 
-export const prefix = `${PREFIX}-radio-group`;
+export const prefix = `${PREFIX}-radio-group`
 
 export const tvRadioGroupItem = tv(
   {
     slots: {
-      wrapper:['flex items-center gap-2.5'],
+      wrapper: ['flex items-center gap-2.5'],
       root: [
         'aspect-square',
         'rounded-full',
@@ -30,90 +30,85 @@ export const tvRadioGroupItem = tv(
       },
       variant: {
         default: '',
-        checkbox: ''
+        checkbox: '',
       },
       disabled: {
         true: '',
-        false: ''
-      }
-    },
-    defaultVariants: {
-      size: 'base',
-      variant: 'default',
-      disabled: false
+        false: '',
+      },
     },
     compoundSlots: [
       {
         slots: ['root'],
         size: 'base',
-        class: 'size-3.5'
+        class: 'size-3.5',
       },
       {
         slots: ['root'],
         size: 'sm',
-        class: 'size-3'
+        class: 'size-3',
       },
       {
         slots: ['root'],
         size: 'lg',
-        class: 'size-4'
+        class: 'size-4',
       },
       {
         slots: ['inner'],
         size: 'base',
-        class: 'size-1.5'
+        class: 'size-1.5',
       },
       {
         slots: ['inner'],
         size: 'sm',
-        class: 'size-1'
+        class: 'size-1',
       },
       {
         slots: ['inner'],
         size: 'lg',
-        class: 'size-2'
+        class: 'size-2',
       },
       {
         slots: ['inner'],
         variant: 'default',
-        class: 'motion-scale-in-0'
+        class: 'motion-scale-in-0',
       },
       {
         slots: ['inner'],
         variant: 'checkbox',
-        class: 'size-full stroke-[.125rem] [&>path]:animate-check-dash'
+        class: 'size-full stroke-[.125rem] [&>path]:animate-check-dash',
       },
       {
         slots: ['label'],
         size: 'base',
-        class: 'text-sm'
+        class: 'text-sm',
       },
       {
         slots: ['label'],
         size: 'sm',
-        class: 'text-xs'
+        class: 'text-xs',
       },
       {
         slots: ['label'],
         size: 'lg',
-        class: 'text-base'
+        class: 'text-base',
       },
       {
         slots: ['label'],
         disabled: true,
-        class: 'opacity-(--disabled-opacity)'
+        class: 'opacity-(--disabled-opacity)',
       },
-    ]
+    ],
   },
   {
     slots: {
-      wrapper: `${prefix}-wrapper`,
-      root: `${prefix}-root`,
-      indicator: `${prefix}-indicator`,
-      inner: `${prefix}-inner`,
-      label: `${prefix}-label`,
+      wrapper: `${prefix}-item-wrapper`,
+      root: `${prefix}-item-root`,
+      indicator: `${prefix}-item-indicator`,
+      inner: `${prefix}-item-inner`,
+      label: `${prefix}-item-label`,
     },
-  }
-);
+  },
+)
 
-export type RadioGroupItemVariants = VariantProps<typeof tvRadioGroupItem>;
+export type RadioGroupItemVariants = VariantProps<typeof tvRadioGroupItem>

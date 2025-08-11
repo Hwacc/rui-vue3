@@ -1,9 +1,9 @@
 @layer components {
-  .rui-checkbox-root{
+  .rui-checkbox-root {
     @apply text-hcc hover:text-hff disabled:text-hcc;
   }
 
-  .rui-checkbox{
+  .rui-checkbox {
     @apply bg-transparent border-h55
       hover:border-rz-green
       focus:border-rz-green
@@ -13,5 +13,17 @@
       data-[state=checked]:border-rz-green
       data-[state=indeterminate]:bg-rz-green
       data-[state=indeterminate]:border-rz-green;
+
+    &[disabled], &[data-disabled] {
+      @apply hover:border-h55;
+      @apply data-[state=checked]:hover:bg-rz-green data-[state=checked]:hover:border-rz-green data-[state=indeterminate]:hover:bg-rz-green data-[state=indeterminate]:hover:border-rz-green
+    }
+  }
+
+  .rui-checkbox-label{
+    @apply text-hcc hover:text-hff;
+    &[disabled], &[data-disabled]{
+      @apply hover:text-hcc;
+    }
   }
 }
