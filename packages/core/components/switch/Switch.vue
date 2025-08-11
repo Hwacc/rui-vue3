@@ -1,11 +1,9 @@
 <script setup lang="ts">
-import type { SwitchRootEmits, SwitchRootProps } from 'reka-ui'
-import type { HTMLAttributes } from 'vue'
-import type { SwitchVariantsProps } from '.'
-import { cn } from '@rui/core/lib/utils'
-import { SwitchRoot, SwitchThumb, useForwardPropsEmits } from 'reka-ui'
-import { computed } from 'vue'
-import { switchThumbVariants, switchVariants } from '.'
+import type { SwitchRootEmits, SwitchRootProps } from 'reka-ui';
+import type { HTMLAttributes } from 'vue';
+import type { SwitchVariant } from '.';
+import { SwitchRoot, SwitchThumb, useForwardPropsEmits } from 'reka-ui';
+import { tvSwitch } from '.';
 
 const {
   size = 'base',
@@ -13,38 +11,32 @@ const {
   ...props
 } = defineProps<
   SwitchRootProps & {
-    class?: HTMLAttributes['class']
-    size?: SwitchVariantsProps['size']
-    thumbClass?: HTMLAttributes['class']
-    unstyled?: boolean
+    class?: HTMLAttributes['class'];
+    size?: SwitchVariant['size'];
+    thumbClass?: HTMLAttributes['class'];
+    unstyled?: boolean;
+    ui?: {
+      root?: {
+        class?: HTMLAttributes['class'];
+      };
+      thumb?: {
+        class?: HTMLAttributes['class'];
+      };
+    };
   }
->()
-const emits = defineEmits<SwitchRootEmits>()
-const forwarded = useForwardPropsEmits(props, emits)
+>();
+const emits = defineEmits<SwitchRootEmits>();
 
-const switchRootClassName = computed(() => {
-  return cn(
-    switchVariants({
-      size,
-      unstyled,
-    }),
-    props.class,
-  )
-})
-const switchThumbClassName = computed(() => {
-  return cn(
-    switchThumbVariants({
-      size,
-      unstyled,
-    }),
-    props.thumbClass,
-  )
-})
+const { root, thumb } = tvSwitch();
+const forwarded = useForwardPropsEmits(props, emits);
 </script>
 
 <template>
-  <SwitchRoot v-bind="forwarded" :class="switchRootClassName">
-    <SwitchThumb :class="switchThumbClassName">
+  <SwitchRoot
+    v-bind="forwarded"
+    :class="root({ size, unstyled, class: [ui?.root?.class, props.class] })"
+  >
+    <SwitchThumb :class="thumb({ size, unstyled, class: [ui?.thumb?.class, props.thumbClass] })">
       <slot name="thumb" />
     </SwitchThumb>
   </SwitchRoot>
