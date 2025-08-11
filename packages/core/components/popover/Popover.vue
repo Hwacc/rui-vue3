@@ -1,27 +1,27 @@
 <script setup lang="ts">
-import type { PopoverRootEmits, PopoverRootProps } from 'reka-ui';
-import type { PopoverProviderExProps } from './PopoverProviderEx';
-import { omit, pick } from 'lodash-es';
-import { PopoverRoot, useForwardPropsEmits } from 'reka-ui';
-import { PopoverProviderEx } from './PopoverProviderEx';
-import type { HTMLAttributes } from 'vue';
-import { tvPopover } from '.';
+import type { PopoverRootEmits, PopoverRootProps } from 'reka-ui'
+import type { HTMLAttributes } from 'vue'
+import type { PopoverProviderExProps } from './PopoverProviderEx'
+import { omit, pick } from 'lodash-es'
+import { PopoverRoot, useForwardPropsEmits } from 'reka-ui'
+import { tvPopover } from '.'
+import { PopoverProviderEx } from './PopoverProviderEx'
 
 const {
   class: propsClass,
   unstyled,
   ...props
 } = defineProps<
-  PopoverRootProps &
-    PopoverProviderExProps & {
-      class?: HTMLAttributes['class'];
-      unstyled?: boolean;
-    }
->();
-const emits = defineEmits<PopoverRootEmits>();
+  PopoverRootProps
+  & PopoverProviderExProps & {
+    class?: HTMLAttributes['class']
+    unstyled?: boolean
+  }
+>()
+const emits = defineEmits<PopoverRootEmits>()
 
-const { root } = tvPopover();
-const forwarded = useForwardPropsEmits(pick(props, ['modal', 'open', 'defaultOpen']), emits);
+const { root } = tvPopover()
+const forwarded = useForwardPropsEmits(pick(props, ['modal', 'open', 'defaultOpen']), emits)
 </script>
 
 <template>
