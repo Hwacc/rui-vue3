@@ -1,11 +1,11 @@
 <script setup lang="ts">
 import type { PopoverArrowProps } from 'reka-ui'
 import type { HTMLAttributes } from 'vue'
-import type { ArrowVariants } from '.'
+import type { PopoverVariants } from '.'
 import { rem2px } from '@rui/core/lib/utils'
 import { PopoverArrow } from 'reka-ui'
 import { computed, ref, watch } from 'vue'
-import { tvArrow } from '.'
+import { tvPopover } from '.'
 
 const {
   class: propsClass,
@@ -19,7 +19,7 @@ const {
   PopoverArrowProps & {
     class?: HTMLAttributes['class']
     force?: boolean
-    variant?: ArrowVariants['variant']
+    variant?: PopoverVariants['arrow']
     unstyled?: boolean
   }
 >()
@@ -44,6 +44,7 @@ const style = computed(() => {
     '--reka-popover-arrow-border-height': `${height / 2}px`,
   }
 })
+const { arrow } = tvPopover()
 </script>
 
 <template>
@@ -52,9 +53,9 @@ const style = computed(() => {
     v-bind="props"
     :as="variant === 'css' ? 'span' : 'svg'"
     :class="
-      tvArrow({
-        variant,
+      arrow({
         unstyled,
+        arrow: variant,
         className: propsClass,
       })
     "

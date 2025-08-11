@@ -75,13 +75,13 @@ function onBlur(event: Event) {
     isFocus.value = false;
   });
 }
-const { base, inner, clearable: tvClearable } = tvInput({ size, unstyled });
+const { root, inner, clearable: tvClearable } = tvInput();
 const { forwardRef } = useForwardExpose();
 </script>
 
 <template>
   <Primitive
-    :class="base({ class: [ui?.base?.class, propsClass] })"
+    :class="root({ size, unstyled, class: [ui?.base?.class, propsClass] })"
     :data-state="inputState"
     v-bind="props"
   >
@@ -94,7 +94,7 @@ const { forwardRef } = useForwardExpose();
         }
       "
       v-model="modelValue"
-      :class="inner({ class: [ui?.inner?.class] })"
+      :class="inner({ size, unstyled, class: [ui?.inner?.class] })"
       :placeholder="props.placeholder"
       :data-state="inputState"
       :disabled="disabled ? true : undefined"
@@ -111,7 +111,7 @@ const { forwardRef } = useForwardExpose();
     />
     <div
       v-if="inputState === 'focused' && clearable && modelValue"
-      :class="tvClearable({ class: ui?.clearable?.class })"
+      :class="tvClearable({ size, unstyled, class: ui?.clearable?.class })"
       @mousedown.stop="
         () => {
           rejectBlur = true;

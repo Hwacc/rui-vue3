@@ -7,12 +7,12 @@ export { default as Hotkey } from './Hotkey.vue';
 
 const prefix = `${PREFIX}-hotkey`;
 
-const { base: inputBase, inner: inputInner } = tvInput();
+const { root, inner } = tvInput();
 export const tvHotkey = tv(
   {
     slots: {
-      base: [inputBase(), 'relative'],
-      inner: [inputInner()],
+      root: [root(), 'relative'],
+      inner: [inner()],
     },
     variants: {
       size: {
@@ -24,40 +24,40 @@ export const tvHotkey = tv(
     defaultVariants: { size: 'base' },
     compoundSlots: [
       {
-        slots: ['base'],
+        slots: ['root'],
         size: 'base',
-        class: inputBase({ size: 'base' }),
+        class: root({ size: 'base' }),
       },
       {
-        slots: ['base'],
+        slots: ['root'],
         size: 'sm',
-        class: inputBase({ size: 'sm' }),
+        class: root({ size: 'sm' }),
       },
       {
-        slots: ['base'],
+        slots: ['root'],
         size: 'lg',
-        class: inputBase({ size: 'lg' }),
+        class: root({ size: 'lg' }),
       },
       {
         slots: ['inner'],
         size: 'base',
-        class: inputInner({ size: 'base' }),
+        class: inner({ size: 'base' }),
       },
       {
         slots: ['inner'],
         size: 'sm',
-        class: inputInner({ size: 'sm' }),
+        class: inner({ size: 'sm' }),
       },
       {
         slots: ['inner'],
         size: 'lg',
-        class: inputInner({ size: 'lg' }),
+        class: inner({ size: 'lg' }),
       },
     ],
   },
   {
     slots: {
-      base: [`${PREFIX}-input`, prefix],
+      root: [`${PREFIX}-input`, prefix],
       inner: [`${PREFIX}-input-inner`, `${prefix}-inner`],
     },
   }

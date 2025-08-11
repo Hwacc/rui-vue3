@@ -14,14 +14,9 @@ export { PopoverAnchor } from 'reka-ui'
 
 const prefix = `${PREFIX}-popover`
 
-export const tvTrigger = tv({
-  base: ['group', 'rounded'],
-}, {
-  class: `${prefix}-trigger`,
-})
-
-export const tvContent = tv({
+export const tvPopover = tv({
   slots: {
+    root: '',
     wrapper: '',
     content: [
       'z-50',
@@ -32,20 +27,20 @@ export const tvContent = tv({
       'p-2.5',
       'outline-none',
     ],
-  },
-}, {
-  slots: {
-    wrapper: `${prefix}-wrapper`,
-    content: `${prefix}-content`,
-  },
-})
-
-export const tvArrow = tv({
-  base: '',
+    arrow: '',
+    trigger: ['group', 'rounded'],
+  }, 
   variants: {
-    variant: {
-      svg: '',
-      css: [
+    arrow: {
+      css: '',
+      svg: ''
+    }
+  },
+  compoundSlots: [
+    {
+      slots: ['arrow'],
+      arrow: 'css',
+      class: [
         'relative',
         'block',
         'w-(--reka-popover-arrow-width)',
@@ -75,9 +70,16 @@ export const tvArrow = tv({
           'after:border-x-transparent',
         ],
       ],
-    },
-  },
+    }
+  ]  
 }, {
-  class: `${prefix}-arrow`,
+  slots: {
+    root: prefix,
+    wrapper: `${prefix}-wrapper`,
+    content: `${prefix}-content`,
+    arrow: `${prefix}-arrow`,
+    trigger: `${prefix}-trigger`,
+  }
 })
-export type ArrowVariants = VariantProps<typeof tvArrow>
+
+export type PopoverVariants = VariantProps<typeof tvPopover>

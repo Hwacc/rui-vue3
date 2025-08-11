@@ -68,7 +68,7 @@ watch(
   { immediate: true }
 );
 
-const { base, mask, indicator, icon, text } = tvSpin({ unstyled, size, mode });
+const { root, mask, indicator, text } = tvSpin();
 
 onMounted(() => {
   if (isFullscreen.value) {
@@ -88,15 +88,15 @@ onBeforeUnmount(() => {
 <template>
   <div
     v-show="isVisible"
-    :class="base({ class: ui?.base?.class })"
+    :class="root({ unstyled, size, mode, class: ui?.base?.class })"
   >
-    <div :class="mask({ class: ui?.mask?.class })" />
-    <div :class="indicator({ class: ui?.indicator?.class })">
+    <div :class="mask({ unstyled, size, mode, class: ui?.mask?.class })" />
+    <div :class="indicator({ unstyled, size, mode, class: ui?.indicator?.class })">
       <slot v-bind="{ mode, size, unstyled }">
         <component :is="renderIcon?.({ mode, size, unstyled })" />
       </slot>
       <Primitive
-        :class="text({ class: ui?.text?.class })"
+        :class="text({ unstyled, size, mode, class: ui?.text?.class })"
         :as-child="true"
       >
         <slot name="text" />

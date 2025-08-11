@@ -9,7 +9,7 @@ export const prefix = `${PREFIX}-spin`
 
 export const tvSpin = tv({
   slots: {
-    base: 'relative size-full',
+    root: 'relative size-full',
     mask: ['absolute', 'top-0', 'left-0', 'size-full'],
     indicator:  [
       'absolute',
@@ -41,7 +41,7 @@ export const tvSpin = tv({
   },
   compoundSlots: [
     {
-      slots: ['base'],
+      slots: ['root'],
       mode: 'fullscreen',
       class:[
         'fixed',
@@ -85,7 +85,7 @@ export const tvSpin = tv({
   ],
 }, {
   slots: {
-    base: prefix,
+    root: prefix,
     mask: `${prefix}-mask`,
     indicator: `${prefix}-indicator`,
     icon: `${prefix}-icon`,

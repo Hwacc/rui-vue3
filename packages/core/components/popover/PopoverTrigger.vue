@@ -16,7 +16,7 @@ import {
   useId,
 } from 'reka-ui';
 import { computed, onMounted, ref, watch } from 'vue';
-import { tvTrigger } from '.';
+import { tvPopover } from '.';
 import { injectPopoverRootContextEx } from './PopoverProviderEx';
 
 const {
@@ -129,6 +129,8 @@ rootContex.triggerId ||= useId(undefined, 'reka-popover-trigger');
 onMounted(() => {
   rootContex.triggerElement.value = triggerElement.value;
 });
+
+const { trigger: tvTrigger } = tvPopover();
 const { forwardRef, currentElement: triggerElement } = useForwardExpose();
 </script>
 

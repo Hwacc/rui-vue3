@@ -9,7 +9,7 @@ const prefix = `${PREFIX}-input`
 
 export const tvInput = tv({
   slots: {
-    base: [
+    root: [
       'flex',
       'items-center',
       'min-w-[7.75rem]',
@@ -35,21 +35,21 @@ export const tvInput = tv({
   defaultVariants: { size: 'base' },
   compoundSlots: [
     {
-      slots: ['base'],
+      slots: ['root'],
       size: 'base',
       class: [
         'text-sm',
       ]
     },
     {
-      slots: ['base'],
+      slots: ['root'],
       size: 'sm',
       class: [
         'text-xs',
       ]
     },
     {
-      slots: ['base'],
+      slots: ['root'],
       size: 'lg',
       class: [
         'text-base',
@@ -100,7 +100,7 @@ export const tvInput = tv({
   ]
 }, {
   slots: {
-    base: prefix,
+    root: prefix,
     inner: `${prefix}-inner`,
     clearable: `${prefix}-clearable`,
   }

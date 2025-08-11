@@ -271,14 +271,13 @@ watchEffect((cleanup) => {
   }
 });
 
-const { base, inner } = tvHotkey({ unstyled, size });
-
+const { root, inner } = tvHotkey();
 const { forwardRef } = useForwardExpose();
 </script>
 
 <template>
   <Primitive
-    :class="base({ class: [ui?.base?.class, propsClass] })"
+    :class="root({ size, unstyled, class: [ui?.base?.class, propsClass] })"
     :data-state="inputState"
     :data-placeholder="placeholder"
   >
@@ -289,7 +288,7 @@ const { forwardRef } = useForwardExpose();
           innerRef = r as HTMLInputElement
         }
       "
-      :class="inner({ class: ui?.inner?.class })"
+      :class="inner({ size, unstyled, class: ui?.inner?.class })"
       :disabled="disabled ? true : undefined"
       :spellcheck="false"
       :data-state="inputState"
