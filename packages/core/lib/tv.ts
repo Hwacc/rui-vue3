@@ -31,7 +31,7 @@ export function tv<
   ES extends TVSlots = E['slots'] extends TVSlots ? E['slots'] : undefined,
 >(
   options: {
-    extends?: E
+    extend?: E
     base?: B
     slots?: S
     variants?: V

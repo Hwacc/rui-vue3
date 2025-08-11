@@ -1,66 +1,109 @@
-import type { VariantProps } from 'class-variance-authority'
+
 import { PREFIX } from '@rui/core/lib/constants'
-import { cva } from '@rui/core/lib/cva'
+import { tv } from '@rui/core/lib/tv'
+import { VariantProps } from 'tailwind-variants'
 
 export { default as Input } from './Input.vue'
 
 const prefix = `${PREFIX}-input`
-export const inputVariants = cva(
-  [
-    'flex',
-    'items-center',
-    'min-w-[7.75rem]',
-    'py-[.375rem]',
-    'px-2',
-    'gap-2',
-    'border',
-    'rounded',
-    'transition-all',
-    'data-[state=disabled]:pointer-events-none',
-    'data-[state=disabled]:opacity-(--disabled-opacity)',
-  ],
-  {
-    variants: {
-      size: {
-        base: ['text-sm'],
-        sm: ['text-xs'],
-        lg: ['text-base'],
-      },
+
+export const tvInput = tv({
+  slots: {
+    base: [
+      'flex',
+      'items-center',
+      'min-w-[7.75rem]',
+      'py-[.375rem]',
+      'px-2',
+      'gap-2',
+      'border',
+      'rounded',
+      'transition-all',
+      'data-[state=disabled]:pointer-events-none',
+      'data-[state=disabled]:opacity-(--disabled-opacity)',
+    ],
+    inner:  ['flex-1', 'w-0', 'outline-hidden', 'border-none', 'bg-transparent'],
+    clearable: ['flex', 'items-center', 'justify-center']
+  },
+  variants: {
+    size: {
+      base:'',
+      sm:'',
+      lg:'',
     },
-    defaultVariants: {
+  },
+  defaultVariants: { size: 'base' },
+  compoundSlots: [
+    {
+      slots: ['base'],
       size: 'base',
+      class: [
+        'text-sm',
+      ]
     },
-  },
-  { className: prefix },
-)
-export type InputVariants = VariantProps<typeof inputVariants>
+    {
+      slots: ['base'],
+      size: 'sm',
+      class: [
+        'text-xs',
+      ]
+    },
+    {
+      slots: ['base'],
+      size: 'lg',
+      class: [
+        'text-base',
+      ]
+    },
+    {
+      slots: ['inner'],
+      size: 'base',
+      class: [
+        'placeholder:text-sm',
+      ]
+    },
+    {
+      slots: ['inner'],
+      size: 'sm',
+      class: [
+        'placeholder:text-xs',
+      ]
+    },
+    {
+      slots: ['inner'],
+      size: 'lg',
+      class: [
+        'placeholder:text-base',
+      ]
+    },
+    {
+      slots: ['clearable'],
+      size: 'base',
+      class: [
+        '[&_svg]:size-3.5',
+      ]
+    },
+    {
+      slots: ['clearable'],
+      size: 'sm',
+      class: [
+        '[&_svg]:size-3',
+      ]
+    },
+    {
+      slots: ['clearable'],
+      size: 'lg',
+      class: [
+        '[&_svg]:size-4',
+      ]
+    },
+  ]
+}, {
+  slots: {
+    base: prefix,
+    inner: `${prefix}-inner`,
+    clearable: `${prefix}-clearable`,
+  }
+})
 
-export const inputInnerVariants = cva(
-  ['flex-1', 'w-0', 'outline-hidden', 'border-none', 'bg-transparent'],
-  {
-    variants: {
-      size: {
-        base: ['placeholder:text-sm'],
-        sm: ['placeholder:text-xs'],
-        lg: ['placeholder:text-base'],
-      },
-    },
-    defaultVariants: { size: 'base' },
-  },
-  { className: `${prefix}-inner` },
-)
-export type InputInnerVariants = VariantProps<typeof inputInnerVariants>
-
-export const inputClearableVariants = cva(
-  'flex items-center justify-center',
-  {
-    variants: {
-      size: {
-        base: '[&_svg]:size-3.5',
-        sm: '[&_svg]:size-3',
-        lg: '[&_svg]:size-4',
-      },
-    },
-  },
-  { className: `${prefix}-clearable` },
-)
+export type InputVariants = VariantProps<typeof tvInput>
