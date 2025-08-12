@@ -6,7 +6,7 @@ import type {
   ShiftOptions,
   Strategy,
   UseFloatingOptions,
-} from '@floating-ui/vue'
+} from '@floating-ui/vue';
 // see: https://vue-3-slider-component.netlify.app/?path=/docs/vue-3-slider-component--docs
 import type {
   DotOption,
@@ -16,95 +16,95 @@ import type {
   Styles,
   TooltipFormatter,
   Value,
-} from 'vue-3-slider-component'
-import { arrow, autoUpdate, offset, shift, useFloating } from '@floating-ui/vue'
-import { useForwardPropsEmits } from '@rui/add-ons/lib/useFowardPropsEmits'
-import { isNil, isNumber, isObject, merge, omit } from 'lodash-es'
-import { computed, onMounted, ref, Teleport, toRefs, unref, watch } from 'vue'
+} from 'vue-3-slider-component';
+import { arrow, autoUpdate, offset, shift, useFloating } from '@floating-ui/vue';
+import { useForwardPropsEmits } from '@rui/add-ons/lib/useFowardPropsEmits';
+import { isNil, isNumber, isObject, merge, omit } from 'lodash-es';
+import { computed, onMounted, ref, Teleport, toRefs, unref, watch } from 'vue';
 
 type SliderProps = {
-  adsorb?: boolean
-  clickable?: boolean
-  contained?: boolean
-  data?: Array<number> | Array<string> | Array<object> | Record<string, any>
-  dataLabel?: string
-  dataValue?: string
-  direction?: 'ltr' | 'rtl' | 'ttb' | 'btt'
-  disabled?: boolean
-  dotAttrs?: Record<string, any>
-  dotSize?: number | [number, number]
-  dotStyle?: Styles
-  dotOptions?: DotOption | Array<DotOption>
-  dragOnClick?: boolean
-  duration?: number
-  enableCross?: boolean
-  fixed?: boolean
-  included?: boolean
-  interval?: number
-  keydownHook?: (e: KeyboardEvent) => (index: number) => number | boolean
-  labelActiveStyle?: Styles
-  labelStyle?: Styles
-  lazy?: boolean
-  marks?: boolean | Marks | Array<number | string> | MarksFunction
-  max?: number
-  maxRange?: number
-  min?: number
-  minRange?: number
-  order?: boolean
-  process?: boolean | ProcessFunc
-  processStyle?: Styles
-  railStyle?: Styles
-  silent?: boolean
-  stepActiveStyle?: Styles
-  stepStyle?: Styles
-  tooltip?: 'none' | 'always' | 'hover' | 'focus' | 'active'
-  tooltipFormatter?: TooltipFormatter | Array<TooltipFormatter>
-  tooltipPlacement?: 'top' | 'bottom' | 'left' | 'right'
-  tooltipStyle?: Styles
-  useKeyboard?: boolean
-  value?: Value | Array<Value>
-  width?: number | string
-  height?: number | string
-  zoom?: number
-}
+  adsorb?: boolean;
+  clickable?: boolean;
+  contained?: boolean;
+  data?: Array<number> | Array<string> | Array<object> | Record<string, any>;
+  dataLabel?: string;
+  dataValue?: string;
+  direction?: 'ltr' | 'rtl' | 'ttb' | 'btt';
+  disabled?: boolean;
+  dotAttrs?: Record<string, any>;
+  dotSize?: number | [number, number];
+  dotStyle?: Styles;
+  dotOptions?: DotOption | Array<DotOption>;
+  dragOnClick?: boolean;
+  duration?: number;
+  enableCross?: boolean;
+  fixed?: boolean;
+  included?: boolean;
+  interval?: number;
+  keydownHook?: (e: KeyboardEvent) => (index: number) => number | boolean;
+  labelActiveStyle?: Styles;
+  labelStyle?: Styles;
+  lazy?: boolean;
+  marks?: boolean | Marks | Array<number | string> | MarksFunction;
+  max?: number;
+  maxRange?: number;
+  min?: number;
+  minRange?: number;
+  order?: boolean;
+  process?: boolean | ProcessFunc;
+  processStyle?: Styles;
+  railStyle?: Styles;
+  silent?: boolean;
+  stepActiveStyle?: Styles;
+  stepStyle?: Styles;
+  tooltip?: 'none' | 'always' | 'hover' | 'focus' | 'active';
+  tooltipFormatter?: TooltipFormatter | Array<TooltipFormatter>;
+  tooltipPlacement?: 'top' | 'bottom' | 'left' | 'right';
+  tooltipStyle?: Styles;
+  useKeyboard?: boolean;
+  value?: Value | Array<Value>;
+  width?: number | string;
+  height?: number | string;
+  zoom?: number;
+};
 type SliderSlotDotProps = {
-  pos: number
-  index: number
-  value: number | string
-  focus: boolean
-  disabled: boolean
-}
+  pos: number;
+  index: number;
+  value: number | string;
+  focus: boolean;
+  disabled: boolean;
+};
 type SliderSlotLabelProps = {
-  label: number | string
-  pos: number
-  value: number | string
-  active: boolean
-}
+  label: number | string;
+  pos: number;
+  value: number | string;
+  active: boolean;
+};
 type SliderSlotMarkProps = {
-  label: number | string
-  pos: number
-  value: number | string
-  active: boolean
-}
+  label: number | string;
+  pos: number;
+  value: number | string;
+  active: boolean;
+};
 type SliderSlotProcessProps = {
-  start: number
-  end: number
-  index: number
-  style: Record<string, any>
-}
+  start: number;
+  end: number;
+  index: number;
+  style: Record<string, any>;
+};
 type SliderSlotStepProps = {
-  label: number | string
-  pos: number
-  value: number | string
-  active: boolean
-}
+  label: number | string;
+  pos: number;
+  value: number | string;
+  active: boolean;
+};
 type SliderSlotTooltipProps = {
-  pos: number
-  index: number
-  value: number | string
-  focus: boolean
-  disabled: boolean
-}
+  pos: number;
+  index: number;
+  value: number | string;
+  focus: boolean;
+  disabled: boolean;
+};
 export enum SLIDER_ERROR_TYPE {
   VALUE = 1, // Value is illegal
   INTERVAL = 2, // `interval` cannot be divisible by `(max - min)`
@@ -116,14 +116,14 @@ export enum SLIDER_ERROR_TYPE {
 export type FloatingTooltipOptions = Partial<
   Omit<UseFloatingOptions, 'middleware' | 'whileElementsMounted'>
 > & {
-  shift?: ShiftOptions
-  offset?: OffsetOptions
-  arrow?: ArrowOptions
-  content?: any
-  class?: HTMLAttributes['class']
-  arrowClass?: HTMLAttributes['class']
-  teleport?: boolean
-}
+  shift?: ShiftOptions;
+  offset?: OffsetOptions;
+  arrow?: ArrowOptions;
+  content?: any;
+  class?: HTMLAttributes['class'];
+  arrowClass?: HTMLAttributes['class'];
+  teleport?: boolean;
+};
 
 const DEFAULT_FLOATING_TOOLTIP_OPTIONS: FloatingTooltipOptions = {
   open: true,
@@ -145,17 +145,15 @@ const DEFAULT_FLOATING_TOOLTIP_OPTIONS: FloatingTooltipOptions = {
     element: undefined,
     padding: 0,
   },
-}
+};
 export function useFloatingTooltip(options: MaybeRef<FloatingTooltipOptions>) {
-  const floatingBoundaryRef = ref<ComponentPublicInstance | HTMLElement | null>(
-    null,
-  )
-  const floatingTooltipRef = ref<HTMLElement | null>(null)
-  const floatingReferenceRef = ref<HTMLElement | null>(null)
-  const floatingArrowRef = ref<HTMLElement | null>(null)
+  const floatingBoundaryRef = ref<ComponentPublicInstance | HTMLElement | null>(null);
+  const floatingTooltipRef = ref<HTMLElement | null>(null);
+  const floatingReferenceRef = ref<HTMLElement | null>(null);
+  const floatingArrowRef = ref<HTMLElement | null>(null);
 
-  const innerOptions = toRefs(unref(options))
-  const middleware = ref<Middleware[]>([])
+  const innerOptions = toRefs(unref(options));
+  const middleware = ref<Middleware[]>([]);
   const { floatingStyles, update, middlewareData } = useFloating(
     floatingReferenceRef,
     floatingTooltipRef,
@@ -163,18 +161,17 @@ export function useFloatingTooltip(options: MaybeRef<FloatingTooltipOptions>) {
       ...(innerOptions as UseFloatingOptions),
       middleware,
       whileElementsMounted: autoUpdate,
-    },
-  )
+    }
+  );
 
   const updateMiddleware = () => {
-    let boundary: any = innerOptions.shift?.value?.boundary
-    const rootBoundary = innerOptions.shift?.value?.rootBoundary ?? 'document'
+    let boundary: any = innerOptions.shift?.value?.boundary;
+    const rootBoundary = innerOptions.shift?.value?.rootBoundary ?? 'document';
     if (isNil(boundary)) {
       if (floatingBoundaryRef.value instanceof HTMLElement) {
-        boundary = floatingBoundaryRef.value
-      }
-      else if (floatingBoundaryRef.value?.$el) {
-        boundary = floatingBoundaryRef.value.$el
+        boundary = floatingBoundaryRef.value;
+      } else if (floatingBoundaryRef.value?.$el) {
+        boundary = floatingBoundaryRef.value.$el;
       }
     }
     middleware.value = [
@@ -188,67 +185,66 @@ export function useFloatingTooltip(options: MaybeRef<FloatingTooltipOptions>) {
         element: innerOptions.arrow?.value?.element || floatingArrowRef.value,
         padding: innerOptions.arrow?.value?.padding,
       }),
-    ]
-  }
+    ];
+  };
 
   watch(
     () => options,
     (opts) => {
       for (const key in unref(opts)) {
-        (innerOptions as any)[key].value = (unref(opts) as any)[key]
+        (innerOptions as any)[key].value = (unref(opts) as any)[key];
       }
-      updateMiddleware()
+      updateMiddleware();
     },
-    { deep: true },
-  )
+    { deep: true }
+  );
 
   onMounted(() => {
-    updateMiddleware()
-  })
+    updateMiddleware();
+  });
 
   const floatingTooltipArrowPosition = computed(() => {
-    const placement = unref(innerOptions.placement) as string
+    const placement = unref(innerOptions.placement) as string;
     if (/top|bottom/.test(placement)) {
-      let y: number | string | undefined = middlewareData.value.arrow?.y
+      let y: number | string | undefined = middlewareData.value.arrow?.y;
       if (isNil(y)) {
         if (placement.includes('top')) {
-          y = floatingTooltipRef.value?.offsetHeight || '100%'
+          y = floatingTooltipRef.value?.offsetHeight || '100%';
         }
         if (placement.includes('bottom')) {
-          y = 0
+          y = 0;
         }
       }
       return {
         x: middlewareData.value.arrow?.x ?? 0,
         y,
         ...omit(middlewareData.value.arrow, 'x', 'y'),
-      }
-    }
-    else if (/left|right/.test(placement)) {
-      let x: number | string | undefined = middlewareData.value.arrow?.x
+      };
+    } else if (/left|right/.test(placement)) {
+      let x: number | string | undefined = middlewareData.value.arrow?.x;
       if (isNil(x)) {
         if (placement.includes('left')) {
-          x = floatingTooltipRef.value?.offsetWidth || '100%'
+          x = floatingTooltipRef.value?.offsetWidth || '100%';
         }
         if (placement.includes('right')) {
-          x = 0
+          x = 0;
         }
       }
       return {
         x,
         y: middlewareData.value.arrow?.y ?? 0,
         ...omit(middlewareData.value.arrow, 'x', 'y'),
-      }
+      };
     }
     return {
       x: middlewareData.value.arrow?.x ?? 0,
       y: middlewareData.value.arrow?.y ?? 0,
       ...omit(middlewareData.value.arrow, 'x', 'y'),
-    }
-  })
+    };
+  });
 
   const floatingTooltipArrowStyles = computed(() => {
-    const placement = unref(innerOptions.placement) as string
+    const placement = unref(innerOptions.placement) as string;
     const styles = {
       left: isNumber(floatingTooltipArrowPosition.value?.x)
         ? `${floatingTooltipArrowPosition.value?.x}px`
@@ -257,15 +253,15 @@ export function useFloatingTooltip(options: MaybeRef<FloatingTooltipOptions>) {
         ? `${floatingTooltipArrowPosition.value?.y}px`
         : floatingTooltipArrowPosition.value?.y,
       transform: '',
-    }
+    };
     if (/bottom/.test(placement as string)) {
-      styles.transform = 'translateY(-100%)'
+      styles.transform = 'translateY(-100%)';
     }
     if (/right/.test(placement as string)) {
-      styles.transform = 'translateX(-100%)'
+      styles.transform = 'translateX(-100%)';
     }
-    return styles
-  })
+    return styles;
+  });
 
   return {
     floatingBoundaryRef,
@@ -276,21 +272,16 @@ export function useFloatingTooltip(options: MaybeRef<FloatingTooltipOptions>) {
     floatingTooltipArrowStyles,
     updateFloatingTooltip: update,
     middlewareData,
-  }
+  };
 }
 </script>
 
 <script setup lang="ts">
-import type {
-  ComponentPublicInstance,
-  ComputedRef,
-  HTMLAttributes,
-  MaybeRef,
-  Ref,
-} from 'vue'
-import { cn, getNodeCssVar, rem2px } from '@rui/core/lib/utils'
-import Slider from 'vue-3-slider-component'
-import { sliderDotVariants, sliderTooltipVariants, sliderVariants } from '.'
+import type { ComponentPublicInstance, ComputedRef, HTMLAttributes, MaybeRef, Ref } from 'vue';
+import { cn, getNodeCssVar, rem2px } from '@rui/core/lib/utils';
+import Slider from 'vue-3-slider-component';
+import type { SliderVariants } from '.';
+import { tvSlider } from '.';
 
 const {
   class: propsClass,
@@ -305,76 +296,95 @@ const {
   duration = 0.15,
   floatingTooltip,
   unstyled,
+  ui,
   ...props
 } = defineProps<
   SliderProps & {
-    class?: HTMLAttributes['class']
-    size?: 'base' | 'sm' | 'lg'
-    floatingTooltip?: FloatingTooltipOptions | boolean | undefined
-    unstyled?: boolean
+    class?: HTMLAttributes['class'];
+    size?: SliderVariants['size'];
+    floatingTooltip?: FloatingTooltipOptions | boolean | undefined;
+    unstyled?: boolean;
+    ui?: {
+      root?: {
+        class?: HTMLAttributes['class'];
+      };
+      process?: {
+        class?: HTMLAttributes['class'];
+        style?: HTMLAttributes['style'];
+      };
+      dot?: {
+        class?: HTMLAttributes['class'];
+      };
+      tooltip?: {
+        class?: HTMLAttributes['class'];
+      };
+      label?: {
+        class?: HTMLAttributes['class'];
+      };
+      mark?: {
+        class?: HTMLAttributes['class'];
+      };
+      step?: {
+        class?: HTMLAttributes['class'];
+      };
+      rail?: {
+        class?: HTMLAttributes['class'];
+        style?: HTMLAttributes['style'];
+      };
+    };
   }
->()
+>();
 // emits
 const emits = defineEmits<{
-  change: [value: number | string | number[] | string[], index: number]
-  dragEnd: [index: number]
-  dragStart: [index: number]
-  dragging: [value: number | string | number[] | string[], index: number]
-  error: [type: SLIDER_ERROR_TYPE, message: string]
-}>()
+  change: [value: number | string | number[] | string[], index: number];
+  dragEnd: [index: number];
+  dragStart: [index: number];
+  dragging: [value: number | string | number[] | string[], index: number];
+  error: [type: SLIDER_ERROR_TYPE, message: string];
+}>();
 // slots
 defineSlots<{
-  dot?: (
-    dotProps: SliderSlotDotProps & { class: HTMLAttributes['class'] }
-  ) => any
-  label?: (
-    labelProps: SliderSlotLabelProps & { class: HTMLAttributes['class'] }
-  ) => any
-  mark?: (
-    markProps: SliderSlotMarkProps & { class: HTMLAttributes['class'] }
-  ) => any
-  process?: (
-    processProps: SliderSlotProcessProps & { class: HTMLAttributes['class'] }
-  ) => any
-  step?: (
-    stepProps: SliderSlotStepProps & { class: HTMLAttributes['class'] }
-  ) => any
+  dot?: (dotProps: SliderSlotDotProps & { class: HTMLAttributes['class'] }) => any;
+  label?: (labelProps: SliderSlotLabelProps & { class: HTMLAttributes['class'] }) => any;
+  mark?: (markProps: SliderSlotMarkProps & { class: HTMLAttributes['class'] }) => any;
+  process?: (processProps: SliderSlotProcessProps & { class: HTMLAttributes['class'] }) => any;
+  step?: (stepProps: SliderSlotStepProps & { class: HTMLAttributes['class'] }) => any;
   tooltip?: (
     tooltipProps: SliderSlotTooltipProps & {
-      class: HTMLAttributes['class']
-      variant: 'default' | 'floating'
+      class: HTMLAttributes['class'];
+      variant: 'default' | 'floating';
     }
-  ) => any
+  ) => any;
   floatingTooltip?: (
     tooltipProps: SliderSlotTooltipProps & {
-      class: HTMLAttributes['class']
-      variant: 'default' | 'floating'
+      class: HTMLAttributes['class'];
+      variant: 'default' | 'floating';
       floatingTooltipStyles: Readonly<
         Ref<{
-          position: Strategy
-          top: string
-          left: string
-          transform?: string
-          willChange?: string
+          position: Strategy;
+          top: string;
+          left: string;
+          transform?: string;
+          willChange?: string;
         }>
-      >
+      >;
       floatingTooltipArrowPosition: ComputedRef<
         | {
-          centerOffset: number
-          alignmentOffset?: number | undefined
-          x: string | number | undefined
-          y: string | number | undefined
-        }
+            centerOffset: number;
+            alignmentOffset?: number | undefined;
+            x: string | number | undefined;
+            y: string | number | undefined;
+          }
         | undefined
-      >
+      >;
     }
-  ) => any
-}>()
+  ) => any;
+}>();
 // default model
-const model = defineModel<number | string | number[] | string[]>()
-const forwarded = useForwardPropsEmits(props, emits)
+const model = defineModel<number | string | number[] | string[]>();
+const forwarded = useForwardPropsEmits(props, emits);
 
-const sliderRef = ref<{ $el: HTMLElement }>()
+const sliderRef = ref<{ $el: HTMLElement }>();
 
 // styles
 const mergedRailStyle = computed(() => {
@@ -384,9 +394,10 @@ const mergedRailStyle = computed(() => {
         ? undefined
         : getNodeCssVar(sliderRef.value?.$el, '--rui-slider-rail', '#000'),
     },
-    railStyle,
-  )
-})
+    ui?.rail?.style,
+    railStyle
+  );
+});
 const mergedProcessStyle = computed(() => {
   return merge(
     {
@@ -394,63 +405,64 @@ const mergedProcessStyle = computed(() => {
         ? undefined
         : getNodeCssVar(sliderRef.value?.$el, '--rui-slider-progress', '#fff'),
     },
-    processStyle,
-  )
-})
+    ui?.process?.style,
+    processStyle
+  );
+});
 const computedWidth = computed(() => {
   if (direction === 'ttb' || direction === 'btt') {
     switch (size) {
       case 'base':
-        return '.125rem'
+        return '.125rem';
       case 'sm':
-        return '.0625rem'
+        return '.0625rem';
       case 'lg':
-        return '.25rem'
+        return '.25rem';
     }
   }
-  return width
-})
+  return width;
+});
 const computedHeight = computed(() => {
   if (direction === 'ltr' || direction === 'rtl') {
     switch (size) {
       case 'base':
-        return '.125rem'
+        return '.125rem';
       case 'sm':
-        return '.0625rem'
+        return '.0625rem';
       case 'lg':
-        return '.25rem'
+        return '.25rem';
     }
   }
-  return height
-})
+  return height;
+});
 const computedDotSize = computed(() => {
   switch (size) {
     case 'sm':
-      return [rem2px(0.5), rem2px(0.5)]
+      return [rem2px(0.5), rem2px(0.5)];
     case 'lg':
-      return [rem2px(0.75), rem2px(0.75)]
+      return [rem2px(0.75), rem2px(0.75)];
     case 'base':
     default:
-      return [rem2px(0.625), rem2px(0.625)]
+      return [rem2px(0.625), rem2px(0.625)];
   }
-})
-const dotDragIndex = ref(-1)
-const dotDragStart = ref(false)
+});
+const dotDragIndex = ref(-1);
+const dotDragStart = ref(false);
 
 const floatingTooltipOptions = ref<FloatingTooltipOptions>(
   isObject(floatingTooltip)
     ? merge({}, DEFAULT_FLOATING_TOOLTIP_OPTIONS, floatingTooltip)
-    : DEFAULT_FLOATING_TOOLTIP_OPTIONS,
-)
+    : DEFAULT_FLOATING_TOOLTIP_OPTIONS
+);
 watch(
   () => floatingTooltip,
   (opts) => {
     floatingTooltipOptions.value = isObject(opts)
       ? merge({}, DEFAULT_FLOATING_TOOLTIP_OPTIONS, opts)
-      : DEFAULT_FLOATING_TOOLTIP_OPTIONS
+      : DEFAULT_FLOATING_TOOLTIP_OPTIONS;
   },
-  { deep: true },
-)
+  { deep: true }
+);
 const {
   floatingBoundaryRef,
   floatingTooltipRef,
@@ -459,13 +471,13 @@ const {
   floatingTooltipArrowStyles,
   floatingTooltipStyles,
   updateFloatingTooltip,
-} = useFloatingTooltip(floatingTooltipOptions)
+} = useFloatingTooltip(floatingTooltipOptions);
 
 function getFloatingTooltipContent(value: number | string) {
-  return isObject(floatingTooltip) && floatingTooltip.content
-    ? floatingTooltip.content
-    : value
+  return isObject(floatingTooltip) && floatingTooltip.content ? floatingTooltip.content : value;
 }
+
+const { root, dot, tooltip, label, mark, step, process, rail } = tvSlider();
 </script>
 
 <template>
@@ -476,7 +488,7 @@ function getFloatingTooltipContent(value: number | string) {
       sliderRef = r;
     }"
     v-model="model"
-    :class="cn(sliderVariants({ unstyled }), propsClass)"
+    :class="root({ unstyled, class: [ui?.root?.class, propsClass] })"
     :direction="direction"
     :width="computedWidth"
     :height="computedHeight"
@@ -501,15 +513,19 @@ function getFloatingTooltipContent(value: number | string) {
     }"
   >
     <template #dot="{ index, ...rest }">
-      <div ref="floatingReferenceRef" class="w-full h-full">
+      <div
+        ref="floatingReferenceRef"
+        class="w-full h-full"
+      >
         <slot
           name="dot"
           v-bind="{
             index,
-            class: sliderDotVariants({
+            class: dot({
               size,
               unstyled,
               scale: index === dotDragIndex && dotDragStart,
+              class: [ui?.dot?.class],
             }),
             ...rest,
           }"
@@ -517,11 +533,12 @@ function getFloatingTooltipContent(value: number | string) {
           <div
             :class="
               cn(
-                sliderDotVariants({
+                dot({
                   size,
                   unstyled,
                   scale: index === dotDragIndex && dotDragStart,
-                }),
+                  class: [ui?.dot?.class],
+                })
               )
             "
           />
@@ -533,14 +550,23 @@ function getFloatingTooltipContent(value: number | string) {
         name="label"
         v-bind="{
           ...labelProps,
-          class: unstyled ? '' : 'rui-vue-slider-label',
+          class: label({
+            unstyled,
+            class: [ui?.label?.class],
+          }),
         }"
       />
     </template>
     <template #mark="markProps">
       <slot
         name="mark"
-        v-bind="{ ...markProps, class: unstyled ? '' : 'rui-vue-slider-mark' }"
+        v-bind="{
+          ...markProps,
+          class: mark({
+            unstyled,
+            class: [ui?.mark?.class],
+          }),
+        }"
       />
     </template>
     <template #process="processProps">
@@ -548,14 +574,23 @@ function getFloatingTooltipContent(value: number | string) {
         name="process"
         v-bind="{
           ...processProps,
-          class: unstyled ? '' : 'rui-vue-slider-process',
+          class: process({
+            unstyled,
+            class: [ui?.process?.class],
+          }),
         }"
       />
     </template>
     <template #step="stepProps">
       <slot
         name="step"
-        v-bind="{ ...stepProps, class: unstyled ? '' : 'rui-vue-slider-step' }"
+        v-bind="{
+          ...stepProps,
+          class: step({
+            unstyled,
+            class: [ui?.step?.class],
+          }),
+        }"
       />
     </template>
     <template #tooltip="tooltipProps">
@@ -567,13 +602,11 @@ function getFloatingTooltipContent(value: number | string) {
           floatingTooltipOptions,
           floatingTooltipStyles,
           floatingTooltipArrowStyles,
-          class: cn(
-            sliderTooltipVariants({
-              variant: 'floating',
-              unstyled,
-            }),
-            floatingTooltipOptions.class,
-          ),
+          class: tooltip({
+            variant: 'floating',
+            unstyled,
+            class: [floatingTooltipOptions.class, ui?.tooltip?.class],
+          }),
           variant: 'floating',
         }"
       >
@@ -584,13 +617,11 @@ function getFloatingTooltipContent(value: number | string) {
           <div
             ref="floatingTooltipRef"
             :class="
-              cn(
-                sliderTooltipVariants({
-                  variant: 'floating',
-                  unstyled,
-                }),
-                floatingTooltipOptions.class,
-              )
+              tooltip({
+                variant: 'floating',
+                unstyled,
+                class: [floatingTooltipOptions.class, ui?.tooltip?.class],
+              })
             "
             :style="floatingTooltipStyles"
             data-variant="floating"
@@ -633,10 +664,11 @@ function getFloatingTooltipContent(value: number | string) {
         v-else
         name="tooltip"
         v-bind="{
-          class: sliderTooltipVariants({
+          class: tooltip({
             variant: 'default',
             placement: tooltipPlacement,
             unstyled,
+            class: [ui?.tooltip?.class],
           }),
           variant: 'default',
           ...tooltipProps,
@@ -644,10 +676,11 @@ function getFloatingTooltipContent(value: number | string) {
       >
         <div
           :class="
-            sliderTooltipVariants({
+            tooltip({
               variant: 'default',
               placement: tooltipPlacement,
               unstyled,
+              class: [ui?.tooltip?.class],
             })
           "
           data-variant="floating"

@@ -10,6 +10,7 @@ import { concat, each, merge } from 'lodash-es'
 import { tv as originTv } from 'tailwind-variants'
 
 type TVSlots = Record<string, ClassValue> | undefined
+export type { VariantProps } from 'tailwind-variants'
 
 export function tv<
   V extends TVVariants<S, B, EV>,
