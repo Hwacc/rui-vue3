@@ -7,9 +7,6 @@ export { default as PopoverArrow } from './PopoverArrow.vue'
 export { default as PopoverContent } from './PopoverContent.vue'
 export { default as PopoverTrigger } from './PopoverTrigger.vue'
 
-// @ts-expect-error reka-ui not export useGraceArea
-export { useGraceArea } from '@rui/core/vendor/useGraceArea.js'
-
 export { PopoverAnchor } from 'reka-ui'
 
 const prefix = `${PREFIX}-popover`

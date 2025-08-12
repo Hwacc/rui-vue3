@@ -1,9 +1,8 @@
 <script setup lang="ts">
-import type { PopoverContentEmits, PopoverContentProps } from 'reka-ui'
+import type { PopoverContentEmits, PopoverContentProps, PopoverPortalProps } from 'reka-ui'
 import type { HTMLAttributes } from 'vue'
 import { PopoverContentMotion } from '@rui/core/components/motion/PopoverContentMotion'
-// @ts-expect-error reka not export useGraceArea
-import { useGraceArea } from '@rui/core/vendor/useGraceArea.js'
+import { useGraceArea } from '@rui/core/shared'
 import { AnimatePresence } from 'motion-v'
 import {
   injectPopoverRootContext,
@@ -35,6 +34,7 @@ const {
     ui?: {
       wrapper?: {
         class?: HTMLAttributes['class']
+        props?: PopoverPortalProps
       }
       content?: {
         class?: HTMLAttributes['class']
@@ -88,7 +88,7 @@ const forwarded = useForwardPropsEmits(props, emits)
 </script>
 
 <template>
-  <PopoverPortal>
+  <PopoverPortal v-bind="ui?.wrapper?.props">
     <AnimatePresence>
       <PopoverContent
         v-bind="{ ...forwarded, side, align, sideOffset, ...$attrs }"

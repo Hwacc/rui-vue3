@@ -287,7 +287,6 @@ const {
   class: propsClass,
   direction = 'ltr',
   railStyle,
-  processStyle,
   tooltipPlacement = 'top',
   dotSize,
   width,
@@ -314,6 +313,7 @@ const {
       };
       dot?: {
         class?: HTMLAttributes['class'];
+        style?: HTMLAttributes['style'];
       };
       tooltip?: {
         class?: HTMLAttributes['class'];
@@ -406,9 +406,14 @@ const mergedProcessStyle = computed(() => {
         : getNodeCssVar(sliderRef.value?.$el, '--rui-slider-progress', '#fff'),
     },
     ui?.process?.style,
-    processStyle
+    props.processStyle
   );
 });
+const mergedDotStyle = computed(() => {
+  console.log('test',merge({}, ui?.dot?.style, props.dotStyle))
+  return merge({}, ui?.dot?.style, props.dotStyle);
+});
+
 const computedWidth = computed(() => {
   if (direction === 'ttb' || direction === 'btt') {
     switch (size) {
@@ -477,7 +482,7 @@ function getFloatingTooltipContent(value: number | string) {
   return isObject(floatingTooltip) && floatingTooltip.content ? floatingTooltip.content : value;
 }
 
-const { root, dot, tooltip, label, mark, step, process, rail } = tvSlider();
+const { root, dot, tooltip, label, mark, step, process } = tvSlider();
 </script>
 
 <template>
@@ -495,7 +500,8 @@ const { root, dot, tooltip, label, mark, step, process, rail } = tvSlider();
     :duration="duration"
     :rail-style="mergedRailStyle"
     :process-style="mergedProcessStyle"
-    :dot-size="computedDotSize"
+    :dot-size="dotSize ? dotSize : computedDotSize"
+    :dot-style="mergedDotStyle"
     :tooltip-placement="tooltipPlacement"
     @drag-start="(index: number) => {
       dotDragIndex = index;
