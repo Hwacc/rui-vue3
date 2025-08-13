@@ -22,4 +22,4 @@ export const tvIcon = tv({
   class: prefix,
 })
 
-export type IconVariantsProps = VariantProps<typeof tvIcon>
+export type IconVariants = VariantProps<typeof tvIcon>

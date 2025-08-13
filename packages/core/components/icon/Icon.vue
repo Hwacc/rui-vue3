@@ -8,7 +8,7 @@ export interface IconProps {
 
 <script setup lang="ts">
 import type { HTMLAttributes } from 'vue'
-import type { IconVariantsProps } from '.'
+import type { IconVariants } from '.'
 import { Icon } from '@iconify/vue'
 import { useForwardProps } from 'reka-ui'
 import { tvIcon } from '.'
@@ -22,7 +22,7 @@ const {
 } = defineProps<
   IconProps & {
     class?: HTMLAttributes['class']
-    size?: IconVariantsProps['size']
+    size?: IconVariants['size']
     unstyled?: boolean
   }
 >()
