@@ -10,9 +10,8 @@ export interface IconProps {
 import type { HTMLAttributes } from 'vue'
 import type { IconVariantsProps } from '.'
 import { Icon } from '@iconify/vue'
-import { cn } from '@rui/core/lib/utils'
 import { useForwardProps } from 'reka-ui'
-import { iconVariants } from '.'
+import { tvIcon } from '.'
 
 const {
   class: propsClass,
@@ -33,7 +32,7 @@ useForwardProps(props)
 
 <template>
   <Icon
-    :class="cn(iconVariants({ size, unstyled }), propsClass)"
+    :class="tvIcon({ size, unstyled, class: propsClass })"
     :icon="icon"
     v-bind="props"
   />

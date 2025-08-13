@@ -1,23 +1,25 @@
-import type { VariantProps } from '@rui/core/lib/cva'
+import type { VariantProps } from 'tailwind-variants'
 import { PREFIX } from '@rui/core/lib/constants'
-import { cva } from '@rui/core/lib/cva'
+import { tv } from '@rui/core/lib/tv'
 
 export { default as Icon } from './Icon.vue'
 
 const prefix = `${PREFIX}-icon`
-export const iconVariants = cva(
-  '',
-  {
-    variants: {
-      size: {
-        sm: 'text-sm',
-        base: 'text-base',
-        lg: 'text-lg',
-      },
+
+export const tvIcon = tv({
+  base: '',
+  variants: {
+    size: {
+      sm: 'text-sm',
+      base: 'text-base',
+      lg: 'text-lg',
     },
   },
-  {
-    className: prefix,
+  defaultVariants: {
+    size: 'base',
   },
-)
-export type IconVariantsProps = VariantProps<typeof iconVariants>
+}, {
+  class: prefix,
+})
+
+export type IconVariantsProps = VariantProps<typeof tvIcon>
