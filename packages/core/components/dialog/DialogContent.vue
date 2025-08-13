@@ -41,7 +41,7 @@ import {
   useForwardPropsEmits,
 } from 'reka-ui'
 
-import { computed, ref, useSlots, watch } from 'vue'
+import { computed, useSlots, watch } from 'vue'
 import { DialogClose, DialogCloseFrom, tvDialog } from '.'
 import { injectDialogContext } from './DialogRootProviderEx'
 
@@ -60,11 +60,14 @@ const emits = defineEmits<
     opened: []
     close: [{ from: DialogCloseFrom | undefined }]
     closed: [{ from: DialogCloseFrom | undefined }]
+    enter: [event: any]
+    leave: [event: any]
+    afterEnter: [event: any]
+    afterLeave: [event: any]
   }
 >()
 const { open, closeFrom } = injectDialogContext()
 const { forwardRef } = useForwardExpose()
-const originContentRef = ref<{ $el?: HTMLDivElement } | null>(null)
 
 const slots = useSlots()
 function hasDialogHeader() {
@@ -90,15 +93,8 @@ function onPointerDownOutside(e: any) {
   closeFrom.value = DialogCloseFrom.Overlay
 }
 
-watch(open, (value, _, onCleanup) => {
+watch(open, (value) => {
   value ? emits('open') : emits('close', { from: closeFrom.value })
-  const _onAnimationEnd = () => {
-    value ? emits('opened') : emits('closed', { from: closeFrom.value })
-  }
-  originContentRef.value?.$el?.addEventListener('animationend', _onAnimationEnd)
-  onCleanup(() => {
-    originContentRef.value?.$el?.removeEventListener('animationend', _onAnimationEnd)
-  })
 })
 
 const { overlay, content, close } = tvDialog()
@@ -113,14 +109,11 @@ const forwarded = useForwardPropsEmits(props, emits)
     />
     <DialogContent
       v-bind="forwarded"
-      :ref="
-        (ref) => {
-          forwardRef(ref);
-          originContentRef = ref as any;
-        }
-      "
+      :ref="forwardRef"
       data-variant="default"
       :class="content({ unstyled, variant: 'default', class: propsClass })"
+      @after-enter="() => emits('opened')"
+      @after-leave="() => emits('closed', { from: closeFrom })"
       @open-auto-focus="
         (event) => {
           emits('openAutoFocus', event)

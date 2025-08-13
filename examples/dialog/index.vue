@@ -12,6 +12,8 @@ import {
   DialogTrigger,
 } from '@rui/core/components/dialog'
 import DialogClose from '@rui/core/components/dialog/DialogClose.vue'
+import { useOverlay } from '@rui/core/components/overlay'
+import TestDialog from './TestDialog.vue'
 
 function onContentClose({ from }: { from: DialogCloseFrom | undefined }) {
   console.log('on close from:', from)
@@ -60,6 +62,12 @@ function onOpenDialogClick() {
     },
   })
 }
+
+const overlay = useOverlay()
+const testDialog = overlay.create(TestDialog)
+function onOpenDialogOverlayClick() {
+  testDialog.open()
+}
 </script>
 
 <template>
@@ -98,6 +106,9 @@ function onOpenDialogClick() {
     </Dialog>
     <Button @click="onOpenDialogClick">
       Open Dialog by Function
+    </Button>
+    <Button @click="onOpenDialogOverlayClick">
+      Open Dialog by Overlay Provider
     </Button>
   </div>
 </template>

@@ -41,3 +41,8 @@ declare module '*.vue' {
 }
 
 declare type StringOrNumber = string | number
+
+interface ImportMeta {
+  readonly env: ImportMetaEnv
+  readonly dev: boolean
+}

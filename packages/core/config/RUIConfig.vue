@@ -3,11 +3,12 @@ import type { IconifyIcon, IconifyJSON, PartialIconifyAPIConfig } from '@iconify
 import type { ComponentProps } from 'vue-component-type-helpers'
 import { addAPIProvider, addCollection, addIcon } from '@iconify/vue'
 import { Messager } from '@rui/core/components/message'
+import { OverlayProvider } from '@rui/core/components/overlay'
+import { SpinProvider } from '@rui/core/components/spin'
 import { Toaster } from '@rui/core/components/toast'
 import { TooltipProvider } from '@rui/core/components/tooltip'
 import { merge } from 'lodash-es'
 import { computed } from 'vue'
-import { SpinProvider } from '@rui/core/components/spin'
 
 const { tooltip, toaster, messager, iconify } = defineProps<{
   tooltip?: ComponentProps<typeof TooltipProvider>
@@ -41,10 +42,11 @@ if (iconify?.addAPIProviders) {
 
 <template>
   <TooltipProvider v-bind="tooltipOptions">
-    <SpinProvider >
+    <SpinProvider>
       <slot />
     </SpinProvider>
     <Toaster v-bind="toasterOptions" />
     <Messager v-bind="messagerOptions" />
+    <OverlayProvider />
   </TooltipProvider>
 </template>
