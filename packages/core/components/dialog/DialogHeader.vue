@@ -1,26 +1,29 @@
 <script setup lang="ts">
 import type { HTMLAttributes } from 'vue'
-import { cn } from '@rui/core/lib/utils'
 import { X } from 'lucide-vue-next'
 import { DialogDescription, DialogTitle } from 'reka-ui'
 import { useSlots } from 'vue'
-import {
-  DialogClose,
-  DialogCloseFrom,
-  dialogCloseVariants,
-  dialogHeaderVariants,
-} from '.'
+import { DialogClose, DialogCloseFrom, tvDialog } from '.'
 
-const { class: propsClass, unstyled } = defineProps<{
+const {
+  class: propsClass,
+  unstyled,
+  ui,
+} = defineProps<{
   class?: HTMLAttributes['class']
   unstyled?: boolean
+  ui?: {
+    close?: {
+      class?: HTMLAttributes['class']
+    }
+  }
 }>()
-
 const slots = useSlots()
+const { header, close } = tvDialog()
 </script>
 
 <template>
-  <div :class="cn(dialogHeaderVariants({ unstyled }), propsClass)">
+  <div :class="header({ unstyled, class: propsClass })">
     <!-- for remove warning -->
     <DialogTitle class="!hidden select-none">
       <component :is="() => slots.default?.()" />
@@ -30,7 +33,7 @@ const slots = useSlots()
     <slot />
     <DialogClose
       as="button"
-      :class="cn(dialogCloseVariants({ unstyled }), 'p-0.5')"
+      :class="close({ unstyled, class: ['p-0.5', ui?.close?.class] })"
       :close-from="DialogCloseFrom.CloseButton"
     >
       <X class="size-4 text-xs disabled:pointer-events-none" />

@@ -1,7 +1,5 @@
-import type {
-  DialogCloseFrom,
-} from '.'
-import type { DialogContentPropsImp } from './DialogContent.vue'
+import type { ComponentProps } from 'vue-component-type-helpers'
+import type { DialogCloseFrom } from '.'
 import { isNil } from 'lodash-es'
 import { createApp, defineComponent, ref } from 'vue'
 import {
@@ -14,10 +12,17 @@ import {
 } from '.'
 
 type DialogOptions = {
-  dialogContentProps?: DialogContentPropsImp
+  // dialogContentProps?: IDialogContentProps
   title?: string | (() => any)
   content?: string | (() => any)
   type?: 'default' | 'scroll'
+  ui?: {
+    root?: ComponentProps<typeof Dialog>
+    content?: ComponentProps<typeof DialogContent> | ComponentProps<typeof DialogScrollContent>
+    header?: ComponentProps<typeof DialogHeader>
+    body?: ComponentProps<typeof DialogContentBody>
+    footer?: ComponentProps<typeof DialogFooter>
+  }
   footer?: () => any
   render?: () => any
   onOpen?: () => void
@@ -30,9 +35,9 @@ type DialogOptions = {
 
 export function dialog({
   type = 'default',
-  dialogContentProps = {},
   title,
   content,
+  ui,
   footer,
   render,
   onOpen,
@@ -55,8 +60,8 @@ export function dialog({
       const { onClosed: onPropsClosed } = props
       return () => {
         const _contentProps = {
-          ...dialogContentProps,
-          showClose: isNil(render) && dialogContentProps.showClose,
+          ...ui?.content,
+          showClose: isNil(render) && ui?.content?.showClose,
         }
         const contentSlots = {
           default: () => {
@@ -66,7 +71,7 @@ export function dialog({
             else {
               return (
                 <>
-                  <DialogHeader>
+                  <DialogHeader {...ui?.header}>
                     {{
                       default: () => {
                         if (typeof title === 'function')
@@ -75,7 +80,7 @@ export function dialog({
                       },
                     }}
                   </DialogHeader>
-                  <DialogContentBody>
+                  <DialogContentBody {...ui?.body}>
                     {{
                       default: () => {
                         if (typeof content === 'function')
@@ -86,10 +91,14 @@ export function dialog({
                   </DialogContentBody>
                   {!footer
                     ? (
-                        <DialogFooter onOk={onOk} onCancel={onCancel} />
+                        <DialogFooter
+                          {...ui?.footer}
+                          onOk={onOk}
+                          onCancel={onCancel}
+                        />
                       )
                     : (
-                        <DialogFooter>
+                        <DialogFooter {...ui?.footer}>
                           {{
                             default: footer,
                           }}
@@ -101,7 +110,10 @@ export function dialog({
           },
         }
         return (
-          <Dialog v-model={[open.value, 'open']}>
+          <Dialog
+            {...ui?.root}
+            v-model={[open.value, 'open']}
+          >
             {type === 'scroll' && (
               <DialogScrollContent
                 {..._contentProps}

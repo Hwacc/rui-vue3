@@ -1,22 +1,21 @@
 <script setup lang="ts">
 import type { PrimitiveProps } from 'reka-ui'
 import type { HTMLAttributes } from 'vue'
-import { cn } from '@rui/core/lib/utils'
 import { Primitive } from 'reka-ui'
-import { dialogContentBodyVariants } from '.'
+import { tvDialog } from '.'
 
 const {
   class: propsClass,
   unstyled,
   ...props
-} = defineProps<
-  PrimitiveProps & { class?: HTMLAttributes['class'], unstyled?: boolean }
->()
+} = defineProps<PrimitiveProps & { class?: HTMLAttributes['class'], unstyled?: boolean }>()
+
+const { body } = tvDialog()
 </script>
 
 <template>
   <Primitive
-    :class="cn(dialogContentBodyVariants({ unstyled }), propsClass)"
+    :class="body({ unstyled, class: propsClass })"
     v-bind="props"
   >
     <slot />

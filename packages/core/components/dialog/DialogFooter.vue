@@ -1,21 +1,29 @@
 <script setup lang="ts">
 import type { HTMLAttributes } from 'vue'
 import { Button } from '@rui/core/components/button'
-import { cn } from '@rui/core/lib/utils'
-import { DialogClose, DialogCloseFrom, dialogFooterVariants } from '.'
+import { DialogClose, DialogCloseFrom, tvDialog } from '.'
 
-const { class: propsClass, unstyled } = defineProps<{
+const {
+  class: propsClass,
+  unstyled,
+  cancelText = 'Cancel',
+  okText = 'OK',
+} = defineProps<{
   class?: HTMLAttributes['class']
   unstyled?: boolean
+  cancelText?: string
+  okText?: string
 }>()
 const emits = defineEmits<{
   ok: []
   cancel: []
 }>()
+
+const { footer } = tvDialog()
 </script>
 
 <template>
-  <div :class="cn(dialogFooterVariants({ unstyled }), propsClass)">
+  <div :class="footer({ unstyled, class: propsClass })">
     <slot>
       <DialogClose :close-from="DialogCloseFrom.CancelButton">
         <Button
@@ -24,7 +32,7 @@ const emits = defineEmits<{
           size="sm"
           @click="() => emits('cancel')"
         >
-          Cancel
+          {{ cancelText }}
         </Button>
       </DialogClose>
       <DialogClose :close-from="DialogCloseFrom.OKButton">
@@ -33,7 +41,7 @@ const emits = defineEmits<{
           size="sm"
           @click="() => emits('ok')"
         >
-          OK
+          {{ okText }}
         </Button>
       </DialogClose>
     </slot>

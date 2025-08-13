@@ -1,8 +1,7 @@
 <script setup lang="ts">
 import type { DialogContentEmits } from 'reka-ui'
 import type { HTMLAttributes } from 'vue'
-import type { DialogContentPropsImp } from './DialogContent.vue'
-import { cn } from '@rui/core/lib/utils'
+import type { IDialogContentProps } from './DialogContent.vue'
 import { X } from 'lucide-vue-next'
 import {
   DialogContent,
@@ -14,13 +13,7 @@ import {
   useForwardPropsEmits,
 } from 'reka-ui'
 import { computed, ref, useSlots, watch } from 'vue'
-import {
-  DialogClose,
-  DialogCloseFrom,
-  dialogCloseVariants,
-  dialogContentVariants,
-  dialogOverlayVariants,
-} from '.'
+import { DialogClose, DialogCloseFrom, tvDialog } from '.'
 import { injectDialogContext } from './DialogRootProviderEx'
 
 const {
@@ -28,11 +21,10 @@ const {
   showClose = true,
   openAutoFocus = true,
   closeAutoFocus = true,
-  overlay = {},
-  portal = {},
   unstyled,
+  ui,
   ...props
-} = defineProps<DialogContentPropsImp & { class?: HTMLAttributes['class'] }>()
+} = defineProps<IDialogContentProps & { class?: HTMLAttributes['class'] }>()
 const emits = defineEmits<
   DialogContentEmits & {
     open: []
@@ -83,24 +75,16 @@ watch(open, (value) => {
   }
 })
 
-const classNames = computed(() => {
-  return cn(dialogContentVariants({ variant: 'scroll', unstyled }), propsClass)
-})
-const overlayClassNames = computed(() => {
-  return cn(
-    dialogOverlayVariants({
-      unstyled,
-    }),
-    'overflow-y-auto',
-    overlay.class,
-  )
-})
+const { content, overlay, close } = tvDialog()
 const forwarded = useForwardPropsEmits(props, emits)
 </script>
 
 <template>
-  <DialogPortal v-bind="portal">
-    <DialogOverlay :class="overlayClassNames" data-variant="scroll">
+  <DialogPortal v-bind="ui?.portal?.props">
+    <DialogOverlay
+      :class="overlay({ variant: 'scroll', unstyled, class: ui?.overlay?.class })"
+      data-variant="scroll"
+    >
       <DialogContent
         v-bind="forwarded"
         :ref="
@@ -109,7 +93,7 @@ const forwarded = useForwardPropsEmits(props, emits)
             originContentRef = ref as any;
           }
         "
-        :class="classNames"
+        :class="content({ variant: 'scroll', unstyled, class: propsClass })"
         data-variant="scroll"
         @open-auto-focus="
           (event) => {
@@ -139,11 +123,14 @@ const forwarded = useForwardPropsEmits(props, emits)
         "
       >
         <slot />
-        <slot v-if="showContentClose" name="close">
+        <slot
+          v-if="showContentClose"
+          name="close"
+        >
           <div class="absolute pr-2 pt-2 right-0 top-0">
             <DialogClose
               as="button"
-              :class="dialogCloseVariants({ unstyled })"
+              :class="close({ unstyled })"
               :close-from="DialogCloseFrom.CloseButton"
             >
               <X class="size-4 text-xs disabled:pointer-events-none" />

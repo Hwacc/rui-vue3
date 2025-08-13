@@ -1,5 +1,5 @@
 <script lang="ts">
-export interface DialogContentPropsImp extends DialogContentProps {
+export interface IDialogContentProps extends DialogContentProps {
   class?: HTMLAttributes['class']
   showClose?: boolean
   openAutoFocus?: boolean
@@ -7,6 +7,18 @@ export interface DialogContentPropsImp extends DialogContentProps {
   overlay?: DialogOverlayProps & { class?: HTMLAttributes['class'] }
   portal?: DialogPortalProps
   unstyled?: boolean
+  ui?: {
+    portal?: {
+      props?: DialogPortalProps
+    }
+    overlay?: {
+      class?: HTMLAttributes['class']
+      props?: DialogOverlayProps
+    }
+    close?: {
+      class?: HTMLAttributes['class']
+    }
+  }
 }
 </script>
 
@@ -18,7 +30,6 @@ import type {
   DialogPortalProps,
 } from 'reka-ui'
 import type { HTMLAttributes } from 'vue'
-import { cn } from '@rui/core/lib/utils'
 import { X } from 'lucide-vue-next'
 import {
   DialogContent,
@@ -31,13 +42,7 @@ import {
 } from 'reka-ui'
 
 import { computed, ref, useSlots, watch } from 'vue'
-import {
-  DialogClose,
-  DialogCloseFrom,
-  dialogCloseVariants,
-  dialogContentVariants,
-  dialogOverlayVariants,
-} from '.'
+import { DialogClose, DialogCloseFrom, tvDialog } from '.'
 import { injectDialogContext } from './DialogRootProviderEx'
 
 const {
@@ -45,11 +50,10 @@ const {
   showClose = true,
   openAutoFocus = true,
   closeAutoFocus = true,
-  overlay = {},
-  portal = {},
   unstyled,
+  ui,
   ...props
-} = defineProps<DialogContentPropsImp>()
+} = defineProps<IDialogContentProps>()
 const emits = defineEmits<
   DialogContentEmits & {
     open: []
@@ -93,25 +97,20 @@ watch(open, (value, _, onCleanup) => {
   }
   originContentRef.value?.$el?.addEventListener('animationend', _onAnimationEnd)
   onCleanup(() => {
-    originContentRef.value?.$el?.removeEventListener(
-      'animationend',
-      _onAnimationEnd,
-    )
+    originContentRef.value?.$el?.removeEventListener('animationend', _onAnimationEnd)
   })
 })
 
-const overlayClassNames = computed(() => {
-  return cn(dialogOverlayVariants({ unstyled }), overlay.class)
-})
-const classNames = computed(() => {
-  return cn(dialogContentVariants({ variant: 'default', unstyled }), propsClass)
-})
+const { overlay, content, close } = tvDialog()
 const forwarded = useForwardPropsEmits(props, emits)
 </script>
 
 <template>
-  <DialogPortal v-bind="portal">
-    <DialogOverlay :class="overlayClassNames" data-variant="default" />
+  <DialogPortal v-bind="ui?.portal?.props">
+    <DialogOverlay
+      :class="overlay({ unstyled, class: ui?.overlay?.class })"
+      data-variant="default"
+    />
     <DialogContent
       v-bind="forwarded"
       :ref="
@@ -121,7 +120,7 @@ const forwarded = useForwardPropsEmits(props, emits)
         }
       "
       data-variant="default"
-      :class="classNames"
+      :class="content({ unstyled, variant: 'default', class: propsClass })"
       @open-auto-focus="
         (event) => {
           emits('openAutoFocus', event)
@@ -143,11 +142,14 @@ const forwarded = useForwardPropsEmits(props, emits)
       "
     >
       <slot />
-      <slot v-if="showContentClose" name="close">
+      <slot
+        v-if="showContentClose"
+        name="close"
+      >
         <div class="absolute pr-2 pt-2 right-0 top-0">
           <DialogClose
             as="button"
-            :class="dialogCloseVariants({ unstyled })"
+            :class="close({ unstyled })"
             :close-from="DialogCloseFrom.CloseButton"
           >
             <X class="size-4 text-xs disabled:pointer-events-none" />
@@ -155,7 +157,7 @@ const forwarded = useForwardPropsEmits(props, emits)
           </DialogClose>
         </div>
       </slot>
-      <!-- for remove warning -->
+      <!-- for remove console warning -->
       <template v-if="!hasDialogHeader()">
         <DialogTitle class="!hidden select-none" />
         <DialogDescription class="!hidden select-none" />

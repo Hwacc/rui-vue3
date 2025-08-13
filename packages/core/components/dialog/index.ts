@@ -1,6 +1,6 @@
-import type { VariantProps } from 'class-variance-authority'
+import type { VariantProps } from 'tailwind-variants'
 import { PREFIX } from '@rui/core/lib/constants'
-import { cva } from '@rui/core/lib/cva'
+import { tv } from '@rui/core/lib/tv'
 
 export { default as Dialog } from './Dialog.vue'
 export { default as DialogClose } from './DialogClose.vue'
@@ -21,90 +21,89 @@ export enum DialogCloseFrom {
 }
 
 const prefix = `${PREFIX}-dialog`
-export const dialogOverlayVariants = cva(
-  [
-    'fixed',
-    'inset-0',
-    'z-50',
-    'data-[state=open]:motion-opacity-in',
-    'data-[state=closed]:motion-opacity-out',
-  ],
-  undefined,
-  { className: `${prefix}-overlay` },
-)
-export type DialogOverlayVariantsProps = VariantProps<
-  typeof dialogOverlayVariants
->
 
-export const dialogContentVariants = cva(
-  [
-    'relative',
-    'max-w-full',
-    'md:max-w-[80%]',
-    'z-50',
-    'outline-none',
-    'border',
-    'rounded',
-    'data-[state=open]:animate-fade-down-in',
-    'data-[state=closed]:animate-fade-down-out',
-  ],
+export const tvDialog = tv(
   {
+    slots: {
+      root: '',
+      overlay: [
+        'fixed',
+        'inset-0',
+        'z-50',
+        'data-[state=open]:motion-opacity-in',
+        'data-[state=closed]:motion-opacity-out',
+      ],
+      trigger: '',
+      content: [
+        'max-w-full',
+        'md:max-w-[80%]',
+        'z-50',
+        'outline-none',
+        'border',
+        'rounded',
+        'data-[state=open]:animate-fade-down-in',
+        'data-[state=closed]:animate-fade-down-out',
+      ],
+      body: ['flex-1', 'p-6', 'overflow-y-auto'],
+      header: ['flex', 'items-center', 'justify-between', 'py-2.5', 'px-5', 'text-sm'],
+      footer: ['flex', 'items-center', 'justify-end', 'gap-5', 'p-4'],
+      close: ['group'],
+    },
     variants: {
       variant: {
-        default: ['fixed', 'flex', 'flex-col', 'max-h-[80%]'],
-        scroll: [],
+        default: '',
+        scroll: '',
       },
       position: {
         center: '',
       },
     },
     defaultVariants: {
+      variant: 'default',
       position: 'center',
     },
-    compoundVariants: [
+    compoundSlots: [
       {
+        slots: ['content'],
         variant: 'default',
-        position: 'center',
-        className: [
-          'left-1/2',
-          'top-1/2',
-          '-translate-x-1/2',
-          '-translate-y-1/2',
-        ],
+        class: ['fixed', 'flex', 'flex-col', 'max-h-[80%]'],
       },
       {
+        slots: ['content'],
+        variant: 'scroll',
+        class: ['relative'],
+      },
+      {
+        slots: ['content'],
+        variant: 'default',
+        position: 'center',
+        class: ['left-1/2', 'top-1/2', '-translate-x-1/2', '-translate-y-1/2'],
+      },
+      {
+        slots: ['content'],
         variant: 'scroll',
         position: 'center',
-        className: ['mx-auto', 'my-8'],
+        class: ['mx-auto', 'my-8'],
+      },
+      {
+        slots: ['overlay'],
+        variant: 'scroll',
+        class: 'overflow-y-auto',
       },
     ],
   },
-  { className: `${prefix}-content` },
-)
-export type DialogContentVariantsProps = VariantProps<
-  typeof dialogContentVariants
->
-
-export const dialogCloseVariants = cva(['group'], undefined, {
-  className: `${prefix}-close`,
-})
-
-export const dialogContentBodyVariants = cva(
-  ['flex-1', 'p-6', 'overflow-y-auto'],
-  undefined,
   {
-    className: `${prefix}-body`,
+    slots: {
+      root: prefix,
+      overlay: `${prefix}-overlay`,
+      trigger: `${prefix}-trigger`,
+      content: `${prefix}-content`,
+      body: `${prefix}-body`,
+      header: `${prefix}-header`,
+      footer: `${prefix}-footer`,
+      close: `${prefix}-close`,
+    },
   },
 )
 
-export const dialogHeaderVariants = cva(
-  ['flex', 'items-center', 'justify-between', 'py-2.5', 'px-5', 'text-sm'],
-  undefined,
-  { className: `${prefix}-header` },
-)
-
-export const dialogFooterVariants = cva(
-  ['flex', 'items-center', 'justify-end', 'gap-5', 'p-4'],
-  undefined,
-  { className: `${prefix}-footer` },
-)
+export type DialogVariants = VariantProps<typeof tvDialog>
