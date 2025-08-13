@@ -1,10 +1,9 @@
 <script setup lang="ts">
 import type { DropdownMenuSubTriggerProps } from 'reka-ui'
 import type { HTMLAttributes } from 'vue'
-import { cn } from '@rui/core/lib/utils'
 import { ChevronRight } from 'lucide-vue-next'
 import { DropdownMenuSubTrigger, useForwardProps } from 'reka-ui'
-import { dropdownMenuSubTriggerVariants } from '.'
+import { tvSubTrigger } from '.'
 
 const {
   class: propsClass,
@@ -16,14 +15,13 @@ const {
     unstyled?: boolean
   }
 >()
-
 const forwardedProps = useForwardProps(props)
 </script>
 
 <template>
   <DropdownMenuSubTrigger
     v-bind="forwardedProps"
-    :class="cn(dropdownMenuSubTriggerVariants({ unstyled }), propsClass)"
+    :class="tvSubTrigger({ unstyled, class: propsClass })"
   >
     <slot />
     <ChevronRight class="ml-auto h-4 w-4" />

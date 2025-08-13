@@ -15,6 +15,7 @@ const {
   modelValue = false,
   stopPropagation = false,
   unstyled,
+  ui,
   ...props
 } = defineProps<
   CheckboxRootProps & {
@@ -95,7 +96,7 @@ const forwarded = useForwardPropsEmits(props, emits)
 
 <template>
   <label
-    :class="tvSlots.root({ class: [props.ui?.root?.class, props.class] })"
+    :class="tvSlots.root({ class: [ui?.root?.class, props.class] })"
     :disabled="props.disabled || undefined"
     :data-size="mergeSize"
     @click="
@@ -116,10 +117,10 @@ const forwarded = useForwardPropsEmits(props, emits)
     <CheckboxRoot
       v-model="innerModelValue"
       v-bind="forwarded"
-      :class="tvSlots.box({ class: props.ui?.box?.class })"
+      :class="tvSlots.box({ class: ui?.box?.class })"
       :data-size="mergeSize"
     >
-      <CheckboxIndicator :class="tvSlots.indicator({ class: props.ui?.indicator?.class })">
+      <CheckboxIndicator :class="tvSlots.indicator({ class: ui?.indicator?.class })">
         <slot
           name="indicator"
           v-bind="{ modelValue: innerModelValue }"
@@ -138,7 +139,7 @@ const forwarded = useForwardPropsEmits(props, emits)
     <slot name="label">
       <span
         v-if="label"
-        :class="tvSlots.label({ class: props.ui?.label?.class })"
+        :class="tvSlots.label({ class: ui?.label?.class })"
         :disabled="props.disabled ? '' : undefined"
       >
         {{ label }}

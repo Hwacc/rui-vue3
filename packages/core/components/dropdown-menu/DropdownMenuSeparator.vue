@@ -1,9 +1,8 @@
 <script setup lang="ts">
 import type { DropdownMenuSeparatorProps } from 'reka-ui'
 import type { HTMLAttributes } from 'vue'
-import { cn } from '@rui/core/lib/utils'
 import { DropdownMenuSeparator } from 'reka-ui'
-import { dropdownMenuSeparatorVariants } from '.'
+import { tvSeparator } from '.'
 
 const {
   class: propsClass,
@@ -20,6 +19,6 @@ const {
 <template>
   <DropdownMenuSeparator
     v-bind="props"
-    :class="cn(dropdownMenuSeparatorVariants({ unstyled }), propsClass)"
+    :class="tvSeparator({ unstyled, class: propsClass })"
   />
 </template>

@@ -1,37 +1,31 @@
 <script setup lang="ts">
-import type { DropdownMenuLabelProps } from 'reka-ui'
-import type { HTMLAttributes } from 'vue'
-import { cn } from '@rui/core/lib/utils'
-import { DropdownMenuLabel, useForwardProps } from 'reka-ui'
-import { computed } from 'vue'
-import { dropdownMenuLabelVariants } from '.'
+import type { DropdownMenuLabelProps } from 'reka-ui';
+import type { HTMLAttributes } from 'vue';
+import { DropdownMenuLabel, useForwardProps } from 'reka-ui';
+import { computed } from 'vue';
+import { tvLabel } from '.';
 
 const props = defineProps<
   DropdownMenuLabelProps & {
-    class?: HTMLAttributes['class']
-    inset?: boolean
-    unstyled?: boolean
+    class?: HTMLAttributes['class'];
+    inset?: boolean;
+    unstyled?: boolean;
   }
->()
+>();
 
 const delegatedProps = computed(() => {
-  const { class: _, ...delegated } = props
+  const { class: _, ...delegated } = props;
 
-  return delegated
-})
+  return delegated;
+});
 
-const forwardedProps = useForwardProps(delegatedProps)
+const forwardedProps = useForwardProps(delegatedProps);
 </script>
 
 <template>
   <DropdownMenuLabel
     v-bind="forwardedProps"
-    :class="
-      cn(
-        dropdownMenuLabelVariants({ inset, unstyled: props.unstyled }),
-        props.class,
-      )
-    "
+    :class="tvLabel({ inset, unstyled: props.unstyled, class: props.class })"
   >
     <slot />
   </DropdownMenuLabel>
