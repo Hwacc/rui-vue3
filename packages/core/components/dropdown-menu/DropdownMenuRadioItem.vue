@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import type { DropdownMenuRadioItemEmits, DropdownMenuRadioItemProps } from 'reka-ui';
-import type { HTMLAttributes } from 'vue';
-import { Circle } from 'lucide-vue-next';
-import { DropdownMenuItemIndicator, DropdownMenuRadioItem, useForwardPropsEmits } from 'reka-ui';
-import { tvItemRadio } from '.';
+import type { DropdownMenuRadioItemEmits, DropdownMenuRadioItemProps } from 'reka-ui'
+import type { HTMLAttributes } from 'vue'
+import { Circle } from 'lucide-vue-next'
+import { DropdownMenuItemIndicator, DropdownMenuRadioItem, useForwardPropsEmits } from 'reka-ui'
+import { tvItemRadio } from '.'
 
 const {
   class: propsClass,
@@ -13,32 +13,31 @@ const {
   ...props
 } = defineProps<
   DropdownMenuRadioItemProps & {
-    class?: HTMLAttributes['class'];
-    prevent?: boolean;
-    unstyled?: boolean;
+    class?: HTMLAttributes['class']
+    prevent?: boolean
+    unstyled?: boolean
     ui?: {
       root?: {
-        class?: HTMLAttributes['class'];
-      };
+        class?: HTMLAttributes['class']
+      }
       indicator?: {
-        class?: HTMLAttributes['class'];
-      };
-    };
+        class?: HTMLAttributes['class']
+      }
+    }
   }
->();
+>()
 
-const emits = defineEmits<DropdownMenuRadioItemEmits>();
-
-const { indicator } = tvItemRadio();
-const forwarded = useForwardPropsEmits(props, emits);
+const emits = defineEmits<DropdownMenuRadioItemEmits>()
+// @ts-expect-error tailwind-variants have base
+const { base, indicator } = tvItemRadio()
+const forwarded = useForwardPropsEmits(props, emits)
 </script>
 
 <template>
   <DropdownMenuRadioItem
     v-bind="forwarded"
     :class="
-      tvItemRadio({
-        variant: 'radio',
+      base({
         unstyled,
         class: [ui?.root?.class, propsClass],
       })
@@ -46,23 +45,21 @@ const forwarded = useForwardPropsEmits(props, emits);
     data-variant="radio"
     @select="
       (event) => {
-        prevent && event.preventDefault();
-        emits('select', event);
+        prevent && event.preventDefault()
+        emits('select', event)
       }
     "
   >
-    <span class="absolute left-2 flex h-3.5 w-3.5 items-center justify-center">
-      <DropdownMenuItemIndicator :class="indicator({ unstyled, class: ui?.indicator?.class })">
-        <template #default="indicatorProps">
-          <slot
-            name="indicator"
-            v-bind="indicatorProps"
-          >
-            <Circle class="h-2 w-2 motion-scale-in-0" />
-          </slot>
-        </template>
-      </DropdownMenuItemIndicator>
-    </span>
+    <DropdownMenuItemIndicator :class="indicator({ unstyled, class: ui?.indicator?.class })">
+      <template #default="indicatorProps">
+        <slot
+          name="indicator"
+          v-bind="indicatorProps"
+        >
+          <Circle class="h-2 w-2 motion-scale-in-0" />
+        </slot>
+      </template>
+    </DropdownMenuItemIndicator>
     <slot />
   </DropdownMenuRadioItem>
 </template>

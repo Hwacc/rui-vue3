@@ -1,16 +1,16 @@
-import { PREFIX } from '@rui/core/lib/constants';
-import { tv } from '@rui/core/lib/tv';
+import { PREFIX } from '@rui/core/lib/constants'
+import { tv } from '@rui/core/lib/tv'
 
-export { default as DropdownMenuCheckboxItem } from './DropdownMenuCheckboxItem.vue';
-export { default as DropdownMenuContent } from './DropdownMenuContent.vue';
-export { default as DropdownMenuItem } from './DropdownMenuItem.vue';
-export { default as DropdownMenuLabel } from './DropdownMenuLabel.vue';
-export { default as DropdownMenuRadioItem } from './DropdownMenuRadioItem.vue';
-export { default as DropdownMenuSeparator } from './DropdownMenuSeparator.vue';
-export { default as DropdownMenuShortcut } from './DropdownMenuShortcut.vue';
-export { default as DropdownMenuSubContent } from './DropdownMenuSubContent.vue';
-export { default as DropdownMenuSubTrigger } from './DropdownMenuSubTrigger.vue';
-export { default as DropdownMenuTrigger } from './DropdownMenuTrigger.vue';
+export { default as DropdownMenuCheckboxItem } from './DropdownMenuCheckboxItem.vue'
+export { default as DropdownMenuContent } from './DropdownMenuContent.vue'
+export { default as DropdownMenuItem } from './DropdownMenuItem.vue'
+export { default as DropdownMenuLabel } from './DropdownMenuLabel.vue'
+export { default as DropdownMenuRadioItem } from './DropdownMenuRadioItem.vue'
+export { default as DropdownMenuSeparator } from './DropdownMenuSeparator.vue'
+export { default as DropdownMenuShortcut } from './DropdownMenuShortcut.vue'
+export { default as DropdownMenuSubContent } from './DropdownMenuSubContent.vue'
+export { default as DropdownMenuSubTrigger } from './DropdownMenuSubTrigger.vue'
+export { default as DropdownMenuTrigger } from './DropdownMenuTrigger.vue'
 
 export {
   DropdownMenuRoot as DropdownMenu,
@@ -18,13 +18,13 @@ export {
   DropdownMenuPortal,
   DropdownMenuRadioGroup,
   DropdownMenuSub,
-} from 'reka-ui';
+} from 'reka-ui'
 export type {
   DropdownMenuRootEmits as DropdownMenuEmits,
   DropdownMenuRootProps as DropdownMenuProps,
-} from 'reka-ui';
+} from 'reka-ui'
 
-const prefix = `${PREFIX}-dropdown-menu`;
+const prefix = `${PREFIX}-dropdown-menu`
 
 export const tvTrigger = tv(
   {
@@ -32,8 +32,8 @@ export const tvTrigger = tv(
   },
   {
     class: `${prefix}-trigger`,
-  }
-);
+  },
+)
 
 export const tvContent = tv(
   {
@@ -55,8 +55,8 @@ export const tvContent = tv(
       wrapper: `${prefix}-wrapper`,
       content: `${prefix}-content`,
     },
-  }
-);
+  },
+)
 
 export const tvItem = tv(
   {
@@ -79,15 +79,15 @@ export const tvItem = tv(
     variants: {
       variant: {
         default: ['[&>svg]:size-4', '[&>svg]:shrink-0'],
-        checkbox: ['pr-2', 'pl-8'],
-        radio: ['pl-8', 'pr-2'],
+        checkbox: '',
+        radio: '',
       },
     },
   },
   {
     class: `${prefix}-item`,
-  }
-);
+  },
+)
 
 export const tvItemRadio = tv(
   {
@@ -95,14 +95,51 @@ export const tvItemRadio = tv(
     slots: {
       indicator: ['absolute', 'left-2', 'flex', 'h-3.5', 'w-3.5', 'items-center', 'justify-center'],
     },
+    defaultVariants: {
+      variant: 'radio',
+    },
+    compoundSlots: [
+      {
+        // @ts-expect-error tailwind-variants have base
+        slots: ['base'],
+        variant: 'radio',
+        class: ['pl-8', 'pr-2'],
+      },
+    ],
   },
   {
     class: `${prefix}-item-radio`,
     slots: {
       indicator: `${prefix}-item-radio-indicator`,
     },
-  }
-);
+  },
+)
+
+export const tvItemCheckbox = tv(
+  {
+    extend: tvItem,
+    slots: {
+      indicator: ['absolute', 'left-2', 'flex', 'size-3.5', 'items-center', 'justify-center'],
+    },
+    defaultVariants: {
+      variant: 'checkbox',
+    },
+    compoundSlots: [
+      {
+        // @ts-expect-error tailwind-variants have base
+        slots: ['base'],
+        variant: 'checkbox',
+        class: ['pr-2', 'pl-8'],
+      },
+    ],
+  },
+  {
+    class: `${prefix}-item-checkbox`,
+    slots: {
+      indicator: `${prefix}-item-checkbox-indicator`,
+    },
+  },
+)
 
 export const tvSubTrigger = tv(
   {
@@ -120,17 +157,20 @@ export const tvSubTrigger = tv(
   },
   {
     class: `${prefix}-sub-trigger`,
-  }
-);
+  },
+)
 
 export const tvSubContent = tv(
   {
     extend: tvContent,
   },
   {
-    class: `${prefix}-sub-content`,
-  }
-);
+    slots: {
+      wrapper: `${prefix}-wrapper ${prefix}-sub-wrapper`,
+      content: `${prefix}-content ${prefix}-sub-content`,
+    },
+  },
+)
 
 export const tvLabel = tv(
   {
@@ -143,8 +183,8 @@ export const tvLabel = tv(
   },
   {
     class: `${prefix}-label`,
-  }
-);
+  },
+)
 
 export const tvSeparator = tv(
   {
@@ -152,5 +192,5 @@ export const tvSeparator = tv(
   },
   {
     class: `${prefix}-separator`,
-  }
-);
+  },
+)

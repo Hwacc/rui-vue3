@@ -1,11 +1,11 @@
 <script setup lang="ts">
-import type { DropdownMenuContentEmits, DropdownMenuContentProps } from 'reka-ui';
-import type { HTMLAttributes } from 'vue';
-import { PopoverContentMotion } from '@rui/core/components/motion/PopoverContentMotion';
-import { AnimatePresence } from 'motion-v';
-import { DropdownMenuContent, DropdownMenuPortal, useForwardPropsEmits } from 'reka-ui';
-import { tvContent } from '.';
-import { ComponentProps } from 'vue-component-type-helpers';
+import type { DropdownMenuContentEmits, DropdownMenuContentProps } from 'reka-ui'
+import type { HTMLAttributes } from 'vue'
+import type { ComponentProps } from 'vue-component-type-helpers'
+import { PopoverContentMotion } from '@rui/core/components/motion/PopoverContentMotion'
+import { AnimatePresence } from 'motion-v'
+import { DropdownMenuContent, DropdownMenuPortal, useForwardPropsEmits } from 'reka-ui'
+import { tvContent } from '.'
 
 const {
   class: propsClass,
@@ -16,33 +16,33 @@ const {
   ...props
 } = defineProps<
   DropdownMenuContentProps & {
-    class?: HTMLAttributes['class'];
-    unstyled?: boolean;
+    class?: HTMLAttributes['class']
+    unstyled?: boolean
     ui?: {
       portal?: {
-        props?: ComponentProps<typeof DropdownMenuPortal>;
-      };
+        props?: ComponentProps<typeof DropdownMenuPortal>
+      }
       wrapper?: {
-        class?: HTMLAttributes['class'];
-      };
+        class?: HTMLAttributes['class']
+      }
       content?: {
-        class?: HTMLAttributes['class'];
-      };
-    };
+        class?: HTMLAttributes['class']
+      }
+    }
   }
->();
+>()
 
-const emits = defineEmits<DropdownMenuContentEmits>();
+const emits = defineEmits<DropdownMenuContentEmits>()
 
-const { wrapper, content } = tvContent();
+const { wrapper, content } = tvContent()
 const forwarded = useForwardPropsEmits(
   {
     side,
     align,
     ...props,
   },
-  emits
-);
+  emits,
+)
 </script>
 
 <template>
