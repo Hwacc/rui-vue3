@@ -1,6 +1,6 @@
-import type { VariantProps } from 'class-variance-authority'
+import type { VariantProps } from 'tailwind-variants'
 import { PREFIX } from '@rui/core/lib/constants'
-import { cva } from '@rui/core/lib/cva'
+import { tv } from '@rui/core/lib/tv'
 
 export { default as Select } from './Select.vue'
 export { default as SelectContent } from './SelectContent.vue'
@@ -16,52 +16,81 @@ export { default as SelectValue } from './SelectValue.vue'
 export { SelectGroup, SelectItemText } from 'reka-ui'
 
 const prefix = `${PREFIX}-select`
-export const selectTriggerVariants = cva(
-  [
-    'group',
-    'flex',
-    'items-center',
-    'min-w-[10.875rem]',
-    'rounded',
-    'gap-1.5',
-    'border',
-    'px-2',
-    'py-1.5',
-    'text-start',
-    'disabled:pointer-events-none',
-    'disabled:opacity-(--disabled-opacity)',
-    'transition-colors',
-    '[&>span]:flex-1',
-    '[&>span]:truncate',
-  ],
+
+export const tvTrigger = tv(
   {
+    base: [
+      'group',
+      'flex',
+      'items-center',
+      'min-w-[10.875rem]',
+      'rounded',
+      'gap-1.5',
+      'border',
+      'px-2',
+      'py-1.5',
+      'text-start',
+      'disabled:pointer-events-none',
+      'disabled:opacity-(--disabled-opacity)',
+      'transition-colors',
+      '[&>span]:flex-1',
+      '[&>span]:truncate',
+    ],
+    slots: {
+      icon: '',
+      triangle: 'w-[.5rem] h-[.25rem] shrink-0 transition-transform',
+    },
     variants: {
       size: {
         base: ['text-sm'],
         sm: ['text-xs'],
         lg: ['text-base'],
       },
+      open: {
+        true: '',
+        false: '',
+      },
     },
     defaultVariants: {
       size: 'base',
+      open: false,
+    },
+    compoundSlots: [
+      {
+        slots: ['triangle'],
+        open: true,
+        class: ['animate-from', 'rotate-180'],
+      },
+      {
+        slots: ['triangle'],
+        open: false,
+        class: ['rotate-0'],
+      },
+    ],
+  },
+  {
+    class: `${prefix}-trigger`,
+    slots: {
+      icon: `${prefix}-trigger-icon`,
+      triangle: `${prefix}-trigger-triangle`,
     },
   },
-  {
-    className: `${prefix}-trigger`,
-  },
 )
-export type SelectTriggerVariants = VariantProps<typeof selectTriggerVariants>
+export type SelectTriggerVariants = VariantProps<typeof tvTrigger>
 
-export const selectContentVariants = cva(
-  [
-    'relative',
-    'z-50',
-    'min-w-(--reka-select-trigger-width)',
-    'rounded',
-    'border',
-    'p-0',
-  ],
+export const tvContent = tv(
   {
+    slots: {
+      wrapper: '',
+      content: [
+        'relative',
+        'z-50',
+        'min-w-(--reka-select-trigger-width)',
+        'rounded',
+        'border',
+        'p-0',
+      ],
+    },
     variants: {
       position: {
         'popper': '',
@@ -70,71 +99,110 @@ export const selectContentVariants = cva(
     },
   },
   {
-    className: `${prefix}-content`,
+    slots: {
+      wrapper: `${prefix}-wrapper`,
+      content: `${prefix}-content`,
+    },
   },
 )
-export type SelectContentVariants = VariantProps<typeof selectContentVariants>
+export type SelectContentVariants = VariantProps<typeof tvContent>
 
-export const selectItemVariants = cva(
-  [
-    'relative',
-    'flex',
-    'w-full',
-    'cursor-default',
-    'select-none',
-    'items-center',
-    'rounded-sm',
-    'py-1.5',
-    'px-2',
-    'text-sm',
-    'outline-none',
-    'data-[disabled]:pointer-events-none',
-    'data-[disabled]:opacity-(--disabled-opacity)',
-  ],
+export const tvItem = tv(
   {
+    base: [
+      'relative',
+      'flex',
+      'w-full',
+      'cursor-default',
+      'select-none',
+      'items-center',
+      'rounded-sm',
+      'py-1.5',
+      'px-2',
+      'text-sm',
+      'outline-none',
+      'data-[disabled]:pointer-events-none',
+      'data-[disabled]:opacity-(--disabled-opacity)',
+    ],
+    slots: {
+      indicator: ['absolute', 'left-2', 'flex', 'items-center', 'justify-center', 'size-3.5'],
+      text: '',
+    },
     variants: {
-      indicator: {
-        true: ['pl-8', 'pr-2'],
+      multiply: {
+        true: '',
+        false: '',
+      },
+    },
+    compoundSlots: [
+      {
+        slots: ['base'],
+        multiply: true,
+        class: ['pl-8', 'pr-2'],
+      },
+    ],
+  },
+  {
+    class: `${prefix}-item`,
+    slots: {
+      indicator: `${prefix}-item-indicator`,
+      text: `${prefix}-item-text`,
+    },
+  },
+)
+export type SelectItemVariants = VariantProps<typeof tvItem>
+
+export const tvLabel = tv(
+  {
+    base: ['py-1.5', 'px-2'],
+    variants: {
+      multiply: {
+        true: ['pl-8'],
+        false: '',
       },
     },
   },
-  { className: `${prefix}-item` },
-)
-
-export const selectLabelVariants = cva(['py-1.5', 'px-2'], undefined, {
-  className: `${prefix}-label`,
-})
-
-export const selectTriangleVariants = cva('shrink-0', undefined, {
-  className: `${prefix}-triangle`,
-})
-
-export const selectValueVariants = cva(
-  [
-    'flex',
-    'items-center',
-    'gap-1',
-    'text-sm',
-    '[&>span]:rounded-[.875rem]',
-    '[&>span]:text-xs',
-  ],
-  undefined,
   {
-    className: `${prefix}-value`,
+    class: `${prefix}-label`,
   },
 )
 
-export const selectSeparatorVariants = cva(
-  ['-mx-1', 'my-1', 'h-px'],
-  undefined,
+export const tvValue = tv(
   {
-    className: `${prefix}-separator`,
+    base: [
+      'flex',
+      'items-center',
+      'gap-1',
+      'text-sm',
+      '[&>span]:rounded-[.875rem]',
+      '[&>span]:text-xs',
+    ],
+    slots: {
+      close: 'relative py-0.5 pl-1 pr-5',
+      closeIcon: 'absolute right-0.75 top-0.75 size-3',
+    },
+  },
+  {
+    class: `${prefix}-value`,
+    slots: {
+      close: `${prefix}-value-close`,
+      closeIcon: `${prefix}-value-close-icon`,
+    },
   },
 )
 
-export const selectScrollButtonVariants = cva(
-  ['flex', 'cursor-default', 'items-center', 'justify-center', 'py-1'],
+export const tvSeparator = tv(
   {
+    base: ['-mx-1', 'my-1', 'h-px'],
+  },
+  {
+    class: `${prefix}-separator`,
+  },
+)
+
+export const tvScrollButton = tv(
+  {
+    base: ['flex', 'cursor-default', 'items-center', 'justify-center', 'py-1'],
     variants: {
       dir: {
         up: '',
@@ -143,6 +211,7 @@ export const selectScrollButtonVariants = cva(
     },
   },
   {
-    className: `${prefix}-scroll-button`,
+    class: `${prefix}-scroll-button`,
   },
 )
+export type SelectScrollButtonVariants = VariantProps<typeof tvScrollButton>

@@ -1,10 +1,9 @@
 <script setup lang="ts">
 import type { SelectScrollDownButtonProps } from 'reka-ui'
 import type { HTMLAttributes } from 'vue'
-import { cn } from '@rui/core/lib/utils'
 import { ChevronDown } from 'lucide-vue-next'
 import { SelectScrollDownButton, useForwardProps } from 'reka-ui'
-import { selectScrollButtonVariants } from '.'
+import { tvScrollButton } from '.'
 
 const {
   class: propsClass,
@@ -19,7 +18,7 @@ const forwardedProps = useForwardProps(props)
 <template>
   <SelectScrollDownButton
     v-bind="forwardedProps"
-    :class="cn(selectScrollButtonVariants({ dir: 'down', unstyled }), propsClass)"
+    :class="tvScrollButton({ dir: 'down', unstyled, class: propsClass })"
     data-direction="down"
   >
     <slot>

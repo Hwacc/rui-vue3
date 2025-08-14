@@ -1,10 +1,9 @@
 <script setup lang="ts">
 import type { SelectScrollUpButtonProps } from 'reka-ui'
 import type { HTMLAttributes } from 'vue'
-import { cn } from '@rui/core/lib/utils'
 import { ChevronUp } from 'lucide-vue-next'
 import { SelectScrollUpButton, useForwardProps } from 'reka-ui'
-import { selectScrollButtonVariants } from '.'
+import { tvScrollButton } from '.'
 
 const {
   class: propsClass,
@@ -19,7 +18,7 @@ const forwardedProps = useForwardProps(props)
 <template>
   <SelectScrollUpButton
     v-bind="forwardedProps"
-    :class="cn(selectScrollButtonVariants({ dir: 'up', unstyled }), propsClass)"
+    :class="tvScrollButton({ dir: 'up', unstyled, class: propsClass })"
     data-direction="up"
   >
     <slot>

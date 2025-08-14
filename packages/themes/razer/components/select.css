@@ -16,23 +16,18 @@
     @apply bg-transparent text-hff font-rob-bold;
   }
 
-  .rui-select-triangle {
-    &>svg {
-      @apply fill-current stroke-current group-hover:fill-hff group-hover:stroke-hff;
-    }
-
-    &[data-state="open"]>svg {
+  .rui-select-trigger-triangle {
+    @apply fill-current stroke-current group-hover:fill-hff group-hover:stroke-hff;
+    &[data-state="open"]{
       @apply fill-hff stroke-hff;
     }
   }
 
-  .rui-select-value {
-    &>span {
-      @apply bg-h33 text-inherit;
-      & svg {
-        @apply stroke-rui-close hover:stroke-rui-close-hover;
-      }
-    }
+  .rui-select-value-close {
+    @apply bg-h33 text-inherit;
+  }
+  .rui-select-value-close-icon {
+    @apply stroke-rui-close hover:stroke-rui-close-hover;
   }
 
   .rui-select-separator {

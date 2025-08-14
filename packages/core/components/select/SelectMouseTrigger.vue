@@ -7,9 +7,8 @@ so we have the opportunity to capture mouse events internally.
 
 <script lang="ts">
 import type { PrimitiveProps, ReferenceElement } from 'reka-ui'
-import { cn } from '@rui/core/lib/utils'
 import { isEmpty } from 'lodash-es'
-import { selectTriangleVariants, selectTriggerVariants } from '.'
+import { tvTrigger } from '.'
 
 const OPEN_KEYS = [' ', 'Enter', 'ArrowUp', 'ArrowDown']
 interface PopperAnchorProps extends PrimitiveProps {
@@ -42,6 +41,17 @@ const {
   SelectTriggerProps & {
     class?: HTMLAttributes['class']
     unstyled?: boolean
+    ui?: {
+      root?: {
+        class?: HTMLAttributes['class']
+      }
+      icon?: {
+        class?: HTMLAttributes['class']
+      }
+      triangle?: {
+        class?: HTMLAttributes['class']
+      }
+    }
   }
 >()
 
@@ -49,11 +59,9 @@ const rootContext = injectSelectRootContext()
 const { forwardRef, currentElement: triggerElement } = useForwardExpose()
 
 const isDisabled = computed(() => rootContext.disabled?.value || props.disabled)
-const classNames = computed(() => {
-  return cn(selectTriggerVariants({ unstyled }), propsClass)
-})
 
 rootContext.contentId ||= useId(undefined, 'reka-select-content')
+const { base, icon, triangle } = tvTrigger()
 
 onMounted(() => {
   rootContext.onTriggerChange(triggerElement.value)
@@ -67,7 +75,7 @@ onMounted(() => {
   >
     <Primitive
       :ref="forwardRef"
-      :class="classNames"
+      :class="base({ unstyled, class: [ui?.root?.class, propsClass] })"
       role="combobox"
       :type="as === 'button' ? 'button' : undefined"
       :aria-controls="rootContext.contentId"
@@ -105,14 +113,16 @@ onMounted(() => {
       >
         <SelectIcon
           as="i"
-          :class="selectTriangleVariants({ unstyled })"
+          :class="icon({ unstyled, class: ui?.icon?.class })"
           :data-state="unref(rootContext.open) ? 'open' : 'closed'"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
             view-box="0 0 7 3"
-            class="w-[.5rem] h-[.25rem] transition-transform"
-            :class="[unref(rootContext.open) ? ['animate-from', 'rotate-180'] : ['rotate-0']]"
+            :class="
+              triangle({ unstyled, open: unref(rootContext.open), class: ui?.triangle?.class })
+            "
+            :data-state="unref(rootContext.open) ? 'open' : 'closed'"
           >
             <path d="M0 0 L3.5 3 L7 0 Z" />
           </svg>

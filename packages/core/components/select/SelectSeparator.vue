@@ -1,9 +1,8 @@
 <script setup lang="ts">
 import type { SelectSeparatorProps } from 'reka-ui'
 import type { HTMLAttributes } from 'vue'
-import { cn } from '@rui/core/lib/utils'
 import { SelectSeparator } from 'reka-ui'
-import { selectSeparatorVariants } from '.'
+import { tvSeparator } from '.'
 
 const {
   class: propsClass,
@@ -17,6 +16,6 @@ const {
 <template>
   <SelectSeparator
     v-bind="props"
-    :class="cn(selectSeparatorVariants({ unstyled }), propsClass)"
+    :class="tvSeparator({ unstyled, class: propsClass })"
   />
 </template>

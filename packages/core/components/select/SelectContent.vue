@@ -1,12 +1,12 @@
 <script setup lang="ts">
 import type { SelectContentEmits, SelectContentProps } from 'reka-ui'
 import type { HTMLAttributes } from 'vue'
+import type { ComponentProps } from 'vue-component-type-helpers'
 import { PopoverContentMotion } from '@rui/core/components/motion/PopoverContentMotion'
 import { cn } from '@rui/core/lib/utils'
 import { AnimatePresence } from 'motion-v'
 import { SelectContent, SelectPortal, SelectViewport, useForwardPropsEmits } from 'reka-ui'
-import { computed } from 'vue'
-import { selectContentVariants, SelectScrollDownButton, SelectScrollUpButton } from '.'
+import { SelectScrollDownButton, SelectScrollUpButton, tvContent } from '.'
 
 defineOptions({
   inheritAttrs: false,
@@ -20,37 +20,79 @@ const {
   align = 'start',
   asChild = false,
   unstyled,
+  ui,
   ...props
 } = defineProps<
   SelectContentProps & {
     class?: HTMLAttributes['class']
     scrollButton?: boolean
     unstyled?: boolean
+    ui?: {
+      portal?: {
+        props?: ComponentProps<typeof SelectPortal>
+      }
+      wrapper?: {
+        class?: HTMLAttributes['class']
+      }
+      content?: {
+        class?: HTMLAttributes['class']
+        innerClass?: HTMLAttributes['class']
+      }
+      viewport?: {
+        class?: HTMLAttributes['class']
+      }
+      scrollButton?: {
+        class?: (dir: 'up' | 'down') => HTMLAttributes['class']
+      }
+    }
   }
 >()
 const emits = defineEmits<SelectContentEmits>()
 
-const classNames = computed(() => {
-  return cn(selectContentVariants({ position, unstyled }), propsClass)
-})
+const { wrapper, content } = tvContent()
 const forwarded = useForwardPropsEmits(props, emits)
 </script>
 
 <template>
-  <SelectPortal>
+  <SelectPortal v-bind="ui?.portal?.props">
     <AnimatePresence>
-      <SelectContent v-bind="{ ...forwarded, position, side, align, ...$attrs }" class="test">
-        <PopoverContentMotion :class="classNames" :side="side">
+      <SelectContent
+        v-bind="{ ...forwarded, position, side, align, ...$attrs }"
+        :class="
+          wrapper({
+            unstyled,
+            class: ui?.wrapper?.class,
+          })
+        "
+      >
+        <PopoverContentMotion
+          :class="
+            content({
+              unstyled,
+              position,
+              class: [ui?.content?.class, propsClass],
+            })
+          "
+          :side="side"
+        >
           <!-- without scrollbar -->
           <div v-if="scrollButton">
-            <SelectScrollUpButton />
-            <SelectViewport :class="position === 'popper' && 'w-full'">
-              <slot />
+            <SelectScrollUpButton :class="ui?.scrollButton?.class?.('up')" />
+            <SelectViewport :class="cn(position === 'popper' && 'w-full', ui?.viewport?.class)">
+              <slot :class="ui?.content?.innerClass" />
             </SelectViewport>
-            <SelectScrollDownButton />
+            <SelectScrollDownButton :class="ui?.scrollButton?.class?.('down')" />
           </div>
           <!-- with scrollbar -->
-          <div v-else class="w-full max-h-46 overflow-y-scroll webkit-small-scrollbar-self">
+          <div
+            v-else
+            :class="
+              cn(
+                'w-full max-h-46 overflow-y-scroll webkit-small-scrollbar-self',
+                ui?.content?.innerClass,
+              )
+            "
+          >
             <slot />
           </div>
         </PopoverContentMotion>
