@@ -31,6 +31,19 @@ const multiSelected = ref<string[]>([])
           </SelectGroup>
         </SelectContent>
       </Select>
+      <Select v-model="singleSelected">
+        <SelectMouseTrigger>
+          <SelectValue placeholder="Select a fruit" />
+        </SelectMouseTrigger>
+        <SelectContent>
+          <SelectGroup>
+            <SelectLabel>Fruits</SelectLabel>
+            <SelectItem v-for="i in 50" :key="`apple-${i}`" :value="`apple-${i}`">
+              {{ `Apple-${i}` }}
+            </SelectItem>
+          </SelectGroup>
+        </SelectContent>
+      </Select>
       <Select v-model="multiSelected" multiple>
         <SelectMouseTrigger>
           <SelectValue placeholder="Select a fruit" />

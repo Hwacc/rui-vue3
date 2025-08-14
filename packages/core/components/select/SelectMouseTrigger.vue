@@ -32,15 +32,17 @@ defineOptions({
 })
 
 const {
-  as = 'button',
+  as,
   asChild,
   class: propsClass,
   unstyled,
+  tabindex = 0,
   ...props
 } = defineProps<
   SelectTriggerProps & {
     class?: HTMLAttributes['class']
     unstyled?: boolean
+    tabindex?: HTMLAttributes['tabindex']
     ui?: {
       root?: {
         class?: HTMLAttributes['class']
@@ -68,6 +70,8 @@ onMounted(() => {
 })
 </script>
 
+<!-- FIXED: we found that if primitive as 'button' or any focusable element, it will trigger the click event -->
+<!-- so we force use div as the primitive element and add tabindex to make it focusable -->
 <template>
   <PopperAnchor
     as-child
@@ -77,7 +81,6 @@ onMounted(() => {
       :ref="forwardRef"
       :class="base({ unstyled, class: [ui?.root?.class, propsClass] })"
       role="combobox"
-      :type="as === 'button' ? 'button' : undefined"
       :aria-controls="rootContext.contentId"
       :aria-expanded="rootContext.open.value || false"
       :aria-required="rootContext.required?.value"
@@ -87,12 +90,14 @@ onMounted(() => {
       :data-state="rootContext?.open.value ? 'open' : 'closed'"
       :data-disabled="isDisabled ? '' : undefined"
       :data-placeholder="!isEmpty(rootContext.modelValue?.value) ? undefined : ''"
+      as="div"
+      :tabindex="tabindex"
       :as-child="asChild"
-      :as="as"
+      :type="undefined"
       @click="
         (event: MouseEvent) => {
-          (event?.currentTarget as HTMLElement)?.focus();
-          !isDisabled && rootContext.onOpenChange(true);
+          (event?.currentTarget as HTMLElement)?.focus()
+          !isDisabled && rootContext.onOpenChange(true)
         }
       "
       @keydown="
