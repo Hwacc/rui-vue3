@@ -410,7 +410,6 @@ const mergedProcessStyle = computed(() => {
   );
 });
 const mergedDotStyle = computed(() => {
-  console.log('test',merge({}, ui?.dot?.style, props.dotStyle))
   return merge({}, ui?.dot?.style, props.dotStyle);
 });
 
