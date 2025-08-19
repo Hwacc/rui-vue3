@@ -2,6 +2,10 @@
   .rui-btn {
     /* --rui-ripple-color: var(--color-rz-green); */
 
+    &[data-loading] {
+      @apply pointer-events-none;
+    }
+
     &[data-variant="default"] {
       --rui-ripple-color: var(--color-rz-green-border);
       @apply bg-rz-green text-h00 border-rz-green-border

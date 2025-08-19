@@ -1,29 +1,49 @@
 <script lang="ts">
-import type { TooltipContentVariants } from '@rui/core/components/tooltip'
+import type { TooltipContentVariants } from '@rui/core/components/tooltip';
 import type {
   PrimitiveProps,
   TooltipArrowProps,
   TooltipContentProps,
   TooltipRootProps,
-} from 'reka-ui'
-import type { HTMLAttributes } from 'vue'
-import type { ButtonVariants } from '.'
+} from 'reka-ui';
+import type { HTMLAttributes } from 'vue';
+import type { ButtonVariants } from '.';
+import { LoaderCircle } from 'lucide-vue-next';
+import { merge } from 'lodash-es';
 
 export interface ButtonProps extends PrimitiveProps {
-  variant?: ButtonVariants['variant'] | string
-  size?: ButtonVariants['size']
-  class?: HTMLAttributes['class']
-  disabled?: boolean
-  checked?: boolean
-  tooltip?: string
-  tooltipTheme?: TooltipContentVariants['theme']
-  tooltipRootProps?: TooltipRootProps
-  tooltipContentClass?: HTMLAttributes['class']
-  tooltipContentProps?: TooltipContentProps
-  tooltipArrowClass?: HTMLAttributes['class']
-  tooltipArrowProps?: TooltipArrowProps
-  unstyled?: boolean
-  ripple?: boolean
+  variant?: ButtonVariants['variant'] | string;
+  size?: ButtonVariants['size'];
+  class?: HTMLAttributes['class'];
+  disabled?: boolean;
+  checked?: boolean;
+  tooltip?: string;
+  unstyled?: boolean;
+  ripple?: boolean;
+  loading?: boolean;
+  ui?: {
+    root?: {
+      class?: HTMLAttributes['class'];
+    };
+    loading?: {
+      class?: HTMLAttributes['class'];
+    };
+    tooltip?: {
+      theme?: TooltipContentVariants['theme'];
+      root?: {
+        class?: HTMLAttributes['class'];
+        props?: TooltipRootProps;
+      };
+      content?: {
+        class?: HTMLAttributes['class'];
+        props?: TooltipContentProps;
+      };
+      arrow?: {
+        class?: HTMLAttributes['class'];
+        props?: TooltipArrowProps;
+      };
+    };
+  };
 }
 </script>
 
@@ -34,122 +54,142 @@ import {
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
-} from '@rui/core/components/tooltip'
-import { useRipple } from '@rui/core/composables/useRipple'
-import { cn, getNodeCssVar } from '@rui/core/lib/utils'
-import { Primitive, useForwardExpose } from 'reka-ui'
-import { computed } from 'vue'
-import { buttonVariants } from '.'
+} from '@rui/core/components/tooltip';
+import { useRipple } from '@rui/core/composables/useRipple';
+import { getNodeCssVar } from '@rui/core/lib/utils';
+import { Primitive, useForwardExpose } from 'reka-ui';
+import { computed } from 'vue';
+import { tvButton } from '.';
 
 const {
   as = 'button',
   variant = 'default',
-  size,
+  size = 'base',
   class: propsClass,
   disabled,
   checked = false,
   unstyled,
   ripple = false,
+  loading = false,
   tooltip,
-  tooltipTheme = 'default',
-  tooltipRootProps = {
-    delayDuration: 0,
-    disableHoverableContent: true,
-    ignoreNonKeyboardFocus: true,
-  },
-  tooltipContentClass,
-  tooltipContentProps = {
-    side: 'top',
-    align: 'start',
-    sideOffset: 6,
-  },
-  tooltipArrowClass,
-  tooltipArrowProps = {
-    width: 6,
-    height: 3,
-  },
-} = defineProps<ButtonProps>()
+  ui,
+} = defineProps<ButtonProps>();
 
 const emits = defineEmits<{
-  click: [event: MouseEvent]
-}>()
+  click: [event: MouseEvent];
+}>();
 const slots = defineSlots<{
-  default?: () => any
-  tooltip?: () => any
-}>()
-const { forwardRef, currentElement } = useForwardExpose()
+  default?: () => any;
+  tooltip?: () => any;
+  loading?: () => any;
+}>();
+const { forwardRef, currentElement } = useForwardExpose();
 
 const rippleColor = computed(() => {
-  return getNodeCssVar(
-    currentElement.value,
-    '--rui-ripple-color',
-    'transparent',
-  )
-})
+  return getNodeCssVar(currentElement.value, '--rui-ripple-color', 'transparent');
+});
 const {
   onRipple,
   referenceRef: rippleReferenceRef,
   Ripple,
 } = useRipple({
   color: rippleColor,
-})
+});
 
 function onClick(event: MouseEvent) {
-  onRipple(event)
-  emits('click', event)
+  onRipple(event);
+  emits('click', event);
 }
 
-const buttonClass = computed(() =>
-  cn(
-    buttonVariants({
-      variant: variant as ButtonVariants['variant'],
-      size,
-      unstyled,
-    }),
-    propsClass,
-  ),
-)
+const mergedUI = computed(() => {
+  return merge(
+    {
+      tooltip: {
+        theme: 'default',
+        root: {
+          props: {
+            delayDuration: 0,
+            disableHoverableContent: true,
+            ignoreNonKeyboardFocus: true,
+          },
+        },
+        content: {
+          props: {
+            side: 'top',
+            align: 'start',
+            sideOffset: 6,
+          },
+        },
+        arrow: {
+          props: {
+            width: 6,
+            height: 3,
+          },
+        },
+      },
+    },
+    ui
+  );
+});
+const { base, loading: tvLoading } = tvButton();
+
+console.log(
+  'loading class',
+  tvLoading({
+    variant: variant as ButtonVariants['variant'],
+    size,
+    unstyled,
+    class: [ui?.loading?.class],
+  })
+);
 </script>
 
 <template>
   <TooltipProvider v-if="tooltip || slots.tooltip">
-    <Tooltip v-bind="{ ...tooltipRootProps, disabled }">
+    <Tooltip v-bind="{ ...mergedUI.tooltip.root.props, disabled }">
       <!-- data-state 已被Tooltip占用, 故使用data-switch-state -->
       <TooltipTrigger
         :ref="
           (r) => {
-            forwardRef(r)
-            rippleReferenceRef = r
+            forwardRef(r);
+            rippleReferenceRef = r;
           }
         "
         :as="as"
         :as-child="asChild"
-        :class="buttonClass"
+        :class="base({ variant: variant as ButtonVariants['variant'], size, unstyled, class: [ui?.root?.class, propsClass] })"
         :disabled="disabled"
         :data-variant="variant"
         :data-ripple="ripple ? true : undefined"
-        :data-switch-state="
-          variant === 'switch' ? (checked ? 'checked' : 'unchecked') : undefined
-        "
+        :data-loading="loading ? true : undefined"
+        :data-switch-state="variant === 'switch' ? (checked ? 'checked' : 'unchecked') : undefined"
         :data-size="size"
         @click="onClick"
       >
+        <slot
+          v-if="loading"
+          name="loading"
+        >
+          <LoaderCircle
+            :class="tvLoading({ variant: variant as ButtonVariants['variant'], size, unstyled, class: [ui?.loading?.class] })"
+          />
+        </slot>
         <slot />
         <Ripple v-if="ripple" />
       </TooltipTrigger>
       <TooltipContent
-        v-bind="tooltipContentProps"
-        :class="tooltipContentClass"
-        :theme="tooltipTheme"
-        :data-theme="tooltipTheme"
+        v-bind="mergedUI.tooltip.content.props"
+        :class="mergedUI.tooltip.content.class"
+        :theme="mergedUI.tooltip.theme"
+        :data-theme="mergedUI.tooltip.theme"
       >
         <slot name="tooltip">
           {{ tooltip }}
         </slot>
         <TooltipArrow
-          :class="tooltipArrowClass"
-          :theme="tooltipTheme"
-          v-bind="tooltipArrowProps"
+          :class="mergedUI.tooltip.arrow.class"
+          :theme="mergedUI.tooltip.theme"
+          v-bind="mergedUI.tooltip.arrow.props"
           variant="css"
           force
         />
@@ -160,22 +200,29 @@ const buttonClass = computed(() =>
     v-else
     :ref="
       (r) => {
-        forwardRef(r)
-        rippleReferenceRef = r
+        forwardRef(r);
+        rippleReferenceRef = r;
       }
     "
     :as="as"
     :as-child="asChild"
-    :class="buttonClass"
+    :class="base({ variant: variant as ButtonVariants['variant'], size, unstyled, class: [ui?.root?.class, propsClass] })"
     :disabled="disabled"
     :data-variant="variant"
     :data-ripple="ripple ? true : undefined"
-    :data-switch-state="
-      variant === 'switch' ? (checked ? 'checked' : 'unchecked') : undefined
-    "
+    :data-loading="loading ? true : undefined"
+    :data-switch-state="variant === 'switch' ? (checked ? 'checked' : 'unchecked') : undefined"
     :data-size="size"
     @click="onClick"
   >
+    <slot
+      v-if="loading"
+      name="loading"
+    >
+      <LoaderCircle
+        :class="tvLoading({ variant: variant as ButtonVariants['variant'], size, unstyled, class: [ui?.loading?.class] })"
+      />
+    </slot>
     <slot />
     <Ripple v-if="ripple" />
   </Primitive>
