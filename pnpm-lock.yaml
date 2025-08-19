@@ -77,12 +77,9 @@ importers:
       '@floating-ui/vue':
         specifier: ^1.1.6
         version: 1.1.6(vue@3.5.13(typescript@5.8.2))
-      '@grapoza/vue-tree':
-        specifier: ^7.0.2
-        version: 7.0.2(typescript@5.8.2)
-      '@wsfe/vue-tree':
-        specifier: ^4.1.1
-        version: 4.1.1
+      assign-deep:
+        specifier: ^1.0.1
+        version: 1.0.1
       class-variance-authority:
         specifier: ^0.7.1
         version: 0.7.1
@@ -98,6 +95,9 @@ importers:
       vue-3-slider-component:
         specifier: ^1.0.2
         version: 1.0.2(vue@3.5.13(typescript@5.8.2))
+      vue-lazyload:
+        specifier: ^3.0.0
+        version: 3.0.0
 
   packages/core:
     dependencies:
@@ -1975,6 +1975,14 @@ packages:
   assertion-error@2.0.1:
     resolution: {integrity: sha512-Izi8RQcffqCeNVgFigKli1ssklIbpHnCYc6AknXGYoB6grJqyeby7jv12JUQgmTAnIDnbck1uxksT4dzN3PWBA==}
     engines: {node: '>=12'}
+
+  assign-deep@1.0.1:
+    resolution: {integrity: sha512-CSXAX79mibneEYfqLT5FEmkqR5WXF+xDRjgQQuVf6wSCXCYU8/vHttPidNar7wJ5BFmKAo8Wei0rCtzb+M/yeA==}
+    engines: {node: '>=6'}
+
+  assign-symbols@2.0.2:
+    resolution: {integrity: sha512-9sBQUQZMKFKcO/C3Bo6Rx4CQany0R0UeVcefNGRRdW2vbmaMOhV1sbmlXcQLcD56juLXbSGTBm0GGuvmrAF8pA==}
+    engines: {node: '>=6'}
 
   ast-types@0.16.1:
     resolution: {integrity: sha512-6t10qk83GOG8p0vKmaCr8eiilZwO171AvbROMtvvNiwrTly62t+7XkA8RdIIVbpMhCASAsxgAzdRSwh6nw/5Dg==}
@@ -5128,6 +5136,9 @@ packages:
     peerDependencies:
       vue: '>=2'
 
+  vue-lazyload@3.0.0:
+    resolution: {integrity: sha512-h2keL/Rj550dLgesgOtXJS9qOiSMmuJNeVlfNAYV1/IYwOQYaWk5mFJlwRxmZDK9YC5gECcFLYYj7z1lKSf9ug==}
+
   vue-loader@17.4.2:
     resolution: {integrity: sha512-yTKOA4R/VN4jqjw4y5HrynFL8AK0Z3/Jt7eOJXEitsm0GMRHDBjCfCiuTiLP7OESvsZYo2pATCWhDqxC5ZrM6w==}
     peerDependencies:
@@ -7265,6 +7276,12 @@ snapshots:
   assert-never@1.4.0: {}
 
   assertion-error@2.0.1: {}
+
+  assign-deep@1.0.1:
+    dependencies:
+      assign-symbols: 2.0.2
+
+  assign-symbols@2.0.2: {}
 
   ast-types@0.16.1:
     dependencies:
@@ -10565,6 +10582,8 @@ snapshots:
   vue-inbrowser-compiler-independent-utils@4.71.1(vue@3.5.13(typescript@5.7.3)):
     dependencies:
       vue: 3.5.13(typescript@5.7.3)
+
+  vue-lazyload@3.0.0: {}
 
   vue-loader@17.4.2(@vue/compiler-sfc@3.5.18)(vue@3.5.13(typescript@5.8.2))(webpack@5.98.0):
     dependencies:

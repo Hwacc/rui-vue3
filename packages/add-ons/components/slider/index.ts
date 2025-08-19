@@ -1,5 +1,5 @@
-import { PREFIX } from '@rui/core/lib/constants'
 import type { VariantProps } from '@rui/core/lib/tv'
+import { PREFIX } from '@rui/core/lib/constants'
 import { tv } from '@rui/core/lib/tv'
 
 /**
@@ -21,7 +21,7 @@ export const tvSlider = tv({
     label: '',
     mark: '',
     step: '',
-    rail: ''
+    rail: '',
   },
   variants: {
     size: {
@@ -31,7 +31,7 @@ export const tvSlider = tv({
     },
     scale: {
       true: '',
-      false: ''
+      false: '',
     },
     variant: {
       floating: '',
@@ -42,34 +42,34 @@ export const tvSlider = tv({
       bottom: '',
       left: '',
       right: '',
-    }
+    },
   },
   compoundSlots: [
     {
       size: 'sm',
       slots: ['dot'],
-      class: 'border-[.0625rem]'
+      class: 'border-[.0625rem]',
     },
     {
       size: 'lg',
       slots: ['dot'],
-      class: 'border-[.25rem]'
+      class: 'border-[.25rem]',
     },
     {
       size: 'base',
       slots: ['dot'],
-      class: 'border-[.125rem]'
+      class: 'border-[.125rem]',
     },
     {
       scale: true,
       slots: ['dot'],
-      class: 'scale-125'
+      class: 'scale-125',
     },
     {
       variant: 'default',
       slots: ['tooltip'],
-      class: ['after:absolute', 'after:content-[""]', 'after:w-0', 'after:h-0']
-    }, 
+      class: ['after:absolute', 'after:content-[""]', 'after:w-0', 'after:h-0'],
+    },
     {
       placement: 'top',
       slots: ['tooltip'],
@@ -81,8 +81,8 @@ export const tvSlider = tv({
         'after:border-[.25rem]',
         'after:border-x-transparent',
         'after:border-b-transparent',
-      ]
-    }, 
+      ],
+    },
     {
       placement: 'bottom',
       slots: ['tooltip'],
@@ -121,8 +121,8 @@ export const tvSlider = tv({
         'after:border-y-transparent',
         'after:border-l-transparent',
       ],
-    }
-  ]
+    },
+  ],
 }, {
   slots: {
     root: prefix,
@@ -133,7 +133,7 @@ export const tvSlider = tv({
     step: `${prefix}-step`,
     process: `${prefix}-process`,
     rail: `${prefix}-rail`,
-  }
+  },
 })
 
 export type SliderVariants = VariantProps<typeof tvSlider>

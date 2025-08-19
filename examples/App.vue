@@ -26,6 +26,7 @@ import TabsExample from './tabs/index.vue'
 import TagsInputExample from './tags-input/index.vue'
 import ToastExample from './toast/index.vue'
 
+import VLazyExample from './v-lazy/index.vue'
 import VTitleExample from './v-title/index.vue'
 
 const compSize = ref<'default' | 'sm' | 'lg'>('default')
@@ -73,6 +74,7 @@ const toastPosition = ref<ToastPosition>('bottom-right')
       <SeparatorExample />
       <SheetExample />
       <SkeletonExample />
+      <VLazyExample />
     </div>
   </Config>
 </template>

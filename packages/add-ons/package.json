@@ -12,21 +12,20 @@
   },
   "peerDependencies": {
     "@floating-ui/vue": "^1.1.6",
-    "@grapoza/vue-tree": "^7.0.2",
-    "@wsfe/vue-tree": "^4.1.1",
     "class-variance-authority": "^0.7.1",
     "perfect-scrollbar": "^1.5.6",
     "swiper": "^11.2.6",
     "vue": "^3.5.13",
-    "vue-3-slider-component": "^1.0.2"
+    "vue-3-slider-component": "^1.0.2",
+    "vue-lazyload": "^3.0.0"
   },
   "dependencies": {
     "@floating-ui/vue": "^1.1.6",
-    "@grapoza/vue-tree": "^7.0.2",
-    "@wsfe/vue-tree": "^4.1.1",
+    "assign-deep": "^1.0.1",
     "class-variance-authority": "^0.7.1",
     "perfect-scrollbar": "^1.5.6",
     "swiper": "^11.2.6",
-    "vue-3-slider-component": "^1.0.2"
+    "vue-3-slider-component": "^1.0.2",
+    "vue-lazyload": "^3.0.0"
   }
 }

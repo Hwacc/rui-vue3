@@ -2,7 +2,7 @@
 import type { Swiper as SwiperClass } from 'swiper/types'
 import type { HTMLAttributes } from 'vue'
 import type { SwiperEmits, SwiperProps, SwiperSlots } from './interface'
-import { useForwardPropsEmits } from '@rui/add-ons/lib/useFowardPropsEmits'
+import { useForwardPropsEmits } from '@rui/add-ons/composables/useFowardPropsEmits'
 import { cn } from '@rui/core/lib/utils'
 import { Swiper } from 'swiper/vue'
 import { ref } from 'vue'
@@ -41,7 +41,8 @@ function onFocusOut() {
   }
 }
 function onKeyDown(event: KeyboardEvent) {
-  if (hasModule('Keyboard')) return
+  if (hasModule('Keyboard'))
+    return
   const prevKey = direction === 'vertical' ? 'ArrowUp' : 'ArrowLeft'
   const nextKey = direction === 'vertical' ? 'ArrowDown' : 'ArrowRight'
   if (event.key === prevKey) {

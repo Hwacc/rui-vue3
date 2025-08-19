@@ -132,16 +132,6 @@ const mergedUI = computed(() => {
   )
 })
 const { base, loading: tvLoading } = tvButton()
-
-console.log(
-  'loading class',
-  tvLoading({
-    variant: variant as ButtonVariants['variant'],
-    size,
-    unstyled,
-    class: [ui?.loading?.class],
-  }),
-)
 </script>
 
 <template>
