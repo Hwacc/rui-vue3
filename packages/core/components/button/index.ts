@@ -1,11 +1,11 @@
-import type { VariantProps } from 'tailwind-variants';
-import { PREFIX } from '@rui/core/lib/constants';
-import { tv } from '@rui/core/lib/tv';
+import type { VariantProps } from 'tailwind-variants'
+import { PREFIX } from '@rui/core/lib/constants'
+import { tv } from '@rui/core/lib/tv'
 
-export { default as Button } from './Button.vue';
-export type { ButtonProps } from './Button.vue';
+export { default as Button } from './Button.vue'
+export type { ButtonProps } from './Button.vue'
 
-const prefix = `${PREFIX}-btn`;
+const prefix = `${PREFIX}-btn`
 
 export const tvButton = tv(
   {
@@ -43,10 +43,15 @@ export const tvButton = tv(
         sm: 'h-[1.5rem] text-xs',
         lg: 'h-[2rem] text-base',
       },
+      loading: {
+        true: 'pointer-events-none',
+        false: '',
+      },
     },
     defaultVariants: {
       variant: 'default',
       size: 'base',
+      loading: false,
     },
     compoundSlots: [
       {
@@ -71,6 +76,6 @@ export const tvButton = tv(
     slots: {
       loading: `${prefix}-loading`,
     },
-  }
-);
-export type ButtonVariants = VariantProps<typeof tvButton>;
+  },
+)
+export type ButtonVariants = VariantProps<typeof tvButton>

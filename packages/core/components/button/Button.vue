@@ -1,49 +1,49 @@
 <script lang="ts">
-import type { TooltipContentVariants } from '@rui/core/components/tooltip';
+import type { TooltipContentVariants } from '@rui/core/components/tooltip'
 import type {
   PrimitiveProps,
   TooltipArrowProps,
   TooltipContentProps,
   TooltipRootProps,
-} from 'reka-ui';
-import type { HTMLAttributes } from 'vue';
-import type { ButtonVariants } from '.';
-import { LoaderCircle } from 'lucide-vue-next';
-import { merge } from 'lodash-es';
+} from 'reka-ui'
+import type { HTMLAttributes } from 'vue'
+import type { ButtonVariants } from '.'
+import { merge } from 'lodash-es'
+import { LoaderCircle } from 'lucide-vue-next'
 
 export interface ButtonProps extends PrimitiveProps {
-  variant?: ButtonVariants['variant'] | string;
-  size?: ButtonVariants['size'];
-  class?: HTMLAttributes['class'];
-  disabled?: boolean;
-  checked?: boolean;
-  tooltip?: string;
-  unstyled?: boolean;
-  ripple?: boolean;
-  loading?: boolean;
+  variant?: ButtonVariants['variant'] | string
+  size?: ButtonVariants['size']
+  class?: HTMLAttributes['class']
+  disabled?: boolean
+  checked?: boolean
+  tooltip?: string
+  unstyled?: boolean
+  ripple?: boolean
+  loading?: boolean
   ui?: {
     root?: {
-      class?: HTMLAttributes['class'];
-    };
+      class?: HTMLAttributes['class']
+    }
     loading?: {
-      class?: HTMLAttributes['class'];
-    };
+      class?: HTMLAttributes['class']
+    }
     tooltip?: {
-      theme?: TooltipContentVariants['theme'];
+      theme?: TooltipContentVariants['theme']
       root?: {
-        class?: HTMLAttributes['class'];
-        props?: TooltipRootProps;
-      };
+        class?: HTMLAttributes['class']
+        props?: TooltipRootProps
+      }
       content?: {
-        class?: HTMLAttributes['class'];
-        props?: TooltipContentProps;
-      };
+        class?: HTMLAttributes['class']
+        props?: TooltipContentProps
+      }
       arrow?: {
-        class?: HTMLAttributes['class'];
-        props?: TooltipArrowProps;
-      };
-    };
-  };
+        class?: HTMLAttributes['class']
+        props?: TooltipArrowProps
+      }
+    }
+  }
 }
 </script>
 
@@ -54,12 +54,12 @@ import {
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
-} from '@rui/core/components/tooltip';
-import { useRipple } from '@rui/core/composables/useRipple';
-import { getNodeCssVar } from '@rui/core/lib/utils';
-import { Primitive, useForwardExpose } from 'reka-ui';
-import { computed } from 'vue';
-import { tvButton } from '.';
+} from '@rui/core/components/tooltip'
+import { useRipple } from '@rui/core/composables/useRipple'
+import { getNodeCssVar } from '@rui/core/lib/utils'
+import { Primitive, useForwardExpose } from 'reka-ui'
+import { computed } from 'vue'
+import { tvButton } from '.'
 
 const {
   as = 'button',
@@ -73,32 +73,32 @@ const {
   loading = false,
   tooltip,
   ui,
-} = defineProps<ButtonProps>();
+} = defineProps<ButtonProps>()
 
 const emits = defineEmits<{
-  click: [event: MouseEvent];
-}>();
+  click: [event: MouseEvent]
+}>()
 const slots = defineSlots<{
-  default?: () => any;
-  tooltip?: () => any;
-  loading?: () => any;
-}>();
-const { forwardRef, currentElement } = useForwardExpose();
+  default?: () => any
+  tooltip?: () => any
+  loading?: () => any
+}>()
+const { forwardRef, currentElement } = useForwardExpose()
 
 const rippleColor = computed(() => {
-  return getNodeCssVar(currentElement.value, '--rui-ripple-color', 'transparent');
-});
+  return getNodeCssVar(currentElement.value, '--rui-ripple-color', 'transparent')
+})
 const {
   onRipple,
   referenceRef: rippleReferenceRef,
   Ripple,
 } = useRipple({
   color: rippleColor,
-});
+})
 
 function onClick(event: MouseEvent) {
-  onRipple(event);
-  emits('click', event);
+  onRipple(event)
+  emits('click', event)
 }
 
 const mergedUI = computed(() => {
@@ -128,10 +128,10 @@ const mergedUI = computed(() => {
         },
       },
     },
-    ui
-  );
-});
-const { base, loading: tvLoading } = tvButton();
+    ui,
+  )
+})
+const { base, loading: tvLoading } = tvButton()
 
 console.log(
   'loading class',
@@ -140,8 +140,8 @@ console.log(
     size,
     unstyled,
     class: [ui?.loading?.class],
-  })
-);
+  }),
+)
 </script>
 
 <template>
@@ -151,13 +151,19 @@ console.log(
       <TooltipTrigger
         :ref="
           (r) => {
-            forwardRef(r);
-            rippleReferenceRef = r;
+            forwardRef(r)
+            rippleReferenceRef = r
           }
         "
         :as="as"
         :as-child="asChild"
-        :class="base({ variant: variant as ButtonVariants['variant'], size, unstyled, class: [ui?.root?.class, propsClass] })"
+        :class="base({
+          variant: variant as ButtonVariants['variant'],
+          size,
+          unstyled,
+          loading,
+          class: [ui?.root?.class, propsClass],
+        })"
         :disabled="disabled"
         :data-variant="variant"
         :data-ripple="ripple ? true : undefined"
@@ -200,8 +206,8 @@ console.log(
     v-else
     :ref="
       (r) => {
-        forwardRef(r);
-        rippleReferenceRef = r;
+        forwardRef(r)
+        rippleReferenceRef = r
       }
     "
     :as="as"
@@ -220,7 +226,13 @@ console.log(
       name="loading"
     >
       <LoaderCircle
-        :class="tvLoading({ variant: variant as ButtonVariants['variant'], size, unstyled, class: [ui?.loading?.class] })"
+        :class="tvLoading({
+          variant: variant as ButtonVariants['variant'],
+          size,
+          unstyled,
+          loading,
+          class: [ui?.loading?.class],
+        })"
       />
     </slot>
     <slot />
