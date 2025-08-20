@@ -1,22 +1,14 @@
 <script setup lang="ts">
 import type { HTMLAttributes } from 'vue'
-import type {
-  CircleProgressIndicatorVariants,
-  CircleProgressVariants,
-} from '.'
-import { cn } from '@rui/core/lib/utils'
+import type { CircleProgressVariants } from '.'
 import { computed, toRefs } from 'vue'
-import {
-  circleProgressIndicatorVariants,
-  circleProgressVariants,
-} from '.'
+import { tvCircleProgress } from '.'
 import { useIndicatorTransfer } from './useIndicatorTransfer'
 
 const {
   class: propsClass,
   strokeWidth = 2,
   type = 'circle',
-  indicatorClass,
   variant = 'default',
   unstyled,
   ...props
@@ -25,9 +17,16 @@ const {
   type?: CircleProgressVariants['type']
   modelValue?: number
   strokeWidth?: number
-  indicatorClass?: HTMLAttributes['class']
-  variant?: CircleProgressIndicatorVariants['variant']
+  variant?: CircleProgressVariants['variant']
   unstyled?: boolean
+  ui?: {
+    root?: {
+      class?: HTMLAttributes['class']
+    }
+    indicator?: {
+      class?: HTMLAttributes['class']
+    }
+  }
 }>()
 const area = computed(() => {
   const r = 24 - strokeWidth
@@ -53,22 +52,18 @@ const { indicatorRef, transferStyle } = useIndicatorTransfer(
   variant,
   modelValue,
 )
+const { base, indicator } = tvCircleProgress()
 </script>
 
 <template>
   <div
-    :class="cn(circleProgressVariants({ unstyled }), propsClass)"
+    :class="base({ unstyled, variant, class: [ui?.root?.class, propsClass] })"
     :data-type="type"
   >
     <div
       v-if="type === 'arc'"
       ref="indicatorRef"
-      :class="
-        cn(
-          circleProgressIndicatorVariants({ unstyled, variant }),
-          indicatorClass,
-        )
-      "
+      :class="indicator({ unstyled, variant, class: ui?.indicator?.class })"
       :data-variant="variant"
     >
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 56">
@@ -113,12 +108,7 @@ const { indicatorRef, transferStyle } = useIndicatorTransfer(
     <div
       v-else
       ref="indicatorRef"
-      :class="
-        cn(
-          circleProgressIndicatorVariants({ unstyled, variant }),
-          indicatorClass,
-        )
-      "
+      :class="indicator({ unstyled, variant, class: ui?.indicator?.class })"
       :data-variant="variant"
     >
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 56">
