@@ -23,6 +23,7 @@ type DialogOptions = {
     body?: ComponentProps<typeof DialogContentBody>
     footer?: ComponentProps<typeof DialogFooter>
   }
+  noHeader?: boolean
   footer?: () => any
   render?: () => any
   onOpen?: () => void
@@ -38,6 +39,7 @@ export function dialog({
   title,
   content,
   ui,
+  noHeader = false,
   footer,
   render,
   onOpen,
@@ -71,15 +73,18 @@ export function dialog({
             else {
               return (
                 <>
-                  <DialogHeader {...ui?.header}>
-                    {{
-                      default: () => {
-                        if (typeof title === 'function')
-                          return title()
-                        return title
-                      },
-                    }}
-                  </DialogHeader>
+                  {
+                    !noHeader && 
+                    <DialogHeader {...ui?.header}>
+                      {{
+                        default: () => {
+                          if (typeof title === 'function')
+                            return title()
+                          return title
+                        },
+                      }}
+                    </DialogHeader>
+                  }
                   <DialogContentBody {...ui?.body}>
                     {{
                       default: () => {
@@ -161,5 +166,5 @@ export function dialog({
   const close = () => {
     open.value = false
   }
-  return [close]
+  return { close }
 }
