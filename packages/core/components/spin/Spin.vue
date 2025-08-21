@@ -12,7 +12,9 @@ const {
   unstyled,
   delay,
   ui,
+  class: propsClass,
 } = defineProps<{
+  class?: HTMLAttributes['class'];
   show?: boolean;
   mode?: 'fullscreen';
   size?: SpinVariants['size'];
@@ -88,7 +90,7 @@ onBeforeUnmount(() => {
 <template>
   <div
     v-show="isVisible"
-    :class="root({ unstyled, size, mode, class: ui?.base?.class })"
+    :class="root({ unstyled, size, mode, class: [ui?.base?.class, propsClass] })"
   >
     <div :class="mask({ unstyled, size, mode, class: ui?.mask?.class })" />
     <div :class="indicator({ unstyled, size, mode, class: ui?.indicator?.class })">
