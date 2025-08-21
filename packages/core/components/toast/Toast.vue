@@ -1,40 +1,38 @@
 <script setup lang="ts">
-import type { ToastRootEmits } from 'reka-ui'
-import type { ToastProps } from '.'
-
-import { cn } from '@rui/core/lib/utils'
+import type { ToastRootEmits, ToastRootProps } from 'reka-ui'
+import type { HTMLAttributes } from 'vue'
 import { ToastRoot, useForwardPropsEmits } from 'reka-ui'
-import { computed, unref } from 'vue'
-import { toastVariants } from '.'
+import { tvToast } from '.'
 import { injectToastProviderContextEx } from './ToastProvider.vue'
 
 const {
   class: propsClass,
   variant = 'success',
-  unstyled,
+  unstyled = false,
   ...props
-} = defineProps<ToastProps>()
+} = defineProps<ToastRootProps & {
+  variant?: StatusVariants
+  class?: HTMLAttributes['class']
+  unstyled?: boolean
+}>()
 const emits = defineEmits<ToastRootEmits>()
 const { position, swipeDirection } = injectToastProviderContextEx()
-const classNames = computed(() => {
-  return cn(
-    toastVariants({
-      position: unref(position),
-      swipeDirection: unref(swipeDirection),
-      unstyled,
-    }),
-    propsClass,
-  )
-})
+const { base } = tvToast()
 const forwarded = useForwardPropsEmits(props, emits)
 </script>
 
 <template>
   <ToastRoot
     v-bind="forwarded"
-    :class="classNames"
+    :class="
+      base({
+        position,
+        swipeDirection,
+        unstyled,
+        class: propsClass,
+      })
+    "
     :data-variant="variant"
-    @update:open="onOpenChange"
   >
     <slot />
   </ToastRoot>

@@ -1,18 +1,18 @@
-import type { VariantProps } from 'class-variance-authority'
 import type { ToastRootProps } from 'reka-ui'
+import type { VariantProps } from 'tailwind-variants'
 import type { HTMLAttributes } from 'vue'
 import { PREFIX } from '@rui/core/lib/constants'
-import { cva } from '@rui/core/lib/cva'
+import { tv } from '@rui/core/lib/tv'
 
 export type SwipeDirection = 'up' | 'down' | 'left' | 'right'
-export type ToastPosition =
-  | 'top-left'
-  | 'top-center'
-  | 'top-right'
-  | 'bottom-left'
-  | 'bottom-center'
-  | 'bottom-right'
-  | 'center'
+export type ToastPosition
+  = | 'top-left'
+    | 'top-center'
+    | 'top-right'
+    | 'bottom-left'
+    | 'bottom-center'
+    | 'bottom-right'
+    | 'center'
 export type ToastVariant = 'success' | 'error' | 'warning' | 'info'
 
 export { default as Toast } from './Toast.vue'
@@ -29,38 +29,7 @@ export { default as ToastTitle } from './ToastTitle.vue'
 export { default as ToastViewport } from './ToastViewport.vue'
 export { toast, useToast } from './use-toast'
 
-export const toastViewportVariants = cva<{
-  position: Partial<Record<ToastPosition, any>>
-}>(
-  [
-    'fixed',
-    'z-[100]',
-    'flex',
-    'flex-col-reverse',
-    'p-6',
-    'max-h-screen',
-    'w-full',
-    'sm:max-w-[26.25rem]',
-    'outline-none',
-  ],
-  {
-    variants: {
-      position: {
-        'center': ['top-1/2', 'left-1/2', '-translate-1/2'],
-        'top-left': ['top-0', 'left-0'],
-        'top-center': ['top-0', 'left-1/2', '-translate-x-1/2'],
-        'top-right': ['top-0', 'right-0'],
-        'bottom-left': ['bottom-0', 'left-0'],
-        'bottom-center': ['bottom-0', 'left-1/2', '-translate-x-1/2'],
-        'bottom-right': ['bottom-0', 'right-0'],
-      },
-    },
-    defaultVariants: {
-      position: 'center',
-    },
-  },
-)
-export type ToastViewportVariants = VariantProps<typeof toastViewportVariants>
+const prefix = `${PREFIX}-toast`
 
 export const toastEdgeAnimate: Partial<Record<ToastPosition, any>> = {
   'top-center': [
@@ -103,7 +72,8 @@ export const toastSwipe = {
   ],
   none: [],
 }
-function getToastCompoundVariants() {
+
+function getBaseSlotsCompoundVariants() {
   const positions = [
     'top-left',
     'top-center',
@@ -117,11 +87,8 @@ function getToastCompoundVariants() {
     const _split = position.split('-')
     const _edge
       = _split[0] === 'center'
-        ? []
-        : [
-            'data-[state=closed]:motion-opacity-out-80',
-            ...toastEdgeAnimate[position],
-          ]
+        ? ['data-[state=open]:animate-fade-down', 'data-[state=closed]:animate-fade-down-out']
+        : ['data-[state=closed]:motion-opacity-out-80', ...toastEdgeAnimate[position]]
     let _swipe: any[] = []
     let _deriction: string | string[] = ['up', 'down', 'left', 'right']
     switch (_split[1]) {
@@ -138,86 +105,134 @@ function getToastCompoundVariants() {
         break
     }
     return {
+      slots: ['base'],
       position,
       swipeDirection: _deriction,
       class: [[..._edge], ..._swipe],
     }
   })
 }
-const prefix = `${PREFIX}-toast`
-export const toastVariants = cva<{
-  position: Partial<Record<ToastPosition, any>>
-  swipeDirection: Partial<Record<SwipeDirection, any>>
-}>(
-  [
-    'group',
-    'pointer-events-auto',
-    'relative',
-    'flex',
-    'w-full',
-    'items-center',
-    'justify-between',
-    'py-4',
-    'px-6',
-    'space-x-4',
-    'overflow-hidden',
-    'rounded-md',
-    'border-l-[.1875rem]',
-    'transition-all',
-  ],
+
+export const tvToast = tv(
   {
+    base: [
+      'group',
+      'pointer-events-auto',
+      'relative',
+      'flex',
+      'w-full',
+      'items-center',
+      'justify-between',
+      'py-4',
+      'px-6',
+      'space-x-4',
+      'overflow-hidden',
+      'rounded-md',
+      'border-l-[.1875rem]',
+      'transition-all',
+    ],
+    slots: {
+      viewport: [
+        'fixed',
+        'z-[100]',
+        'flex',
+        'flex-col-reverse',
+        'p-6',
+        'max-h-screen',
+        'w-full',
+        'sm:max-w-[26.25rem]',
+        'outline-none',
+      ],
+      icon: ['size-5'],
+      title: ['text-base'],
+      description: ['text-sm'],
+      close: ['size-3'],
+      action: [
+        'inline-flex',
+        'shrink-0',
+        'items-center',
+        'justify-center',
+        'transition-colors',
+        'disabled:pointer-events-none',
+        'disabled:opacity-(--disabled-opacity)',
+      ],
+    },
     variants: {
-      swipeDirection: {},
+      swipeDirection: {
+        up: '',
+        down: '',
+        left: '',
+        right: '',
+      },
       position: {
-        center: [
-          'data-[state=open]:animate-fade-down',
-          'data-[state=closed]:animate-fade-down-out',
-        ],
+        'top-left': '',
+        'top-center': '',
+        'top-right': '',
+        'bottom-left': '',
+        'bottom-center': '',
+        'bottom-right': '',
+        'center': '',
       },
     },
-    compoundVariants: getToastCompoundVariants() as any,
     defaultVariants: {
       position: 'center',
       swipeDirection: 'up',
     },
+    compoundSlots: (getBaseSlotsCompoundVariants() as any).concat([
+      {
+        slots: ['viewport'],
+        position: 'center',
+        class: ['top-1/2', 'left-1/2', '-translate-1/2'],
+      },
+      {
+        slots: ['viewport'],
+        position: 'top-left',
+        class: ['top-0', 'left-0'],
+      },
+      {
+        slots: ['viewport'],
+        position: 'top-center',
+        class: ['top-0', 'left-1/2', '-translate-x-1/2'],
+      },
+      {
+        slots: ['viewport'],
+        position: 'top-right',
+        class: ['top-0', 'right-0'],
+      },
+      {
+        slots: ['viewport'],
+        position: 'bottom-left',
+        class: ['bottom-0', 'left-0'],
+      },
+      {
+        slots: ['viewport'],
+        position: 'bottom-center',
+        class: ['bottom-0', 'left-1/2', '-translate-x-1/2'],
+      },
+      {
+        slots: ['viewport'],
+        position: 'bottom-right',
+        class: ['bottom-0', 'right-0'],
+      },
+    ]),
   },
-  { className: prefix },
+  {
+    class: prefix,
+    slots: {
+      viewport: `${prefix}-viewport`,
+      icon: `${prefix}-icon`,
+      title: `${prefix}-title`,
+      description: `${prefix}-description`,
+      close: `${prefix}-close`,
+      action: `${prefix}-action`,
+    },
+  },
 )
-export type ToastVariants = VariantProps<typeof toastVariants>
 
-export const toastIconVariants = cva(['size-5'], undefined, {
-  className: `${prefix}-icon`,
-})
-export type ToastIconVariants = VariantProps<typeof toastIconVariants>
-
-export const toastTitleVariants = cva(['text-base'], undefined, {
-  className: `${prefix}-title`,
-})
-
-export const toastDescriptionVariants = cva(['text-sm'], undefined, {
-  className: `${prefix}-description`,
-})
-
-export const toastCloseVariants = cva(['size-3'], undefined, {
-  className: `${prefix}-close`,
-})
-
-export const toastActionVariants = cva(
-  [
-    'inline-flex',
-    'shrink-0',
-    'items-center',
-    'justify-center',
-    'transition-colors',
-    'disabled:pointer-events-none',
-    'disabled:opacity-(--disabled-opacity)',
-  ],
-  undefined,
-  { className: `${prefix}-action` },
-)
-export interface ToastProps extends ToastRootProps {
-  class?: HTMLAttributes['class']
-  variant?: StatusVariants
-  unstyled?: boolean
-  onOpenChange?: ((value: boolean) => void) | undefined
-}
+export type ToastVariants = VariantProps<typeof tvToast>
+// export interface ToastProps extends ToastRootProps {
+//   class?: HTMLAttributes['class']
+//   variant?: StatusVariants
+//   unstyled?: boolean
+//   onOpenChange?: ((value: boolean) => void) | undefined
+// }

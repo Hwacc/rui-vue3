@@ -1,13 +1,12 @@
 <script setup lang="ts">
 import type { ToastActionProps } from 'reka-ui'
 import type { HTMLAttributes } from 'vue'
-import { cn } from '@rui/core/lib/utils'
 import { ToastAction } from 'reka-ui'
-import { toastActionVariants } from '.'
+import { tvToast } from '.'
 
 const {
   class: propsClass,
-  unstyled,
+  unstyled = false,
   variant,
   ...props
 } = defineProps<
@@ -17,12 +16,13 @@ const {
     unstyled?: boolean
   }
 >()
+const { action } = tvToast()
 </script>
 
 <template>
   <ToastAction
     v-bind="props"
-    :class="cn(toastActionVariants({ unstyled }), propsClass)"
+    :class="action({ unstyled, class: propsClass })"
     :data-variant="variant"
   >
     <slot />

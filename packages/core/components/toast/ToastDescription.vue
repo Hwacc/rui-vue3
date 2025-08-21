@@ -1,14 +1,12 @@
 <script setup lang="ts">
 import type { ToastDescriptionProps } from 'reka-ui'
 import type { HTMLAttributes } from 'vue'
-import { cn } from '@rui/core/lib/utils'
 import { ToastDescription } from 'reka-ui'
-import { computed } from 'vue'
-import { toastDescriptionVariants } from '.'
+import { tvToast } from '.'
 
 const {
   class: propsClass,
-  unstyled,
+  unstyled = false,
   ...props
 } = defineProps<
   ToastDescriptionProps & {
@@ -16,13 +14,14 @@ const {
     unstyled?: boolean
   }
 >()
-const classNames = computed(() => {
-  return cn(toastDescriptionVariants({ unstyled }), propsClass)
-})
+const { description } = tvToast()
 </script>
 
 <template>
-  <ToastDescription :class="classNames" v-bind="props">
+  <ToastDescription
+    :class="description({ unstyled, class: propsClass })"
+    v-bind="props"
+  >
     <slot />
   </ToastDescription>
 </template>

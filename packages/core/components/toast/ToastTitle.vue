@@ -1,26 +1,22 @@
 <script setup lang="ts">
 import type { ToastTitleProps } from 'reka-ui'
 import type { HTMLAttributes } from 'vue'
-import { cn } from '@rui/core/lib/utils'
 import { ToastTitle } from 'reka-ui'
-import { computed } from 'vue'
-import { toastTitleVariants } from '.'
+import { tvToast } from '.'
 
 const {
   class: propsClass,
-  unstyled,
+  unstyled = false,
   ...props
 } = defineProps<
   ToastTitleProps & { class?: HTMLAttributes['class'], unstyled?: boolean }
 >()
 
-const classNames = computed(() => {
-  return cn(toastTitleVariants({ unstyled }), propsClass)
-})
+const { title } = tvToast()
 </script>
 
 <template>
-  <ToastTitle v-bind="props" :class="classNames">
+  <ToastTitle v-bind="props" :class="title({ unstyled, class: propsClass })">
     <slot />
   </ToastTitle>
 </template>

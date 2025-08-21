@@ -2,8 +2,8 @@
 import type { ProgressRootProps } from 'reka-ui'
 import type { HTMLAttributes } from 'vue'
 import type { ProgressIndicatorVariants } from '.'
-import { ProgressIndicator, ProgressRoot } from 'reka-ui'
-import { toRefs } from 'vue'
+import { ProgressIndicator, ProgressRoot, useForwardProps } from 'reka-ui'
+import { computed } from 'vue'
 import { tvProgress } from '.'
 import { useIndicatorTransfer } from './useIndicatorTransfer'
 
@@ -12,6 +12,7 @@ const {
   variant = 'default',
   unstyled,
   ui,
+  modelValue,
   ...props
 } = defineProps<
   ProgressRootProps & {
@@ -28,8 +29,7 @@ const {
     }
   }
 >()
-const { modelValue } = toRefs(props)
-const { indicatorRef, transferStyle } = useIndicatorTransfer(variant, modelValue)
+const { indicatorRef, transferStyle } = useIndicatorTransfer(variant, computed(() => modelValue))
 
 const { base, indicator } = tvProgress()
 </script>

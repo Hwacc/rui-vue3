@@ -1,15 +1,13 @@
 <script setup lang="ts">
 import type { ToastCloseProps } from 'reka-ui'
 import type { HTMLAttributes } from 'vue'
-import { cn } from '@rui/core/lib/utils'
 import { X } from 'lucide-vue-next'
 import { ToastClose } from 'reka-ui'
-import { computed } from 'vue'
-import { toastCloseVariants } from '.'
+import { tvToast } from '.'
 
 const {
   class: propsClass,
-  unstyled,
+  unstyled = false,
   ...props
 } = defineProps<
   ToastCloseProps & {
@@ -18,13 +16,11 @@ const {
   }
 >()
 
-const classNames = computed(() => {
-  return cn(toastCloseVariants({ unstyled }), propsClass)
-})
+const { close } = tvToast()
 </script>
 
 <template>
-  <ToastClose v-bind="props" :class="classNames">
+  <ToastClose v-bind="props" :class="close({ unstyled, class: propsClass })">
     <X class="size-full" />
   </ToastClose>
 </template>

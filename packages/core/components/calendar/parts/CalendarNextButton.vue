@@ -2,8 +2,7 @@
 import type { ButtonVariants } from '@rui/core/components/button'
 import type { CalendarNextProps } from 'reka-ui'
 import type { HTMLAttributes } from 'vue'
-import { buttonVariants } from '@rui/core/components/button'
-import { cn } from '@rui/core/lib/utils'
+import { tvButton } from '@rui/core/components/button'
 import { ChevronRight } from 'lucide-vue-next'
 import { CalendarNext, useForwardProps } from 'reka-ui'
 import { prefix } from '../index'
@@ -21,18 +20,13 @@ const {
   }
 >()
 
+const { base } = tvButton()
 const forwardedProps = useForwardProps(props)
 </script>
 
 <template>
   <CalendarNext
-    :class="
-      cn(
-        buttonVariants({ variant, unstyled }),
-        [!unstyled && `${prefix}-next`],
-        propsClass,
-      )
-    "
+    :class="base({ variant, unstyled, class: [!unstyled && `${prefix}-next`, propsClass] })"
     :data-variant="variant"
     v-bind="forwardedProps"
   >

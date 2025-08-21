@@ -4,7 +4,7 @@ import type { HTMLAttributes } from 'vue'
 import type { BadgeVariants } from '.'
 import { cn } from '@rui/core/lib/utils'
 import { Primitive } from 'reka-ui'
-import { computed } from 'vue'
+import { computed, reactive } from 'vue'
 import { badgeVariants } from '.'
 
 const {

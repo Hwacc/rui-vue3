@@ -1,5 +1,12 @@
-import type { Component, VNode } from 'vue'
-import type { ToastProps } from '.'
+import type { Component, HTMLAttributes, VNode } from 'vue'
+import type { ComponentProps } from 'vue-component-type-helpers'
+import type {
+  ToastAction,
+  ToastClose,
+  ToastDescription,
+  Toast as ToastRoot,
+  ToastTitle,
+} from '.'
 import { computed, ref } from 'vue'
 
 const TOAST_LIMIT = 1
@@ -7,13 +14,26 @@ const TOAST_REMOVE_DELAY = 200
 
 export type StringOrVNode = string | VNode | (() => VNode)
 
-type ToasterToast = ToastProps & {
+export type ToasterToast = {
   id: string
+  open?: boolean
+  variant?: StatusVariants
   title?: string
   description?: StringOrVNode
   icon?: VNode | (() => VNode)
   action?: Component
   unstyled?: boolean
+  ui?: {
+    root?: ComponentProps<typeof ToastRoot>
+    title?: ComponentProps<typeof ToastTitle>
+    description?: ComponentProps<typeof ToastDescription>
+    action?: ComponentProps<typeof ToastAction>
+    close?: ComponentProps<typeof ToastClose>
+    icon?: {
+      class?: HTMLAttributes['class']
+    }
+  }
+  onOpenChange?: ((value: boolean) => void) | undefined
 }
 
 const actionTypes = {
@@ -32,8 +52,8 @@ function genId() {
 
 type ActionType = typeof actionTypes
 
-type Action =
-  | {
+type Action
+  = | {
     type: ActionType['ADD_TOAST']
     toast: ToasterToast
   }
@@ -144,10 +164,7 @@ function toast(props: Toast) {
       ...props,
       id,
       open: true,
-      onOpenChange: (open: boolean) => {
-        if (!open)
-          dismiss()
-      },
+      onOpenChange: (open: boolean) => { !open && dismiss() },
     },
   })
 

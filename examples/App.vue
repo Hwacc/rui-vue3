@@ -29,7 +29,7 @@ import ToastExample from './toast/index.vue'
 import VLazyExample from './v-lazy/index.vue'
 import VTitleExample from './v-title/index.vue'
 
-const compSize = ref<'default' | 'sm' | 'lg'>('default')
+const compSize = ref<'base' | 'sm' | 'lg'>('base')
 const toastPosition = ref<ToastPosition>('bottom-right')
 </script>
 
@@ -42,8 +42,8 @@ const toastPosition = ref<ToastPosition>('bottom-right')
   >
     <div class="flex items-center gap-2">
       <Button
-        size="sm"
-        @click="() => (compSize === 'default' ? (compSize = 'sm') : (compSize = 'default'))"
+        :size="compSize"
+        @click="() => (compSize === 'base' ? (compSize = 'sm') : (compSize = 'base'))"
       >
         Change Size
       </Button>

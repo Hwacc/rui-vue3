@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { CalendarDate } from '@internationalized/date'
+import type { DateValue } from '@internationalized/date'
 import type { CalendarGridProps } from 'reka-ui'
 import type { CalendarVariantsProps } from '..'
 import { chunk } from 'lodash-es'
@@ -20,7 +20,7 @@ const {
   ...props
 } = defineProps<
   CalendarGridProps & {
-    date: CalendarDate
+    date: DateValue
     size?: CalendarVariantsProps['size']
     unstyled?: boolean
   }
