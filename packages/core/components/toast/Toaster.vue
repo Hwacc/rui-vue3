@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import type { HTMLAttributes } from 'vue'
 import type { ComponentProps } from 'vue-component-type-helpers'
 import type { ToastProviderPropsEx } from './ToastProvider.vue'
 import type { ToasterToast } from './use-toast'
@@ -20,6 +21,24 @@ import { useToast } from './use-toast'
 const { ui, ...props } = defineProps<
   ToastProviderPropsEx & {
     ui?: {
+      root?: {
+        class?: HTMLAttributes['class']
+      }
+      icon?: {
+        class?: HTMLAttributes['class']
+      }
+      title?: {
+        class?: HTMLAttributes['class']
+      }
+      description?: {
+        class?: HTMLAttributes['class']
+      }
+      action?: {
+        class?: HTMLAttributes['class']
+      }
+      close?: {
+        class?: HTMLAttributes['class']
+      }
       viewport?: ComponentProps<typeof ToastViewport>
     }
   }
@@ -35,9 +54,6 @@ const toastIcons: Record<StatusVariants, any> = {
 function getVariant(toast: ToasterToast) {
   return toast.ui?.root?.variant ?? toast.variant ?? 'info'
 }
-function getUnstyled(toast: ToasterToast) {
-  return toast.ui?.root?.unstyled ?? toast.unstyled ?? false
-}
 const { icon } = tvToast()
 const forwarded = useForwardProps(props)
 </script>
@@ -48,7 +64,9 @@ const forwarded = useForwardProps(props)
       v-for="toast in toasts"
       v-bind="toast.ui?.root"
       :key="toast.id"
+      :class="[ui?.root?.class, toast.ui?.root?.class]"
       :open="toast.open"
+      :unstyled="toast.ui?.root?.unstyled ?? toast.unstyled ?? false"
       :variant="getVariant(toast)"
       @update:open="toast.onOpenChange"
     >
@@ -56,7 +74,7 @@ const forwarded = useForwardProps(props)
         <template v-if="!toast.icon">
           <component
             :is="toastIcons[getVariant(toast)]"
-            :class="icon({ unstyled: getUnstyled(toast), class: toast.ui?.icon?.class })"
+            :class="icon({ class: [ui?.icon?.class, toast.ui?.icon?.class] })"
             :data-variant="getVariant(toast)"
           />
         </template>
@@ -67,6 +85,8 @@ const forwarded = useForwardProps(props)
           <ToastTitle
             v-if="toast.title"
             v-bind="toast.ui?.title"
+            :class="[ui?.title?.class, toast.ui?.title?.class]"
+            :unstyled="toast.ui?.title?.unstyled ?? toast.unstyled ?? false"
           >
             {{ toast.title }}
           </ToastTitle>
@@ -74,22 +94,32 @@ const forwarded = useForwardProps(props)
             <ToastDescription
               v-if="isVNode(toast.description) || isFunction(toast.description)"
               v-bind="toast.ui?.description"
+              :class="[ui?.description?.class, toast.ui?.description?.class]"
+              :unstyled="toast.ui?.description?.unstyled ?? toast.unstyled ?? false"
             >
               <component :is="toast.description" />
             </ToastDescription>
             <ToastDescription
               v-else
               v-bind="toast.ui?.description"
+              :class="[ui?.description?.class, toast.ui?.description?.class]"
+              :unstyled="toast.ui?.description?.unstyled ?? toast.unstyled ?? false"
             >
               {{ toast.description }}
             </ToastDescription>
           </template>
         </div>
-        <ToastClose v-bind="toast.ui?.close" />
+        <ToastClose
+          v-bind="toast.ui?.close"
+          :class="[ui?.close?.class, toast.ui?.close?.class]"
+          :unstyled="toast.ui?.close?.unstyled ?? toast.unstyled ?? false"
+        />
       </div>
       <component
         :is="toast.action"
         v-bind="toast.ui?.action"
+        :class="[ui?.action?.class, toast.ui?.action?.class]"
+        :unstyled="toast.ui?.action?.unstyled ?? toast.unstyled ?? false"
         :variant="getVariant(toast)"
       />
     </Toast>
