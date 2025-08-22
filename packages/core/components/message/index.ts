@@ -30,7 +30,7 @@ export const tvMessage = tv({
     toastSwipe.vertical,
   ],
   slots: {
-    title: 'text-base flex-1',
+    title: 'font-sans text-base flex-1',
   },
 }, {
   className: prefix,
