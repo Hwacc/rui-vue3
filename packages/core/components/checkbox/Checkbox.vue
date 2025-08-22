@@ -3,7 +3,7 @@ import type { CheckboxRootEmits, CheckboxRootProps } from 'reka-ui'
 import type { HTMLAttributes } from 'vue'
 import type { CheckboxVariants } from '.'
 import { Check, Minus } from 'lucide-vue-next'
-import { CheckboxIndicator, CheckboxRoot, useForwardPropsEmits } from 'reka-ui'
+import { CheckboxIndicator, CheckboxRoot, useForwardProps } from 'reka-ui'
 import { computed, getCurrentInstance, ref, watch } from 'vue'
 import { tvCheckbox } from '.'
 import { injectCheckboxGroupContext } from './CheckboxGroup.vue'
@@ -91,7 +91,7 @@ const tvSlots = computed(() => {
     unstyled: groupContext?.unstyled?.value || unstyled,
   })
 })
-const forwarded = useForwardPropsEmits(props, emits)
+const forwarded = useForwardProps(props)
 </script>
 
 <template>
