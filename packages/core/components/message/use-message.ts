@@ -1,14 +1,35 @@
-import type { VNode } from 'vue'
-import type { MessageProps } from '.'
+import type { HTMLAttributes, VNode } from 'vue'
+import type { ComponentProps } from 'vue-component-type-helpers'
+import type {
+  ToastAction,
+  ToastClose,
+  ToastDescription,
+  Toast as ToastRoot,
+  ToastTitle,
+} from '../toast'
 import { computed, ref } from 'vue'
 
 const MESSAGE_LIMIT = 1
 const MESSAGE_REMOVE_DELAY = 200
 
-type MessagerToast = MessageProps & {
+export type MessagerToast = {
   id: string
+  open?: boolean
+  variant?: StatusVariants
   title?: string
   icon?: VNode | (() => VNode)
+  unstyled?: boolean
+  ui?: {
+    root?: ComponentProps<typeof ToastRoot>
+    title?: ComponentProps<typeof ToastTitle>
+    description?: ComponentProps<typeof ToastDescription>
+    action?: ComponentProps<typeof ToastAction>
+    close?: ComponentProps<typeof ToastClose>
+    icon?: {
+      class?: HTMLAttributes['class']
+    }
+  }
+  onOpenChange?: ((value: boolean) => void) | undefined
 }
 
 const actionTypes = {
@@ -26,8 +47,8 @@ function genId() {
 }
 
 type ActionType = typeof actionTypes
-type Action =
-  | {
+type Action
+  = | {
     type: ActionType['ADD_TOAST']
     message: MessagerToast
   }
@@ -72,10 +93,7 @@ const state = ref<State>({
 function dispatch(action: Action) {
   switch (action.type) {
     case actionTypes.ADD_TOAST:
-      state.value.messages = [action.message, ...state.value.messages].slice(
-        0,
-        MESSAGE_LIMIT,
-      )
+      state.value.messages = [action.message, ...state.value.messages].slice(0, MESSAGE_LIMIT)
       break
 
     case actionTypes.UPDATE_TOAST:
@@ -110,9 +128,7 @@ function dispatch(action: Action) {
         state.value.messages = []
       }
       else {
-        state.value.messages = state.value.messages.filter(
-          msg => msg.id !== action.messageId,
-        )
+        state.value.messages = state.value.messages.filter(msg => msg.id !== action.messageId)
       }
       break
   }
@@ -122,8 +138,7 @@ function useMessage() {
   return {
     messages: computed(() => state.value.messages),
     message,
-    dismiss: (msgId?: string) =>
-      dispatch({ type: actionTypes.DISMISS_TOAST, messageId: msgId }),
+    dismiss: (msgId?: string) => dispatch({ type: actionTypes.DISMISS_TOAST, messageId: msgId }),
   }
 }
 
@@ -138,8 +153,7 @@ function message(props: Toast) {
       message: { ...props, id },
     })
 
-  const dismiss = () =>
-    dispatch({ type: actionTypes.DISMISS_TOAST, messageId: id })
+  const dismiss = () => dispatch({ type: actionTypes.DISMISS_TOAST, messageId: id })
 
   dispatch({
     type: actionTypes.ADD_TOAST,
@@ -147,10 +161,7 @@ function message(props: Toast) {
       ...props,
       id,
       open: true,
-      onOpenChange: (open: boolean) => {
-        if (!open)
-          dismiss()
-      },
+      onOpenChange: (open: boolean) => { !open && dismiss() },
     },
   })
 

@@ -1,51 +1,75 @@
 <script setup lang="ts">
-import type {
-  ToastProviderPropsEx,
-} from '@rui/core/components/toast'
-import {
-  Toast,
-  ToastProvider,
-  ToastTitle,
-  ToastViewport,
-} from '@rui/core/components/toast'
+import type { ToastProviderPropsEx } from '@rui/core/components/toast'
+import type { ComponentProps } from 'vue-component-type-helpers'
+import type { MessagerToast } from './use-message'
+import { Toast, ToastProvider, ToastTitle, ToastViewport } from '@rui/core/components/toast'
 import { isFunction } from 'lodash-es'
 import { CircleAlert, CircleCheck, CircleX, Info } from 'lucide-vue-next'
+import { useForwardProps } from 'reka-ui'
 import { isVNode } from 'vue'
-import { messageVariants } from '.'
+import { tvMessage } from '.'
 import { useMessage } from './use-message'
 
 const props = defineProps<
   Omit<ToastProviderPropsEx, 'position' | 'swipeDirection'> & {
-    unstyled?: boolean
+    ui?: {
+      viewport?: ComponentProps<typeof ToastViewport>
+    }
   }
 >()
 const { messages } = useMessage()
+
+const messageIcons: Record<StatusVariants, any> = {
+  success: CircleCheck,
+  warning: CircleAlert,
+  info: Info,
+  error: CircleX,
+}
+function getVariant(message: MessagerToast) {
+  return message.ui?.root?.variant ?? message.variant ?? 'info'
+}
+function getUnstyled(message: MessagerToast) {
+  return message.ui?.root?.unstyled ?? message.unstyled ?? false
+}
+
+const { base, icon } = tvMessage()
+const forwarded = useForwardProps(props)
 </script>
 
 <template>
-  <ToastProvider v-bind="props" position="top-center" swipe-direction="up">
+  <ToastProvider
+    v-bind="forwarded"
+    position="top-center"
+    swipe-direction="up"
+  >
     <Toast
-      v-for="message in (messages as any)"
+      v-for="message in messages"
       :key="message.id"
-      v-bind="message"
-      :class="messageVariants({ unstyled: props.unstyled })"
-      :data-variant="message.variant"
+      :class="base({ unstyled: getUnstyled(message), class: message.ui?.root?.class })"
+      :open="message.open"
+      :variant="getVariant(message)"
+      :data-variant="getVariant(message)"
+      @update:open="message.onOpenChange"
     >
       <div class="w-full flex items-center gap-4">
         <template v-if="!message.icon">
-          <CircleCheck v-if="message.variant === 'success'" class="size-5" />
-          <CircleAlert v-if="message.variant === 'warning'" class="size-5" />
-          <Info v-if="message.variant === 'info'" class="size-5" />
-          <CircleX v-if="message.variant === 'error'" class="size-5" />
+          <component
+            :is="messageIcons[getVariant(message)]"
+            :class="icon({ unstyled: getUnstyled(message), class: message.ui?.icon?.class })"
+            :data-variant="getVariant(message)"
+          />
         </template>
         <template v-else-if="isVNode(message.icon) || isFunction(message.icon)">
           <component :is="message.icon" />
         </template>
-        <ToastTitle v-if="message.title" class="flex-1">
+        <ToastTitle
+          v-if="message.title"
+          v-bind="message.ui?.title"
+        >
           {{ message.title }}
         </ToastTitle>
       </div>
     </Toast>
-    <ToastViewport />
+    <ToastViewport v-bind="ui?.viewport" />
   </ToastProvider>
 </template>

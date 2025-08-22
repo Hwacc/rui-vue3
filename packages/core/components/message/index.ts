@@ -1,16 +1,16 @@
-import type { VariantProps } from 'class-variance-authority'
-import type { ToastRootProps } from 'reka-ui'
-import type { HTMLAttributes } from 'vue'
+import type { VariantProps } from 'tailwind-variants'
 import { PREFIX } from '@rui/core/lib/constants'
-import { cva } from '@rui/core/lib/cva'
-import { toastEdgeAnimate, toastSwipe } from '../toast'
+import { tv } from '@rui/core/lib/tv'
+import { toastEdgeAnimate, toastSwipe, tvToast } from '../toast'
 
 export { default as Messager } from './Messager.vue'
 export { message, useMessage } from './use-message'
 
 const prefix = `${PREFIX}-message`
-export const messageVariants = cva(
-  [
+
+export const tvMessage = tv({
+  extend: tvToast,
+  base: [
     'group',
     'pointer-events-auto',
     'relative',
@@ -29,13 +29,8 @@ export const messageVariants = cva(
     toastEdgeAnimate['top-center'],
     toastSwipe.vertical,
   ],
-  undefined,
-  { className: prefix },
-)
-export type MessageVariants = VariantProps<typeof messageVariants>
+}, {
+  className: prefix,
+})
 
-export interface MessageProps extends ToastRootProps {
-  class?: HTMLAttributes['class']
-  variant?: StatusVariants
-  onOpenChange?: ((value: boolean) => void) | undefined
-}
+export type MessageVariants = VariantProps<typeof tvMessage>
