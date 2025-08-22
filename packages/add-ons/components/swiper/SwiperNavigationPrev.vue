@@ -5,7 +5,7 @@ import { cn } from '@rui/core/lib/utils'
 import { merge } from 'lodash-es'
 import { ChevronLeft } from 'lucide-vue-next'
 import { useSwiper } from 'swiper/vue'
-import { computed, useTemplateRef, watchEffect } from 'vue'
+import { computed, reactive, useTemplateRef, watchEffect } from 'vue'
 import { swiperNavigationVariant } from '.'
 import {
   useRegistSwiperEmits,
@@ -35,6 +35,7 @@ const effectiveSwiper = computed(() => {
 const { hasModule } = useSwiperModule(effectiveSwiper)
 const { isCanPrev } = useSwiperToggleEnabled(effectiveSwiper)
 const navRef = useTemplateRef('navigation')
+const reactiveProps = reactive(props)
 
 watchEffect(() => {
   if (effectiveSwiper.value && hasModule('Navigation') && navRef.value) {
@@ -45,7 +46,7 @@ watchEffect(() => {
             enabled: effectiveSwiper.value.params.navigation,
           }
         : effectiveSwiper.value.params.navigation,
-      props,
+      reactiveProps,
       {
         prevEl: navRef.value,
       },

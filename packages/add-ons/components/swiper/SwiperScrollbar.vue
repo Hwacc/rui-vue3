@@ -4,7 +4,7 @@ import type { HTMLAttributes } from 'vue'
 import { cn } from '@rui/core/lib/utils'
 import { merge } from 'lodash-es'
 import { useSwiper } from 'swiper/vue'
-import { computed, useTemplateRef, watchEffect } from 'vue'
+import { computed, reactive, useTemplateRef, watchEffect } from 'vue'
 import { prefix } from '.'
 import { useRegistSwiperEmits, useSwiperModule } from './utils'
 
@@ -27,6 +27,7 @@ const effectiveSwiper = computed(() => {
 })
 const { hasModule } = useSwiperModule(effectiveSwiper)
 const scrollRef = useTemplateRef('scrollbar')
+const reactiveProps = reactive(props)
 
 watchEffect(() => {
   if (effectiveSwiper.value && hasModule('Scrollbar') && scrollRef.value) {
@@ -37,7 +38,7 @@ watchEffect(() => {
             enabled: effectiveSwiper.value.params.scrollbar,
           }
         : effectiveSwiper.value.params.scrollbar,
-      props,
+      reactiveProps,
       {
         el: scrollRef.value,
       },

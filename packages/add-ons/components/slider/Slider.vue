@@ -408,11 +408,11 @@ const mergedProcessStyle = computed(() => {
         : getNodeCssVar(sliderRef.value?.$el, '--rui-slider-progress', '#fff'),
     },
     ui?.process?.style,
-    props.processStyle,
+    forwarded.value.processStyle,
   )
 })
 const mergedDotStyle = computed(() => {
-  return merge({}, ui?.dot?.style, props.dotStyle)
+  return merge({}, ui?.dot?.style, forwarded.value.dotStyle)
 })
 
 const computedWidth = computed(() => {

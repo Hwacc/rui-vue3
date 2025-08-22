@@ -73,24 +73,39 @@ const forwarded = useForwardPropsEmits(props, emits)
   >
     <!-- @vue-expect-error -->
     <Swiper
-      :class="cn('relative', propsClass)"
       v-bind="{ ...forwarded, ...$attrs }"
+      :class="cn('relative', propsClass)"
       :direction="direction"
       @swiper="onSwiperInit"
     >
-      <template v-if="$slots.default" #default>
+      <template
+        v-if="$slots.default"
+        #default
+      >
         <slot />
       </template>
-      <template v-if="$slots['container-start']" #container-start>
+      <template
+        v-if="$slots['container-start']"
+        #container-start
+      >
         <slot name="container-start" />
       </template>
-      <template v-if="$slots['container-end']" #container-end>
+      <template
+        v-if="$slots['container-end']"
+        #container-end
+      >
         <slot name="container-end" />
       </template>
-      <template v-if="$slots['wrapper-start']" #wrapper-start>
+      <template
+        v-if="$slots['wrapper-start']"
+        #wrapper-start
+      >
         <slot name="wrapper-start" />
       </template>
-      <template v-if="$slots['wrapper-end']" #wrapper-end>
+      <template
+        v-if="$slots['wrapper-end']"
+        #wrapper-end
+      >
         <slot name="wrapper-end" />
       </template>
     </Swiper>

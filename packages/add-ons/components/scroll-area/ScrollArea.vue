@@ -19,7 +19,7 @@ interface PerfectScrollBarOptions {
 import { cn } from '@rui/core/lib/utils'
 import { defaults } from 'lodash-es'
 import PerfectScrollbar from 'perfect-scrollbar'
-import { ref, useId, watchEffect } from 'vue'
+import { reactive, ref, useId, watchEffect } from 'vue'
 import { scrollAreaVariants } from '.'
 
 const {
@@ -61,6 +61,8 @@ const scrollEvents = [
 ]
 const id = useId()
 const containerRef = ref<HTMLElement>()
+const reactiveProps = reactive(props)
+
 watchEffect((cleanup) => {
   let ps: PerfectScrollbar | null = null
   const events = scrollEvents.map((name) => {
@@ -69,7 +71,7 @@ watchEffect((cleanup) => {
   if (containerRef.value) {
     ps = new PerfectScrollbar(
       containerRef.value,
-      defaults({}, props, {
+      defaults({}, reactiveProps, {
         handlers: ['click-rail', 'drag-thumb', 'keyboard', 'wheel', 'touch'],
         wheelSpeed: 1,
         scrollXMarginOffset: 0,

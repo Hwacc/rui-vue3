@@ -5,7 +5,7 @@ import type { SwiperPaginationProps } from './interface'
 import { cn, getNodeCssVar, rem2px } from '@rui/core/lib/utils'
 import { merge } from 'lodash-es'
 import { useSwiper } from 'swiper/vue'
-import { computed, nextTick, useTemplateRef, watchEffect } from 'vue'
+import { computed, nextTick, reactive, useTemplateRef, watchEffect } from 'vue'
 import { prefix } from '.'
 import { useRegistSwiperEmits, useSwiperModule } from './utils'
 
@@ -28,10 +28,11 @@ const effectiveSwiper = computed(() => {
 })
 const { hasModule } = useSwiperModule(effectiveSwiper)
 const pagiRef = useTemplateRef('pagination')
+const reactiveProps = reactive(props)
 
 watchEffect((cleanup) => {
   if (effectiveSwiper.value && hasModule('Pagination') && pagiRef.value) {
-    if (props.type === 'autoplay-bullets' && hasModule('Autoplay')) {
+    if (reactiveProps.type === 'autoplay-bullets' && hasModule('Autoplay')) {
       const onAutoplayTimeLeft = (
         _swiper: Swiper,
         _timeLeft: number,
@@ -43,7 +44,7 @@ watchEffect((cleanup) => {
         )
       }
       const onPaginationRender = () => {
-        if (props.dynamicBullets) {
+        if (reactiveProps.dynamicBullets) {
           const getMinBulletSize = (): number => {
             if (pagiRef.value) {
               const bullets = effectiveSwiper.value.pagination.bullets
@@ -86,7 +87,7 @@ watchEffect((cleanup) => {
           nextTick(() => {
             if (pagiRef.value) {
               pagiRef.value.style.width = `${
-                getMinBulletSize() * (5 + (props.dynamicMainBullets ?? 1))
+                getMinBulletSize() * (5 + (reactiveProps.dynamicMainBullets ?? 1))
                 + activeBulletSize
               }px`
             }
@@ -107,10 +108,10 @@ watchEffect((cleanup) => {
             enabled: effectiveSwiper.value.params.pagination,
           }
         : effectiveSwiper.value.params.pagination,
-      props,
+      reactiveProps,
       {
         el: pagiRef.value,
-        type: props.type === 'autoplay-bullets' ? 'bullets' : props.type,
+        type: reactiveProps.type === 'autoplay-bullets' ? 'bullets' : reactiveProps.type,
       },
     )
     effectiveSwiper.value.params.pagination = options
@@ -140,6 +141,6 @@ useRegistSwiperEmits({
     :class="
       cn('swiper-pagination', !unstyled && `${prefix}-pagination`, propsClass)
     "
-    :data-type="props.type"
+    :data-type="reactiveProps.type"
   />
 </template>
