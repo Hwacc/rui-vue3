@@ -29,6 +29,9 @@ export const tvMessage = tv({
     toastEdgeAnimate['top-center'],
     toastSwipe.vertical,
   ],
+  slots: {
+    title: 'text-base flex-1',
+  },
 }, {
   className: prefix,
 })

@@ -32,7 +32,7 @@ function getUnstyled(message: MessagerToast) {
   return message.ui?.root?.unstyled ?? message.unstyled ?? false
 }
 
-const { base, icon } = tvMessage()
+const { base, title, icon } = tvMessage()
 const forwarded = useForwardProps(props)
 </script>
 
@@ -55,7 +55,7 @@ const forwarded = useForwardProps(props)
         <template v-if="!message.icon">
           <component
             :is="messageIcons[getVariant(message)]"
-            :class="icon({ unstyled: getUnstyled(message), class: message.ui?.icon?.class })"
+            :class="icon({ class: message.ui?.icon?.class })"
             :data-variant="getVariant(message)"
           />
         </template>
@@ -65,6 +65,7 @@ const forwarded = useForwardProps(props)
         <ToastTitle
           v-if="message.title"
           v-bind="message.ui?.title"
+          :class="title({ unstyled: message.ui?.title?.unstyled, class: message.ui?.title?.class })"
         >
           {{ message.title }}
         </ToastTitle>

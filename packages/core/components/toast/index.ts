@@ -230,9 +230,3 @@ export const tvToast = tv(
 )
 
 export type ToastVariants = VariantProps<typeof tvToast>
-// export interface ToastProps extends ToastRootProps {
-//   class?: HTMLAttributes['class']
-//   variant?: StatusVariants
-//   unstyled?: boolean
-//   onOpenChange?: ((value: boolean) => void) | undefined
-// }
