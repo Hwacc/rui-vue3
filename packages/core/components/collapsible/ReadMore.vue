@@ -82,8 +82,8 @@ provideReadMoreContext({
 <template>
   <Collapsible
     v-slot="{ open }"
-    :class="cn(readMoreRootVariant({ unstyled }), propsClass)"
     v-bind="rootForwarded"
+    :class="cn(readMoreRootVariant({ unstyled }), propsClass)"
   >
     <slot
       name="trigger"
@@ -96,8 +96,8 @@ provideReadMoreContext({
     >
       <CollapsibleTrigger
         v-if="showTrigger"
-        :class="cn(readMoreTriggerVariant({ unstyled }), triggerProps?.class)"
         v-bind="delegateTriggerProps"
+        :class="cn(readMoreTriggerVariant({ unstyled }), triggerProps?.class)"
       >
         {{
           open

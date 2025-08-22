@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type { PrimitiveProps } from 'reka-ui'
 import type { HTMLAttributes } from 'vue'
-import { Primitive } from 'reka-ui'
+import { Primitive, useForwardProps } from 'reka-ui'
 import { tvDialog } from '.'
 
 const {
@@ -11,12 +11,13 @@ const {
 } = defineProps<PrimitiveProps & { class?: HTMLAttributes['class'], unstyled?: boolean }>()
 
 const { body } = tvDialog()
+const forwarded = useForwardProps(props)
 </script>
 
 <template>
   <Primitive
+    v-bind="forwarded"
     :class="body({ unstyled, class: propsClass })"
-    v-bind="props"
   >
     <slot />
   </Primitive>

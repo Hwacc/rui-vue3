@@ -10,13 +10,13 @@ const { class: propsClass, ...props } = defineProps<
     unstyled?: boolean
   }
 >()
-const forwardedProps = useForwardProps(props)
+const forwarded = useForwardProps(props)
 </script>
 
 <template>
   <DropdownMenuTrigger
+    v-bind="forwarded"
     :class="tvTrigger({ unstyled, class: propsClass })"
-    v-bind="forwardedProps"
   >
     <slot />
   </DropdownMenuTrigger>

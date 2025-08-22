@@ -16,13 +16,13 @@ const {
   }
 >()
 
-const forwardedProps = useForwardProps(props)
+const forwarded = useForwardProps(props)
 </script>
 
 <template>
   <RangeCalendarGrid
+    v-bind="forwarded"
     :class="cn(calendarGridVariants({ unstyled }), propsClass)"
-    v-bind="forwardedProps"
   >
     <slot />
   </RangeCalendarGrid>

@@ -18,11 +18,12 @@ const {
     unstyled?: boolean
   }
 >()
-const forwardedProps = useForwardProps(props)
+const forwarded = useForwardProps(props)
 </script>
 
 <template>
   <CalendarHeadCell
+    v-bind="forwarded"
     :class="
       cn(
         calendarHeadCellVariants({
@@ -32,7 +33,6 @@ const forwardedProps = useForwardProps(props)
         propsClass,
       )
     "
-    v-bind="forwardedProps"
   >
     <slot />
   </CalendarHeadCell>

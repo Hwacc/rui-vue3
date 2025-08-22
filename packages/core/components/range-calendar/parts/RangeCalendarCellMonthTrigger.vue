@@ -29,6 +29,7 @@ import {
   injectRangeCalendarRootContext,
   Primitive,
   useDateFormatter,
+  useForwardProps,
 } from 'reka-ui'
 
 const {
@@ -60,10 +61,7 @@ const labelText = computed(() => {
 })
 
 const isFocusedDate = computed(() => {
-  return (
-    !context.disabled.value
-    && isSameMonth(props.date, context.placeholder.value)
-  )
+  return !context.disabled.value && isSameMonth(props.date, context.placeholder.value)
 })
 const isSelectionStart = computed(() => {
   if (!context.startValue.value)
@@ -87,9 +85,7 @@ const isSelectedDate = computed(() => {
 })
 
 function handleClick() {
-  context.onPlaceholderChange(
-    context.placeholder.value.copy().set({ month: props.date.month }),
-  )
+  context.onPlaceholderChange(context.placeholder.value.copy().set({ month: props.date.month }))
   contextEx.panel.value = CalendarPanelEnum.DAY
 }
 
@@ -103,14 +99,15 @@ const { handleArrowKey } = useRangeCellTriggerKeyControl({
   },
   onSelect: handleClick,
 })
+const forwarded = useForwardProps(props)
 </script>
 
 <template>
   <Primitive
     ref="primitiveElement"
+    v-bind="forwarded"
     :class="cn(calendarCellTriggerVariants({ unstyled }), propsClass)"
     :as="as"
-    v-bind="props"
     role="button"
     :aria-label="labelText"
     data-reka-calendar-cell-trigger
@@ -123,7 +120,10 @@ const { handleArrowKey } = useRangeCellTriggerKeyControl({
     @keydown.up.down.left.right.space.enter="handleArrowKey"
     @keydown.enter.prevent
   >
-    <slot :month-value="monthValue" :selected="isSelectedDate">
+    <slot
+      :month-value="monthValue"
+      :selected="isSelectedDate"
+    >
       {{ monthValue }}
     </slot>
   </Primitive>

@@ -21,7 +21,14 @@ export interface SelectTriggerProps extends PopperAnchorProps {
 
 <script setup lang="ts">
 import type { HTMLAttributes } from 'vue'
-import { injectSelectRootContext, Primitive, SelectIcon, useForwardExpose, useId } from 'reka-ui'
+import {
+  injectSelectRootContext,
+  Primitive,
+  SelectIcon,
+  useForwardExpose,
+  useForwardProps,
+  useId,
+} from 'reka-ui'
 import { computed, onMounted, unref } from 'vue'
 // @ts-expect-error reka-ui not export PopperAnchor
 // eslint-disable-next-line antfu/no-import-dist, antfu/no-import-node-modules-by-path
@@ -57,10 +64,11 @@ const {
   }
 >()
 
+const forwarded = useForwardProps(props)
 const rootContext = injectSelectRootContext()
 const { forwardRef, currentElement: triggerElement } = useForwardExpose()
 
-const isDisabled = computed(() => rootContext.disabled?.value || props.disabled)
+const isDisabled = computed(() => rootContext.disabled?.value || forwarded.value.disabled)
 
 rootContext.contentId ||= useId(undefined, 'reka-select-content')
 const { base, icon, triangle } = tvTrigger()
@@ -75,7 +83,7 @@ onMounted(() => {
 <template>
   <PopperAnchor
     as-child
-    :reference="props.reference"
+    :reference="forwarded.reference"
   >
     <Primitive
       :ref="forwardRef"

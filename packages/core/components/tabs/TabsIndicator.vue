@@ -1,10 +1,10 @@
 <script lang="ts" setup>
-import type { TabsIndicatorProps } from 'reka-ui';
-import type { TabsVariant } from '.';
-import type { HTMLAttributes } from 'vue';
-import { TabsIndicator, useForwardProps } from 'reka-ui';
-import { computed } from 'vue';
-import { tvTabs } from '.';
+import type { TabsIndicatorProps } from 'reka-ui'
+import type { HTMLAttributes } from 'vue'
+import type { TabsVariant } from '.'
+import { TabsIndicator, useForwardProps } from 'reka-ui'
+import { computed } from 'vue'
+import { tvTabs } from '.'
 
 const {
   class: propsClass,
@@ -13,21 +13,21 @@ const {
   ...props
 } = defineProps<
   TabsIndicatorProps & {
-    class?: HTMLAttributes['class'];
-    size?: TabsVariant['size'];
-    unstyled?: boolean;
+    class?: HTMLAttributes['class']
+    size?: TabsVariant['size']
+    unstyled?: boolean
   }
->();
-const forwardedProps = useForwardProps(props);
+>()
+const forwarded = useForwardProps(props)
 
 const classNames = computed(() => {
-  return tvTabs().indicator({ size, unstyled, class: propsClass });
-});
+  return tvTabs().indicator({ size, unstyled, class: propsClass })
+})
 </script>
 
 <template>
   <TabsIndicator
-    v-bind="forwardedProps"
+    v-bind="forwarded"
     :class="classNames"
   >
     <slot>

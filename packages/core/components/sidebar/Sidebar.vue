@@ -12,6 +12,7 @@ export interface SidebarProps {
 import type { HTMLAttributes } from 'vue'
 import { Sheet, SheetContent } from '@rui/core/components/sheet'
 import { cn } from '@rui/core/lib/utils'
+import { useForwardProps } from 'reka-ui'
 import { sidebarInnerVariants, sidebarVariants } from '.'
 import { SIDEBAR_WIDTH_MOBILE, useSidebar } from './utils'
 
@@ -19,29 +20,33 @@ defineOptions({
   inheritAttrs: false,
 })
 
-const props = withDefaults(defineProps<SidebarProps>(), {
-  side: 'left',
-  collapsible: 'offcanvas',
-  layout: 'block',
-})
+const {
+  side = 'left',
+  collapsible = 'offcanvas',
+  layout = 'block',
+  unstyled,
+  class: propClass,
+  ...props
+} = defineProps<SidebarProps>()
 
 const { isMobile, state, openMobile, setOpenMobile } = useSidebar()
+const forwarded = useForwardProps(props)
 </script>
 
 <template>
   <!-- static -->
   <div
     v-if="collapsible === 'none'"
-    :class="cn(sidebarVariants(props), props.class)"
-    v-bind="$attrs"
+    v-bind="forwarded"
+    :class="cn(sidebarVariants({ unstyled }), propClass)"
   >
     <slot />
   </div>
   <!-- mobile -->
   <Sheet
     v-else-if="isMobile"
-    :open="openMobile"
     v-bind="$attrs"
+    :open="openMobile"
     @update:open="setOpenMobile"
   >
     <SheetContent
@@ -49,15 +54,7 @@ const { isMobile, state, openMobile, setOpenMobile } = useSidebar()
       data-mobile="true"
       :side="side"
       :show-close="false"
-      :class="
-        cn(
-          ['w-(--sidebar-width)', 'p-0'],
-          sidebarVariants({
-            unstyled: props.unstyled,
-          }),
-          props.class,
-        )
-      "
+      :class="cn(['w-(--sidebar-width)', 'p-0'], sidebarVariants({ unstyled }), propClass)"
       :style="{
         '--sidebar-width': SIDEBAR_WIDTH_MOBILE,
       }"
@@ -80,14 +77,17 @@ const { isMobile, state, openMobile, setOpenMobile } = useSidebar()
     <div
       v-if="layout === 'fixed'"
       :class="
-        cn(
-          sidebarVariants({ ...props, placeholder: true, layout: 'block' }),
-          props.class,
-        )
+        cn(sidebarVariants({ ...forwarded, placeholder: true, layout: 'block' }), propClass)
       "
     />
-    <div :class="cn(sidebarVariants(props), props.class)" v-bind="$attrs">
-      <div :class="cn(sidebarInnerVariants(props))" data-sidebar="sidebar">
+    <div
+      :class="cn(sidebarVariants({ ...forwarded, unstyled }), propClass)"
+      v-bind="$attrs"
+    >
+      <div
+        :class="cn(sidebarInnerVariants({ ...forwarded, unstyled }))"
+        data-sidebar="sidebar"
+      >
         <div v-if="layout === 'block' || collapsible === 'icon'">
           <slot />
         </div>

@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type { SeparatorProps } from 'reka-ui'
 import type { HTMLAttributes } from 'vue'
-import { Separator } from 'reka-ui'
+import { Separator, useForwardProps } from 'reka-ui'
 import { tvSeparator } from '.'
 
 const {
@@ -30,11 +30,12 @@ const { base, label: tvLabel } = tvSeparator({
   orientation: props.orientation,
   unstyled,
 })
+const forwarded = useForwardProps(props)
 </script>
 
 <template>
   <Separator
-    v-bind="props"
+    v-bind="forwarded"
     :class="base({ class: [ui?.root?.class, propsClass] })"
   >
     <span

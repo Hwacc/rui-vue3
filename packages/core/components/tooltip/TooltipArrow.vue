@@ -3,7 +3,7 @@ import type { TooltipArrowProps } from 'reka-ui'
 import type { HTMLAttributes } from 'vue'
 import type { ToolTipArrowVariants } from '.'
 import { cn } from '@rui/core/lib/utils'
-import { TooltipArrow } from 'reka-ui'
+import { TooltipArrow, useForwardProps } from 'reka-ui'
 import { computed, ref, watch } from 'vue'
 import { toolTipArrowVariants } from '.'
 
@@ -64,12 +64,13 @@ const classNames = computed(() =>
     propsClass,
   ),
 )
+const forwarded = useForwardProps(props)
 </script>
 
 <template>
   <TooltipArrow
     ref="arrowRef"
-    v-bind="props"
+    v-bind="forwarded"
     :as="variant === 'css' ? 'span' : 'svg'"
     :class="classNames"
     :style="style"

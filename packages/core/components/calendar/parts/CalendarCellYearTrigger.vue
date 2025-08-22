@@ -6,7 +6,7 @@ import { isSameYear } from '@internationalized/date'
 import { usePrimitiveElement } from '@rui/core/composables/usePrimitiveElement'
 import { CalendarPanelEnum } from '@rui/core/lib/constants'
 import { cn } from '@rui/core/lib/utils'
-import { injectCalendarRootContext, Primitive } from 'reka-ui'
+import { injectCalendarRootContext, Primitive, useForwardProps } from 'reka-ui'
 import { toDate } from 'reka-ui/date'
 import { computed } from 'vue'
 import { calendarCellTriggerVariants } from '.'
@@ -70,14 +70,16 @@ const { handleArrowKey } = useCellTriggerKeyControl({
   },
   onSelect: handleClick,
 })
+
+const forwarded = useForwardProps(props)
 </script>
 
 <template>
   <Primitive
     ref="primitiveElement"
+    v-bind="forwarded"
     :class="cn(calendarCellTriggerVariants({ unstyled }), propsClass)"
     :as="as"
-    v-bind="props"
     role="button"
     :aria-label="labelText"
     data-reka-calendar-cell-trigger

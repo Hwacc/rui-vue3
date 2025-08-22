@@ -7,6 +7,7 @@ import {
   injectScrollAreaRootContext,
   ScrollAreaScrollbar,
   ScrollAreaThumb,
+  useForwardProps,
 } from 'reka-ui'
 import { ref, watchEffect } from 'vue'
 import { scrollBarVariants, scrollThumbVariants } from '.'
@@ -46,11 +47,13 @@ watchEffect((onCleanup) => {
     viewport.value?.removeEventListener('scrollend', onScrollEnd)
   })
 })
+
+const forwarded = useForwardProps(props)
 </script>
 
 <template>
   <ScrollAreaScrollbar
-    v-bind="props"
+    v-bind="forwarded"
     :orientation="orientation"
     :class="cn(scrollBarVariants({ orientation, unstyled }), propsClass)"
     :data-size="size"

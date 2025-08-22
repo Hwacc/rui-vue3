@@ -5,15 +5,8 @@ interface CheckboxGroupContext {
   size: Ref<CheckboxVariants['size']>
   unstyled: Ref<boolean>
   collection: Ref<string[]>
-  onChecked: (
-    name?: string,
-    value?: boolean | 'indeterminate' | null,
-    isPrimary?: boolean
-  ) => void
-  setCheckboxInstance: (
-    instance: ComponentInternalInstance | null,
-    isPrimary: boolean
-  ) => void
+  onChecked: (name?: string, value?: boolean | 'indeterminate' | null, isPrimary?: boolean) => void
+  setCheckboxInstance: (instance: ComponentInternalInstance | null, isPrimary: boolean) => void
 }
 export const [injectCheckboxGroupContext, provideCheckboxGroupContext]
   = createContext<CheckboxGroupContext>('CheckboxGroup')
@@ -81,34 +74,22 @@ watchEffect(
   { flush: 'post' },
 )
 
-const { size, unstyled } = toRefs(props)
+const { size, unstyled } = toRefs(reactive(props))
 provideCheckboxGroupContext({
   size,
   unstyled,
   collection: innerCollection,
-  onChecked: (
-    name?: string,
-    value?: boolean | 'indeterminate' | null,
-    isPrimary?: boolean,
-  ) => {
+  onChecked: (name?: string, value?: boolean | 'indeterminate' | null, isPrimary?: boolean) => {
     if (value !== 'indeterminate') {
       if (!isPrimary && name) {
         value
-          ? (innerCollection.value = [
-              ...new Set([...innerCollection.value, name]),
-            ])
-          : (innerCollection.value = innerCollection.value.filter(
-              item => item !== name,
-            ))
+          ? (innerCollection.value = [...new Set([...innerCollection.value, name])])
+          : (innerCollection.value = innerCollection.value.filter(item => item !== name))
       }
       else if (isPrimary) {
-        const _allChildrenNames
-          = treeStructure.children?.map(item => item.exposed?.name) || []
+        const _allChildrenNames = treeStructure.children?.map(item => item.exposed?.name) || []
         if (value) {
-          innerCollection.value = union(
-            innerCollection.value,
-            _allChildrenNames,
-          )
+          innerCollection.value = union(innerCollection.value, _allChildrenNames)
         }
         else {
           innerCollection.value = innerCollection.value.filter(
@@ -140,7 +121,10 @@ const forwarded = useForwardPropsEmits(props, emits)
 </script>
 
 <template>
-  <Primitive :class="propsClass" v-bind="forwarded">
+  <Primitive
+    v-bind="forwarded"
+    :class="propsClass"
+  >
     <slot />
   </Primitive>
 </template>

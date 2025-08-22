@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type { ToastTitleProps } from 'reka-ui'
 import type { HTMLAttributes } from 'vue'
-import { ToastTitle } from 'reka-ui'
+import { ToastTitle, useForwardProps } from 'reka-ui'
 import { tvToast } from '.'
 
 const {
@@ -13,10 +13,11 @@ const {
 >()
 
 const { title } = tvToast()
+const forwarded = useForwardProps(props)
 </script>
 
 <template>
-  <ToastTitle v-bind="props" :class="title({ unstyled, class: propsClass })">
+  <ToastTitle v-bind="forwarded" :class="title({ unstyled, class: propsClass })">
     <slot />
   </ToastTitle>
 </template>

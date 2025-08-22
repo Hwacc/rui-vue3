@@ -18,11 +18,12 @@ const {
     size?: CalendarCellTriggerVariantsProps['size']
   }
 >()
-const forwardedProps = useForwardProps(props)
+const forwarded = useForwardProps(props)
 </script>
 
 <template>
   <CalendarCellTrigger
+    v-bind="forwarded"
     :class="
       cn(
         calendarCellTriggerVariants({
@@ -32,7 +33,6 @@ const forwardedProps = useForwardProps(props)
         propsClass,
       )
     "
-    v-bind="forwardedProps"
   >
     <slot />
   </CalendarCellTrigger>

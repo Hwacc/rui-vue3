@@ -1,38 +1,38 @@
 <script lang="ts">
-import type { InputVariants } from '.';
+import type { InputVariants } from '.'
 
 interface Props extends PrimitiveProps {
-  defaultValue?: string | number;
-  modelValue?: string | number;
-  class?: HTMLAttributes['class'];
-  size?: InputVariants['size'];
-  placeholder?: string;
-  clearable?: boolean;
-  disabled?: boolean;
-  readonly?: boolean;
+  defaultValue?: string | number
+  modelValue?: string | number
+  class?: HTMLAttributes['class']
+  size?: InputVariants['size']
+  placeholder?: string
+  clearable?: boolean
+  disabled?: boolean
+  readonly?: boolean
   ui?: {
     base?: {
-      class?: HTMLAttributes['class'];
-    };
+      class?: HTMLAttributes['class']
+    }
     inner?: {
-      class?: HTMLAttributes['class'];
-    };
+      class?: HTMLAttributes['class']
+    }
     clearable?: {
-      class?: HTMLAttributes['class'];
-    };
-  };
-  unstyled?: boolean;
+      class?: HTMLAttributes['class']
+    }
+  }
+  unstyled?: boolean
 }
 </script>
 
 <script setup lang="ts">
-import type { PrimitiveProps } from 'reka-ui';
-import type { HTMLAttributes } from 'vue';
-import { useVModel } from '@vueuse/core';
-import { CircleX } from 'lucide-vue-next';
-import { Primitive, useForwardExpose } from 'reka-ui';
-import { computed, ref } from 'vue';
-import { tvInput } from '.';
+import type { PrimitiveProps } from 'reka-ui'
+import type { HTMLAttributes } from 'vue'
+import { useVModel } from '@vueuse/core'
+import { CircleX } from 'lucide-vue-next'
+import { Primitive, useForwardExpose, useForwardProps } from 'reka-ui'
+import { computed, ref } from 'vue'
+import { tvInput } from '.'
 
 const {
   class: propsClass,
@@ -43,47 +43,50 @@ const {
   disabled,
   readonly,
   ...props
-} = defineProps<Props>();
+} = defineProps<Props>()
 const emits = defineEmits<{
-  'update:modelValue': [value: string | number];
-  'focus': [e: Event];
-  'blur': [e: Event];
-  'input': [e: Event, value: string | number | undefined];
-  'change': [e: Event, value: string | number | undefined];
-}>();
+  'update:modelValue': [value: string | number]
+  'focus': [e: Event]
+  'blur': [e: Event]
+  'input': [e: Event, value: string | number | undefined]
+  'change': [e: Event, value: string | number | undefined]
+}>()
 
 const modelValue = useVModel(props, 'modelValue', emits, {
   passive: true,
   defaultValue: props.defaultValue,
-});
+})
 
-const isFocus = ref(false);
+const isFocus = ref(false)
 const inputState = computed(() => {
-  if (disabled) return 'disabled';
-  if (readonly) return 'readonly';
-  return isFocus.value ? 'focused' : 'blur';
-});
-const inputRef = ref<HTMLInputElement | null>(null);
-const rejectBlur = ref(false);
+  if (disabled)
+    return 'disabled'
+  if (readonly)
+    return 'readonly'
+  return isFocus.value ? 'focused' : 'blur'
+})
+const inputRef = ref<HTMLInputElement | null>(null)
+const rejectBlur = ref(false)
 function onBlur(event: Event) {
   setTimeout(() => {
-    emits('blur', event);
+    emits('blur', event)
     if (rejectBlur.value) {
-      rejectBlur.value = false;
-      return;
+      rejectBlur.value = false
+      return
     }
-    isFocus.value = false;
-  });
+    isFocus.value = false
+  })
 }
-const { root, inner, clearable: tvClearable } = tvInput();
-const { forwardRef } = useForwardExpose();
+const { root, inner, clearable: tvClearable } = tvInput()
+const { forwardRef } = useForwardExpose()
+const forwarded = useForwardProps(props)
 </script>
 
 <template>
   <Primitive
+    v-bind="forwarded"
     :class="root({ size, unstyled, class: [ui?.base?.class, propsClass] })"
     :data-state="inputState"
-    v-bind="props"
   >
     <slot name="prefix" />
     <input
@@ -108,7 +111,7 @@ const { forwardRef } = useForwardExpose();
       @blur="onBlur"
       @input="(e: Event) => emits('input', e, modelValue)"
       @change="(e: Event) => emits('change', e, modelValue)"
-    />
+    >
     <div
       v-if="inputState === 'focused' && clearable && modelValue"
       :class="tvClearable({ size, unstyled, class: ui?.clearable?.class })"

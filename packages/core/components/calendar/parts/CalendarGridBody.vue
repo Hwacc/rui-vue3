@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import type { CalendarGridBodyProps } from 'reka-ui'
-import { CalendarGridBody } from 'reka-ui'
+import { CalendarGridBody, useForwardProps } from 'reka-ui'
 import { prefix } from '.'
 
 const { unstyled, ...props } = defineProps<
@@ -8,10 +8,11 @@ const { unstyled, ...props } = defineProps<
     unstyled?: boolean
   }
 >()
+const forwarded = useForwardProps(props)
 </script>
 
 <template>
-  <CalendarGridBody v-bind="props" :class="!unstyled && `${prefix}-grid-body`">
+  <CalendarGridBody v-bind="forwarded" :class="!unstyled && `${prefix}-grid-body`">
     <slot />
   </CalendarGridBody>
 </template>

@@ -49,8 +49,8 @@ const forwarded = useForwardPropsEmits(
   <DropdownMenuPortal v-bind="ui?.portal?.props">
     <AnimatePresence>
       <DropdownMenuContent
-        :class="wrapper({ unstyled, class: [ui?.wrapper?.class, propsClass] })"
         v-bind="forwarded"
+        :class="wrapper({ unstyled, class: [ui?.wrapper?.class, propsClass] })"
       >
         <PopoverContentMotion
           :class="

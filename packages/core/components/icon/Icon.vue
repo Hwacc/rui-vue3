@@ -27,13 +27,13 @@ const {
   }
 >()
 
-useForwardProps(props)
+const forwarded = useForwardProps(props)
 </script>
 
 <template>
   <Icon
+    v-bind="forwarded"
     :class="tvIcon({ size, unstyled, class: propsClass })"
     :icon="icon"
-    v-bind="props"
   />
 </template>

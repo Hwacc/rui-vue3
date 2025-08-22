@@ -2,9 +2,8 @@
 import type { ButtonVariants } from '@rui/core/components/button'
 import type { RangeCalendarPrevProps } from 'reka-ui'
 import type { HTMLAttributes } from 'vue'
-import { buttonVariants } from '@rui/core/components/button'
+import { tvButton } from '@rui/core/components/button'
 import { prefix } from '@rui/core/components/calendar'
-import { cn } from '@rui/core/lib/utils'
 import { ChevronLeft } from 'lucide-vue-next'
 import { RangeCalendarPrev, useForwardProps } from 'reka-ui'
 
@@ -23,20 +22,17 @@ const {
   }
 >()
 
-const forwardedProps = useForwardProps(props)
+const { base } = tvButton()
+const forwarded = useForwardProps(props)
 </script>
 
 <template>
   <RangeCalendarPrev
+    v-bind="forwarded"
     :class="
-      cn(
-        buttonVariants({ size, variant, unstyled }),
-        [!unstyled && `${prefix}-prev`],
-        propsClass,
-      )
+      base({ size, variant, unstyled, class: [!unstyled && `${prefix}-prev`, propsClass] })
     "
     :data-variant="variant"
-    v-bind="forwardedProps"
   >
     <slot>
       <ChevronLeft class="h-4 w-4" />

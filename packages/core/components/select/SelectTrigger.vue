@@ -45,12 +45,12 @@ watch(
 )
 
 const { base, icon, triangle } = tvTrigger()
-const forwardedProps = useForwardProps(props)
+const forwarded = useForwardProps(props)
 </script>
 
 <template>
   <SelectTrigger
-    v-bind="forwardedProps"
+    v-bind="forwarded"
     ref="triggerRef"
     :class="base({ unstyled, class: [ui?.root?.class, propsClass] })"
   >

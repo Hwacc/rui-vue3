@@ -16,12 +16,12 @@ const {
   }
 >()
 
-const forwardedProps = useForwardProps(props)
+const forwarded = useForwardProps(props)
 </script>
 
 <template>
   <DropdownMenuItem
-    v-bind="forwardedProps"
+    v-bind="forwarded"
     :class="
       tvItem({
         variant: 'default',

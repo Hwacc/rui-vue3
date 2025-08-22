@@ -1,11 +1,11 @@
 <script setup lang="ts">
-import type { TabsTriggerProps } from 'reka-ui';
-import type { HTMLAttributes } from 'vue';
-import type { TabsVariant } from '.';
-import { TabsTrigger, useForwardProps } from 'reka-ui';
-import { onMounted } from 'vue';
-import { tvTabs } from '.';
-import { injectTabsContext } from './Tabs.vue';
+import type { TabsTriggerProps } from 'reka-ui'
+import type { HTMLAttributes } from 'vue'
+import type { TabsVariant } from '.'
+import { TabsTrigger, useForwardProps } from 'reka-ui'
+import { onMounted } from 'vue'
+import { tvTabs } from '.'
+import { injectTabsContext } from './Tabs.vue'
 
 const {
   class: propsClass,
@@ -14,25 +14,25 @@ const {
   ...props
 } = defineProps<
   TabsTriggerProps & {
-    class?: HTMLAttributes['class'];
-    size?: TabsVariant['size'];
-    unstyled?: boolean;
+    class?: HTMLAttributes['class']
+    size?: TabsVariant['size']
+    unstyled?: boolean
   }
->();
+>()
 
-const { initTabTrigger } = injectTabsContext();
+const { initTabTrigger } = injectTabsContext()
 
 onMounted(() => {
-  initTabTrigger();
-});
+  initTabTrigger()
+})
 
-const forwardedProps = useForwardProps(props);
-const { trigger } = tvTabs();
+const forwarded = useForwardProps(props)
+const { trigger } = tvTabs()
 </script>
 
 <template>
   <TabsTrigger
-    v-bind="forwardedProps"
+    v-bind="forwarded"
     :class="trigger({ size, unstyled, class: propsClass })"
   >
     <span class="truncate">

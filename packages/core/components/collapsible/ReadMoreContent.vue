@@ -1,5 +1,6 @@
 <script lang="ts">
 import type { PrimitiveProps } from 'reka-ui'
+
 export interface ReadMoreContentProps extends PrimitiveProps {
   class?: HTMLAttributes['class']
   unstyled?: boolean
@@ -14,6 +15,7 @@ export type ReadMoreContentEmits = {
 
 <script setup lang="ts">
 import type { HTMLAttributes } from 'vue'
+import { useAnimationParams } from '@rui/core/composables/useAnimationParams'
 import { cn } from '@rui/core/lib/utils'
 import { useEventListener, useResizeObserver } from '@vueuse/core'
 import {
@@ -26,7 +28,6 @@ import {
 import { ref, watchEffect } from 'vue'
 import { readMoreContentVariant } from '.'
 import { injectReadMoreContext } from './ReadMore.vue'
-import { useAnimationParams } from '@rui/core/composables/useAnimationParams'
 
 const {
   class: propsClass,
@@ -51,7 +52,7 @@ useResizeObserver(measureRef, (entries) => {
   const { height } = entry.contentRect
   if (measureRef.value) {
     const computedStyle = window.getComputedStyle(
-      measureRef.value.children[0] ?? measureRef.value
+      measureRef.value.children[0] ?? measureRef.value,
     )
     measureLineHeight.value = parseFloat(computedStyle.lineHeight)
   }
@@ -71,12 +72,12 @@ watchEffect(
     maxHeight.value = isOpen
       ? measureHeight.value
       : collapsedLine
-      ? Math.ceil(measureLineHeight.value * collapsedLine)
-      : collapsedHeight
+        ? Math.ceil(measureLineHeight.value * collapsedLine)
+        : collapsedHeight
   },
   {
     flush: 'post',
-  }
+  },
 )
 
 useEventListener(currentElement, 'beforematch', () => {

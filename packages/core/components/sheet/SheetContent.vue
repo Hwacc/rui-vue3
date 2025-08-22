@@ -11,11 +11,7 @@ import {
   DialogPortal,
   useForwardPropsEmits,
 } from 'reka-ui'
-import {
-  sheetContentCloseVariants,
-  sheetOverlayVariants,
-  sheetVariants,
-} from '.'
+import { sheetContentCloseVariants, sheetOverlayVariants, sheetVariants } from '.'
 
 interface SheetProps extends DialogContentProps {
   class?: HTMLAttributes['class']
@@ -45,15 +41,13 @@ const forwarded = useForwardPropsEmits(props, emits)
   <DialogPortal>
     <DialogOverlay :class="cn(sheetOverlayVariants({ unstyled }))" />
     <DialogContent
-      :class="cn(sheetVariants({ side, unstyled }), propsClass)"
       v-bind="{ ...forwarded, ...$attrs }"
+      :class="cn(sheetVariants({ side, unstyled }), propsClass)"
     >
       <slot />
       <DialogClose
         v-if="showClose"
-        :class="
-          cn('absolute p-2 -m-2', sheetContentCloseVariants({ unstyled }))
-        "
+        :class="cn('absolute p-2 -m-2', sheetContentCloseVariants({ unstyled }))"
       >
         <slot name="close">
           <span class="sr-only">Close</span>

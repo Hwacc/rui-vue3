@@ -2,7 +2,7 @@
 import type { ScrollAreaRootProps } from 'reka-ui'
 import type { HTMLAttributes } from 'vue'
 import { cn } from '@rui/core/lib/utils'
-import { ScrollAreaCorner, ScrollAreaRoot, ScrollAreaViewport } from 'reka-ui'
+import { ScrollAreaCorner, ScrollAreaRoot, ScrollAreaViewport, useForwardProps } from 'reka-ui'
 import { getCurrentInstance, ref, watch } from 'vue'
 import { scrollAreaVariants } from '.'
 
@@ -33,11 +33,13 @@ watch(rootRef, () => {
   instance.exposed = { ...rootRef.value }
   instance.exposeProxy = rootRef.value
 })
+
+const forwarded = useForwardProps(props)
 </script>
 
 <template>
   <ScrollAreaRoot
-    v-bind="props"
+    v-bind="forwarded"
     ref="rootRef"
     :class="cn(scrollAreaVariants({ unstyled }), propsClass)"
   >

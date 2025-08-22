@@ -4,7 +4,7 @@ import type {
   Ref,
 } from 'vue'
 import type { SwipeDirection, ToastPosition } from '.'
-import { createContext, injectToastProviderContext, ToastProvider } from 'reka-ui'
+import { createContext, injectToastProviderContext, ToastProvider, useForwardProps } from 'reka-ui'
 import {
   defineComponent,
   reactive,
@@ -97,13 +97,15 @@ watchEffect(() => {
       break
   }
 })
+
+const forwarded = useForwardProps(props)
 </script>
 
 <template>
   <ToastProvider
+    v-bind="forwarded"
     :swipe-direction="swipeOptions.direction"
     :swipe-threshold="swipeOptions.threshold"
-    v-bind="props"
   >
     <ToastPostitionProvider :position="position">
       <slot />

@@ -73,8 +73,8 @@ const forwarded = useForwardPropsEmits(props, emits)
 <template>
   <RangeCalendarRoot
     v-slot="{ date }"
-    :class="cn(calendarRootVariants({ size, unstyled }), propsClass)"
     v-bind="forwarded"
+    :class="cn(calendarRootVariants({ size, unstyled }), propsClass)"
     data-range-calendar
   >
     <RangeCalendarProvider

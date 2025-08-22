@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type { DropdownMenuSeparatorProps } from 'reka-ui'
 import type { HTMLAttributes } from 'vue'
-import { DropdownMenuSeparator } from 'reka-ui'
+import { DropdownMenuSeparator, useForwardProps } from 'reka-ui'
 import { tvSeparator } from '.'
 
 const {
@@ -14,11 +14,13 @@ const {
     unstyled?: boolean
   }
 >()
+
+const forwarded = useForwardProps(props)
 </script>
 
 <template>
   <DropdownMenuSeparator
-    v-bind="props"
+    v-bind="forwarded"
     :class="tvSeparator({ unstyled, class: propsClass })"
   />
 </template>

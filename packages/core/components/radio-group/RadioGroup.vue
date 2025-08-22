@@ -14,8 +14,8 @@ const forwarded = useForwardPropsEmits(props, emits)
 
 <template>
   <RadioGroupRoot
-    :class="cn(prefix, propsClass)"
     v-bind="forwarded"
+    :class="cn(prefix, propsClass)"
   >
     <slot />
   </RadioGroupRoot>

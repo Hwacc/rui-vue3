@@ -15,13 +15,13 @@ const {
     unstyle?: boolean
   }
 >()
-const forwardedProps = useForwardProps(props)
+const forwarded = useForwardProps(props)
 </script>
 
 <template>
   <CalendarGridRow
+    v-bind="forwarded"
     :class="cn('flex', !unstyle && `${prefix}-grid-row`, propsClass)"
-    v-bind="forwardedProps"
   >
     <slot />
   </CalendarGridRow>

@@ -45,14 +45,14 @@ const {
 const tvRadioGroupItemSlots = computed(() => {
   return tvRadioGroupItem({ disabled: props.disabled, variant, size, unstyled })
 })
-const forwardedProps = useForwardProps(props)
+const forwarded = useForwardProps(props)
 </script>
 
 <template>
   <div :class="tvRadioGroupItemSlots.wrapper({ class: [ui?.wrapper?.class, propsClass] })">
     <RadioGroupItem
-      v-bind="forwardedProps"
-      :id="forwardedProps.id || label"
+      v-bind="forwarded"
+      :id="forwarded.id || label"
       :class="tvRadioGroupItemSlots.root({ class: ui?.root?.class })"
       :data-variant="variant"
     >
@@ -76,7 +76,7 @@ const forwardedProps = useForwardProps(props)
       <label
         v-if="label"
         :class="tvRadioGroupItemSlots.label({ class: ui?.label?.class })"
-        :for="forwardedProps.id || label"
+        :for="forwarded.id || label"
         :disabled="props.disabled ? '' : undefined"
       >
         {{ label }}

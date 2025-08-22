@@ -22,12 +22,12 @@ watch(input, (val) => {
   tagsInputElement.value = val?.$el
 })
 
-const forwardedProps = useForwardProps(props)
+const forwarded = useForwardProps(props)
 </script>
 
 <template>
   <TagsInputInput
-    v-bind="forwardedProps"
+    v-bind="forwarded"
     ref="input"
     :class="cn(tagsInputInnerVariants({ size: contextSize ?? size }), propsClass)"
     :data-size="contextSize ?? size"

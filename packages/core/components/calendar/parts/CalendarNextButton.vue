@@ -21,14 +21,14 @@ const {
 >()
 
 const { base } = tvButton()
-const forwardedProps = useForwardProps(props)
+const forwarded = useForwardProps(props)
 </script>
 
 <template>
   <CalendarNext
+    v-bind="forwarded"
     :class="base({ variant, unstyled, class: [!unstyled && `${prefix}-next`, propsClass] })"
     :data-variant="variant"
-    v-bind="forwardedProps"
   >
     <slot>
       <ChevronRight class="h-4 w-4" />

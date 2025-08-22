@@ -14,10 +14,17 @@ const forwarded = useForwardPropsEmits(props, emits)
 </script>
 
 <template>
-  <SliderRoot :class="cn(sliderClass, propsClass)" v-bind="forwarded">
+  <SliderRoot
+    v-bind="forwarded"
+    :class="cn(sliderClass, propsClass)"
+  >
     <SliderTrack :class="sliderTrackClass">
       <SliderRange :class="sliderRangeClass" />
     </SliderTrack>
-    <SliderThumb v-for="(_, key) in modelValue" :key="key" :class="sliderThumbClass" />
+    <SliderThumb
+      v-for="(_, key) in modelValue"
+      :key="key"
+      :class="sliderThumbClass"
+    />
   </SliderRoot>
 </template>

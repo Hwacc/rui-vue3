@@ -3,6 +3,7 @@ import type { DateValue } from '@internationalized/date'
 import type { CalendarGridProps } from 'reka-ui'
 import type { CalendarVariantsProps } from '..'
 import { chunk } from 'lodash-es'
+import { useForwardProps } from 'reka-ui'
 import { createDecade } from 'reka-ui/date'
 import { computed } from 'vue'
 import { CalendarCellYearTrigger } from '..'
@@ -35,10 +36,12 @@ const variants = computed(() => ({
   unstyled,
   variant: 'month' as any,
 }))
+
+const forwarded = useForwardProps(props)
 </script>
 
 <template>
-  <CalendarGrid v-bind="props">
+  <CalendarGrid v-bind="forwarded">
     <CalendarGridBody v-bind="variants">
       <CalendarGridRow
         v-for="(triple, tripleIndex) in yearGrid"

@@ -43,12 +43,12 @@ const slots = defineSlots<{
 const { multiple } = injectSelectRootContext()
 
 const { base, indicator, text } = tvItem()
-const forwardedProps = useForwardProps(props)
+const forwarded = useForwardProps(props)
 </script>
 
 <template>
   <SelectItem
-    v-bind="forwardedProps"
+    v-bind="forwarded"
     :class="
       base({
         unstyled,

@@ -20,13 +20,13 @@ const {
     variant?: CalendarCellVariantsProps['variant']
   }
 >()
-const forwardedProps = useForwardProps(props)
+const forwarded = useForwardProps(props)
 </script>
 
 <template>
   <RangeCalendarCell
+    v-bind="forwarded"
     :class="cn(calendarCellVariants({ size, variant, unstyled }), propsClass)"
-    v-bind="forwardedProps"
   >
     <slot />
   </RangeCalendarCell>

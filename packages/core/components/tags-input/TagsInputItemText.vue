@@ -18,12 +18,12 @@ const {
   }
 >()
 const { size: contextSize } = injectTagsInputContextEx()
-const forwardedProps = useForwardProps(props)
+const forwarded = useForwardProps(props)
 </script>
 
 <template>
   <TagsInputItemText
-    v-bind="forwardedProps"
+    v-bind="forwarded"
     :class="cn(tagsInputItemTextVariants({ size: contextSize ?? size }), propsClass)"
     :data-size="contextSize ?? size"
   />

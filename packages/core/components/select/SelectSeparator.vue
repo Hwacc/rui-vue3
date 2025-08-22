@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type { SelectSeparatorProps } from 'reka-ui'
 import type { HTMLAttributes } from 'vue'
-import { SelectSeparator } from 'reka-ui'
+import { SelectSeparator, useForwardProps } from 'reka-ui'
 import { tvSeparator } from '.'
 
 const {
@@ -11,11 +11,12 @@ const {
 } = defineProps<
   SelectSeparatorProps & { class?: HTMLAttributes['class'], unstyled?: boolean }
 >()
+const forwarded = useForwardProps(props)
 </script>
 
 <template>
   <SelectSeparator
-    v-bind="props"
+    v-bind="forwarded"
     :class="tvSeparator({ unstyled, class: propsClass })"
   />
 </template>

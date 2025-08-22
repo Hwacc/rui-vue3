@@ -1,23 +1,23 @@
 <script setup lang="ts">
-import type { TabsContentProps } from 'reka-ui';
-import type { HTMLAttributes } from 'vue';
-import { TabsContent } from 'reka-ui';
-import { computed, ref, watch } from 'vue';
-import { injectTabsContext } from './Tabs.vue';
-import { tvTabs } from '.';
+import type { TabsContentProps } from 'reka-ui'
+import type { HTMLAttributes } from 'vue'
+import { TabsContent, useForwardProps } from 'reka-ui'
+import { computed, ref, watch } from 'vue'
+import { tvTabs } from '.'
+import { injectTabsContext } from './Tabs.vue'
 
 const {
   class: propsClass,
   unstyled,
   ...props
-} = defineProps<TabsContentProps & { class?: HTMLAttributes['class']; unstyled?: boolean }>();
+} = defineProps<TabsContentProps & { class?: HTMLAttributes['class'], unstyled?: boolean }>()
 
-const { index } = injectTabsContext();
+const { index } = injectTabsContext()
 
-const direction = ref(0);
+const direction = ref(0)
 watch(index, (newIndex, oldIndex) => {
-  direction.value = newIndex - oldIndex;
-});
+  direction.value = newIndex - oldIndex
+})
 
 const classNames = computed(() => {
   return tvTabs().content({
@@ -25,14 +25,16 @@ const classNames = computed(() => {
     next: direction.value > 0,
     unstyled,
     class: propsClass,
-  });
-});
+  })
+})
+
+const forwarded = useForwardProps(props)
 </script>
 
 <template>
   <TabsContent
+    v-bind="forwarded"
     :class="classNames"
-    v-bind="props"
   >
     <slot />
   </TabsContent>

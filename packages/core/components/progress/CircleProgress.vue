@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import type { HTMLAttributes } from 'vue'
 import type { CircleProgressVariants } from '.'
+import { useForwardProps } from 'reka-ui'
 import { computed } from 'vue'
 import { tvCircleProgress } from '.'
 import { useIndicatorTransfer } from './useIndicatorTransfer'
@@ -51,11 +52,12 @@ const progress = computed(() => {
 })
 const { indicatorRef, transferStyle } = useIndicatorTransfer(variant, computed(() => modelValue))
 const { base, indicator } = tvCircleProgress()
+const forwarded = useForwardProps(props)
 </script>
 
 <template>
   <div
-    v-bind="props"
+    v-bind="forwarded"
     :class="base({ unstyled, variant, class: [ui?.root?.class, propsClass] })"
     :data-type="type"
   >

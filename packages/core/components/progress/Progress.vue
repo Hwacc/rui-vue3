@@ -32,11 +32,12 @@ const {
 const { indicatorRef, transferStyle } = useIndicatorTransfer(variant, computed(() => modelValue))
 
 const { base, indicator } = tvProgress()
+const forwarded = useForwardProps(props)
 </script>
 
 <template>
   <ProgressRoot
-    v-bind="props"
+    v-bind="forwarded"
     :class="base({ unstyled, variant, class: [ui?.root?.class, propsClass] })"
   >
     <ProgressIndicator

@@ -17,12 +17,12 @@ const { class: propsClass, ...props } = defineProps<
 
 const { size: contextSize } = injectTagsInputContextEx()
 
-const forwardedProps = useForwardProps(props)
+const forwarded = useForwardProps(props)
 </script>
 
 <template>
   <TagsInputItemDelete
-    v-bind="forwardedProps"
+    v-bind="forwarded"
     :class="cn(tagsInputItemDeleteVariants({ size: contextSize ?? size }), propsClass)"
     :data-size="contextSize ?? size"
   >

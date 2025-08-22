@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type { ToastViewportProps } from 'reka-ui'
 import type { HTMLAttributes } from 'vue'
-import { ToastViewport } from 'reka-ui'
+import { ToastViewport, useForwardProps } from 'reka-ui'
 import { tvToast } from '.'
 import { injectToastProviderContextEx } from './ToastProvider.vue'
 
@@ -14,11 +14,12 @@ const {
 
 const { position } = injectToastProviderContextEx()
 const { viewport } = tvToast()
+const forwarded = useForwardProps(props)
 </script>
 
 <template>
   <ToastViewport
-    v-bind="props"
+    v-bind="forwarded"
     :class="viewport({ unstyled, position, class: propsClass })"
     :hotkey="hotkey"
     :aria-hidden="true"

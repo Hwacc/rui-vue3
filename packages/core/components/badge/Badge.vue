@@ -3,8 +3,8 @@ import type { PrimitiveProps } from 'reka-ui'
 import type { HTMLAttributes } from 'vue'
 import type { BadgeVariants } from '.'
 import { cn } from '@rui/core/lib/utils'
-import { Primitive } from 'reka-ui'
-import { computed, reactive } from 'vue'
+import { Primitive, useForwardProps } from 'reka-ui'
+import { computed } from 'vue'
 import { badgeVariants } from '.'
 
 const {
@@ -29,14 +29,16 @@ const computedAs = computed(() => {
   }
   return 'div'
 })
+
+const forwarded = useForwardProps(props)
 </script>
 
 <template>
   <Primitive
     :as="computedAs"
+    v-bind="forwarded"
     :class="cn(badgeVariants({ variant, size }), propsClass)"
     :data-variant="variant"
-    v-bind="props"
   >
     <slot />
   </Primitive>

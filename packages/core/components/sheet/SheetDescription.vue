@@ -2,7 +2,7 @@
 import type { DialogDescriptionProps } from 'reka-ui'
 import type { HTMLAttributes } from 'vue'
 import { cn } from '@rui/core/lib/utils'
-import { DialogDescription } from 'reka-ui'
+import { DialogDescription, useForwardProps } from 'reka-ui'
 import { sheetDescriptionVariants } from '.'
 
 const {
@@ -15,12 +15,13 @@ const {
     unstyled?: boolean
   }
 >()
+const forwarded = useForwardProps(props)
 </script>
 
 <template>
   <DialogDescription
+    v-bind="forwarded"
     :class="cn(sheetDescriptionVariants({ unstyled }), propsClass)"
-    v-bind="props"
   >
     <slot />
   </DialogDescription>

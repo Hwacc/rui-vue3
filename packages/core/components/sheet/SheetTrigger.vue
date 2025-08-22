@@ -2,15 +2,19 @@
 import type { DialogTriggerProps } from 'reka-ui'
 import type { HTMLAttributes } from 'vue'
 import { cn } from '@rui/core/lib/utils'
-import { DialogTrigger } from 'reka-ui'
+import { DialogTrigger, useForwardProps } from 'reka-ui'
 
 const { class: propsClass, ...props } = defineProps<
   DialogTriggerProps & { class?: HTMLAttributes['class'] }
 >()
+const forwarded = useForwardProps(props)
 </script>
 
 <template>
-  <DialogTrigger :class="cn('rounded', propsClass)" v-bind="props">
+  <DialogTrigger
+    v-bind="forwarded"
+    :class="cn('rounded', propsClass)"
+  >
     <slot />
   </DialogTrigger>
 </template>

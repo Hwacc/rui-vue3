@@ -85,13 +85,13 @@ function handleOnKeydown(event: KeyboardEvent) {
   }
 }
 
-const forwardedProps = useForwardProps(props)
+const forwarded = useForwardProps(props)
 </script>
 
 <template>
   <CollectionItem :value="props.value">
     <TagsInputItem
-      v-bind="forwardedProps"
+      v-bind="forwarded"
       ref="tag-item"
       :class="
         cn(tagsInputItemVariants({ size: contextSize ?? size }), propsClass)

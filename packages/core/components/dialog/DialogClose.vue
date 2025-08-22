@@ -2,7 +2,7 @@
 import type { DialogCloseProps } from 'reka-ui'
 import type { HTMLAttributes } from 'vue'
 import type { DialogCloseFrom } from '.'
-import { DialogClose } from 'reka-ui'
+import { DialogClose, useForwardProps } from 'reka-ui'
 import { tvDialog } from '.'
 import { injectDialogContext } from './DialogRootProviderEx'
 
@@ -27,10 +27,16 @@ function onClose() {
 }
 
 const { close } = tvDialog()
+const forwarded = useForwardProps(props)
 </script>
 
 <template>
-  <DialogClose :as="as" :class="close({ unstyled })" v-bind="props" @click="onClose">
+  <DialogClose
+    v-bind="forwarded"
+    :as="as"
+    :class="close({ unstyled })"
+    @click="onClose"
+  >
     <slot />
   </DialogClose>
 </template>

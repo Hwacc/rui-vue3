@@ -12,12 +12,12 @@ const {
 } = defineProps<
   SelectScrollUpButtonProps & { class?: HTMLAttributes['class'], unstyled?: boolean }
 >()
-const forwardedProps = useForwardProps(props)
+const forwarded = useForwardProps(props)
 </script>
 
 <template>
   <SelectScrollUpButton
-    v-bind="forwardedProps"
+    v-bind="forwarded"
     :class="tvScrollButton({ dir: 'up', unstyled, class: propsClass })"
     data-direction="up"
   >

@@ -36,7 +36,7 @@ const context = injectRangeCalendarRootContext()
 const contextEx = injectRangeCalendarContextEx()
 
 const formatter = useDateFormatter(context.locale.value)
-const forwardedProps = useForwardProps(props)
+const forwarded = useForwardProps(props)
 
 const Heading = computed(() => {
   const grid = context.grid.value
@@ -95,8 +95,8 @@ const Heading = computed(() => {
 <template>
   <RangeCalendarHeading
     v-slot="{ headingValue }"
+    v-bind="forwarded"
     :class="cn(calendarHeadingVariants({ size, unstyled }), propsClass)"
-    v-bind="forwardedProps"
   >
     <slot :heading-value="headingValue">
       <Heading />

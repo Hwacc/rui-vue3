@@ -39,7 +39,7 @@ const forward = useForwardPropsEmits(props, emit)
 
 <template>
   <Motion
-    :key="props.value.title"
+    :key="forward.title"
     as-child
     :initial="{ height: 0, opacity: 0, rotateX: 90 }"
     :animate="{ height: 'auto', opacity: 1, rotateX: 0 }"

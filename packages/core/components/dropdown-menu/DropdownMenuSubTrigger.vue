@@ -15,12 +15,12 @@ const {
     unstyled?: boolean
   }
 >()
-const forwardedProps = useForwardProps(props)
+const forwarded = useForwardProps(props)
 </script>
 
 <template>
   <DropdownMenuSubTrigger
-    v-bind="forwardedProps"
+    v-bind="forwarded"
     :class="tvSubTrigger({ unstyled, class: propsClass })"
   >
     <slot />

@@ -3,7 +3,7 @@ import type { PopoverArrowProps } from 'reka-ui'
 import type { HTMLAttributes } from 'vue'
 import type { PopoverVariants } from '.'
 import { rem2px } from '@rui/core/lib/utils'
-import { PopoverArrow } from 'reka-ui'
+import { PopoverArrow, useForwardProps } from 'reka-ui'
 import { computed, ref, watch } from 'vue'
 import { tvPopover } from '.'
 
@@ -45,12 +45,13 @@ const style = computed(() => {
   }
 })
 const { arrow } = tvPopover()
+const forwarded = useForwardProps(props)
 </script>
 
 <template>
   <PopoverArrow
     ref="arrowRef"
-    v-bind="props"
+    v-bind="forwarded"
     :as="variant === 'css' ? 'span' : 'svg'"
     :class="
       arrow({

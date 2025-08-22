@@ -25,7 +25,7 @@ export interface CalendarCellTriggerSlot {
 import { calendarCellTriggerVariants } from '@rui/core/components/calendar'
 import { usePrimitiveElement } from '@rui/core/composables/usePrimitiveElement'
 import { cn } from '@rui/core/lib/utils'
-import { injectRangeCalendarRootContext, Primitive } from 'reka-ui'
+import { injectRangeCalendarRootContext, Primitive, useForwardProps } from 'reka-ui'
 
 const {
   class: propsClass,
@@ -88,14 +88,15 @@ const { handleArrowKey } = useRangeCellTriggerKeyControl({
   },
   onSelect: handleClick,
 })
+const forwarded = useForwardProps(props)
 </script>
 
 <template>
   <Primitive
     ref="primitiveElement"
+    v-bind="forwarded"
     :class="cn(calendarCellTriggerVariants({ unstyled }), propsClass)"
     :as="as"
-    v-bind="props"
     role="button"
     :aria-label="labelText"
     data-reka-calendar-cell-trigger
