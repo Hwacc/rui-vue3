@@ -119,15 +119,16 @@ onMounted(() => {
         }
       "
     >
-      <slot />
+      <slot v-bind="{ open: rootContext.open, disabled: isDisabled, modelValue: rootContext.modelValue }" />
       <slot
         name="icon"
-        v-bind="{ open: unref(rootContext.open) }"
+        v-bind="{ open: unref(rootContext.open), disabled: isDisabled }"
       >
         <SelectIcon
           as="i"
           :class="icon({ unstyled, class: ui?.icon?.class })"
           :data-state="unref(rootContext.open) ? 'open' : 'closed'"
+          :data-disabled="isDisabled ? '' : undefined"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -136,6 +137,7 @@ onMounted(() => {
               triangle({ unstyled, open: unref(rootContext.open), class: ui?.triangle?.class })
             "
             :data-state="unref(rootContext.open) ? 'open' : 'closed'"
+            :data-disabled="isDisabled ? '' : undefined"
           >
             <path d="M0 0 L3.5 3 L7 0 Z" />
           </svg>

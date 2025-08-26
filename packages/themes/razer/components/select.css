@@ -1,7 +1,10 @@
 
 @layer components {
   .rui-select-trigger {
-    @apply bg-h16 text-hbb border-h00 hover:border-rz-green data-[state=open]:border-rz-green data-[placeholder]:text-h55;
+    @apply bg-h16 text-hbb border-h00 data-[state=open]:border-rz-green data-[placeholder]:text-h55;
+    &:not([data-disabled]){
+      @apply hover:border-rz-green;
+    }
   }
 
   .rui-select-content {
@@ -17,7 +20,10 @@
   }
 
   .rui-select-trigger-triangle {
-    @apply fill-current stroke-current group-hover:fill-hff group-hover:stroke-hff;
+    @apply fill-current stroke-current;
+    &:not([data-disabled]){
+      @apply group-hover:fill-hff group-hover:stroke-hff
+    }
     &[data-state="open"]{
       @apply fill-hff stroke-hff;
     }

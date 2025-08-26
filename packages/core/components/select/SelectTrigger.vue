@@ -27,7 +27,7 @@ const {
     }
   }
 >()
-const { open, modelValue } = injectSelectRootContext()
+const { open, modelValue, disabled } = injectSelectRootContext()
 
 const triggerRef = ref<{ $el: HTMLElement } | null>()
 watch(
@@ -54,21 +54,23 @@ const forwarded = useForwardProps(props)
     ref="triggerRef"
     :class="base({ unstyled, class: [ui?.root?.class, propsClass] })"
   >
-    <slot />
+    <slot v-bind="{ open, disabled, modelValue }" />
     <slot
       name="icon"
-      v-bind="{ open }"
+      v-bind="{ open, disabled }"
     >
       <SelectIcon
         as="i"
         :class="icon({ unstyled, class: ui?.icon?.class })"
         :data-state="open ? 'open' : 'closed'"
+        :data-disabled="disabled ? '' : undefined"
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"
           view-box="0 0 7 3"
           :class="triangle({ unstyled, open, class: ui?.triangle?.class })"
           :data-state="open ? 'open' : 'closed'"
+          :data-disabled="disabled ? '' : undefined"
         >
           <path d="M0 0 L3.5 3 L7 0 Z" />
         </svg>
