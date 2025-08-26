@@ -1,40 +1,47 @@
 <script lang="tsx">
-import type { AcceptableValue, SelectValueProps } from 'reka-ui'
-import type { HTMLAttributes } from 'vue'
-import { filter, isEmpty } from 'lodash-es'
-import { X } from 'lucide-vue-next'
-import { injectSelectRootContext, SelectValue as RekaSelectValue } from 'reka-ui'
-import { defineComponent, toRefs } from 'vue'
-import { tvValue } from '.'
+import type { AcceptableValue, SelectValueProps } from 'reka-ui';
+import type { HTMLAttributes, SlotsType } from 'vue';
+import { filter, isEmpty } from 'lodash-es';
+import { X } from 'lucide-vue-next';
+import { injectSelectRootContext, SelectValue as RekaSelectValue } from 'reka-ui';
+import { defineComponent, toRefs } from 'vue';
+import { tvValue } from '.';
 
 export default defineComponent({
   name: 'SelectValue',
   components: {
     RekaSelectValue,
   },
+  slots: Object as SlotsType<{
+    default: {
+      selectedLabel: string | string[];
+      modelValue: AcceptableValue | AcceptableValue[];
+    };
+  }>,
   setup(
     props: SelectValueProps & {
-      class?: HTMLAttributes['class']
-      unstyled?: boolean
+      class?: HTMLAttributes['class'];
+      unstyled?: boolean;
       ui?: {
         base?: {
-          class?: HTMLAttributes['class']
-        }
+          class?: HTMLAttributes['class'];
+        };
         close?: {
-          class?: HTMLAttributes['class']
-        }
+          class?: HTMLAttributes['class'];
+        };
         closeIcon?: {
-          class?: HTMLAttributes['class']
-        }
-      }
+          class?: HTMLAttributes['class'];
+        };
+      };
     },
+    { slots }
   ) {
-    const { multiple, modelValue: rootModelValue } = injectSelectRootContext()
-    const { class: propsClass, ui, placeholder, asChild, as, unstyled } = toRefs(props)
+    const { multiple, modelValue: rootModelValue } = injectSelectRootContext();
+    const { class: propsClass, ui, placeholder, asChild, as, unstyled } = toRefs(props);
 
-    const { base, close, closeIcon } = tvValue()
+    const { base, close, closeIcon } = tvValue();
     return () => {
-      console.log('unstyled', unstyled?.value)
+      console.log('unstyled', unstyled?.value);
       return (
         <RekaSelectValue
           class={base({
@@ -53,15 +60,18 @@ export default defineComponent({
               selectedLabel,
               modelValue,
             }: {
-              selectedLabel: string | string[]
-              modelValue: AcceptableValue | AcceptableValue[]
+              selectedLabel: string | string[];
+              modelValue: AcceptableValue | AcceptableValue[];
             }) => {
-              if (isEmpty(selectedLabel))
-                return placeholder?.value
+              if (slots.default)
+                return slots.default({
+                  selectedLabel,
+                  modelValue,
+                });
+              if (isEmpty(selectedLabel)) return placeholder?.value;
               if (!multiple.value) {
-                return selectedLabel
-              }
-              else {
+                return selectedLabel;
+              } else {
                 return (selectedLabel as AcceptableValue[]).map((label, index) => (
                   <span
                     key={index}
@@ -77,21 +87,21 @@ export default defineComponent({
                         class: ui?.value?.closeIcon?.class,
                       })}
                       onClick={(event: any) => {
-                        event.stopPropagation()
+                        event.stopPropagation();
                         rootModelValue.value = filter(
                           modelValue as AcceptableValue[],
-                          (_, key) => key !== index,
-                        )
+                          (_, key) => key !== index
+                        );
                       }}
                     />
                   </span>
-                ))
+                ));
               }
             },
           }}
         </RekaSelectValue>
-      )
-    }
+      );
+    };
   },
-})
+});
 </script>
