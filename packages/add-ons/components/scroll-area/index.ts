@@ -1,10 +1,10 @@
-import { cva } from '@rui/core/lib/cva'
+import { tv } from '@rui/core/lib/tv'
 
 export { default as ScrollArea } from './ScrollArea.vue'
 
-export const scrollAreaVariants = cva(
-  ['relative'],
+export const tvScrollArea = tv(
   {
+    base: 'relative',
     variants: {
       size: {
         base: '',
@@ -14,6 +14,6 @@ export const scrollAreaVariants = cva(
     },
   },
   {
-    className: 'rui-ps-scroll-area',
+    class: 'rui-ps-scroll-area',
   },
 )

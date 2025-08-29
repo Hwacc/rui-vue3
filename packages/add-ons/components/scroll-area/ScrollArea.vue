@@ -16,22 +16,21 @@ interface PerfectScrollBarOptions {
 </script>
 
 <script setup lang="ts">
-import { cn } from '@rui/core/lib/utils'
 import { defaults } from 'lodash-es'
 import PerfectScrollbar from 'perfect-scrollbar'
-import { reactive, ref, useId, watchEffect } from 'vue'
-import { scrollAreaVariants } from '.'
+import { reactive, useId, useTemplateRef, watchEffect } from 'vue'
+import { tvScrollArea } from '.'
 
 const {
   class: propsClass,
-  size,
+  size = 'base',
   unstyled,
   ...props
 } = defineProps<
   PerfectScrollBarOptions & {
     class?: string
     size?: 'base' | 'sm' | 'xs'
-    unstyled?: false
+    unstyled?: boolean
   }
 >()
 
@@ -60,7 +59,7 @@ const scrollEvents = [
   'ps-reach-x-end',
 ]
 const id = useId()
-const containerRef = ref<HTMLElement>()
+const containerRef = useTemplateRef('container')
 const reactiveProps = reactive(props)
 
 watchEffect((cleanup) => {
@@ -96,8 +95,8 @@ watchEffect((cleanup) => {
 <template>
   <div
     :id="`rui-scroll-area-${id}`"
-    ref="containerRef"
-    :class="cn(scrollAreaVariants({ size, unstyled }), propsClass)"
+    ref="container"
+    :class="tvScrollArea({ size, unstyled, class: propsClass })"
     :data-size="size"
   >
     <slot />

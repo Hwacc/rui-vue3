@@ -30,7 +30,7 @@ const speedRef = ref(1)
     >
       Click
     </button>
-    <PerfectScrollArea class="h-50 w-100" size="sm" :wheel-speed="speedRef" swipe-easing>
+    <PerfectScrollArea class="h-50 w-100" size="base" :wheel-speed="speedRef" swipe-easing>
       <div class="flex flex-col w-200 h-200">
         <div
           v-for="i in 10"

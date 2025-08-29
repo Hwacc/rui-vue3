@@ -83,12 +83,18 @@ importers:
       class-variance-authority:
         specifier: ^0.7.1
         version: 0.7.1
+      muuri:
+        specifier: ^0.9.5
+        version: 0.9.5
       perfect-scrollbar:
         specifier: ^1.5.6
         version: 1.5.6
       swiper:
         specifier: ^11.2.6
         version: 11.2.6
+      tailwind-variants:
+        specifier: ^2.1.0
+        version: 2.1.0(tailwind-merge@3.0.2)(tailwindcss@4.1.1)
       vue:
         specifier: ^3.5.13
         version: 3.5.13(typescript@5.8.2)
@@ -3700,6 +3706,9 @@ packages:
   muggle-string@0.4.1:
     resolution: {integrity: sha512-VNTrAak/KhO2i8dqqnqnAHOa3cYBwXEZe9h+D5h/1ZqFSTEFHdM65lR7RoIqq3tBBYavsOXV84NoHXZ0AkPyqQ==}
 
+  muuri@0.9.5:
+    resolution: {integrity: sha512-nJL9/Pd5IaIXGAVunBs/LLQ+v6tPkvlqCYrlauWESgkVFr+F+CRf8HnayRh4AqiQ1S/PIEN39fhJSe4L5rLlxg==}
+
   nanoid@3.3.11:
     resolution: {integrity: sha512-N8SpfPUnUp1bK+PMYW8qSWdl9U+wwNWI4QKxOYDy9JAro3WMX7p2OeVRF9v+347pnakNevPmiHhNmZ2HbFA76w==}
     engines: {node: ^10 || ^12 || ^13.7 || ^14 || >=15.0.1}
@@ -5109,6 +5118,9 @@ packages:
   vue-component-type-helpers@3.0.5:
     resolution: {integrity: sha512-uoNZaJ+a1/zppa/Vgmi8zIOP2PHXDN2rT8NyF+zQRK6ZG94lNB9prcV0GdLJbY9i9lrD47JOVIH92SaiA7oJ1A==}
 
+  vue-component-type-helpers@3.0.6:
+    resolution: {integrity: sha512-6CRM8X7EJqWCJOiKPvSLQG+hJPb/Oy2gyJx3pLjUEhY7PuaCthQu3e0zAGI1lqUBobrrk9IT0K8sG2GsCluxoQ==}
+
   vue-demi@0.14.10:
     resolution: {integrity: sha512-nMZBOwuzabUO0nLgIcc6rycZEebF6eeUfaiQx9+WSk8e29IbLvPU9feI6tqW4kTo3hvoYAJkMh8n8D0fuISphg==}
     engines: {node: '>=12'}
@@ -6311,7 +6323,7 @@ snapshots:
       ts-dedent: 2.2.0
       type-fest: 2.19.0
       vue: 3.5.13(typescript@5.7.3)
-      vue-component-type-helpers: 3.0.5
+      vue-component-type-helpers: 3.0.6
 
   '@stylistic/eslint-plugin@5.2.2(eslint@9.26.0(jiti@2.4.2))':
     dependencies:
@@ -9187,6 +9199,8 @@ snapshots:
 
   muggle-string@0.4.1: {}
 
+  muuri@0.9.5: {}
+
   nanoid@3.3.11: {}
 
   natural-compare@1.4.0: {}
@@ -10546,6 +10560,8 @@ snapshots:
   vue-component-type-helpers@2.2.8: {}
 
   vue-component-type-helpers@3.0.5: {}
+
+  vue-component-type-helpers@3.0.6: {}
 
   vue-demi@0.14.10(vue@3.5.13(typescript@5.8.2)):
     dependencies:
