@@ -94,6 +94,13 @@
   .rui-ps-scroll-area {
 
     &[data-size="base"] {
+      &.ps--active-y{
+        @apply pr-2;
+      }
+      &.ps--active-x{
+        @apply pb-2;
+      }
+
       .ps__rail-y {
         @apply w-2;
       }
@@ -112,6 +119,12 @@
     }
 
     &[data-size="sm"] {
+      &.ps--active-y{
+        @apply pr-1.5;
+      }
+      &.ps--active-x{
+        @apply pb-1.5;
+      }
       .ps__rail-y {
         @apply w-1.5;
       }
@@ -130,6 +143,12 @@
     }
 
     &[data-size="xs"] {
+      &.ps--active-y{
+        @apply pr-1;
+      }
+      &.ps--active-x{
+        @apply pb-1;
+      }
       .ps__rail-y {
         @apply w-1;
       }
