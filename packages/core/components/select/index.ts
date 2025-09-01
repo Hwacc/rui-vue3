@@ -30,9 +30,9 @@ export const tvTrigger = tv(
       'px-2',
       'py-1.5',
       'text-start',
-      'disabled:pointer-events-none',
-      'disabled:opacity-(--disabled-opacity)',
       'transition-colors',
+      'data-[disabled]:pointer-events-none',
+      'data-[disabled]:opacity-(--disabled-opacity)',
       '[&>span]:flex-1',
       '[&>span]:truncate',
     ],
@@ -50,10 +50,15 @@ export const tvTrigger = tv(
         true: '',
         false: '',
       },
+      disabled: {
+        true: '',
+        false: '',
+      },
     },
     defaultVariants: {
       size: 'base',
       open: false,
+      disabled: false,
     },
     compoundSlots: [
       {

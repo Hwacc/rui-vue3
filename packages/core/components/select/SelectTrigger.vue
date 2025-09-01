@@ -52,7 +52,7 @@ const forwarded = useForwardProps(props)
   <SelectTrigger
     v-bind="forwarded"
     ref="triggerRef"
-    :class="base({ unstyled, class: [ui?.root?.class, propsClass] })"
+    :class="base({ disabled, unstyled, class: [ui?.root?.class, propsClass] })"
   >
     <slot v-bind="{ open, disabled, modelValue }" />
     <slot
