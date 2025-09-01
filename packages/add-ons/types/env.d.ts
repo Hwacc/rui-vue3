@@ -43,3 +43,4 @@ declare module '*.vue' {
 }
 
 declare type StringOrNumber = string | number
+declare type MaybeElement = HTMLElement | SVGElement | VueInstance | undefined | null
