@@ -38,7 +38,7 @@ export const SpinProvider = defineComponent({
           <LoaderCircle
             class={cn(
               iconVariant({
-                class: props.class,
+                class: ['animate-spin', props.class],
               }),
             )}
             data-variant="default"

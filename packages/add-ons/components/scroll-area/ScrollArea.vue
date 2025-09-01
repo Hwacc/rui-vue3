@@ -1,25 +1,26 @@
 <script lang="ts">
 interface PerfectScrollBarOptions {
-  handlers?: string[]
-  maxScrollbarLength?: number
-  minScrollbarLength?: number
-  scrollingThreshold?: number
-  scrollXMarginOffset?: number
-  scrollYMarginOffset?: number
-  suppressScrollX?: boolean
-  suppressScrollY?: boolean
-  swipeEasing?: boolean
-  useBothWheelAxes?: boolean
-  wheelPropagation?: boolean
-  wheelSpeed?: number
+  handlers?: string[];
+  maxScrollbarLength?: number;
+  minScrollbarLength?: number;
+  scrollingThreshold?: number;
+  scrollXMarginOffset?: number;
+  scrollYMarginOffset?: number;
+  suppressScrollX?: boolean;
+  suppressScrollY?: boolean;
+  swipeEasing?: boolean;
+  useBothWheelAxes?: boolean;
+  wheelPropagation?: boolean;
+  wheelSpeed?: number;
 }
 </script>
 
 <script setup lang="ts">
-import { defaults } from 'lodash-es'
-import PerfectScrollbar from 'perfect-scrollbar'
-import { reactive, useId, useTemplateRef, watchEffect } from 'vue'
-import { tvScrollArea } from '.'
+import { defaults } from 'lodash-es';
+import PerfectScrollbar from 'perfect-scrollbar';
+import { onMounted, onUnmounted, shallowRef, useId, useTemplateRef, watch } from 'vue';
+import { tvScrollArea } from '.';
+import { useResizeObserver } from '@vueuse/core';
 
 const {
   class: propsClass,
@@ -28,24 +29,24 @@ const {
   ...props
 } = defineProps<
   PerfectScrollBarOptions & {
-    class?: string
-    size?: 'base' | 'sm' | 'xs'
-    unstyled?: boolean
+    class?: string;
+    size?: 'base' | 'sm' | 'xs';
+    unstyled?: boolean;
   }
->()
+>();
 
 const emits = defineEmits<{
-  'ps-scroll-y': [ps: PerfectScrollbar]
-  'ps-scroll-x': [ps: PerfectScrollbar]
-  'ps-scroll-up': [ps: PerfectScrollbar]
-  'ps-scroll-down': [ps: PerfectScrollbar]
-  'ps-scroll-left': [ps: PerfectScrollbar]
-  'ps-scroll-right': [ps: PerfectScrollbar]
-  'ps-reach-y-start': [ps: PerfectScrollbar]
-  'ps-reach-y-end': [ps: PerfectScrollbar]
-  'ps-reach-x-start': [ps: PerfectScrollbar]
-  'ps-reach-x-end': [ps: PerfectScrollbar]
-}>()
+  'ps-scroll-y': [ps: PerfectScrollbar];
+  'ps-scroll-x': [ps: PerfectScrollbar];
+  'ps-scroll-up': [ps: PerfectScrollbar];
+  'ps-scroll-down': [ps: PerfectScrollbar];
+  'ps-scroll-left': [ps: PerfectScrollbar];
+  'ps-scroll-right': [ps: PerfectScrollbar];
+  'ps-reach-y-start': [ps: PerfectScrollbar];
+  'ps-reach-y-end': [ps: PerfectScrollbar];
+  'ps-reach-x-start': [ps: PerfectScrollbar];
+  'ps-reach-x-end': [ps: PerfectScrollbar];
+}>();
 const scrollEvents = [
   'ps-scroll-y',
   'ps-scroll-x',
@@ -57,39 +58,45 @@ const scrollEvents = [
   'ps-reach-y-end',
   'ps-reach-x-start',
   'ps-reach-x-end',
-]
-const id = useId()
-const containerRef = useTemplateRef('container')
-const reactiveProps = reactive(props)
+];
+const id = useId();
+const containerRef = useTemplateRef('container');
 
-watchEffect((cleanup) => {
-  let ps: PerfectScrollbar | null = null
-  const events = scrollEvents.map((name) => {
-    return [name, () => emits(name as any, ps as any)]
-  })
-  if (containerRef.value) {
-    ps = new PerfectScrollbar(
-      containerRef.value,
-      defaults({}, reactiveProps, {
-        handlers: ['click-rail', 'drag-thumb', 'keyboard', 'wheel', 'touch'],
-        wheelSpeed: 1,
-        scrollXMarginOffset: 0,
-        scrollYMarginOffset: 0,
-        scrollingThreshold: 1000,
-        swipeEasing: true,
-      }),
-    )
-    events.forEach(([name, handler]) => {
-      containerRef.value?.addEventListener(name as any, handler as any)
-    })
+const ps = shallowRef<PerfectScrollbar | null>(null);
+watch(
+  () => props,
+  () => {
+    ps.value?.update();
   }
-  cleanup(() => {
-    events.forEach(([name, handler]) => {
-      containerRef.value?.removeEventListener(name as any, handler as any)
+);
+useResizeObserver(containerRef, () => {
+  ps.value?.update();
+});
+
+onMounted(() => {
+  ps.value = new PerfectScrollbar(
+    containerRef.value!,
+    defaults({}, props, {
+      handlers: ['click-rail', 'drag-thumb', 'keyboard', 'wheel', 'touch'],
+      wheelSpeed: 1,
+      scrollXMarginOffset: 0,
+      scrollYMarginOffset: 0,
+      scrollingThreshold: 1000,
+      swipeEasing: true,
     })
-    ps?.destroy()
-  })
-})
+  );
+  console.log(ps.value);
+  scrollEvents.forEach((name) => {
+    containerRef.value?.addEventListener(name as any, () => emits(name as any, ps.value as any));
+  });
+});
+
+onUnmounted(() => {
+  scrollEvents.forEach((name) => {
+    containerRef.value?.removeEventListener(name as any, () => emits(name as any, ps.value as any));
+  });
+  ps.value?.destroy();
+});
 </script>
 
 <template>
@@ -102,3 +109,4 @@ watchEffect((cleanup) => {
     <slot />
   </div>
 </template>
+
