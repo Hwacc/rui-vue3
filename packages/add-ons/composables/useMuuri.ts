@@ -12,9 +12,9 @@ import type {
 } from 'muuri'
 import type { MaybeRef, MaybeRefOrGetter, ShallowRef } from 'vue'
 import { tryOnMounted, tryOnScopeDispose } from '@vueuse/core'
-import { camelCase, forEach, isEmpty, pickBy } from 'lodash-es'
+import { camelCase, forEach, isEmpty, omit, pickBy } from 'lodash-es'
 import Grid from 'muuri'
-import { shallowRef } from 'vue'
+import { isRef, nextTick, shallowRef, toValue, unref } from 'vue'
 
 export type UseMuuriOpitons = GridOptions & {
   onSynchronize?: () => any
@@ -78,9 +78,31 @@ export function useMuuri<T>(
   list: MaybeRef<T[]>,
   options?: UseMuuriOpitons
 ): {
+  start: () => void;
+  stop: () => void;
   grid: ShallowRef<Grid | null>
 }
 
+export function useMuuri<T>(
+  el: MaybeRefOrGetter<MaybeElement>,
+  list: MaybeRef<T[]>,
+  options?: UseMuuriOpitons,
+): {
+  start: () => void;
+  stop: () => void;
+  grid: ShallowRef<Grid | null>
+}
+
+/**
+ * we build useMuuri to instand of useSortable which in vueuse
+ * because in some env, we cannot get 'drag' event
+ * Notice: useMuuri MUST comply with muuri css rules see: https://docs.muuri.dev/getting-started.html#_4-add-the-styles
+ * Thanks to muuri.js
+ * @param el 
+ * @param list 
+ * @param options 
+ * @returns 
+ */
 export function useMuuri<T>(
   el: MaybeRefOrGetter<MaybeElement> | string,
   list: MaybeRef<T[]>,
@@ -104,8 +126,6 @@ export function useMuuri<T>(
         continue
       const itemH = item.getHeight()
       const itemM = item.getMargin()
-      // @ts-expect-error whichItem is not using for time being
-      const whichItem = item?.getElement()?.dataset.itemKey
       y += h
       if (itemH <= 0) {
         item!.getElement()!.style.visibility = 'hidden'
@@ -116,7 +136,6 @@ export function useMuuri<T>(
       h = itemH + itemM.top + itemM.bottom
       layout.slots.push(0, y)
     }
-
     h += y
     layout.styles = {
       width: '100%',
@@ -127,7 +146,7 @@ export function useMuuri<T>(
 
   const _defaultOptions: Partial<UseMuuriOpitons> = {
     layout: defaultLayout,
-    dragEnabled: false,
+    dragEnabled: true,
     dragHandle: '.rui-muuri-handle',
     dragAxis: 'y',
     dragSortHeuristics: {
@@ -145,21 +164,34 @@ export function useMuuri<T>(
         placeholder.appendChild(inner)
         return placeholder
       },
-      onCreate(item, element) {
+      onCreate(_, element: HTMLElement) {
         const inner = element.querySelector('.rui-muuri-placeholder-inner') as HTMLElement
         if (inner) {
-          inner.style.height = `${parseInt(element.style.height) - 20}px`
+          inner.style.height = `${parseInt(element.style.height)}px`
         }
       },
     },
-
-    onSort: (currentOrder, previousOrder) => {
-      console.log('onSort', currentOrder, previousOrder)
+    onMove: (data) => {
+      const {fromIndex, toIndex} = data
+      const _valueIsRef = isRef(list)
+      // When the list is a ref, make a shallow copy of it to avoid repeatedly triggering side effects when moving elements
+      const array = _valueIsRef ? [...toValue(list)] : toValue(list)
+      if (toIndex >= 0 && toIndex < array.length) {
+        const element = array.splice(fromIndex, 1)[0]
+        nextTick(() => {
+          array.splice(toIndex, 0, element)
+          // When list is ref, assign array to list.value
+          if (_valueIsRef)
+            (list as MaybeRef).value = array
+        })
+      }
+      options?.onMove?.(data)
     },
   }
+
   const start = () => {
-    const _options = { ..._defaultOptions, ...options }
-    grid.value = new Grid(el, _options)
+    const _options = { ..._defaultOptions, ...omit(options ?? {}, ['onMove']) }
+    grid.value = new Grid(unref(el), _options)
     const _events = pickBy(_options, (_, key) => key.startsWith('on'))
     if (!isEmpty(_events)) {
       forEach(_events, (value, key) => {

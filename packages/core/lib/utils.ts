@@ -78,3 +78,6 @@ export function parseCubicBezier(bezierString: string): [number, number, number,
   return values as [number, number, number, number];
 }
 
+export function getSiblings(el: HTMLElement) {
+  return [...el.parentNode?.children ?? []].filter((node) => node !== el)
+}
