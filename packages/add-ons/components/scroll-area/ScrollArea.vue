@@ -26,16 +26,12 @@ const {
   class: propsClass,
   size = 'base',
   unstyled,
-  yOffset = '0px',
-  xOffset = '0px',
   ...props
 } = defineProps<
   PerfectScrollBarOptions & {
     class?: string;
     size?: 'base' | 'sm' | 'xs';
     unstyled?: boolean;
-    yOffset?: string;
-    xOffset?: string;
   }
 >();
 
@@ -89,6 +85,7 @@ onMounted(() => {
       swipeEasing: true,
     })
   );
+  console.log(ps.value);
   scrollEvents.forEach((name) => {
     containerRef.value?.addEventListener(name as any, () => emits(name as any, ps.value as any));
   });
@@ -112,15 +109,4 @@ onUnmounted(() => {
     <slot />
   </div>
 </template>
-
-<style lang="css">
-.rui-ps-scroll-area {
-  & .ps__rail-y {
-    right: v-bind(yOffset) !important;
-  }
-  & .ps__rail-x {
-    bottom: v-bind(xOffset) !important;
-  }
-}
-</style>
 
