@@ -1,16 +1,19 @@
 @layer components {
   .rui-input {
-    @apply bg-transparent border-h55 text-hbb transition-colors;
-    @apply hover:border-h66 focus:border-rz-green;
-    @apply data-[state=focused]:border-rz-green 
-      data-[state=focused]:hover:border-rz-green 
+    --default-border-color: var(--color-h55);
+    --hover-border-color: var(--color-h66);
+    --focus-border-color: var(--color-rz-green);
+    @apply bg-transparent border-(--default-border-color) text-hbb transition-colors;
+    @apply hover:border-(--hover-border-color) focus:border-(--focus-border-color);
+    @apply data-[state=focused]:border-(--focus-border-color) 
+      data-[state=focused]:hover:border-(--focus-border-color) 
         data-[state=focused]:ring-2
-        data-[state=focused]:ring-rz-green/30;
-    @apply data-[state=disabled]:hover:border-h55 data-[state=disabled]:bg-h1d;
+        data-[state=focused]:ring-(--focus-border-color)/30;
+    @apply data-[state=disabled]:hover:border-(--default-border-color) data-[state=disabled]:bg-h1d;
     @apply data-[state=readonly]:bg-h1d;
 
     &[data-focused] {
-      @apply border-rz-green hover:border-rz-green ring-2 ring-rz-green/30;
+      @apply border-(--focus-border-color) hover:border-(--focus-border-color) ring-2 ring-(--focus-border-color)/30;
     }
   }
 
