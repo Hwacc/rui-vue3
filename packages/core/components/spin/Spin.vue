@@ -70,13 +70,13 @@ watch(
   { immediate: true }
 );
 
-const curInstance = getCurrentInstance();
+const vm = getCurrentInstance()?.proxy;
 let parentPosition = document?.body?.style?.position ?? '';
 function updateParentStyle() {
   if (isFullscreen.value) {
     document.body.style.position = isVisible.value ? 'relative' : parentPosition;
   } else {
-    const parent = curInstance?.proxy?.$el?.parentElement;
+    const parent = vm?.$el?.parentElement;
     if (parent) {
       parent.style.position = isVisible.value ? 'relative' : parentPosition;
     }
@@ -88,7 +88,7 @@ onMounted(() => {
   if (isFullscreen.value) {
     parentPosition = document.body.style.position;
   } else {
-    const parent = curInstance?.proxy?.$el?.parentElement;
+    const parent = vm?.$el?.parentElement;
     if (parent) {
       parentPosition = parent.style.position;
     }
