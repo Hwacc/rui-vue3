@@ -41,7 +41,6 @@ export default defineComponent({
 
     const { base, close, closeIcon } = tvValue();
     return () => {
-      console.log('unstyled', unstyled?.value);
       return (
         <RekaSelectValue
           class={base({
