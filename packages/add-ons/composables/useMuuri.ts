@@ -78,8 +78,8 @@ export function useMuuri<T>(
   list: MaybeRef<T[]>,
   options?: UseMuuriOpitons
 ): {
-  start: () => void;
-  stop: () => void;
+  start: () => void
+  stop: () => void
   grid: ShallowRef<Grid | null>
 }
 
@@ -88,8 +88,8 @@ export function useMuuri<T>(
   list: MaybeRef<T[]>,
   options?: UseMuuriOpitons,
 ): {
-  start: () => void;
-  stop: () => void;
+  start: () => void
+  stop: () => void
   grid: ShallowRef<Grid | null>
 }
 
@@ -98,10 +98,10 @@ export function useMuuri<T>(
  * because in some env, we cannot get 'drag' event
  * Notice: useMuuri MUST comply with muuri css rules see: https://docs.muuri.dev/getting-started.html#_4-add-the-styles
  * Thanks to muuri.js
- * @param el 
- * @param list 
- * @param options 
- * @returns 
+ * @param el
+ * @param list
+ * @param options
+ * @returns
  */
 export function useMuuri<T>(
   el: MaybeRefOrGetter<MaybeElement> | string,
@@ -172,7 +172,7 @@ export function useMuuri<T>(
       },
     },
     onMove: (data) => {
-      const {fromIndex, toIndex} = data
+      const { fromIndex, toIndex } = data
       const _valueIsRef = isRef(list)
       // When the list is a ref, make a shallow copy of it to avoid repeatedly triggering side effects when moving elements
       const array = _valueIsRef ? [...toValue(list)] : toValue(list)
