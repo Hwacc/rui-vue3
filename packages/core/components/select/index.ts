@@ -1,21 +1,32 @@
-import type { VariantProps } from 'tailwind-variants'
-import { PREFIX } from '@rui/core/lib/constants'
-import { tv } from '@rui/core/lib/tv'
+import type { VariantProps } from 'tailwind-variants';
+import { PREFIX } from '@rui/core/lib/constants';
+import { tv } from '@rui/core/lib/tv';
 
-export { default as Select } from './Select.vue'
-export { default as SelectContent } from './SelectContent.vue'
-export { default as SelectItem } from './SelectItem.vue'
-export { default as SelectLabel } from './SelectLabel.vue'
-export { default as SelectMouseTrigger } from './SelectMouseTrigger.vue'
-export { default as SelectScrollDownButton } from './SelectScrollDownButton.vue'
-export { default as SelectScrollUpButton } from './SelectScrollUpButton.vue'
-export { default as SelectSeparator } from './SelectSeparator.vue'
-export { default as SelectTrigger } from './SelectTrigger.vue'
-export { default as SelectValue } from './SelectValue.vue'
+export { default as Select } from './Select.vue';
+export { default as SelectContent } from './SelectContent.vue';
+export { default as SelectItem } from './SelectItem.vue';
+export { default as SelectLabel } from './SelectLabel.vue';
+export { default as SelectMouseTrigger } from './SelectMouseTrigger.vue';
+export { default as SelectScrollDownButton } from './SelectScrollDownButton.vue';
+export { default as SelectScrollUpButton } from './SelectScrollUpButton.vue';
+export { default as SelectSeparator } from './SelectSeparator.vue';
+export { default as SelectTrigger } from './SelectTrigger.vue';
+export { default as SelectValue } from './SelectValue.vue';
 
-export { SelectGroup, SelectItemText } from 'reka-ui'
+export { SelectGroup, SelectItemText } from 'reka-ui';
 
-const prefix = `${PREFIX}-select`
+export { injectSelectRootContextEx } from './selectRootContextEx';
+
+const prefix = `${PREFIX}-select`;
+
+export const tvSelect = tv(
+  {
+    base: '',
+  },
+  {
+    class: prefix,
+  }
+);
 
 export const tvTrigger = tv(
   {
@@ -79,9 +90,9 @@ export const tvTrigger = tv(
       icon: `${prefix}-trigger-icon`,
       triangle: `${prefix}-trigger-triangle`,
     },
-  },
-)
-export type SelectTriggerVariants = VariantProps<typeof tvTrigger>
+  }
+);
+export type SelectTriggerVariants = VariantProps<typeof tvTrigger>;
 
 export const tvContent = tv(
   {
@@ -108,9 +119,9 @@ export const tvContent = tv(
       wrapper: `${prefix}-wrapper`,
       content: `${prefix}-content`,
     },
-  },
-)
-export type SelectContentVariants = VariantProps<typeof tvContent>
+  }
+);
+export type SelectContentVariants = VariantProps<typeof tvContent>;
 
 export const tvItem = tv(
   {
@@ -153,9 +164,9 @@ export const tvItem = tv(
       indicator: `${prefix}-item-indicator`,
       text: `${prefix}-item-text`,
     },
-  },
-)
-export type SelectItemVariants = VariantProps<typeof tvItem>
+  }
+);
+export type SelectItemVariants = VariantProps<typeof tvItem>;
 
 export const tvLabel = tv(
   {
@@ -169,8 +180,8 @@ export const tvLabel = tv(
   },
   {
     class: `${prefix}-label`,
-  },
-)
+  }
+);
 
 export const tvValue = tv(
   {
@@ -193,8 +204,8 @@ export const tvValue = tv(
       close: `${prefix}-value-close`,
       closeIcon: `${prefix}-value-close-icon`,
     },
-  },
-)
+  }
+);
 
 export const tvSeparator = tv(
   {
@@ -202,8 +213,8 @@ export const tvSeparator = tv(
   },
   {
     class: `${prefix}-separator`,
-  },
-)
+  }
+);
 
 export const tvScrollButton = tv(
   {
@@ -217,6 +228,6 @@ export const tvScrollButton = tv(
   },
   {
     class: `${prefix}-scroll-button`,
-  },
-)
-export type SelectScrollButtonVariants = VariantProps<typeof tvScrollButton>
+  }
+);
+export type SelectScrollButtonVariants = VariantProps<typeof tvScrollButton>;

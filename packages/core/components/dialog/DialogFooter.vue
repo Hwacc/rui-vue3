@@ -1,47 +1,60 @@
 <script setup lang="ts">
-import type { HTMLAttributes } from 'vue'
-import { Button } from '@rui/core/components/button'
-import { DialogClose, DialogCloseFrom, tvDialog } from '.'
+import type { HTMLAttributes } from 'vue';
+import { Button, type ButtonProps } from '@rui/core/components/button';
+import { DialogClose, DialogCloseFrom, tvDialog } from '.';
+import { cn } from '@rui/core/lib/utils';
 
 const {
   class: propsClass,
   unstyled,
-  cancelText = 'Cancel',
-  okText = 'OK',
+  ui,
 } = defineProps<{
-  class?: HTMLAttributes['class']
-  unstyled?: boolean
-  cancelText?: string
-  okText?: string
-}>()
+  class?: HTMLAttributes['class'];
+  unstyled?: boolean;
+  ui?: {
+    root?: HTMLAttributes['class'];
+    cancel?: {
+      class?: HTMLAttributes['class'];
+      text?: string;
+      props?: ButtonProps;
+    };
+    ok?: {
+      class?: HTMLAttributes['class'];
+      text?: string;
+      props?: ButtonProps;
+    };
+  };
+}>();
 const emits = defineEmits<{
-  ok: []
-  cancel: []
-}>()
+  ok: [];
+  cancel: [];
+}>();
 
-const { footer } = tvDialog()
+const { footer } = tvDialog();
 </script>
 
 <template>
-  <div :class="footer({ unstyled, class: propsClass })">
+  <div :class="footer({ unstyled, class: [ui?.root, propsClass] })">
     <slot>
       <DialogClose :close-from="DialogCloseFrom.CancelButton">
         <Button
-          class="min-w-22.5 uppercase"
+          :class="cn('min-w-22.5 uppercase', ui?.cancel?.class)"
           variant="text"
           size="sm"
+          v-bind="ui?.cancel?.props"
           @click="() => emits('cancel')"
         >
-          {{ cancelText }}
+          {{ ui?.cancel?.text || 'Cancel' }}
         </Button>
       </DialogClose>
       <DialogClose :close-from="DialogCloseFrom.OKButton">
         <Button
-          class="min-w-22.5 uppercase"
+          :class="cn('min-w-22.5 uppercase', ui?.ok?.class)"
           size="sm"
+          v-bind="ui?.ok?.props"
           @click="() => emits('ok')"
         >
-          {{ okText }}
+          {{ ui?.ok?.text || 'OK' }}
         </Button>
       </DialogClose>
     </slot>
