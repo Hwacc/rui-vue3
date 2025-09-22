@@ -18,11 +18,12 @@ const forwarded = useForwardPropsEmits(props, emits);
 
 <template>
   <DialogRoot
+    v-slot="{ open, close }"
     v-bind="forwarded"
     :class="root({ unstyled, class: propsClass })"
   >
     <DialogProvider>
-      <slot />
+      <slot v-bind="{ open, close }" />
     </DialogProvider>
   </DialogRoot>
 </template>
