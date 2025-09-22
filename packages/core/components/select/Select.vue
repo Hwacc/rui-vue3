@@ -21,9 +21,9 @@ const forwarded = useForwardPropsEmits(props, emits)
 </script>
 
 <template>
-  <SelectRoot v-bind="forwarded">
+  <SelectRoot v-bind="forwarded" v-slot="slotProps">
     <MenuTransfer :class="tvSelect({ class: propsClass, unstyled })">
-      <slot />
+      <slot v-bind="slotProps" />
     </MenuTransfer>
   </SelectRoot>
 </template>
