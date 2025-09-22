@@ -11,6 +11,7 @@ const {
   class: propsClass,
   side = 'bottom',
   align = 'start',
+  positionStrategy = 'absolute',
   unstyled,
   ui,
   ...props
@@ -34,13 +35,14 @@ const {
 
 const emits = defineEmits<DropdownMenuContentEmits>()
 
-const {rootElement} = injectDropdownMenuRootContextEx()
+const { rootElement } = injectDropdownMenuRootContextEx()
 
 const { wrapper, content } = tvContent()
 const forwarded = useForwardPropsEmits(
   {
     side,
     align,
+    positionStrategy,
     ...props,
   },
   emits,

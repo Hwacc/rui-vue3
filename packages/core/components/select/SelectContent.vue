@@ -6,7 +6,12 @@ import { PopoverContentMotion } from '@rui/core/components/motion/PopoverContent
 import { cn, rem2px } from '@rui/core/lib/utils'
 import { AnimatePresence } from 'motion-v'
 import { SelectContent, SelectPortal, SelectViewport, useForwardPropsEmits } from 'reka-ui'
-import { injectSelectRootContextEx, SelectScrollDownButton, SelectScrollUpButton, tvContent } from '.'
+import {
+  injectSelectRootContextEx,
+  SelectScrollDownButton,
+  SelectScrollUpButton,
+  tvContent,
+} from '.'
 
 defineOptions({
   inheritAttrs: false,
@@ -20,6 +25,7 @@ const {
   align = 'start',
   sideOffset = rem2px(0.5),
   asChild = false,
+  positionStrategy = 'absolute',
   unstyled,
   ui,
   ...props
@@ -57,10 +63,13 @@ const forwarded = useForwardPropsEmits(props, emits)
 </script>
 
 <template>
-  <SelectPortal :to="rootElement" v-bind="ui?.portal?.props">
+  <SelectPortal
+    :to="rootElement"
+    v-bind="ui?.portal?.props"
+  >
     <AnimatePresence>
       <SelectContent
-        v-bind="{ ...forwarded, position, side, align, sideOffset, ...$attrs }"
+        v-bind="{ ...forwarded, position, side, align, sideOffset, positionStrategy, ...$attrs }"
         :class="
           wrapper({
             unstyled,

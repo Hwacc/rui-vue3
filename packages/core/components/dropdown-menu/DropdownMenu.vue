@@ -1,9 +1,10 @@
 <script lang="tsx" setup>
-import type { DropdownMenuRootProps, DropdownMenuRootEmits } from 'reka-ui';
-import { useForwardPropsEmits, DropdownMenuRoot } from 'reka-ui';
-import { defineComponent, HTMLAttributes, PropType, ref } from 'vue';
-import { tvDropdownMenu } from '.';
-import { provideDropdownMenuRootContextEx } from './DropdownMenuRootContextEx';
+import type { DropdownMenuRootEmits, DropdownMenuRootProps } from 'reka-ui'
+import type { HTMLAttributes, PropType } from 'vue'
+import { DropdownMenuRoot, useForwardPropsEmits } from 'reka-ui'
+import { defineComponent, ref } from 'vue'
+import { tvDropdownMenu } from '.'
+import { provideDropdownMenuRootContextEx } from './DropdownMenuRootContextEx'
 
 const {
   class: propsClass,
@@ -11,13 +12,13 @@ const {
   ...props
 } = defineProps<
   DropdownMenuRootProps & {
-    class?: HTMLAttributes['class'];
-    unstyled?: boolean;
+    class?: HTMLAttributes['class']
+    unstyled?: boolean
   }
->();
+>()
 
-const emits = defineEmits<DropdownMenuRootEmits>();
-const forwarded = useForwardPropsEmits(props, emits);
+const emits = defineEmits<DropdownMenuRootEmits>()
+const forwarded = useForwardPropsEmits(props, emits)
 </script>
 
 <script lang="tsx">
@@ -34,10 +35,10 @@ const DropdownMenu = defineComponent({
     },
   },
   setup(subProps, { slots: subSlots }) {
-    const rootElement = ref<HTMLElement | undefined>(undefined);
+    const rootElement = ref<HTMLElement | undefined>(undefined)
     provideDropdownMenuRootContextEx({
       rootElement,
-    });
+    })
     return () => {
       return (
         <div
@@ -46,10 +47,10 @@ const DropdownMenu = defineComponent({
         >
           {subSlots.default?.()}
         </div>
-      );
-    };
+      )
+    }
   },
-});
+})
 </script>
 
 <template>
