@@ -5,7 +5,7 @@ import type { ComponentProps } from 'vue-component-type-helpers'
 import { PopoverContentMotion } from '@rui/core/components/motion/PopoverContentMotion'
 import { AnimatePresence } from 'motion-v'
 import { DropdownMenuContent, DropdownMenuPortal, useForwardPropsEmits } from 'reka-ui'
-import { tvContent } from '.'
+import { injectDropdownMenuRootContextEx, tvContent } from '.'
 
 const {
   class: propsClass,
@@ -34,6 +34,8 @@ const {
 
 const emits = defineEmits<DropdownMenuContentEmits>()
 
+const {rootElement} = injectDropdownMenuRootContextEx()
+
 const { wrapper, content } = tvContent()
 const forwarded = useForwardPropsEmits(
   {
@@ -46,7 +48,7 @@ const forwarded = useForwardPropsEmits(
 </script>
 
 <template>
-  <DropdownMenuPortal v-bind="ui?.portal?.props">
+  <DropdownMenuPortal :to="rootElement" v-bind="ui?.portal?.props">
     <AnimatePresence>
       <DropdownMenuContent
         v-bind="forwarded"

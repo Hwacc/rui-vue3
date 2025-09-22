@@ -1,27 +1,28 @@
 <script lang="tsx" setup>
-import type { SelectRootEmits, SelectRootProps } from 'reka-ui';
-import { SelectRoot, useForwardPropsEmits } from 'reka-ui';
-import { tvSelect } from '.';
+import type { DropdownMenuRootProps, DropdownMenuRootEmits } from 'reka-ui';
+import { useForwardPropsEmits, DropdownMenuRoot } from 'reka-ui';
 import { defineComponent, HTMLAttributes, PropType, ref } from 'vue';
-import { provideSelectRootContextEx } from './SelectRootContextEx';
+import { tvDropdownMenu } from '.';
+import { provideDropdownMenuRootContextEx } from './DropdownMenuRootContextEx';
 
 const {
   class: propsClass,
   unstyled,
   ...props
 } = defineProps<
-  SelectRootProps & {
+  DropdownMenuRootProps & {
     class?: HTMLAttributes['class'];
     unstyled?: boolean;
   }
 >();
-const emits = defineEmits<SelectRootEmits>();
+
+const emits = defineEmits<DropdownMenuRootEmits>();
 const forwarded = useForwardPropsEmits(props, emits);
 </script>
 
 <script lang="tsx">
-const Select = defineComponent({
-  name: 'Select',
+const DropdownMenu = defineComponent({
+  name: 'DropdownMenu',
   props: {
     class: {
       type: [String, Object, Array] as PropType<HTMLAttributes['class']>,
@@ -34,14 +35,14 @@ const Select = defineComponent({
   },
   setup(subProps, { slots: subSlots }) {
     const rootElement = ref<HTMLElement | undefined>(undefined);
-    provideSelectRootContextEx({
+    provideDropdownMenuRootContextEx({
       rootElement,
     });
     return () => {
       return (
         <div
           ref={rootElement}
-          class={tvSelect({ class: subProps.class, unstyled: subProps.unstyled })}
+          class={tvDropdownMenu({ class: subProps.class, unstyled: subProps.unstyled })}
         >
           {subSlots.default?.()}
         </div>
@@ -52,12 +53,12 @@ const Select = defineComponent({
 </script>
 
 <template>
-  <SelectRoot v-bind="forwarded">
-    <Select
+  <DropdownMenuRoot v-bind="forwarded">
+    <DropdownMenu
       :class="propsClass"
       :unstyled="unstyled"
     >
       <slot />
-    </Select>
-  </SelectRoot>
+    </DropdownMenu>
+  </DropdownMenuRoot>
 </template>

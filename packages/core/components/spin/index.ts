@@ -9,7 +9,7 @@ export const prefix = `${PREFIX}-spin`
 
 export const tvSpin = tv({
   slots: {
-    root: 'relative size-full',
+    root: 'absolute inset-0',
     mask: ['absolute', 'top-0', 'left-0', 'size-full'],
     indicator:  [
       'absolute',

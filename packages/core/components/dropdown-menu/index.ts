@@ -1,30 +1,41 @@
-import { PREFIX } from '@rui/core/lib/constants'
-import { tv } from '@rui/core/lib/tv'
+import { PREFIX } from '@rui/core/lib/constants';
+import { tv } from '@rui/core/lib/tv';
 
-export { default as DropdownMenuCheckboxItem } from './DropdownMenuCheckboxItem.vue'
-export { default as DropdownMenuContent } from './DropdownMenuContent.vue'
-export { default as DropdownMenuItem } from './DropdownMenuItem.vue'
-export { default as DropdownMenuLabel } from './DropdownMenuLabel.vue'
-export { default as DropdownMenuRadioItem } from './DropdownMenuRadioItem.vue'
-export { default as DropdownMenuSeparator } from './DropdownMenuSeparator.vue'
-export { default as DropdownMenuShortcut } from './DropdownMenuShortcut.vue'
-export { default as DropdownMenuSubContent } from './DropdownMenuSubContent.vue'
-export { default as DropdownMenuSubTrigger } from './DropdownMenuSubTrigger.vue'
-export { default as DropdownMenuTrigger } from './DropdownMenuTrigger.vue'
+export { default as DropdownMenu } from './DropdownMenu.vue';
+export { default as DropdownMenuCheckboxItem } from './DropdownMenuCheckboxItem.vue';
+export { default as DropdownMenuContent } from './DropdownMenuContent.vue';
+export { default as DropdownMenuItem } from './DropdownMenuItem.vue';
+export { default as DropdownMenuLabel } from './DropdownMenuLabel.vue';
+export { default as DropdownMenuRadioItem } from './DropdownMenuRadioItem.vue';
+export { default as DropdownMenuSeparator } from './DropdownMenuSeparator.vue';
+export { default as DropdownMenuShortcut } from './DropdownMenuShortcut.vue';
+export { default as DropdownMenuSubContent } from './DropdownMenuSubContent.vue';
+export { default as DropdownMenuSubTrigger } from './DropdownMenuSubTrigger.vue';
+export { default as DropdownMenuTrigger } from './DropdownMenuTrigger.vue';
 
 export {
-  DropdownMenuRoot as DropdownMenu,
   DropdownMenuGroup,
   DropdownMenuPortal,
   DropdownMenuRadioGroup,
   DropdownMenuSub,
-} from 'reka-ui'
+} from 'reka-ui';
 export type {
   DropdownMenuRootEmits as DropdownMenuEmits,
   DropdownMenuRootProps as DropdownMenuProps,
-} from 'reka-ui'
+} from 'reka-ui';
 
-const prefix = `${PREFIX}-dropdown-menu`
+export { injectDropdownMenuRootContextEx } from './DropdownMenuRootContextEx';
+
+const prefix = `${PREFIX}-dropdown-menu`;
+
+export const tvDropdownMenu = tv(
+  {
+    base: '',
+  },
+  {
+    class: prefix,
+  }
+);
 
 export const tvTrigger = tv(
   {
@@ -32,8 +43,8 @@ export const tvTrigger = tv(
   },
   {
     class: `${prefix}-trigger`,
-  },
-)
+  }
+);
 
 export const tvContent = tv(
   {
@@ -55,8 +66,8 @@ export const tvContent = tv(
       wrapper: `${prefix}-wrapper`,
       content: `${prefix}-content`,
     },
-  },
-)
+  }
+);
 
 export const tvItem = tv(
   {
@@ -86,8 +97,8 @@ export const tvItem = tv(
   },
   {
     class: `${prefix}-item`,
-  },
-)
+  }
+);
 
 export const tvItemRadio = tv(
   {
@@ -112,8 +123,8 @@ export const tvItemRadio = tv(
     slots: {
       indicator: `${prefix}-item-radio-indicator`,
     },
-  },
-)
+  }
+);
 
 export const tvItemCheckbox = tv(
   {
@@ -138,8 +149,8 @@ export const tvItemCheckbox = tv(
     slots: {
       indicator: `${prefix}-item-checkbox-indicator`,
     },
-  },
-)
+  }
+);
 
 export const tvSubTrigger = tv(
   {
@@ -157,8 +168,8 @@ export const tvSubTrigger = tv(
   },
   {
     class: `${prefix}-sub-trigger`,
-  },
-)
+  }
+);
 
 export const tvSubContent = tv(
   {
@@ -169,8 +180,8 @@ export const tvSubContent = tv(
       wrapper: `${prefix}-wrapper ${prefix}-sub-wrapper`,
       content: `${prefix}-content ${prefix}-sub-content`,
     },
-  },
-)
+  }
+);
 
 export const tvLabel = tv(
   {
@@ -183,8 +194,8 @@ export const tvLabel = tv(
   },
   {
     class: `${prefix}-label`,
-  },
-)
+  }
+);
 
 export const tvSeparator = tv(
   {
@@ -192,5 +203,5 @@ export const tvSeparator = tv(
   },
   {
     class: `${prefix}-separator`,
-  },
-)
+  }
+);

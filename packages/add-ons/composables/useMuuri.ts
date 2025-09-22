@@ -191,6 +191,7 @@ export function useMuuri<T>(
 
   const start = () => {
     const _options = { ..._defaultOptions, ...omit(options ?? {}, ['onMove']) }
+    if(!unref(el)) return
     grid.value = new Grid(unref(el), _options)
     const _events = pickBy(_options, (_, key) => key.startsWith('on'))
     if (!isEmpty(_events)) {

@@ -3,10 +3,10 @@ import type { SelectContentEmits, SelectContentProps } from 'reka-ui'
 import type { HTMLAttributes } from 'vue'
 import type { ComponentProps } from 'vue-component-type-helpers'
 import { PopoverContentMotion } from '@rui/core/components/motion/PopoverContentMotion'
-import { cn } from '@rui/core/lib/utils'
+import { cn, rem2px } from '@rui/core/lib/utils'
 import { AnimatePresence } from 'motion-v'
 import { SelectContent, SelectPortal, SelectViewport, useForwardPropsEmits } from 'reka-ui'
-import { SelectScrollDownButton, SelectScrollUpButton, tvContent } from '.'
+import { injectSelectRootContextEx, SelectScrollDownButton, SelectScrollUpButton, tvContent } from '.'
 
 defineOptions({
   inheritAttrs: false,
@@ -18,6 +18,7 @@ const {
   scrollButton = false,
   side = 'bottom',
   align = 'start',
+  sideOffset = rem2px(0.5),
   asChild = false,
   unstyled,
   ui,
@@ -48,16 +49,18 @@ const {
   }
 >()
 const emits = defineEmits<SelectContentEmits>()
+// default portal to select root element
+const { rootElement } = injectSelectRootContextEx()
 
 const { wrapper, content } = tvContent()
 const forwarded = useForwardPropsEmits(props, emits)
 </script>
 
 <template>
-  <SelectPortal v-bind="ui?.portal?.props">
+  <SelectPortal :to="rootElement" v-bind="ui?.portal?.props">
     <AnimatePresence>
       <SelectContent
-        v-bind="{ ...forwarded, position, side, align, ...$attrs }"
+        v-bind="{ ...forwarded, position, side, align, sideOffset, ...$attrs }"
         :class="
           wrapper({
             unstyled,
@@ -88,7 +91,7 @@ const forwarded = useForwardPropsEmits(props, emits)
             v-else
             :class="
               cn(
-                'w-full max-h-46 overflow-y-scroll webkit-small-scrollbar-self',
+                'w-full max-h-46 overflow-y-auto webkit-small-scrollbar-self',
                 ui?.content?.innerClass,
               )
             "

@@ -2,7 +2,7 @@
 import type { HTMLAttributes, VNode } from 'vue';
 import type { SpinVariants } from '.';
 import { Primitive } from 'reka-ui';
-import { computed, inject, onBeforeUnmount, onMounted, ref, watch } from 'vue';
+import { computed, getCurrentInstance, inject, onBeforeUnmount, onMounted, ref, watch } from 'vue';
 import { tvSpin } from '.';
 
 const {
@@ -70,13 +70,32 @@ watch(
   { immediate: true }
 );
 
-const { root, mask, indicator, text } = tvSpin();
+const vm = getCurrentInstance()?.proxy;
+let parentPosition = document?.body?.style?.position ?? '';
+function updateParentStyle() {
+  if (isFullscreen.value) {
+    document.body.style.position = isVisible.value ? 'relative' : parentPosition;
+  } else {
+    const parent = vm?.$el?.parentElement;
+    if (parent) {
+      parent.style.position = isVisible.value ? 'relative' : parentPosition;
+    }
+  }
+}
+watch(isVisible, () => updateParentStyle());
 
 onMounted(() => {
   if (isFullscreen.value) {
-    document.body.style.position = 'relative';
+    parentPosition = document.body.style.position;
+  } else {
+    const parent = vm?.$el?.parentElement;
+    if (parent) {
+      parentPosition = parent.style.position;
+    }
   }
+  updateParentStyle();
 });
+
 onBeforeUnmount(() => {
   if (timeoutId) {
     clearTimeout(timeoutId);
@@ -85,6 +104,8 @@ onBeforeUnmount(() => {
     document.body.style.position = '';
   }
 });
+
+const { root, mask, indicator, text } = tvSpin();
 </script>
 
 <template>
