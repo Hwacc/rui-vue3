@@ -1,7 +1,6 @@
 import { AcceptableValue, createContext, injectSelectRootContext } from 'reka-ui';
 import { Ref } from 'vue';
 
-type Direction = 'ltr' | 'rtl';
 interface SelectOption {
   value: any;
   disabled?: boolean;
@@ -44,6 +43,7 @@ const provideSelectRootContextEx = ({
   rootElement: Ref<HTMLElement | undefined>;
 }) => {
   const rootContext = injectSelectRootContext();
+  console.log('root contextt', rootContext);
   provide({
     ...rootContext,
     rootElement,

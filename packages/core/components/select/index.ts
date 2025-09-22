@@ -15,7 +15,7 @@ export { default as SelectValue } from './SelectValue.vue';
 
 export { SelectGroup, SelectItemText } from 'reka-ui';
 
-export { injectSelectRootContextEx } from './selectRootContextEx';
+export { injectSelectRootContextEx } from './SelectRootContextEx';
 
 const prefix = `${PREFIX}-select`;
 
