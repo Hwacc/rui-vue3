@@ -35,7 +35,7 @@ const position = ref<string>('top')
             Open Dropdown
           </Button>
         </DropdownMenuTrigger>
-        <DropdownMenuContent position-strategy="absolute">
+        <DropdownMenuContent>
           <DropdownMenuLabel>My Account</DropdownMenuLabel>
           <DropdownMenuSeparator />
           <DropdownMenuItem>Profile</DropdownMenuItem>

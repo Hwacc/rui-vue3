@@ -7,7 +7,6 @@ export { default as SelectContent } from './SelectContent.vue'
 export { default as SelectItem } from './SelectItem.vue'
 export { default as SelectLabel } from './SelectLabel.vue'
 export { default as SelectMouseTrigger } from './SelectMouseTrigger.vue'
-export { injectSelectRootContextEx } from './SelectRootContextEx'
 export { default as SelectScrollDownButton } from './SelectScrollDownButton.vue'
 export { default as SelectScrollUpButton } from './SelectScrollUpButton.vue'
 export { default as SelectSeparator } from './SelectSeparator.vue'
@@ -21,7 +20,13 @@ const prefix = `${PREFIX}-select`
 
 export const tvSelect = tv(
   {
-    base: 'reactive',
+    base: '',
+    variants: {
+      positionStrategy: {
+        absolute: 'relative',
+        fixed: '',
+      },
+    },
   },
   {
     class: prefix,

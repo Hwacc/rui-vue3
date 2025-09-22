@@ -5,13 +5,14 @@ import type { ComponentProps } from 'vue-component-type-helpers'
 import { PopoverContentMotion } from '@rui/core/components/motion/PopoverContentMotion'
 import { AnimatePresence } from 'motion-v'
 import { DropdownMenuContent, DropdownMenuPortal, useForwardPropsEmits } from 'reka-ui'
-import { injectDropdownMenuRootContextEx, tvContent } from '.'
+import { watch } from 'vue'
+import { tvContent } from '.'
+import { injectMenuTransferContext } from '../menu-transfer'
 
 const {
   class: propsClass,
   side = 'bottom',
   align = 'start',
-  positionStrategy = 'absolute',
   unstyled,
   ui,
   ...props
@@ -35,14 +36,20 @@ const {
 
 const emits = defineEmits<DropdownMenuContentEmits>()
 
-const { rootElement } = injectDropdownMenuRootContextEx()
+const { rootElement, positionStrategy: rootPositionStrategy } = injectMenuTransferContext()
+rootPositionStrategy.value = props.positionStrategy ?? 'fixed'
+watch(
+  () => props.positionStrategy,
+  () => {
+    rootPositionStrategy.value = props.positionStrategy ?? 'fixed'
+  },
+)
 
 const { wrapper, content } = tvContent()
 const forwarded = useForwardPropsEmits(
   {
     side,
     align,
-    positionStrategy,
     ...props,
   },
   emits,
@@ -50,7 +57,10 @@ const forwarded = useForwardPropsEmits(
 </script>
 
 <template>
-  <DropdownMenuPortal :to="rootElement" v-bind="ui?.portal?.props">
+  <DropdownMenuPortal
+    :to="props.positionStrategy === 'absolute' ? rootElement : undefined"
+    v-bind="ui?.portal?.props"
+  >
     <AnimatePresence>
       <DropdownMenuContent
         v-bind="forwarded"

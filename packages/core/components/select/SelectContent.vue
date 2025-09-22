@@ -6,12 +6,9 @@ import { PopoverContentMotion } from '@rui/core/components/motion/PopoverContent
 import { cn, rem2px } from '@rui/core/lib/utils'
 import { AnimatePresence } from 'motion-v'
 import { SelectContent, SelectPortal, SelectViewport, useForwardPropsEmits } from 'reka-ui'
-import {
-  injectSelectRootContextEx,
-  SelectScrollDownButton,
-  SelectScrollUpButton,
-  tvContent,
-} from '.'
+import { watch } from 'vue'
+import { SelectScrollDownButton, SelectScrollUpButton, tvContent } from '.'
+import { injectMenuTransferContext } from '../menu-transfer'
 
 defineOptions({
   inheritAttrs: false,
@@ -25,7 +22,6 @@ const {
   align = 'start',
   sideOffset = rem2px(0.5),
   asChild = false,
-  positionStrategy = 'absolute',
   unstyled,
   ui,
   ...props
@@ -56,7 +52,14 @@ const {
 >()
 const emits = defineEmits<SelectContentEmits>()
 // default portal to select root element
-const { rootElement } = injectSelectRootContextEx()
+const { rootElement, positionStrategy: rootPositionStrategy } = injectMenuTransferContext()
+rootPositionStrategy.value = props.positionStrategy ?? 'fixed'
+watch(
+  () => props.positionStrategy,
+  () => {
+    rootPositionStrategy.value = props.positionStrategy ?? 'fixed'
+  },
+)
 
 const { wrapper, content } = tvContent()
 const forwarded = useForwardPropsEmits(props, emits)
@@ -64,7 +67,7 @@ const forwarded = useForwardPropsEmits(props, emits)
 
 <template>
   <SelectPortal
-    :to="rootElement"
+    :to="props.positionStrategy === 'absolute' ? rootElement : undefined"
     v-bind="ui?.portal?.props"
   >
     <AnimatePresence>

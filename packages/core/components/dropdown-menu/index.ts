@@ -7,7 +7,6 @@ export { default as DropdownMenuContent } from './DropdownMenuContent.vue'
 export { default as DropdownMenuItem } from './DropdownMenuItem.vue'
 export { default as DropdownMenuLabel } from './DropdownMenuLabel.vue'
 export { default as DropdownMenuRadioItem } from './DropdownMenuRadioItem.vue'
-export { injectDropdownMenuRootContextEx } from './DropdownMenuRootContextEx'
 export { default as DropdownMenuSeparator } from './DropdownMenuSeparator.vue'
 export { default as DropdownMenuShortcut } from './DropdownMenuShortcut.vue'
 export { default as DropdownMenuSubContent } from './DropdownMenuSubContent.vue'
@@ -30,7 +29,13 @@ const prefix = `${PREFIX}-dropdown-menu`
 
 export const tvDropdownMenu = tv(
   {
-    base: 'relative',
+    base: '',
+    variants: {
+      positionStrategy: {
+        absolute: 'relative',
+        fixed: '',
+      },
+    },
   },
   {
     class: prefix,
