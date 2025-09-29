@@ -2,22 +2,23 @@
 import type { PrimitiveProps } from 'reka-ui'
 import type { HTMLAttributes } from 'vue'
 import type { BadgeVariants } from '.'
-import { cn } from '@rui/core/lib/utils'
 import { Primitive, useForwardProps } from 'reka-ui'
 import { computed } from 'vue'
-import { badgeVariants } from '.'
+import { tvBadge } from '.'
 
 const {
   as,
   variant,
   size = 'base',
   class: propsClass,
+  unstyled,
   ...props
 } = defineProps<
   PrimitiveProps & {
     variant?: BadgeVariants['variant']
     size?: BadgeVariants['size']
     class?: HTMLAttributes['class']
+    unstyled?: boolean
   }
 >()
 
@@ -37,7 +38,7 @@ const forwarded = useForwardProps(props)
   <Primitive
     :as="computedAs"
     v-bind="forwarded"
-    :class="cn(badgeVariants({ variant, size }), propsClass)"
+    :class="tvBadge({ variant, size, unstyled, class: propsClass })"
     :data-variant="variant"
   >
     <slot />

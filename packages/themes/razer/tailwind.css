@@ -69,6 +69,10 @@
   --color-h47: oklch(40.64% 0 0);
 
   /* Text */
+  --text-3xs: 0.5rem;
+  --text-3xs--line-height: 0.625rem;
+  --text-2xs: 0.625rem;
+  --text-2xs--line-height: 0.75rem;
   --text-xs: 0.75rem;
   --text-xs--line-height: 0.875rem;
   --text-sm: 0.875rem;
