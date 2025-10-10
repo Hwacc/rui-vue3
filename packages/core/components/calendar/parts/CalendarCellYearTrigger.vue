@@ -2,6 +2,7 @@
 import type { DateValue } from '@internationalized/date'
 import type { PrimitiveProps } from 'reka-ui'
 import type { HtmlHTMLAttributes } from 'vue'
+import type { CalendarCellTriggerVariants } from '.'
 import { isSameYear } from '@internationalized/date'
 import { usePrimitiveElement } from '@rui/core/composables/usePrimitiveElement'
 import { CalendarPanelEnum } from '@rui/core/lib/constants'
@@ -9,7 +10,7 @@ import { cn } from '@rui/core/lib/utils'
 import { injectCalendarRootContext, Primitive, useForwardProps } from 'reka-ui'
 import { toDate } from 'reka-ui/date'
 import { computed } from 'vue'
-import { calendarCellTriggerVariants } from '.'
+import { tvCalendarCellTrigger } from '.'
 import { injectCalendarContextEx } from '../CalendarProvider'
 import { useCellTriggerKeyControl } from './utils'
 
@@ -17,6 +18,7 @@ export interface CalendarCellTriggerProps extends PrimitiveProps {
   /** The date value provided to the cell trigger */
   date: DateValue
   class?: HtmlHTMLAttributes['class']
+  size?: CalendarCellTriggerVariants['size']
   unstyled?: boolean
 }
 
@@ -27,6 +29,7 @@ export interface CalendarCellTriggerSlot {
 const {
   class: propsClass,
   unstyled,
+  size = 'base',
   as = 'div',
   ...props
 } = defineProps<CalendarCellTriggerProps>()
@@ -78,7 +81,7 @@ const forwarded = useForwardProps(props)
   <Primitive
     ref="primitiveElement"
     v-bind="forwarded"
-    :class="cn(calendarCellTriggerVariants({ unstyled }), propsClass)"
+    :class="tvCalendarCellTrigger({ unstyled, size, class: propsClass })"
     :as="as"
     role="button"
     :aria-label="labelText"

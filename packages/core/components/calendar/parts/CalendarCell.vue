@@ -1,10 +1,9 @@
 <script lang="ts" setup>
 import type { CalendarCellProps } from 'reka-ui'
 import type { HTMLAttributes } from 'vue'
-import type { CalendarCellVariantsProps } from '.'
-import { cn } from '@rui/core/lib/utils'
+import type { CalendarCellVariants } from '.'
 import { CalendarCell, useForwardProps } from 'reka-ui'
-import { calendarCellVariants } from '.'
+import { tvCalendarCell } from '.'
 
 const {
   class: propsClass,
@@ -16,8 +15,8 @@ const {
   CalendarCellProps & {
     class?: HTMLAttributes['class']
     unstyled?: boolean
-    size?: CalendarCellVariantsProps['size']
-    variant?: CalendarCellVariantsProps['variant']
+    size?: CalendarCellVariants['size']
+    variant?: CalendarCellVariants['variant']
   }
 >()
 
@@ -26,7 +25,8 @@ const forwarded = useForwardProps(props)
 
 <template>
   <CalendarCell
-    :class="cn(calendarCellVariants({ size, variant, unstyled }), propsClass)"
+    :class="tvCalendarCell({ size, variant, unstyled, class: propsClass })"
+    :data-variant="variant"
     v-bind="forwarded"
   >
     <slot />

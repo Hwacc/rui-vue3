@@ -1,8 +1,6 @@
 <script setup lang="ts">
-import type { CalendarGridProps } from 'reka-ui'
-import type { CalendarVariantsProps } from '..'
+import type { CalendarPanelProps } from '.'
 import { injectCalendarRootContext } from 'reka-ui'
-import { computed } from 'vue'
 import {
   CalendarCell,
   CalendarCellTrigger,
@@ -13,53 +11,62 @@ import {
   CalendarHeadCell,
 } from '../parts'
 
-const props = defineProps<
-  CalendarGridProps & {
-    size?: CalendarVariantsProps['size']
-    unstyled?: boolean
-  }
->()
-
+const { class: propsClass, size, unstyled, ui } = defineProps<CalendarPanelProps>()
 const { grid, weekDays } = injectCalendarRootContext()
-const variants = computed(() => ({
-  size: props.size,
-  unstyled: props.unstyled,
-}))
 </script>
 
 <template>
   <CalendarGrid
     v-for="month in grid"
     :key="month.value.toString()"
-    v-bind="props"
+    v-bind="ui?.grid"
+    :class="ui?.grid?.class ?? propsClass"
+    :unstyled="ui?.grid?.unstyled ?? unstyled"
   >
-    <CalendarGridHead v-bind="variants">
-      <CalendarGridRow v-bind="variants">
+    <CalendarGridHead
+      v-bind="ui?.head"
+      :unstyled="ui?.head?.unstyled ?? unstyled"
+    >
+      <CalendarGridRow
+        v-bind="ui?.row"
+        :unstyled="ui?.row?.unstyled ?? unstyled"
+      >
         <CalendarHeadCell
           v-for="day in weekDays"
           :key="`head-cell-${day}`"
-          v-bind="variants"
+          v-bind="ui?.headCell"
+          :size="ui?.headCell?.size ?? size"
+          :unstyled="ui?.headCell?.unstyled ?? unstyled"
         >
           {{ day }}
         </CalendarHeadCell>
       </CalendarGridRow>
     </CalendarGridHead>
-    <CalendarGridBody v-bind="variants">
+    <CalendarGridBody
+      v-bind="ui?.body"
+      :unstyled="ui?.body?.unstyled ?? unstyled"
+    >
       <CalendarGridRow
         v-for="(weekDates, index) in month.rows"
         :key="`weekDate-${index}`"
-        v-bind="variants"
+        v-bind="ui?.row"
+        :unstyled="ui?.row?.unstyled ?? unstyled"
       >
         <CalendarCell
           v-for="weekDate in weekDates"
+          v-bind="ui?.bodyCell"
           :key="weekDate.toString()"
           :date="weekDate"
-          v-bind="variants"
+          variant="day"
+          :size="ui?.bodyCell?.size ?? size"
+          :unstyled="ui?.bodyCell?.unstyled ?? unstyled"
         >
           <CalendarCellTrigger
+            v-bind="ui?.bodyCellTrigger"
             :day="weekDate"
             :month="month.value"
-            v-bind="variants"
+            :size="ui?.bodyCellTrigger?.size ?? size"
+            :unstyled="ui?.bodyCellTrigger?.unstyled ?? unstyled"
           />
         </CalendarCell>
       </CalendarGridRow>

@@ -7,12 +7,12 @@ import { prefix } from '.'
 
 const {
   class: propsClass,
-  unstyle,
+  unstyled,
   ...props
 } = defineProps<
   CalendarGridRowProps & {
     class?: HTMLAttributes['class']
-    unstyle?: boolean
+    unstyled?: boolean
   }
 >()
 const forwarded = useForwardProps(props)
@@ -21,7 +21,7 @@ const forwarded = useForwardProps(props)
 <template>
   <CalendarGridRow
     v-bind="forwarded"
-    :class="cn('flex', !unstyle && `${prefix}-grid-row`, propsClass)"
+    :class="cn('flex', !unstyled && `${prefix}-grid-row`, propsClass)"
   >
     <slot />
   </CalendarGridRow>

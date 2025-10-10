@@ -1,9 +1,7 @@
 <script setup lang="ts">
 import type { DateValue } from '@internationalized/date'
-import type { CalendarGridProps } from 'reka-ui'
-import type { CalendarVariantsProps } from '..'
+import type { CalendarPanelProps } from '.'
 import { chunk } from 'lodash-es'
-import { useForwardProps } from 'reka-ui'
 import { createYear } from 'reka-ui/date'
 import { computed } from 'vue'
 import {
@@ -18,43 +16,48 @@ const {
   date,
   size = 'base',
   unstyled,
-  ...props
+  ui,
 } = defineProps<
-  CalendarGridProps & {
+  CalendarPanelProps & {
     date: DateValue
-    size?: CalendarVariantsProps['size']
-    unstyled?: boolean
   }
 >()
 
 const monthGrid = computed(() => {
   return chunk(createYear({ dateObj: date }), 3)
 })
-
-const variants = computed(() => ({
-  size,
-  unstyled,
-  variant: 'month' as any,
-}))
-
-const forwarded = useForwardProps(props)
 </script>
 
 <template>
-  <CalendarGrid v-bind="forwarded">
-    <CalendarGridBody v-bind="variants">
+  <CalendarGrid
+    v-bind="ui?.grid"
+    :unstyled="ui?.grid?.unstyled ?? unstyled"
+  >
+    <CalendarGridBody
+      v-bind="ui?.body"
+      :unstyled="ui?.body?.unstyled ?? unstyled"
+    >
       <CalendarGridRow
         v-for="(quarter, quarterIndex) in monthGrid"
         :key="`quarter-${quarterIndex}`"
-        v-bind="variants"
+        v-bind="ui?.row"
+        :unstyled="ui?.row?.unstyled ?? unstyled"
       >
         <CalendarCell
           v-for="month in quarter"
           :key="month.toString()"
+          v-bind="ui?.bodyCell"
           :date="month"
-          v-bind="variants"
+          variant="month"
+          :size="ui?.bodyCell?.size ?? size"
+          :unstyled="ui?.bodyCell?.unstyled ?? unstyled"
         >
-          <CalendarCellMonthTrigger :date="month" v-bind="variants" />
+          <CalendarCellMonthTrigger
+            v-bind="ui?.bodyCellTrigger"
+            :date="month"
+            :size="ui?.bodyCellTrigger?.size ?? size"
+            :unstyled="ui?.bodyCellTrigger?.unstyled ?? unstyled"
+          />
         </CalendarCell>
       </CalendarGridRow>
     </CalendarGridBody>

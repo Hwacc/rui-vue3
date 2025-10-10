@@ -17,6 +17,7 @@ const {
     class?: HTMLAttributes['class']
     unstyled?: boolean
     variant?: ButtonVariants['variant']
+    size?: ButtonVariants['size']
   }
 >()
 

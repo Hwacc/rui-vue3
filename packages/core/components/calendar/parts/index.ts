@@ -1,6 +1,6 @@
-import type { VariantProps } from '@rui/core/lib/cva'
+import type { VariantProps } from '@rui/core/lib/tv'
 import { PREFIX } from '@rui/core/lib/constants'
-import { cva } from '@rui/core/lib/cva'
+import { tv } from '@rui/core/lib/tv'
 
 export { default as CalendarCell } from './CalendarCell.vue'
 export { default as CalendarCellMonthTrigger } from './CalendarCellMonthTrigger.vue'
@@ -17,17 +17,20 @@ export { default as CalendarNextButton } from './CalendarNextButton.vue'
 export { default as CalendarPrevButton } from './CalendarPrevButton.vue'
 
 export const prefix = `${PREFIX}-calendar`
-export const calendarHeaderVariants = cva(
-  ['relative', 'flex', 'w-full', 'items-center', 'justify-between'],
-  undefined,
+
+export const tvCalendarHeader = tv(
   {
-    className: `${prefix}-header`,
+    base: ['relative', 'flex', 'w-full', 'items-center', 'justify-between'],
+  },
+  {
+    class: `${prefix}-header`,
   },
 )
+export type CalendarHeaderVariantsProps = VariantProps<typeof tvCalendarHeader>
 
-export const calendarHeadingVariants = cva(
-  [],
+export const tvCalendarHeading = tv(
   {
+    base: [],
     variants: {
       size: {
         base: ['text-sm'],
@@ -37,39 +40,50 @@ export const calendarHeadingVariants = cva(
     },
   },
   {
-    className: `${prefix}-heading`,
+    class: `${prefix}-heading`,
   },
 )
-export type CalendarHeadingVariantsProps = VariantProps<
-  typeof calendarHeadingVariants
->
+export type CalendarHeadingVariantsProps = VariantProps<typeof tvCalendarHeading>
 
-export const calendarGridVariants = cva(['w-full'], undefined, {
-  className: `${prefix}-grid`,
-})
+export const tvCalendarGrid = tv(
+  {
+    slots: {
+      base: ['w-full'],
+      head: [],
+      body: [],
+    },
+  },
+  {
+    slots: {
+      base: `${prefix}-grid`,
+      head: `${prefix}-grid-head`,
+      body: `${prefix}-grid-body`,
+    },
+  },
+)
+export type CalendarGridVariants = VariantProps<typeof tvCalendarGrid>
 
 const calendarCellSizes = {
   base: ['size-6', 'text-sm'],
   lg: ['size-8', 'text-base'],
   sm: ['size-5', 'text-xs'],
 }
-export const calendarHeadCellVariants = cva(
-  ['text-center'],
+export const tvCalendarHeadCell = tv(
   {
+    base: ['text-center'],
     variants: {
       size: calendarCellSizes,
     },
   },
   {
-    className: `${prefix}-head-cell`,
+    class: `${prefix}-head-cell`,
   },
 )
-export type CalendarHeadCellVariantsProps = VariantProps<
-  typeof calendarHeadCellVariants
->
-export const calendarCellVariants = cva(
-  ['relative', 'text-center', 'focus-within:relative', 'focus-within:z-20'],
+export type CalendarHeadCellVariants = VariantProps<typeof tvCalendarHeadCell>
+
+export const tvCalendarCell = tv(
   {
+    base: ['relative', 'text-center', 'focus-within:relative', 'focus-within:z-20'],
     variants: {
       size: calendarCellSizes,
       variant: {
@@ -101,16 +115,14 @@ export const calendarCellVariants = cva(
     },
   },
   {
-    className: `${prefix}-cell`,
+    class: `${prefix}-cell`,
   },
 )
-export type CalendarCellVariantsProps = VariantProps<
-  typeof calendarCellVariants
->
+export type CalendarCellVariants = VariantProps<typeof tvCalendarCell>
 
-export const calendarCellTriggerVariants = cva(
-  ['relative size-full flex items-center justify-center', 'cursor-default'],
+export const tvCalendarCellTrigger = tv(
   {
+    base: ['relative size-full flex items-center justify-center', 'cursor-default'],
     variants: {
       size: {
         base: ['text-sm'],
@@ -120,9 +132,7 @@ export const calendarCellTriggerVariants = cva(
     },
   },
   {
-    className: `${prefix}-cell-trigger`,
+    class: `${prefix}-cell-trigger`,
   },
 )
-export type CalendarCellTriggerVariantsProps = VariantProps<
-  typeof calendarCellTriggerVariants
->
+export type CalendarCellTriggerVariants = VariantProps<typeof tvCalendarCellTrigger>

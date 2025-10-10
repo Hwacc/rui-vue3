@@ -3,7 +3,6 @@ import type { CalendarHeadingProps } from 'reka-ui'
 import type { HTMLAttributes } from 'vue'
 import type { CalendarHeadingVariantsProps } from '.'
 import { CalendarPanelEnum } from '@rui/core/lib/constants'
-import { cn } from '@rui/core/lib/utils'
 import {
   CalendarHeading,
   injectCalendarRootContext,
@@ -12,7 +11,7 @@ import {
 } from 'reka-ui'
 import { toDate } from 'reka-ui/date'
 import { computed } from 'vue'
-import { calendarHeadingVariants } from '.'
+import { tvCalendarHeading } from '.'
 import { injectCalendarContextEx } from '..'
 
 const {
@@ -90,7 +89,7 @@ const Heading = computed(() => {
   <CalendarHeading
     v-slot="{ headingValue }"
     v-bind="forwarded"
-    :class="cn(calendarHeadingVariants({ size, unstyled }), propsClass)"
+    :class="tvCalendarHeading({ size, unstyled, class: propsClass })"
   >
     <slot :heading-value="headingValue">
       <Heading />
