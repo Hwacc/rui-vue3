@@ -1,14 +1,14 @@
-import { PREFIX } from '@rui/core/lib/constants';
-import { tv } from '@rui/core/lib/tv';
-import { VariantProps } from 'tailwind-variants';
+import type { VariantProps } from 'tailwind-variants'
+import { PREFIX } from '@rui/core/lib/constants'
+import { tv } from '@rui/core/lib/tv'
 
-export { default as Tabs } from './Tabs.vue';
-export { default as TabsContent } from './TabsContent.vue';
-export { default as TabsIndicator } from './TabsIndicator.vue';
-export { default as TabsList } from './TabsList.vue';
-export { default as TabsTrigger } from './TabsTrigger.vue';
+export { default as Tabs } from './Tabs.vue'
+export { default as TabsContent } from './TabsContent.vue'
+export { default as TabsIndicator } from './TabsIndicator.vue'
+export { default as TabsList } from './TabsList.vue'
+export { default as TabsTrigger } from './TabsTrigger.vue'
 
-const prefix = `${PREFIX}-tabs`;
+const prefix = `${PREFIX}-tabs`
 
 export const tvTabs = tv(
   {
@@ -61,12 +61,12 @@ export const tvTabs = tv(
       },
       {
         slots: ['trigger'],
-        size:'base',
+        size: 'base',
         class: 'px-3.75 py-2.5 text-sm',
       },
       {
         slots: ['trigger'],
-        size:'lg',
+        size: 'lg',
         class: 'px-4.5 py-3 text-base',
       },
       {
@@ -76,7 +76,7 @@ export const tvTabs = tv(
       },
       {
         slots: ['indicator'],
-        size:'lg',
+        size: 'lg',
         class: 'h-1.5',
       },
       {
@@ -88,7 +88,7 @@ export const tvTabs = tv(
         slots: ['content'],
         next: true,
         class: 'data-[state=active]:animate-fade-left',
-      }
+      },
     ],
   },
   {
@@ -99,7 +99,7 @@ export const tvTabs = tv(
       indicator: `${prefix}-indicator`,
       content: `${prefix}-content`,
     },
-  }
-);
+  },
+)
 
-export type TabsVariant = VariantProps<typeof tvTabs>;
+export type TabsVariant = VariantProps<typeof tvTabs>

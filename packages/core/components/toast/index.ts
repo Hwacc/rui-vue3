@@ -1,6 +1,4 @@
-import type { ToastRootProps } from 'reka-ui'
 import type { VariantProps } from 'tailwind-variants'
-import type { HTMLAttributes } from 'vue'
 import { PREFIX } from '@rui/core/lib/constants'
 import { tv } from '@rui/core/lib/tv'
 

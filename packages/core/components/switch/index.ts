@@ -1,6 +1,6 @@
+import type { VariantProps } from 'tailwind-variants'
 import { PREFIX } from '@rui/core/lib/constants'
 import { tv } from '@rui/core/lib/tv'
-import type { VariantProps } from 'tailwind-variants'
 
 export { default as Switch } from './Switch.vue'
 
@@ -27,17 +27,17 @@ export const tvSwitch = tv({
       'origin-center',
       'data-[state=checked]:translate-x-[100%]',
       'data-[state=unchecked]:translate-x-0',
-    ] 
-  }, 
+    ],
+  },
   variants: {
     size: {
       base: '',
       sm: '',
-      lg: ''
-    }
+      lg: '',
+    },
   },
   defaultVariants: {
-    size: 'base'
+    size: 'base',
   },
   compoundSlots: [
     {
@@ -69,13 +69,13 @@ export const tvSwitch = tv({
       size: 'lg',
       slots: ['thumb'],
       class: 'size-4',
-    }
+    },
   ],
 }, {
   slots: {
     root: prefix,
     thumb: `${prefix}-thumb`,
-  }
+  },
 })
 
 export type SwitchVariant = VariantProps<typeof tvSwitch>
