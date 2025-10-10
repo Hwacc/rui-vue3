@@ -29,4 +29,4 @@ export const tvCalendar = tv({
   class: prefix,
 })
 
-export type CalendarVariantsProps = VariantProps<typeof tvCalendar>
+export type CalendarVariants = VariantProps<typeof tvCalendar>

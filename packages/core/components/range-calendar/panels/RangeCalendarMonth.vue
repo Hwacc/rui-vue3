@@ -1,9 +1,7 @@
 <script setup lang="ts">
 import type { DateValue } from '@internationalized/date'
-import type { CalendarVariantsProps } from '@rui/core/components/calendar'
-import type { RangeCalendarGridProps } from 'reka-ui'
+import type { RangeCalendarPanelProps } from '..'
 import { chunk } from 'lodash-es'
-import { useForwardProps } from 'reka-ui'
 import { createYear } from 'reka-ui/date'
 import { computed } from 'vue'
 import {
@@ -18,42 +16,48 @@ const {
   date,
   size = 'base',
   unstyled,
-  ...props
+  ui,
 } = defineProps<
-  RangeCalendarGridProps & {
+  RangeCalendarPanelProps & {
     date: DateValue
-    size?: CalendarVariantsProps['size']
-    unstyled?: boolean
   }
 >()
 
 const monthGrid = computed(() => {
   return chunk(createYear({ dateObj: date }), 3)
 })
-
-const variants = computed(() => ({
-  size,
-  unstyled,
-  variant: 'month' as any,
-}))
-const forwarded = useForwardProps(props)
 </script>
 
 <template>
-  <RangeCalendarGrid v-bind="forwarded">
-    <RangeCalendarGridBody v-bind="variants">
+  <RangeCalendarGrid
+    v-bind="ui?.grid"
+    :unstyled="ui?.grid?.unstyled ?? unstyled"
+  >
+    <RangeCalendarGridBody
+      v-bind="ui?.body"
+      :unstyled="ui?.body?.unstyled ?? unstyled"
+    >
       <RangeCalendarGridRow
         v-for="(quarter, quarterIndex) in monthGrid"
         :key="`quarter-${quarterIndex}`"
-        v-bind="variants"
+        v-bind="ui?.row"
+        :unstyled="ui?.row?.unstyled ?? unstyled"
       >
         <RangeCalendarCell
           v-for="month in quarter"
           :key="month.toString()"
+          v-bind="ui?.bodyCell"
           :date="month"
-          v-bind="variants"
+          variant="month"
+          :size="ui?.bodyCell?.size ?? size"
+          :unstyled="ui?.bodyCell?.unstyled ?? unstyled"
         >
-          <RangeCalendarCellMonthTrigger :date="month" v-bind="variants" />
+          <RangeCalendarCellMonthTrigger
+            v-bind="ui?.bodyCellTrigger"
+            :date="month"
+            :size="ui?.bodyCellTrigger?.size ?? size"
+            :unstyled="ui?.bodyCellTrigger?.unstyled ?? unstyled"
+          />
         </RangeCalendarCell>
       </RangeCalendarGridRow>
     </RangeCalendarGridBody>

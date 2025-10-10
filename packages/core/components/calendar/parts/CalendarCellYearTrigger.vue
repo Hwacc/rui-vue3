@@ -6,7 +6,6 @@ import type { CalendarCellTriggerVariants } from '.'
 import { isSameYear } from '@internationalized/date'
 import { usePrimitiveElement } from '@rui/core/composables/usePrimitiveElement'
 import { CalendarPanelEnum } from '@rui/core/lib/constants'
-import { cn } from '@rui/core/lib/utils'
 import { injectCalendarRootContext, Primitive, useForwardProps } from 'reka-ui'
 import { toDate } from 'reka-ui/date'
 import { computed } from 'vue'
@@ -14,7 +13,7 @@ import { tvCalendarCellTrigger } from '.'
 import { injectCalendarContextEx } from '../CalendarProvider'
 import { useCellTriggerKeyControl } from './utils'
 
-export interface CalendarCellTriggerProps extends PrimitiveProps {
+export interface CalendarYearCellTriggerProps extends PrimitiveProps {
   /** The date value provided to the cell trigger */
   date: DateValue
   class?: HtmlHTMLAttributes['class']
@@ -22,7 +21,7 @@ export interface CalendarCellTriggerProps extends PrimitiveProps {
   unstyled?: boolean
 }
 
-export interface CalendarCellTriggerSlot {
+export interface CalendarYearCellTriggerSlot {
   default: (props: { selected: boolean, yearValue: string }) => any
 }
 
@@ -32,9 +31,9 @@ const {
   size = 'base',
   as = 'div',
   ...props
-} = defineProps<CalendarCellTriggerProps>()
+} = defineProps<CalendarYearCellTriggerProps>()
 
-defineSlots<CalendarCellTriggerSlot>()
+defineSlots<CalendarYearCellTriggerSlot>()
 
 const context = injectCalendarRootContext()
 const contextEx = injectCalendarContextEx()

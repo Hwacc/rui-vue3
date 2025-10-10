@@ -1,7 +1,7 @@
 <script lang="tsx" setup>
 import type { CalendarHeadingProps } from 'reka-ui'
 import type { HTMLAttributes } from 'vue'
-import type { CalendarHeadingVariantsProps } from '.'
+import type { CalendarHeadingVariants } from '.'
 import { CalendarPanelEnum } from '@rui/core/lib/constants'
 import {
   CalendarHeading,
@@ -22,7 +22,7 @@ const {
 } = defineProps<
   CalendarHeadingProps & {
     class?: HTMLAttributes['class']
-    size?: CalendarHeadingVariantsProps['size']
+    size?: CalendarHeadingVariants['size']
     unstyled?: boolean
   }
 >()

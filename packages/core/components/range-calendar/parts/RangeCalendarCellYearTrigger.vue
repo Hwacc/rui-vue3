@@ -1,5 +1,6 @@
 <script lang="ts">
 import type { DateValue } from '@internationalized/date'
+import type { CalendarCellTriggerVariants } from '@rui/core/components/calendar'
 import type { PrimitiveProps } from 'reka-ui'
 import type { HtmlHTMLAttributes } from 'vue'
 import { isSameYear } from '@internationalized/date'
@@ -9,22 +10,22 @@ import { computed } from 'vue'
 import { injectRangeCalendarContextEx } from '../RangeCalendarProvider'
 import { useRangeCellTriggerKeyControl } from './utils'
 
-export interface CalendarCellTriggerProps extends PrimitiveProps {
+export interface RangeCalendarYearCellTriggerProps extends PrimitiveProps {
   /** The date value provided to the cell trigger */
   date: DateValue
   class?: HtmlHTMLAttributes['class']
   unstyled?: boolean
+  size?: CalendarCellTriggerVariants['size']
 }
 
-export interface CalendarCellTriggerSlot {
+export interface RangeCalendarYearCellTriggerSlot {
   default: (props: { selected: boolean, yearValue: string }) => any
 }
 </script>
 
 <script setup lang="ts">
-import { calendarCellTriggerVariants } from '@rui/core/components/calendar'
+import { tvCalendarCellTrigger } from '@rui/core/components/calendar'
 import { usePrimitiveElement } from '@rui/core/composables/usePrimitiveElement'
-import { cn } from '@rui/core/lib/utils'
 import { injectRangeCalendarRootContext, Primitive, useForwardProps } from 'reka-ui'
 
 const {
@@ -32,9 +33,9 @@ const {
   unstyled,
   as = 'div',
   ...props
-} = defineProps<CalendarCellTriggerProps>()
+} = defineProps<RangeCalendarYearCellTriggerProps>()
 
-defineSlots<CalendarCellTriggerSlot>()
+defineSlots<RangeCalendarYearCellTriggerSlot>()
 
 const context = injectRangeCalendarRootContext()
 const contextEx = injectRangeCalendarContextEx()
@@ -95,7 +96,7 @@ const forwarded = useForwardProps(props)
   <Primitive
     ref="primitiveElement"
     v-bind="forwarded"
-    :class="cn(calendarCellTriggerVariants({ unstyled }), propsClass)"
+    :class="tvCalendarCellTrigger({ unstyled, size, class: propsClass })"
     :as="as"
     role="button"
     :aria-label="labelText"

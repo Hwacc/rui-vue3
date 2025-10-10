@@ -43,7 +43,7 @@ export const tvCalendarHeading = tv(
     class: `${prefix}-heading`,
   },
 )
-export type CalendarHeadingVariantsProps = VariantProps<typeof tvCalendarHeading>
+export type CalendarHeadingVariants = VariantProps<typeof tvCalendarHeading>
 
 export const tvCalendarGrid = tv(
   {
@@ -51,6 +51,7 @@ export const tvCalendarGrid = tv(
       base: ['w-full'],
       head: [],
       body: [],
+      row: ['flex'],
     },
   },
   {
@@ -58,6 +59,7 @@ export const tvCalendarGrid = tv(
       base: `${prefix}-grid`,
       head: `${prefix}-grid-head`,
       body: `${prefix}-grid-body`,
+      row: `${prefix}-grid-row`,
     },
   },
 )

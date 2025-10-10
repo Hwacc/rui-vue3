@@ -2,13 +2,13 @@
 import type { CalendarRootEmits, CalendarRootProps, DateValue } from 'reka-ui'
 import type { HTMLAttributes } from 'vue'
 import type { ComponentProps } from 'vue-component-type-helpers'
-import type { CalendarVariantsProps } from '.'
+import type { CalendarVariants } from '.'
 import { CalendarPanelMotion } from '@rui/core/components/motion/CalendarPanelMotion.tsx'
 import { CalendarPanelEnum } from '@rui/core/lib/constants'
 import { cn } from '@rui/core/lib/utils'
 import { AnimatePresence } from 'motion-v'
 import { CalendarRoot, useForwardPropsEmits } from 'reka-ui'
-import { computed, ref } from 'vue'
+import { ref } from 'vue'
 import {
   CalendarDayPanel,
   CalendarHeader,
@@ -30,7 +30,7 @@ const {
 } = defineProps<
   CalendarRootProps & {
     class?: HTMLAttributes['class']
-    size?: CalendarVariantsProps['size']
+    size?: CalendarVariants['size']
     unstyled?: boolean
     ui?: {
       root?: {
@@ -41,6 +41,9 @@ const {
       nextButton?: ComponentProps<typeof CalendarNextButton>
       heading?: ComponentProps<typeof CalendarHeading>
       panelMotion?: ComponentProps<typeof CalendarPanelMotion>
+      dayPanel?: ComponentProps<typeof CalendarDayPanel>
+      monthPanel?: ComponentProps<typeof CalendarMonthPanel>
+      yearPanel?: ComponentProps<typeof CalendarYearPanel>
     }
   }
 >()
@@ -72,7 +75,6 @@ function onNextPage(placeholder: DateValue) {
   }
 }
 
-const variants = computed(() => ({ size, unstyled }))
 const forwarded = useForwardPropsEmits(props, emits)
 </script>
 
@@ -126,7 +128,7 @@ const forwarded = useForwardPropsEmits(props, emits)
             v-bind="ui?.panelMotion"
             :class="cn('w-full', ui?.panelMotion?.class)"
           >
-            <CalendarDayPanel v-bind="variants" />
+            <CalendarDayPanel v-bind="ui?.dayPanel" />
           </CalendarPanelMotion>
           <CalendarPanelMotion
             v-if="panel === CalendarPanelEnum.MONTH"
@@ -134,8 +136,8 @@ const forwarded = useForwardPropsEmits(props, emits)
             :class="cn('w-full', ui?.panelMotion?.class)"
           >
             <CalendarMonthPanel
+              v-bind="ui?.monthPanel"
               :date="date"
-              v-bind="variants"
             />
           </CalendarPanelMotion>
           <CalendarPanelMotion
@@ -144,8 +146,8 @@ const forwarded = useForwardPropsEmits(props, emits)
             :class="cn('w-full', ui?.panelMotion?.class)"
           >
             <CalendarYearPanel
+              v-bind="ui?.yearPanel"
               :date="date"
-              v-bind="variants"
             />
           </CalendarPanelMotion>
         </AnimatePresence>

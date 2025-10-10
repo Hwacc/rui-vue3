@@ -1,9 +1,8 @@
 <script lang="ts" setup>
 import type { CalendarGridRowProps } from 'reka-ui'
 import type { HTMLAttributes } from 'vue'
-import { cn } from '@rui/core/lib/utils'
 import { CalendarGridRow, useForwardProps } from 'reka-ui'
-import { prefix } from '.'
+import { tvCalendarGrid } from '.'
 
 const {
   class: propsClass,
@@ -15,13 +14,15 @@ const {
     unstyled?: boolean
   }
 >()
+
+const { row } = tvCalendarGrid()
 const forwarded = useForwardProps(props)
 </script>
 
 <template>
   <CalendarGridRow
     v-bind="forwarded"
-    :class="cn('flex', !unstyled && `${prefix}-grid-row`, propsClass)"
+    :class="row({ unstyled, class: propsClass })"
   >
     <slot />
   </CalendarGridRow>

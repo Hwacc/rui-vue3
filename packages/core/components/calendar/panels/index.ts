@@ -1,6 +1,15 @@
 import type { HTMLAttributes } from 'vue'
 import type { ComponentProps } from 'vue-component-type-helpers'
-import type { CalendarCell, CalendarCellTrigger, CalendarGrid, CalendarGridBody, CalendarGridHead, CalendarGridRow, CalendarHeadCell, CalendarVariantsProps } from '..'
+import type {
+  CalendarCell,
+  CalendarCellTrigger,
+  CalendarGrid,
+  CalendarGridBody,
+  CalendarGridHead,
+  CalendarGridRow,
+  CalendarHeadCell,
+  CalendarVariants,
+} from '..'
 
 export { default as CalendarDayPanel } from './CalendarDay.vue'
 export { default as CalendarMonthPanel } from './CalendarMonth.vue'
@@ -8,7 +17,7 @@ export { default as CalendarYearPanel } from './CalendarYear.vue'
 
 export type CalendarPanelProps = {
   class?: HTMLAttributes['class']
-  size?: CalendarVariantsProps['size']
+  size?: CalendarVariants['size']
   unstyled?: boolean
   ui?: {
     grid?: ComponentProps<typeof CalendarGrid>

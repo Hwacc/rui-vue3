@@ -22,9 +22,8 @@ const {
   }
 >()
 
-const forwarded = useForwardProps(props)
-
 const { base } = tvButton()
+const forwarded = useForwardProps(props)
 </script>
 
 <template>
@@ -34,7 +33,7 @@ const { base } = tvButton()
     :data-variant="variant"
   >
     <slot>
-      <ChevronLeft class="h-4 w-4" />
+      <ChevronLeft class="size-4" />
     </slot>
   </CalendarPrev>
 </template>

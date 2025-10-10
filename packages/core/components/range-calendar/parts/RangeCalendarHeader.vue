@@ -1,8 +1,7 @@
 <script lang="ts" setup>
 import type { RangeCalendarHeaderProps } from 'reka-ui'
 import type { HTMLAttributes } from 'vue'
-import { calendarHeaderVariants } from '@rui/core/components/calendar'
-import { cn } from '@rui/core/lib/utils'
+import { tvCalendarHeader } from '@rui/core/components/calendar'
 import { RangeCalendarHeader, useForwardProps } from 'reka-ui'
 
 const {
@@ -21,7 +20,7 @@ const forwarded = useForwardProps(props)
 <template>
   <RangeCalendarHeader
     v-bind="forwarded"
-    :class="cn(calendarHeaderVariants({ unstyled }), propsClass)"
+    :class="tvCalendarHeader({ unstyled, class: propsClass })"
   >
     <slot />
   </RangeCalendarHeader>

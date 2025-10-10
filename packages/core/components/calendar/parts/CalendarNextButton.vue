@@ -32,7 +32,7 @@ const forwarded = useForwardProps(props)
     :data-variant="variant"
   >
     <slot>
-      <ChevronRight class="h-4 w-4" />
+      <ChevronRight class="size-4" />
     </slot>
   </CalendarNext>
 </template>

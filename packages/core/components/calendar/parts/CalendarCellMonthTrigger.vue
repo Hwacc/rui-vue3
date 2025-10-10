@@ -13,7 +13,7 @@ import { tvCalendarCellTrigger } from '.'
 import { injectCalendarContextEx } from '../CalendarProvider'
 import { useCellTriggerKeyControl } from './utils'
 
-export interface CalendarCellTriggerProps extends PrimitiveProps {
+export interface CalendarMonthCellTriggerProps extends PrimitiveProps {
   /** The date value provided to the cell trigger */
   date: DateValue
   class?: HtmlHTMLAttributes['class']
@@ -21,7 +21,7 @@ export interface CalendarCellTriggerProps extends PrimitiveProps {
   unstyled?: boolean
 }
 
-export interface CalendarCellTriggerSlot {
+export interface CalendarMonthCellTriggerSlot {
   default: (props: { selected: boolean, monthValue: string }) => any
 }
 
@@ -31,9 +31,9 @@ const {
   size = 'base',
   as = 'div',
   ...props
-} = defineProps<CalendarCellTriggerProps>()
+} = defineProps<CalendarMonthCellTriggerProps>()
 
-defineSlots<CalendarCellTriggerSlot>()
+defineSlots<CalendarMonthCellTriggerSlot>()
 
 const context = injectCalendarRootContext()
 const contextEx = injectCalendarContextEx()

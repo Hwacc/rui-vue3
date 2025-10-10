@@ -1,10 +1,9 @@
 <script lang="tsx" setup>
-import type { CalendarHeadingVariantsProps } from '@rui/core/components/calendar'
+import type { CalendarHeadingVariants } from '@rui/core/components/calendar'
 import type { DateValue, RangeCalendarHeadingProps } from 'reka-ui'
 import type { HTMLAttributes } from 'vue'
-import { calendarHeadingVariants } from '@rui/core/components/calendar'
+import { tvCalendarHeading } from '@rui/core/components/calendar'
 import { CalendarPanelEnum } from '@rui/core/lib/constants'
-import { cn } from '@rui/core/lib/utils'
 import {
   injectRangeCalendarRootContext,
   RangeCalendarHeading,
@@ -23,7 +22,7 @@ const {
 } = defineProps<
   RangeCalendarHeadingProps & {
     class?: HTMLAttributes['class']
-    size?: CalendarHeadingVariantsProps['size']
+    size?: CalendarHeadingVariants['size']
     unstyled?: boolean
   }
 >()
@@ -66,8 +65,7 @@ const Heading = computed(() => {
         tabindex="0"
         aria-label="Heading Month"
         onKeydown={(e) => {
-          e.code === 'Enter'
-          && (contextEx.panel.value = CalendarPanelEnum.MONTH)
+          e.code === 'Enter' && (contextEx.panel.value = CalendarPanelEnum.MONTH)
         }}
         onClick={() => (contextEx.panel.value = CalendarPanelEnum.MONTH)}
       >
@@ -96,7 +94,7 @@ const Heading = computed(() => {
   <RangeCalendarHeading
     v-slot="{ headingValue }"
     v-bind="forwarded"
-    :class="cn(calendarHeadingVariants({ size, unstyled }), propsClass)"
+    :class="tvCalendarHeading({ size, unstyled, class: propsClass })"
   >
     <slot :heading-value="headingValue">
       <Heading />

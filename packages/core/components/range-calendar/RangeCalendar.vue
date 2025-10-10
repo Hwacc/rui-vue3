@@ -1,12 +1,9 @@
 <script lang="ts" setup>
-import type { CalendarVariantsProps } from '@rui/core/components/calendar'
-import type {
-  DateValue,
-  RangeCalendarRootEmits,
-  RangeCalendarRootProps,
-} from 'reka-ui'
+import type { CalendarVariants } from '@rui/core/components/calendar'
+import type { DateValue, RangeCalendarRootEmits, RangeCalendarRootProps } from 'reka-ui'
 import type { HTMLAttributes } from 'vue'
-import { calendarRootVariants } from '@rui/core/components/calendar'
+import type { ComponentProps } from 'vue-component-type-helpers'
+import { tvCalendar } from '@rui/core/components/calendar'
 import { CalendarPanelMotion } from '@rui/core/components/motion/CalendarPanelMotion'
 import { CalendarPanelEnum } from '@rui/core/lib/constants'
 import { cn } from '@rui/core/lib/utils'
@@ -20,11 +17,7 @@ import {
   RangeCalendarPrevButton,
   RangeCalendarProvider,
 } from '.'
-import {
-  RangeCalendarDayPanel,
-  RangeCalendarMonthPanel,
-  RangeCalendarYearPanel,
-} from './panels'
+import { RangeCalendarDayPanel, RangeCalendarMonthPanel, RangeCalendarYearPanel } from './panels'
 
 const {
   class: propsClass,
@@ -34,8 +27,18 @@ const {
 } = defineProps<
   RangeCalendarRootProps & {
     class?: HTMLAttributes['class']
-    size?: CalendarVariantsProps['size']
+    size?: CalendarVariants['size']
     unstyled?: boolean
+    ui?: {
+      root?: {
+        class?: HTMLAttributes['class']
+      }
+      header?: ComponentProps<typeof RangeCalendarHeader>
+      prevButton?: ComponentProps<typeof RangeCalendarPrevButton>
+      nextButton?: ComponentProps<typeof RangeCalendarNextButton>
+      heading?: ComponentProps<typeof RangeCalendarHeading>
+      panelMotion?: ComponentProps<typeof CalendarPanelMotion>
+    }
   }
 >()
 
@@ -74,36 +77,73 @@ const forwarded = useForwardPropsEmits(props, emits)
   <RangeCalendarRoot
     v-slot="{ date }"
     v-bind="forwarded"
-    :class="cn(calendarRootVariants({ size, unstyled }), propsClass)"
+    :class="tvCalendar({ size, unstyled, class: [ui?.root?.class, propsClass] })"
     data-range-calendar
   >
     <RangeCalendarProvider
       v-slot="{ panel }"
       @update:model-value="(panel) => (curPanel = panel)"
     >
-      <div class="group/calendar-header" data-calendar-header>
-        <RangeCalendarHeader v-bind="variants">
-          <RangeCalendarPrevButton v-bind="variants" :prev-page="onPrevPage" />
-          <RangeCalendarHeading v-bind="variants" />
-          <RangeCalendarNextButton v-bind="variants" :next-page="onNextPage" />
+      <div
+        class="group/calendar-header"
+        data-calendar-header
+      >
+        <RangeCalendarHeader
+          v-bind="ui?.header"
+          :unstyled="ui?.header?.unstyled ?? unstyled"
+        >
+          <RangeCalendarPrevButton
+            v-bind="ui?.prevButton"
+            :size="ui?.prevButton?.size ?? size"
+            :variant="ui?.prevButton?.variant ?? 'text'"
+            :unstyled="ui?.prevButton?.unstyled ?? unstyled"
+            :prev-page="ui?.prevButton?.prevPage ?? onPrevPage"
+          />
+          <RangeCalendarHeading
+            v-bind="ui?.heading"
+            :size="ui?.heading?.size ?? size"
+            :unstyled="ui?.heading?.unstyled ?? unstyled"
+          />
+          <RangeCalendarNextButton
+            v-bind="ui?.nextButton"
+            :size="ui?.nextButton?.size ?? size"
+            :variant="ui?.nextButton?.variant ?? 'text'"
+            :unstyled="ui?.nextButton?.unstyled ?? unstyled"
+            :next-page="ui?.nextButton?.nextPage ?? onNextPage"
+          />
         </RangeCalendarHeader>
       </div>
-      <div class="group/calendar-panel" data-calendar-panel>
+      <div
+        class="group/calendar-panel"
+        data-calendar-panel
+      >
         <AnimatePresence mode="wait">
           <CalendarPanelMotion
             v-if="panel === CalendarPanelEnum.DAY"
-            class="w-full"
+            v-bind="ui?.panelMotion"
+            :class="cn('w-full', ui?.panelMotion?.class)"
           >
             <RangeCalendarDayPanel v-bind="variants" />
           </CalendarPanelMotion>
           <CalendarPanelMotion
             v-if="panel === CalendarPanelEnum.MONTH"
-            class="w-full"
+            v-bind="ui?.panelMotion"
+            :class="cn('w-full', ui?.panelMotion?.class)"
           >
-            <RangeCalendarMonthPanel :date="date" v-bind="variants" />
+            <RangeCalendarMonthPanel
+              :date="date"
+              v-bind="variants"
+            />
           </CalendarPanelMotion>
-          <CalendarPanelMotion v-if="panel === CalendarPanelEnum.YEAR">
-            <RangeCalendarYearPanel :date="date" v-bind="variants" />
+          <CalendarPanelMotion
+            v-if="panel === CalendarPanelEnum.YEAR"
+            v-bind="ui?.panelMotion"
+            :class="cn('w-full', ui?.panelMotion?.class)"
+          >
+            <RangeCalendarYearPanel
+              :date="date"
+              v-bind="variants"
+            />
           </CalendarPanelMotion>
         </AnimatePresence>
       </div>

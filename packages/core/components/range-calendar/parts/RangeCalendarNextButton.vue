@@ -16,6 +16,7 @@ const {
   RangeCalendarNextProps & {
     class?: HTMLAttributes['class']
     unstyled?: boolean
+    size?: ButtonVariants['size']
     variant?: ButtonVariants['variant']
   }
 >()
@@ -28,12 +29,12 @@ const forwarded = useForwardProps(props)
   <RangeCalendarNext
     v-bind="forwarded"
     :class="
-      base({ variant, unstyled, class: [!unstyled && `${prefix}-next`, propsClass] })
+      base({ variant, size, unstyled, class: [!unstyled && `${prefix}-next`, propsClass] })
     "
     :data-variant="variant"
   >
     <slot>
-      <ChevronRight class="h-4 w-4" />
+      <ChevronRight class="size-4" />
     </slot>
   </RangeCalendarNext>
 </template>

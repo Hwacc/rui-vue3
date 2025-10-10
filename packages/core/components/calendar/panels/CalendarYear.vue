@@ -48,8 +48,8 @@ const yearGrid = computed(() => {
           :unstyled="ui?.bodyCell?.unstyled ?? unstyled"
         >
           <CalendarCellYearTrigger
-            :date="year"
             v-bind="ui?.bodyCellTrigger"
+            :date="year"
             :size="ui?.bodyCellTrigger?.size ?? size"
             :unstyled="ui?.bodyCellTrigger?.unstyled ?? unstyled"
           />
