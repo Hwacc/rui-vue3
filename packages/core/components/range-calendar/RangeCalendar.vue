@@ -38,6 +38,9 @@ const {
       nextButton?: ComponentProps<typeof RangeCalendarNextButton>
       heading?: ComponentProps<typeof RangeCalendarHeading>
       panelMotion?: ComponentProps<typeof CalendarPanelMotion>
+      dayPanel?: ComponentProps<typeof RangeCalendarDayPanel>
+      monthPanel?: ComponentProps<typeof RangeCalendarMonthPanel>
+      yearPanel?: ComponentProps<typeof RangeCalendarYearPanel>
     }
   }
 >()
