@@ -54,9 +54,9 @@ export const tvTrigger = tv(
 export const tvContent = tv(
   {
     slots: {
-      wrapper: '',
+      wrapper: 'z-(--z-dropdown)',
       content: [
-        'z-(--z-max)',
+        'z-auto',
         'min-w-(--reka-dropdown-menu-trigger-width)',
         'overflow-hidden',
         'rounded',

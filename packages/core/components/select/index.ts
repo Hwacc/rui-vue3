@@ -102,10 +102,10 @@ export type SelectTriggerVariants = VariantProps<typeof tvTrigger>
 export const tvContent = tv(
   {
     slots: {
-      wrapper: '',
+      wrapper: 'z-(--z-max)',
       content: [
         'relative',
-        'z-(--z-max)',
+        'z-auto',
         'min-w-(--reka-select-trigger-width)',
         'rounded',
         'border',

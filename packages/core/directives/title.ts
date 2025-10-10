@@ -12,7 +12,7 @@ const titleTipVariants = cva(
     'rounded',
     'break-words',
     'border',
-    'z-(--z-max)',
+    'z-(--z-devtools)',
   ],
   {
     variants: {

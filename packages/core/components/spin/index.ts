@@ -49,7 +49,7 @@ export const tvSpin = tv({
         'left-0',
         'w-screen',
         'h-screen',
-        'z-(--z-max)',
+        'z-(--z-loading)',
       ],
     },
     {

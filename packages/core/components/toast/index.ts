@@ -132,7 +132,7 @@ export const tvToast = tv(
     slots: {
       viewport: [
         'fixed',
-        'z-(--z-max)',
+        'z-(--z-toast)',
         'flex',
         'flex-col-reverse',
         'p-6',

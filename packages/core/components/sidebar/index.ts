@@ -20,7 +20,7 @@ export const sidebarProviderVariants = cva(
 )
 
 export const sidebarVariants = cva(
-  ['w-(--sidebar-width)', 'duration-200', 'transition-[left,right,width]', 'z-(--z-absolute)'],
+  ['w-(--sidebar-width)', 'duration-200', 'transition-[left,right,width]', 'z-(--z-sticky)'],
   {
     variants: {
       collapsible: {

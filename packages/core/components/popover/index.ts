@@ -14,9 +14,9 @@ const prefix = `${PREFIX}-popover`
 export const tvPopover = tv({
   slots: {
     root: '',
-    wrapper: '',
+    wrapper: 'z-(--z-popover)',
     content: [
-      'z-(--z-max)',
+      'z-auto',
       'rounded',
       'min-w-(--reka-popover-trigger-width)',
       'border',

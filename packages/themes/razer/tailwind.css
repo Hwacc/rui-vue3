@@ -1,4 +1,4 @@
-@import '../base/base.css';
+@import '../base/static.css';
 @import '../base/animations.css';
 
 @custom-variant dark (&:where([data-theme=dark], [data-theme=dark] *));

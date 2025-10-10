@@ -13,7 +13,7 @@ export { default as SheetTrigger } from './SheetTrigger.vue'
 
 const prefix = `${PREFIX}-sheet`
 export const sheetVariants = cva(
-  ['fixed', 'z-(--z-modal)', 'motion-duration-200'],
+  ['fixed', 'z-(--z-popover)', 'motion-duration-200'],
   {
     variants: {
       side: {
