@@ -12,12 +12,7 @@ export { useSidebar } from './utils'
 
 export const prefix = `${PREFIX}-sidebar`
 export const sidebarProviderVariants = cva(
-  [
-    'group/sidebar-wrapper',
-    'flex',
-    'w-full',
-    'has-[[data-side=right]]:flex-row-reverse',
-  ],
+  ['group/sidebar-wrapper', 'flex', 'w-full', 'has-[[data-side=right]]:flex-row-reverse'],
   undefined,
   {
     className: `${prefix}-wrapper`,
@@ -25,12 +20,7 @@ export const sidebarProviderVariants = cva(
 )
 
 export const sidebarVariants = cva(
-  [
-    'w-(--sidebar-width)',
-    'duration-200',
-    'transition-[left,right,width]',
-    'z-10',
-  ],
+  ['w-(--sidebar-width)', 'duration-200', 'transition-[left,right,width]', 'z-(--z-absolute)'],
   {
     variants: {
       collapsible: {
@@ -43,6 +33,7 @@ export const sidebarVariants = cva(
           'fixed',
           'h-svh',
           'top-0',
+          'z-(--z-fixed)',
           'group-data-[collapsible=icon]:w-(--sidebar-width-icon)',
         ],
         block: [

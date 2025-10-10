@@ -13,7 +13,7 @@ export { default as SheetTrigger } from './SheetTrigger.vue'
 
 const prefix = `${PREFIX}-sheet`
 export const sheetVariants = cva(
-  ['fixed', 'z-50', 'motion-duration-200'],
+  ['fixed', 'z-(--z-modal)', 'motion-duration-200'],
   {
     variants: {
       side: {
@@ -63,7 +63,7 @@ export const sheetOverlayVariants = cva(
   [
     'fixed',
     'inset-0',
-    'z-50',
+    'z-(--z-overlay)',
     'bg-black/80',
     'motion-duration-200',
     'data-[state=open]:motion-opacity-in',

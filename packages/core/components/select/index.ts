@@ -105,7 +105,7 @@ export const tvContent = tv(
       wrapper: '',
       content: [
         'relative',
-        'z-50',
+        'z-(--z-max)',
         'min-w-(--reka-select-trigger-width)',
         'rounded',
         'border',

@@ -30,7 +30,7 @@ export const tvDialog = tv(
       overlay: [
         'fixed',
         'inset-0',
-        'z-50',
+        'z-(--z-overlay)',
         'data-[state=open]:motion-opacity-in',
         'data-[state=closed]:motion-opacity-out',
       ],
@@ -38,7 +38,7 @@ export const tvDialog = tv(
       content: [
         'max-w-full',
         'md:max-w-[80%]',
-        'z-50',
+        'z-(--z-modal)',
         'outline-none',
         'border',
         'rounded',

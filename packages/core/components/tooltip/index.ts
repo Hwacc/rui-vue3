@@ -14,7 +14,7 @@ export { TooltipArrow, type TooltipArrowProps }
 const prefix = `${PREFIX}-tooltip`
 export const tooltipContentVariants = cva(
   [
-    'z-50',
+    'z-(--z-tooltip)',
     'overflow-visible',
     'motion-opacity-in',
     'motion-scale-in-95',

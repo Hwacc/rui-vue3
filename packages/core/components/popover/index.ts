@@ -16,7 +16,7 @@ export const tvPopover = tv({
     root: '',
     wrapper: '',
     content: [
-      'z-50',
+      'z-(--z-max)',
       'rounded',
       'min-w-(--reka-popover-trigger-width)',
       'border',
@@ -26,12 +26,12 @@ export const tvPopover = tv({
     ],
     arrow: '',
     trigger: ['group', 'rounded'],
-  }, 
+  },
   variants: {
     arrow: {
       css: '',
-      svg: ''
-    }
+      svg: '',
+    },
   },
   compoundSlots: [
     {
@@ -67,8 +67,8 @@ export const tvPopover = tv({
           'after:border-x-transparent',
         ],
       ],
-    }
-  ]  
+    },
+  ],
 }, {
   slots: {
     root: prefix,
@@ -76,7 +76,7 @@ export const tvPopover = tv({
     content: `${prefix}-content`,
     arrow: `${prefix}-arrow`,
     trigger: `${prefix}-trigger`,
-  }
+  },
 })
 
 export type PopoverVariants = VariantProps<typeof tvPopover>

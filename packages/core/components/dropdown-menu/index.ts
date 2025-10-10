@@ -56,7 +56,7 @@ export const tvContent = tv(
     slots: {
       wrapper: '',
       content: [
-        'z-50',
+        'z-(--z-max)',
         'min-w-(--reka-dropdown-menu-trigger-width)',
         'overflow-hidden',
         'rounded',

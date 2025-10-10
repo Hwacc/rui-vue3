@@ -11,7 +11,7 @@ export const tvSpin = tv({
   slots: {
     root: 'absolute inset-0',
     mask: ['absolute', 'top-0', 'left-0', 'size-full'],
-    indicator:  [
+    indicator: [
       'absolute',
       'top-1/2',
       'left-1/2',
@@ -32,24 +32,24 @@ export const tvSpin = tv({
     ],
   },
   variants: {
-    mode: { fullscreen: ''},
+    mode: { fullscreen: '' },
     size: {
       sm: '',
       base: '',
       lg: '',
-    }, 
+    },
   },
   compoundSlots: [
     {
       slots: ['root'],
       mode: 'fullscreen',
-      class:[
+      class: [
         'fixed',
         'top-0',
         'left-0',
         'w-screen',
         'h-screen',
-        'z-[9999]',
+        'z-(--z-max)',
       ],
     },
     {
@@ -59,28 +59,28 @@ export const tvSpin = tv({
     },
     {
       slots: ['icon'],
-      size:'base',
-      class:'size-8',
+      size: 'base',
+      class: 'size-8',
     },
     {
       slots: ['icon'],
-      size:'lg',
-      class:'size-10',
+      size: 'lg',
+      class: 'size-10',
     },
     {
       slots: ['text'],
-      size:'sm',
-      class:'text-xs',
+      size: 'sm',
+      class: 'text-xs',
     },
     {
       slots: ['text'],
-      size:'base',
-      class:'text-sm',
+      size: 'base',
+      class: 'text-sm',
     },
     {
       slots: ['text'],
-      size:'lg',
-      class:'text-base',
+      size: 'lg',
+      class: 'text-base',
     },
   ],
 }, {
@@ -90,7 +90,7 @@ export const tvSpin = tv({
     indicator: `${prefix}-indicator`,
     icon: `${prefix}-icon`,
     text: `${prefix}-text`,
-  }
+  },
 })
 
 export type SpinVariants = VariantProps<typeof tvSpin>
