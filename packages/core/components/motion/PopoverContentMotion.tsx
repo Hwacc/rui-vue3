@@ -5,9 +5,20 @@ import { motion } from 'motion-v'
  *  NOTICE:
  *  在Select的Content组件中,其实现为reka-ui Presence(bug), Dropdown Content实现为对的
  *  但却在卸载中使用v-if来卸载组件，导致退出动画无法生效，故使用motion-v来实现动画
- *  see: line#48 https://github.com/unovue/reka-ui/blob/v2/packages/core/src/Select/SelectContent.vue
+ *  see: line#48 https://github.com/unovue/reka-ui/blob/e82d50a318d2328f550bda94253b3198f385515e/packages/core/src/Select/SelectContent.vue
+ *
+ *  update:
+ *  在reka-ui v2.5.1中修复了该问题: https://github.com/unovue/reka-ui/issues/1865
+ *  通过computed open状态来来调整present prop
+ *
+ *  motion的方案依然可以使用
+ *
+ *  update:
+ *  我在PR: https://github.com/unovue/reka-ui/pull/2239 中修复了该问题
+ *  现在Select的Content可以通过css控制结束动画
+ *
  */
-import { computed, defineComponent, toRefs } from 'vue';
+import { computed, defineComponent, toRefs } from 'vue'
 
 export const PopoverContentMotion = defineComponent({
   name: 'PopoverContentMotion',
@@ -18,8 +29,8 @@ export const PopoverContentMotion = defineComponent({
     },
   },
   setup(props, { slots }) {
-    const { side } = toRefs(props);
-    const { duration, ease } = useAnimationParams();
+    const { side } = toRefs(props)
+    const { duration, ease } = useAnimationParams()
     const animation = computed(() => {
       const _anime: Array<Record<string, number>> = [
         {
@@ -37,31 +48,31 @@ export const PopoverContentMotion = defineComponent({
           opacity: 0,
           scale: 0.9,
         },
-      ];
+      ]
       switch (side.value) {
         case 'bottom':
-          _anime[0].y = spaceTimes(2);
-          _anime[1].y = 0;
-          _anime[2].y = spaceTimes(2);
-          break;
+          _anime[0].y = spaceTimes(2)
+          _anime[1].y = 0
+          _anime[2].y = spaceTimes(2)
+          break
         case 'top':
-          _anime[0].y = -spaceTimes(2);
-          _anime[1].y = 0;
-          _anime[2].y = -spaceTimes(2);
-          break;
+          _anime[0].y = -spaceTimes(2)
+          _anime[1].y = 0
+          _anime[2].y = -spaceTimes(2)
+          break
         case 'left':
-          _anime[0].x = -spaceTimes(2);
-          _anime[1].x = 0;
-          _anime[2].x = -spaceTimes(2);
-          break;
+          _anime[0].x = -spaceTimes(2)
+          _anime[1].x = 0
+          _anime[2].x = -spaceTimes(2)
+          break
         case 'right':
-          _anime[0].x = spaceTimes(2);
-          _anime[1].x = 0;
-          _anime[2].x = spaceTimes(2);
-          break;
+          _anime[0].x = spaceTimes(2)
+          _anime[1].x = 0
+          _anime[2].x = spaceTimes(2)
+          break
       }
-      return _anime;
-    });
+      return _anime
+    })
     return () => (
       <motion.div
         initial={animation.value[0]}
@@ -76,6 +87,6 @@ export const PopoverContentMotion = defineComponent({
           default: slots.default,
         }}
       </motion.div>
-    );
+    )
   },
-});
+})
