@@ -31,7 +31,7 @@
     "@vueuse/shared": "^13.6.0",
     "class-variance-authority": "^0.7.1",
     "motion-v": "^1.0.1",
-    "reka-ui": "^2.4.1",
+    "reka-ui": "https://pkg.pr.new/reka-ui@2239",
     "tailwind-merge": "^3.0.2",
     "tailwind-variants": "^2.1.0",
     "vue-component-type-helpers": "^3.0.5"

@@ -11,7 +11,7 @@ import {
 } from '@rui/core/components/select'
 import { ref } from 'vue'
 
-const singleSelected = ref<string | null>(null)
+const singleSelected = ref<string | null>('apple-2')
 const multiSelected = ref<string[]>([])
 </script>
 
