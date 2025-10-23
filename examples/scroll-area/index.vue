@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ScrollArea as PerfectScrollArea } from '@rui/add-ons/components/scroll-area'
-import { ScrollArea } from '@rui/core/components/scroll-area'
+import { ScrollArea, ScrollBar } from '@rui/core/components/scroll-area'
 import { ref } from 'vue'
 
 const speedRef = ref(1)
@@ -19,6 +19,8 @@ const speedRef = ref(1)
           <div>Reka-UI Scroll #{{ i }}</div>
         </div>
       </div>
+      <ScrollBar />
+      <ScrollBar orientation="horizontal" />
     </ScrollArea>
 
     <button

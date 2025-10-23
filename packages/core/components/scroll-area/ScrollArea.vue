@@ -1,21 +1,27 @@
 <script setup lang="ts">
 import type { ScrollAreaRootProps } from 'reka-ui'
 import type { HTMLAttributes } from 'vue'
-import { cn } from '@rui/core/lib/utils'
+import type { ComponentProps } from 'vue-component-type-helpers'
 import { ScrollAreaCorner, ScrollAreaRoot, ScrollAreaViewport, useForwardProps } from 'reka-ui'
 import { getCurrentInstance, ref, watch } from 'vue'
-import { scrollAreaVariants } from '.'
+import { tvScrollArea } from '.'
 
 const {
   class: propsClass,
-  theme,
   unstyled,
   ...props
 } = defineProps<
   ScrollAreaRootProps & {
     class?: HTMLAttributes['class']
-    theme?: string
     unstyled?: boolean
+    ui?: {
+      root?: {
+        class?: HTMLAttributes['class']
+      }
+      viewport?: ComponentProps<typeof ScrollAreaViewport> & {
+        class?: HTMLAttributes['class']
+      }
+    }
   }
 >()
 
@@ -33,7 +39,7 @@ watch(rootRef, () => {
   instance.exposed = { ...rootRef.value }
   instance.exposeProxy = rootRef.value
 })
-
+const { base, viewport } = tvScrollArea()
 const forwarded = useForwardProps(props)
 </script>
 
@@ -41,16 +47,16 @@ const forwarded = useForwardProps(props)
   <ScrollAreaRoot
     v-bind="forwarded"
     ref="rootRef"
-    :class="cn(scrollAreaVariants({ unstyled }), propsClass)"
+    :class="base({ unstyled, class: [ui?.root?.class, propsClass] })"
   >
     <ScrollAreaViewport
-      class="h-full w-full rounded-[inherit]"
+      v-bind="ui?.viewport"
+      :class="viewport({ unstyled, class: [ui?.viewport?.class] })"
       @scroll="emits('scroll', $event)"
       @scroll-end="emits('scrollEnd', $event)"
     >
       <slot />
     </ScrollAreaViewport>
-    <!-- <ScrollBar :theme="theme" orientation="vertical" :disable-rui-class="unstyled" /> -->
     <ScrollAreaCorner />
   </ScrollAreaRoot>
 </template>
