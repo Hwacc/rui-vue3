@@ -70,48 +70,45 @@ const forwarded = useForwardPropsEmits(props, emits)
     :to="props.positionStrategy === 'absolute' ? rootElement : undefined"
     v-bind="ui?.portal?.props"
   >
-    <AnimatePresence>
-      <SelectContent
-        v-bind="{ ...forwarded, position, side, align, sideOffset, positionStrategy, ...$attrs }"
+    <SelectContent
+      v-bind="{ ...forwarded, position, side, align, sideOffset, positionStrategy, ...$attrs }"
+      :class="
+        wrapper({
+          unstyled,
+          class: ui?.wrapper?.class,
+        })
+      "
+    >
+      <div
         :class="
-          wrapper({
+          content({
             unstyled,
-            class: ui?.wrapper?.class,
+            position,
+            class: [ui?.content?.class, propsClass],
           })
         "
       >
-        <PopoverContentMotion
+        <!-- without scrollbar -->
+        <div v-if="scrollButton">
+          <SelectScrollUpButton :class="ui?.scrollButton?.class?.('up')" />
+          <SelectViewport :class="cn(position === 'popper' && 'w-full', ui?.viewport?.class)">
+            <slot :class="ui?.content?.innerClass" />
+          </SelectViewport>
+          <SelectScrollDownButton :class="ui?.scrollButton?.class?.('down')" />
+        </div>
+        <!-- with scrollbar -->
+        <div
+          v-else
           :class="
-            content({
-              unstyled,
-              position,
-              class: [ui?.content?.class, propsClass],
-            })
+            cn(
+              'w-full max-h-46 overflow-y-auto webkit-small-scrollbar-self',
+              ui?.content?.innerClass,
+            )
           "
-          :side="side"
         >
-          <!-- without scrollbar -->
-          <div v-if="scrollButton">
-            <SelectScrollUpButton :class="ui?.scrollButton?.class?.('up')" />
-            <SelectViewport :class="cn(position === 'popper' && 'w-full', ui?.viewport?.class)">
-              <slot :class="ui?.content?.innerClass" />
-            </SelectViewport>
-            <SelectScrollDownButton :class="ui?.scrollButton?.class?.('down')" />
-          </div>
-          <!-- with scrollbar -->
-          <div
-            v-else
-            :class="
-              cn(
-                'w-full max-h-46 overflow-y-auto webkit-small-scrollbar-self',
-                ui?.content?.innerClass,
-              )
-            "
-          >
-            <slot />
-          </div>
-        </PopoverContentMotion>
-      </SelectContent>
-    </AnimatePresence>
+          <slot />
+        </div>
+      </div>
+    </SelectContent>
   </SelectPortal>
 </template>

@@ -7,6 +7,10 @@
     }
   }
 
+  .rui-select-wrapper{
+    @apply data-[state=open]:animate-fade-scale-in data-[state=closed]:animate-fade-scale-out;
+  }
+
   .rui-select-content {
     @apply bg-h1a text-hcc border-h11 shadow-rui-popper;
   }

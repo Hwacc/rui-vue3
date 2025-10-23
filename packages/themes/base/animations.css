@@ -11,6 +11,8 @@
   --animate-quick-squeeze-x: squeeze-x var(--tw-animate-duration, 200ms) var(--tw-animate-easing, ease-in-out);
   --animate-rippling: rippling var(--tw-ripple-duration, 600ms) ease-out;
   --animate-spin: spin 1s linear infinite;
+  --animate-fade-scale-in: fade-scale-in var(--tw-animate-duration, 200ms) var(--tw-animate-easing, ease-out);
+  --animate-fade-scale-out: fade-scale-out var(--tw-animate-duration, 200ms) var(--tw-animate-easing, ease-out);
 
   /* toast exit animations */
   --animate-toast-exit-right: toast-exit-right var(--tw-animate-duration, 200ms) var(--tw-animate-easing, ease-out);
@@ -169,6 +171,28 @@
   @keyframes spin {
     from { transform: rotate(0deg); }
     to { transform: rotate(360deg); }
+  }
+
+  @keyframes fade-scale-in{
+    from {
+      opacity: 0;
+      transform: scale(0.95);
+    }
+    to {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+
+  @keyframes fade-scale-out{
+    from {
+      opacity: 1;
+      transform: scale(1);
+    }
+    to {
+      opacity: 0;
+      transform: scale(0.9);
+    }
   }
 
 }
