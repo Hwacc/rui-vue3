@@ -71,7 +71,7 @@ const forwarded = useForwardPropsEmits(props, emits)
         base({
           unstyled,
           position,
-          class: ui?.content?.class,
+          class: [ui?.content?.class, propsClass],
         })
       "
       :data-position="position"
