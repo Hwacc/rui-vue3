@@ -37,68 +37,43 @@ export const tvRadioGroupItem = tv(
         false: '',
       },
     },
-    compoundSlots: [
-      {
-        slots: ['root'],
-        size: 'base',
-        class: 'size-3.5',
+    compoundVariants: [{
+      size: 'base',
+      class: {
+        root: 'size-3.5',
+        inner: 'size-1.5',
+        label: 'text-sm',
       },
-      {
-        slots: ['root'],
-        size: 'sm',
-        class: 'size-3',
+    }, {
+      size: 'sm',
+      class: {
+        root: 'size-3',
+        inner: 'size-1',
+        label: 'text-xs',
       },
-      {
-        slots: ['root'],
-        size: 'lg',
-        class: 'size-4',
+    }, {
+      size: 'lg',
+      class: {
+        root: 'size-4',
+        inner: 'size-2',
+        label: 'text-base',
       },
-      {
-        slots: ['inner'],
-        size: 'base',
-        class: 'size-1.5',
+    }, {
+      disabled: true,
+      class: {
+        label: 'opacity-(--disabled-opacity)',
       },
-      {
-        slots: ['inner'],
-        size: 'sm',
-        class: 'size-1',
+    }, {
+      variant: 'default',
+      class: {
+        inner: 'motion-scale-in-0',
       },
-      {
-        slots: ['inner'],
-        size: 'lg',
-        class: 'size-2',
+    }, {
+      variant: 'checkbox',
+      class: {
+        inner: 'size-full stroke-[.125rem] [&>path]:animate-check-dash',
       },
-      {
-        slots: ['inner'],
-        variant: 'default',
-        class: 'motion-scale-in-0',
-      },
-      {
-        slots: ['inner'],
-        variant: 'checkbox',
-        class: 'size-full stroke-[.125rem] [&>path]:animate-check-dash',
-      },
-      {
-        slots: ['label'],
-        size: 'base',
-        class: 'text-sm',
-      },
-      {
-        slots: ['label'],
-        size: 'sm',
-        class: 'text-xs',
-      },
-      {
-        slots: ['label'],
-        size: 'lg',
-        class: 'text-base',
-      },
-      {
-        slots: ['label'],
-        disabled: true,
-        class: 'opacity-(--disabled-opacity)',
-      },
-    ],
+    }],
   },
   {
     slots: {

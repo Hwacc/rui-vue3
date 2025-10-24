@@ -76,16 +76,18 @@ export const tvTrigger = tv(
       open: false,
       disabled: false,
     },
-    compoundSlots: [
+    compoundVariants: [
       {
-        slots: ['triangle'],
         open: true,
-        class: ['animate-from', 'rotate-180'],
+        class: {
+          triangle: 'animate-from rotate-180',
+        },
       },
       {
-        slots: ['triangle'],
         open: false,
-        class: ['rotate-0'],
+        class: {
+          triangle: 'rotate-0',
+        },
       },
     ],
   },
@@ -131,22 +133,22 @@ export type SelectContentVariants = VariantProps<typeof tvContent>
 
 export const tvItem = tv(
   {
-    base: [
-      'relative',
-      'flex',
-      'w-full',
-      'cursor-default',
-      'select-none',
-      'items-center',
-      'rounded-sm',
-      'py-1.5',
-      'px-2',
-      'text-sm',
-      'outline-none',
-      'data-[disabled]:pointer-events-none',
-      'data-[disabled]:opacity-(--disabled-opacity)',
-    ],
     slots: {
+      base: [
+        'relative',
+        'flex',
+        'w-full',
+        'cursor-default',
+        'select-none',
+        'items-center',
+        'rounded-sm',
+        'py-1.5',
+        'px-2',
+        'text-sm',
+        'outline-none',
+        'data-[disabled]:pointer-events-none',
+        'data-[disabled]:opacity-(--disabled-opacity)',
+      ],
       indicator: ['absolute', 'left-2', 'flex', 'items-center', 'justify-center', 'size-3.5'],
       text: '',
     },
@@ -156,17 +158,18 @@ export const tvItem = tv(
         false: '',
       },
     },
-    compoundSlots: [
+    compoundVariants: [
       {
-        slots: ['base'],
         multiply: true,
-        class: ['pl-8', 'pr-2'],
+        class: {
+          base: 'pl-8 pr-2',
+        },
       },
     ],
   },
   {
-    class: `${prefix}-item`,
     slots: {
+      base: `${prefix}-item`,
       indicator: `${prefix}-item-indicator`,
       text: `${prefix}-item-text`,
     },

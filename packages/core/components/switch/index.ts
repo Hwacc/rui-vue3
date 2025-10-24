@@ -39,36 +39,27 @@ export const tvSwitch = tv({
   defaultVariants: {
     size: 'base',
   },
-  compoundSlots: [
+  compoundVariants: [
     {
       size: 'base',
-      slots: ['root'],
-      class: 'w-8 h-[1.125rem]',
+      class: {
+        root: 'w-8 h-[1.125rem]',
+        thumb: 'size-3.5',
+      },
     },
     {
       size: 'sm',
-      slots: ['root'],
-      class: 'w-[1.75rem] h-4',
+      class: {
+        root: 'w-[1.75rem] h-4',
+        thumb: 'size-3',
+      },
     },
     {
       size: 'lg',
-      slots: ['root'],
-      class: 'w-[2.25rem] h-5',
-    },
-    {
-      size: 'base',
-      slots: ['thumb'],
-      class: 'size-3.5',
-    },
-    {
-      size: 'sm',
-      slots: ['thumb'],
-      class: 'size-3',
-    },
-    {
-      size: 'lg',
-      slots: ['thumb'],
-      class: 'size-4',
+      class: {
+        root: 'w-[2.25rem] h-5',
+        thumb: 'size-4',
+      },
     },
   ],
 }, {

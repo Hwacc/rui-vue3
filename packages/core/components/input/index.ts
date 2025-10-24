@@ -32,69 +32,30 @@ export const tvInput = tv({
     },
   },
   defaultVariants: { size: 'base' },
-  compoundSlots: [
+  compoundVariants: [
     {
-      slots: ['root'],
       size: 'base',
-      class: [
-        'text-sm',
-      ],
+      class: {
+        root: 'text-sm',
+        inner: 'placeholder:text-sm',
+        clearable: '[&_svg]:size-3.5',
+      },
     },
     {
-      slots: ['root'],
       size: 'sm',
-      class: [
-        'text-xs',
-      ],
+      class: {
+        root: 'text-xs',
+        inner: 'placeholder:text-xs',
+        clearable: '[&_svg]:size-3',
+      },
     },
     {
-      slots: ['root'],
       size: 'lg',
-      class: [
-        'text-base',
-      ],
-    },
-    {
-      slots: ['inner'],
-      size: 'base',
-      class: [
-        'placeholder:text-sm',
-      ],
-    },
-    {
-      slots: ['inner'],
-      size: 'sm',
-      class: [
-        'placeholder:text-xs',
-      ],
-    },
-    {
-      slots: ['inner'],
-      size: 'lg',
-      class: [
-        'placeholder:text-base',
-      ],
-    },
-    {
-      slots: ['clearable'],
-      size: 'base',
-      class: [
-        '[&_svg]:size-3.5',
-      ],
-    },
-    {
-      slots: ['clearable'],
-      size: 'sm',
-      class: [
-        '[&_svg]:size-3',
-      ],
-    },
-    {
-      slots: ['clearable'],
-      size: 'lg',
-      class: [
-        '[&_svg]:size-4',
-      ],
+      class: {
+        root: 'text-base',
+        inner: 'placeholder:text-base',
+        clearable: '[&_svg]:size-4',
+      },
     },
   ],
 }, {

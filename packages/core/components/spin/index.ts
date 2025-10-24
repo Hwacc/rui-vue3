@@ -39,11 +39,10 @@ export const tvSpin = tv({
       lg: '',
     },
   },
-  compoundSlots: [
-    {
-      slots: ['root'],
-      mode: 'fullscreen',
-      class: [
+  compoundVariants: [{
+    mode: 'fullscreen',
+    class: {
+      root: [
         'fixed',
         'top-0',
         'left-0',
@@ -52,37 +51,25 @@ export const tvSpin = tv({
         'z-(--z-loading)',
       ],
     },
-    {
-      slots: ['icon'],
-      size: 'sm',
-      class: 'size-6',
+  }, {
+    size: 'sm',
+    class: {
+      icon: 'size-6',
+      text: 'text-xs',
     },
-    {
-      slots: ['icon'],
-      size: 'base',
-      class: 'size-8',
+  }, {
+    size: 'base',
+    class: {
+      icon: 'size-8',
+      text: 'text-sm',
     },
-    {
-      slots: ['icon'],
-      size: 'lg',
-      class: 'size-10',
+  }, {
+    size: 'lg',
+    class: {
+      icon: 'size-10',
+      text: 'text-base',
     },
-    {
-      slots: ['text'],
-      size: 'sm',
-      class: 'text-xs',
-    },
-    {
-      slots: ['text'],
-      size: 'base',
-      class: 'text-sm',
-    },
-    {
-      slots: ['text'],
-      size: 'lg',
-      class: 'text-base',
-    },
-  ],
+  }],
 }, {
   slots: {
     root: prefix,

@@ -53,41 +53,39 @@ export const tvTabs = tv(
         false: '',
       },
     },
-    compoundSlots: [
+    compoundVariants: [
       {
-        slots: ['trigger'],
         size: 'sm',
-        class: 'px-3 py-2 text-xs',
+        class: {
+          trigger: 'px-3 py-2 text-xs',
+          indicator: 'h-1',
+        },
       },
       {
-        slots: ['trigger'],
         size: 'base',
-        class: 'px-3.75 py-2.5 text-sm',
+        class: {
+          trigger: 'px-3.75 py-2.5 text-sm',
+          indicator: 'h-1',
+        },
       },
       {
-        slots: ['trigger'],
         size: 'lg',
-        class: 'px-4.5 py-3 text-base',
+        class: {
+          trigger: 'px-4.5 py-3 text-base',
+          indicator: 'h-1.5',
+        },
       },
       {
-        slots: ['indicator'],
-        size: ['sm', 'base'],
-        class: 'h-1',
-      },
-      {
-        slots: ['indicator'],
-        size: 'lg',
-        class: 'h-1.5',
-      },
-      {
-        slots: ['content'],
         prev: true,
-        class: 'data-[state=active]:animate-fade-right',
+        class: {
+          content: 'data-[state=active]:animate-fade-right',
+        },
       },
       {
-        slots: ['content'],
         next: true,
-        class: 'data-[state=active]:animate-fade-left',
+        class: {
+          content: 'data-[state=active]:animate-fade-left',
+        },
       },
     ],
   },

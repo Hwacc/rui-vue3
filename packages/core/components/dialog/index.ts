@@ -63,33 +63,33 @@ export const tvDialog = tv(
       variant: 'default',
       position: 'center',
     },
-    compoundSlots: [
+    compoundVariants: [
       {
-        slots: ['content'],
         variant: 'default',
-        class: ['fixed', 'flex', 'flex-col', 'max-h-[80%]'],
+        class: {
+          content: ['fixed', 'flex', 'flex-col', 'max-h-[80%]'],
+        },
       },
       {
-        slots: ['content'],
         variant: 'scroll',
-        class: ['relative'],
+        class: {
+          content: ['relative'],
+          overlay: 'overflow-y-auto',
+        },
       },
       {
-        slots: ['content'],
-        variant: 'default',
-        position: 'center',
-        class: ['left-1/2', 'top-1/2', '-translate-x-1/2', '-translate-y-1/2'],
-      },
-      {
-        slots: ['content'],
         variant: 'scroll',
         position: 'center',
-        class: ['mx-auto', 'my-8'],
+        class: {
+          content: ['mx-auto', 'my-8'],
+        },
       },
       {
-        slots: ['overlay'],
-        variant: 'scroll',
-        class: 'overflow-y-auto',
+        variant: 'default',
+        position: 'center',
+        class: {
+          content: ['left-1/2', 'top-1/2', '-translate-x-1/2', '-translate-y-1/2'],
+        },
       },
     ],
   },

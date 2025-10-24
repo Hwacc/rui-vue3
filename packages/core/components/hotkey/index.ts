@@ -1,13 +1,13 @@
-import type { VariantProps } from 'tailwind-variants';
-import { PREFIX } from '@rui/core/lib/constants';
-import { tv } from '@rui/core/lib/tv';
-import { tvInput } from '../input';
+import type { VariantProps } from 'tailwind-variants'
+import { PREFIX } from '@rui/core/lib/constants'
+import { tv } from '@rui/core/lib/tv'
+import { tvInput } from '../input'
 
-export { default as Hotkey } from './Hotkey.vue';
+export { default as Hotkey } from './Hotkey.vue'
 
-const prefix = `${PREFIX}-hotkey`;
+const prefix = `${PREFIX}-hotkey`
 
-const { root, inner } = tvInput();
+const { root, inner } = tvInput()
 export const tvHotkey = tv(
   {
     slots: {
@@ -22,36 +22,27 @@ export const tvHotkey = tv(
       },
     },
     defaultVariants: { size: 'base' },
-    compoundSlots: [
+    compoundVariants: [
       {
-        slots: ['root'],
         size: 'base',
-        class: root({ size: 'base' }),
+        class: {
+          root: root({ size: 'base' }),
+          inner: inner({ size: 'base' }),
+        },
       },
       {
-        slots: ['root'],
         size: 'sm',
-        class: root({ size: 'sm' }),
+        class: {
+          root: root({ size: 'sm' }),
+          inner: inner({ size: 'sm' }),
+        },
       },
       {
-        slots: ['root'],
         size: 'lg',
-        class: root({ size: 'lg' }),
-      },
-      {
-        slots: ['inner'],
-        size: 'base',
-        class: inner({ size: 'base' }),
-      },
-      {
-        slots: ['inner'],
-        size: 'sm',
-        class: inner({ size: 'sm' }),
-      },
-      {
-        slots: ['inner'],
-        size: 'lg',
-        class: inner({ size: 'lg' }),
+        class: {
+          root: root({ size: 'lg' }),
+          inner: inner({ size: 'lg' }),
+        },
       },
     ],
   },
@@ -60,6 +51,6 @@ export const tvHotkey = tv(
       root: [`${PREFIX}-input`, prefix],
       inner: [`${PREFIX}-input-inner`, `${prefix}-inner`],
     },
-  }
-);
-export type HotkeyVariants = VariantProps<typeof tvHotkey>;
+  },
+)
+export type HotkeyVariants = VariantProps<typeof tvHotkey>

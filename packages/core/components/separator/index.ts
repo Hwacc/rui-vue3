@@ -29,16 +29,18 @@ export const tvSeparator = tv(
     defaultVariants: {
       orientation: 'horizontal',
     },
-    compoundSlots: [
+    compoundVariants: [
       {
-        slots: ['label'],
         orientation: 'vertical',
-        class: ['w-px px-1 py-2'],
+        class: {
+          label: 'w-px px-1 py-2',
+        },
       },
       {
-        slots: ['label'],
         orientation: 'horizontal',
-        class: ['h-px py-1 px-2'],
+        class: {
+          label: 'h-px py-1 px-2',
+        },
       },
     ],
   },

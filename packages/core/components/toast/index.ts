@@ -71,7 +71,7 @@ export const toastSwipe = {
   none: [],
 }
 
-function getBaseSlotsCompoundVariants() {
+function getBaseSlotsCompoundSlots() {
   const positions = [
     'top-left',
     'top-center',
@@ -176,7 +176,7 @@ export const tvToast = tv(
       position: 'center',
       swipeDirection: 'up',
     },
-    compoundSlots: (getBaseSlotsCompoundVariants() as any).concat([
+    compoundSlots: (getBaseSlotsCompoundSlots() as any).concat([
       {
         slots: ['viewport'],
         position: 'center',

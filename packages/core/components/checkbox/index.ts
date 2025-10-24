@@ -28,41 +28,34 @@ export const tvCheckbox = tv({
   defaultVariants: {
     size: 'base',
   },
+  compoundVariants: [
+    {
+      size: 'base',
+      class: {
+        box: 'size-3.5',
+        label: 'text-sm',
+      },
+    },
+    {
+      size: 'sm',
+      class: {
+        box: 'size-3',
+        label: 'text-xs',
+      },
+    },
+    {
+      size: 'lg',
+      class: {
+        box: 'size-4',
+        label: 'text-base',
+      },
+    },
+  ],
   compoundSlots: [
     {
       slots: ['root'],
       disabled: true,
       class: 'opacity-(--disabled-opacity)',
-    },
-    {
-      slots: ['box'],
-      size: 'base',
-      class: 'size-3.5',
-    },
-    {
-      slots: ['box'],
-      size: 'sm',
-      class: 'size-3',
-    },
-    {
-      slots: ['box'],
-      size: 'lg',
-      class: 'size-4',
-    },
-    {
-      slots: ['label'],
-      size: 'base',
-      class: 'text-sm',
-    },
-    {
-      slots: ['label'],
-      size: 'sm',
-      class: 'text-xs',
-    },
-    {
-      slots: ['label'],
-      size: 'lg',
-      class: 'text-base',
     },
   ],
 }, {
