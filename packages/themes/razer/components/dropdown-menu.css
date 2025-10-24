@@ -1,4 +1,9 @@
 @layer components {
+
+  .rui-dropdown-menu-content{
+    @apply data-[state=open]:animate-fade-scale-in data-[state=closed]:animate-fade-scale-out;
+  }
+
   .rui-dropdown-menu-content, 
   .rui-dropdown-menu-sub-content{
     @apply bg-h1a border-h11 text-hcc shadow-rui-popper;

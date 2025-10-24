@@ -7,7 +7,10 @@ import { Popover, PopoverArrow, PopoverContent, PopoverTrigger } from '@rui/core
   <div class="container flex flex-col items-center gap-4">
     <div class="flex gap-2">
       <Popover>
-        <PopoverTrigger trigger="click" mode="mouse-only">
+        <PopoverTrigger
+          trigger="click"
+          mode="mouse-only"
+        >
           <Button as="div">
             Trigger
           </Button>
@@ -20,14 +23,40 @@ import { Popover, PopoverArrow, PopoverContent, PopoverTrigger } from '@rui/core
       </Popover>
 
       <Popover>
-        <PopoverTrigger trigger="click" mode="mouse-only">
+        <PopoverTrigger
+          trigger="click"
+          mode="mouse-only"
+        >
           <Button as="div">
             Right Trigger
           </Button>
         </PopoverTrigger>
-        <PopoverContent class="flex flex-col items-center" side="right" align="start">
+        <PopoverContent
+          class="flex flex-col items-center"
+          side="right"
+          align="start"
+        >
           popper content
           <Button>Im a Button in Content</Button>
+          <PopoverArrow />
+        </PopoverContent>
+      </Popover>
+
+      <Popover disable-hoverable-content>
+        <PopoverTrigger
+          trigger="hover"
+          mode="mouse-only"
+        >
+          <Button as="div">
+            Hover Trigger
+          </Button>
+        </PopoverTrigger>
+        <PopoverContent
+          class="flex flex-col items-center"
+          side="right"
+          align="start"
+        >
+          Hover Content
           <PopoverArrow />
         </PopoverContent>
       </Popover>

@@ -53,24 +53,18 @@ export const tvTrigger = tv(
 
 export const tvContent = tv(
   {
-    slots: {
-      wrapper: 'z-(--z-dropdown)',
-      content: [
-        'z-auto',
-        'min-w-(--reka-dropdown-menu-trigger-width)',
-        'overflow-hidden',
-        'rounded',
-        'border',
-        'px-2',
-        'py-1.5',
-      ],
-    },
+    base: [
+      'z-(--z-dropdown)',
+      'min-w-(--reka-dropdown-menu-trigger-width)',
+      'overflow-hidden',
+      'rounded',
+      'border',
+      'px-2',
+      'py-1.5',
+    ],
   },
   {
-    slots: {
-      wrapper: `${prefix}-wrapper`,
-      content: `${prefix}-content`,
-    },
+    class: `${prefix}-content`,
   },
 )
 
@@ -182,7 +176,6 @@ export const tvSubContent = tv(
   },
   {
     slots: {
-      wrapper: `${prefix}-wrapper ${prefix}-sub-wrapper`,
       content: `${prefix}-content ${prefix}-sub-content`,
     },
   },

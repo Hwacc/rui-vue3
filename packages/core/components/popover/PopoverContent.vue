@@ -1,9 +1,8 @@
 <script setup lang="ts">
-import type { PopoverContentEmits, PopoverContentProps, PopoverPortalProps } from 'reka-ui'
+import type { PopoverContentEmits, PopoverContentProps } from 'reka-ui'
 import type { HTMLAttributes } from 'vue'
-import { PopoverContentMotion } from '@rui/core/components/motion/PopoverContentMotion'
+import type { ComponentProps } from 'vue-component-type-helpers'
 import { useGraceArea } from '@rui/core/shared'
-import { AnimatePresence } from 'motion-v'
 import {
   injectPopoverRootContext,
   PopoverContent,
@@ -11,8 +10,8 @@ import {
   useForwardExpose,
   useForwardPropsEmits,
 } from 'reka-ui'
-import { ref, watchEffect } from 'vue'
 
+import { computed, useTemplateRef, watchEffect } from 'vue'
 import { tvPopover } from '.'
 import { injectPopoverRootContextEx } from './PopoverProviderEx.jsx'
 
@@ -32,9 +31,8 @@ const {
   PopoverContentProps & {
     class?: HTMLAttributes['class']
     ui?: {
-      wrapper?: {
+      portal?: ComponentProps<typeof PopoverPortal> & {
         class?: HTMLAttributes['class']
-        props?: PopoverPortalProps
       }
       content?: {
         class?: HTMLAttributes['class']
@@ -49,8 +47,9 @@ const emits = defineEmits<PopoverContentEmits>()
 const { triggerElement } = injectPopoverRootContext()
 const rootContextEx = injectPopoverRootContextEx()
 
-const contentRef = ref<any>(null)
-const { isPointerInTransit, onPointerExit } = useGraceArea(triggerElement, contentRef)
+const contentRef = useTemplateRef('contentRef')
+const contentElement = computed(() => contentRef.value?.$el)
+const { isPointerInTransit, onPointerExit } = useGraceArea(triggerElement, contentElement)
 
 rootContextEx.isPointerInTransitRef = isPointerInTransit
 onPointerExit(() => {
@@ -59,7 +58,7 @@ onPointerExit(() => {
   }
 })
 
-const { forwardRef, currentElement } = useForwardExpose()
+const { currentElement } = useForwardExpose()
 watchEffect((onCleanup) => {
   const triggerType = rootContextEx.triggerType.value
   const triggerMode = rootContextEx.triggerMode.value
@@ -83,28 +82,18 @@ watchEffect((onCleanup) => {
   }
 })
 
-const { wrapper, content } = tvPopover()
+const { content } = tvPopover()
 const forwarded = useForwardPropsEmits(props, emits)
 </script>
 
 <template>
-  <PopoverPortal v-bind="ui?.wrapper?.props">
-    <AnimatePresence>
-      <PopoverContent
-        v-bind="{ ...forwarded, side, align, sideOffset, ...$attrs }"
-        :class="wrapper({ class: ui?.wrapper?.class, unstyled })"
-      >
-        <PopoverContentMotion
-          :ref="(r: any) => {
-            contentRef = r?.$el;
-            forwardRef(r);
-          }"
-          :class="content({ class: ([ui?.content?.class, propsClass]) as any, unstyled })"
-          :side="side"
-        >
-          <slot />
-        </PopoverContentMotion>
-      </PopoverContent>
-    </AnimatePresence>
+  <PopoverPortal v-bind="ui?.portal">
+    <PopoverContent
+      v-bind="{ ...forwarded, side, align, sideOffset, ...$attrs }"
+      ref="contentRef"
+      :class="content({ class: [ui?.content?.class, propsClass], unstyled })"
+    >
+      <slot />
+    </PopoverContent>
   </PopoverPortal>
 </template>

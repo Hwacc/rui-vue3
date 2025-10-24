@@ -2,8 +2,6 @@
 import type { DropdownMenuContentEmits, DropdownMenuContentProps } from 'reka-ui'
 import type { HTMLAttributes } from 'vue'
 import type { ComponentProps } from 'vue-component-type-helpers'
-import { PopoverContentMotion } from '@rui/core/components/motion/PopoverContentMotion'
-import { AnimatePresence } from 'motion-v'
 import { DropdownMenuContent, DropdownMenuPortal, useForwardPropsEmits } from 'reka-ui'
 import { watch } from 'vue'
 import { tvContent } from '.'
@@ -21,10 +19,7 @@ const {
     class?: HTMLAttributes['class']
     unstyled?: boolean
     ui?: {
-      portal?: {
-        props?: ComponentProps<typeof DropdownMenuPortal>
-      }
-      wrapper?: {
+      portal?: ComponentProps<typeof DropdownMenuPortal> & {
         class?: HTMLAttributes['class']
       }
       content?: {
@@ -45,7 +40,6 @@ watch(
   },
 )
 
-const { wrapper, content } = tvContent()
 const forwarded = useForwardPropsEmits(
   {
     side,
@@ -58,25 +52,19 @@ const forwarded = useForwardPropsEmits(
 
 <template>
   <DropdownMenuPortal
+    v-bind="ui?.portal"
     :to="props.positionStrategy === 'absolute' ? rootElement : undefined"
-    v-bind="ui?.portal?.props"
   >
-    <AnimatePresence>
-      <DropdownMenuContent
-        v-bind="forwarded"
-        :class="wrapper({ unstyled, class: [ui?.wrapper?.class, propsClass] })"
-      >
-        <PopoverContentMotion
-          :class="
-            content({
-              unstyled,
-              class: [ui?.content?.class],
-            })
-          "
-        >
-          <slot />
-        </PopoverContentMotion>
-      </DropdownMenuContent>
-    </AnimatePresence>
+    <DropdownMenuContent
+      v-bind="forwarded"
+      :class="
+        tvContent({
+          unstyled,
+          class: [ui?.content?.class, propsClass],
+        })
+      "
+    >
+      <slot />
+    </DropdownMenuContent>
   </DropdownMenuPortal>
 </template>

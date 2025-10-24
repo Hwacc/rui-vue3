@@ -17,6 +17,8 @@ import { motion } from 'motion-v'
  *  我在PR: https://github.com/unovue/reka-ui/pull/2239 中修复了该问题
  *  现在Select的Content可以通过css控制结束动画
  *
+ *  update:
+ *  已全部改用css动画
  */
 import { computed, defineComponent, toRefs } from 'vue'
 

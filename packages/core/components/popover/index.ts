@@ -14,15 +14,16 @@ const prefix = `${PREFIX}-popover`
 export const tvPopover = tv({
   slots: {
     root: '',
-    wrapper: 'z-(--z-popover)',
     content: [
-      'z-auto',
+      'z-(--z-popover)',
       'rounded',
       'min-w-(--reka-popover-trigger-width)',
       'border',
       'rounded-lg',
       'p-2.5',
       'outline-none',
+      'data-[state=open]:animate-fade-scale-in',
+      'data-[state=closed]:animate-fade-scale-out',
     ],
     arrow: '',
     trigger: ['group', 'rounded'],
@@ -72,7 +73,6 @@ export const tvPopover = tv({
 }, {
   slots: {
     root: prefix,
-    wrapper: `${prefix}-wrapper`,
     content: `${prefix}-content`,
     arrow: `${prefix}-arrow`,
     trigger: `${prefix}-trigger`,
