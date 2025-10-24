@@ -85,7 +85,7 @@ export const PopoverProviderEx = defineComponent<PopoverProviderExProps>({
       { immediate: false },
     )
 
-    const handleOpen = () => {
+    const onOpen = () => {
       if (isOpenDelayed.value) {
         startOpenTimer()
       }
@@ -93,7 +93,7 @@ export const PopoverProviderEx = defineComponent<PopoverProviderExProps>({
         popoverRootContext.onOpenChange(true)
       }
     }
-    const handleClose = () => {
+    const onClose = () => {
       clearOpenTimer()
       popoverRootContext.onOpenChange(false)
     }
@@ -105,8 +105,8 @@ export const PopoverProviderEx = defineComponent<PopoverProviderExProps>({
       triggerMode,
       isOpenDelayed,
       isPointerInTransitRef,
-      onOpen: handleOpen,
-      onClose: handleClose,
+      onOpen,
+      onClose,
     })
     return () => slots.default?.()
   },

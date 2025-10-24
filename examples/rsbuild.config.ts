@@ -14,7 +14,7 @@ export default defineConfig({
   output: {
     sourceMap: {
       js: 'source-map',
-      css: true,
+      css: false,
     },
   },
   resolve: {

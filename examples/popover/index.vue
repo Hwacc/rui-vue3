@@ -16,13 +16,13 @@ import { Popover, PopoverArrow, PopoverContent, PopoverTrigger } from '@rui/core
           </Button>
         </PopoverTrigger>
         <PopoverContent class="flex flex-col items-center">
-          popper content
+          <p>popper content</p>
           <Button>Im a Button in Content</Button>
           <PopoverArrow />
         </PopoverContent>
       </Popover>
 
-      <Popover>
+      <Popover modal>
         <PopoverTrigger
           trigger="click"
           mode="mouse-only"
@@ -33,16 +33,16 @@ import { Popover, PopoverArrow, PopoverContent, PopoverTrigger } from '@rui/core
         </PopoverTrigger>
         <PopoverContent
           class="flex flex-col items-center"
-          side="right"
+          side="bottom"
           align="start"
         >
-          popper content
+          <p>popper content</p>
           <Button>Im a Button in Content</Button>
           <PopoverArrow />
         </PopoverContent>
       </Popover>
 
-      <Popover disable-hoverable-content>
+      <Popover>
         <PopoverTrigger
           trigger="hover"
           mode="mouse-only"
@@ -56,7 +56,9 @@ import { Popover, PopoverArrow, PopoverContent, PopoverTrigger } from '@rui/core
           side="right"
           align="start"
         >
-          Hover Content
+          <div>
+            Hover Content
+          </div>
           <PopoverArrow />
         </PopoverContent>
       </Popover>

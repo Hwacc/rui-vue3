@@ -11,7 +11,7 @@ import {
   useForwardPropsEmits,
 } from 'reka-ui'
 
-import { computed, useTemplateRef, watchEffect } from 'vue'
+import { ref, watchEffect } from 'vue'
 import { tvPopover } from '.'
 import { injectPopoverRootContextEx } from './PopoverProviderEx.jsx'
 
@@ -46,9 +46,13 @@ const emits = defineEmits<PopoverContentEmits>()
 
 const { triggerElement } = injectPopoverRootContext()
 const rootContextEx = injectPopoverRootContextEx()
+/**
+ * Notice: 由于forwardExpose的限制，contentElement如果是comment或textNode,
+ * 会找寻其siblings, 如果没有则会造成contentElement为null, 从而导致graceArea失效
+ * 所以slot内容必须有实际节点包裹
+ */
+const contentElement = ref<HTMLElement | null>(null)
 
-const contentRef = useTemplateRef('contentRef')
-const contentElement = computed(() => contentRef.value?.$el)
 const { isPointerInTransit, onPointerExit } = useGraceArea(triggerElement, contentElement)
 
 rootContextEx.isPointerInTransitRef = isPointerInTransit
@@ -90,7 +94,14 @@ const forwarded = useForwardPropsEmits(props, emits)
   <PopoverPortal v-bind="ui?.portal">
     <PopoverContent
       v-bind="{ ...forwarded, side, align, sideOffset, ...$attrs }"
-      ref="contentRef"
+      :ref="r => {
+        if (r && (r as any).$el) {
+          contentElement = (r as any).$el
+        }
+        else {
+          contentElement = r as HTMLElement
+        }
+      }"
       :class="content({ class: [ui?.content?.class, propsClass], unstyled })"
     >
       <slot />

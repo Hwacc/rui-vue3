@@ -12,13 +12,16 @@ function useGraceArea(triggerElement, containerElement) {
   }
   function handleCreateGraceArea(event, hoverTarget) {
     const currentTarget = event.currentTarget
+    if (!hoverTarget || !hoverTarget.getBoundingClientRect) {
+      return
+    }
     const exitPoint = {
       x: event.clientX,
       y: event.clientY,
     }
-    const exitSide = getExitSideFromRect(exitPoint, currentTarget.getBoundingClientRect())
+    const exitSide = getExitSideFromRect(exitPoint, currentTarget.getBoundingClientRect?.())
     const paddedExitPoints = getPaddedExitPoints(exitPoint, exitSide)
-    const hoverTargetPoints = getPointsFromRect(hoverTarget.getBoundingClientRect())
+    const hoverTargetPoints = getPointsFromRect(hoverTarget.getBoundingClientRect?.())
     const graceArea = getHull([...paddedExitPoints, ...hoverTargetPoints])
     pointerGraceArea.value = graceArea
     isPointerInTransit.value = true
