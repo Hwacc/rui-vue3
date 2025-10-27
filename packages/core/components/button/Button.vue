@@ -30,17 +30,14 @@ export interface ButtonProps extends PrimitiveProps {
     }
     tooltip?: {
       theme?: TooltipContentVariants['theme']
-      root?: {
+      root?: TooltipRootProps & {
         class?: HTMLAttributes['class']
-        props?: TooltipRootProps
       }
-      content?: {
+      content?: TooltipContentProps & {
         class?: HTMLAttributes['class']
-        props?: TooltipContentProps
       }
-      arrow?: {
+      arrow?: TooltipArrowProps & {
         class?: HTMLAttributes['class']
-        props?: TooltipArrowProps
       }
     }
   }
@@ -107,24 +104,18 @@ const mergedUI = computed(() => {
       tooltip: {
         theme: 'default',
         root: {
-          props: {
-            delayDuration: 0,
-            disableHoverableContent: true,
-            ignoreNonKeyboardFocus: true,
-          },
+          delayDuration: 0,
+          disableHoverableContent: true,
+          ignoreNonKeyboardFocus: true,
         },
         content: {
-          props: {
-            side: 'top',
-            align: 'start',
-            sideOffset: 6,
-          },
+          side: 'top',
+          align: 'start',
+          sideOffset: 6,
         },
         arrow: {
-          props: {
-            width: 6,
-            height: 3,
-          },
+          width: 6,
+          height: 3,
         },
       },
     },
@@ -136,13 +127,13 @@ const { base, loading: tvLoading } = tvButton()
 
 <template>
   <TooltipProvider v-if="tooltip || slots.tooltip">
-    <Tooltip v-bind="{ ...mergedUI.tooltip.root.props, disabled }">
+    <Tooltip v-bind="{ ...mergedUI.tooltip.root, disabled }">
       <!-- data-state 已被Tooltip占用, 故使用data-switch-state -->
       <TooltipTrigger
         :ref="
           (r) => {
-            forwardRef(r);
-            rippleReferenceRef = r;
+            forwardRef(r)
+            rippleReferenceRef = r
           }
         "
         :as="as"
@@ -180,7 +171,7 @@ const { base, loading: tvLoading } = tvButton()
         <Ripple v-if="ripple" />
       </TooltipTrigger>
       <TooltipContent
-        v-bind="mergedUI.tooltip.content.props"
+        v-bind="mergedUI.tooltip.content"
         :class="mergedUI.tooltip.content.class"
         :theme="mergedUI.tooltip.theme"
         :data-theme="mergedUI.tooltip.theme"
@@ -189,9 +180,9 @@ const { base, loading: tvLoading } = tvButton()
           {{ tooltip }}
         </slot>
         <TooltipArrow
+          v-bind="mergedUI.tooltip.arrow"
           :class="mergedUI.tooltip.arrow.class"
           :theme="mergedUI.tooltip.theme"
-          v-bind="mergedUI.tooltip.arrow.props"
           variant="css"
           force
         />
@@ -202,8 +193,8 @@ const { base, loading: tvLoading } = tvButton()
     v-else
     :ref="
       (r) => {
-        forwardRef(r);
-        rippleReferenceRef = r;
+        forwardRef(r)
+        rippleReferenceRef = r
       }
     "
     :as="as"

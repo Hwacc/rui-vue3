@@ -29,40 +29,13 @@ export const Default: Story = {
     size: 'base',
     variant: 'default',
   },
-  render: (args) => {
-    return {
-      components: { Badge },
-      setup() {
-        return () => (
-          <Badge variant={args.variant} size={args.size}>
-            {{
-              default: () => args.default,
-            }}
-          </Badge>
-        )
-      },
-    }
-  },
 }
+
 export const Secondary: Story = {
   args: {
     default: 'Secondary',
     size: 'base',
     variant: 'secondary',
-  },
-  render: (args) => {
-    return {
-      components: { Badge },
-      setup() {
-        return () => (
-          <Badge variant={args.variant} size={args.size}>
-            {{
-              default: () => args.default,
-            }}
-          </Badge>
-        )
-      },
-    }
   },
 }
 
@@ -77,8 +50,8 @@ export const RedDot: Story = {
       setup() {
         return () => (
           <div class="relative">
-            <p>test</p>
-            <Badge class="absolute" variant={args.variant} size={args.size} />
+            <p>Test Text</p>
+            <Badge class="absolute" variant="dot" size={args.size} />
           </div>
         )
       },

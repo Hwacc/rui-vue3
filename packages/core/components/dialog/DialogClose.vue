@@ -26,20 +26,18 @@ const emits = defineEmits<{
   close: [from?: DialogCloseFrom]
 }>()
 
-const { onOpenChange, closeFrom: contextCloseFrom } = injectDialogContext()
+const { onOpenChange } = injectDialogContext()
 
-function handleClose(from?: DialogCloseFrom) {
-  contextCloseFrom.value = from ?? closeFrom
-  emits('close', contextCloseFrom.value)
-  onOpenChange(false)
+function realClose(from?: DialogCloseFrom) {
+  onOpenChange(false, from)
+  emits('close', from)
 }
 
 function onClose(event: Event, from?: DialogCloseFrom) {
   emits('click', event)
-  console.log('click', event.defaultPrevented)
   if (event.defaultPrevented)
     return true
-  handleClose(from)
+  realClose(from)
 }
 
 const { close } = tvDialog()
@@ -53,6 +51,6 @@ const forwarded = useForwardProps(props)
     :class="close({ unstyled, class: propsClass })"
     @click="(e) => onClose(e, closeFrom)"
   >
-    <slot v-bind="{ close: handleClose }" />
+    <slot v-bind="{ close: realClose }" />
   </Primitive>
 </template>
