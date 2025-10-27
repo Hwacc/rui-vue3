@@ -25,9 +25,10 @@ import SwitchExample from './switch/index.vue'
 import TabsExample from './tabs/index.vue'
 import TagsInputExample from './tags-input/index.vue'
 import ToastExample from './toast/index.vue'
-
 import VLazyExample from './v-lazy/index.vue'
+
 import VTitleExample from './v-title/index.vue'
+import VirtualExample from './virtual/index.vue'
 
 const compSize = ref<'base' | 'sm' | 'lg'>('base')
 const toastPosition = ref<ToastPosition>('bottom-right')
@@ -75,6 +76,7 @@ const toastPosition = ref<ToastPosition>('bottom-right')
       <SheetExample />
       <SkeletonExample />
       <VLazyExample />
+      <VirtualExample />
     </div>
   </Config>
 </template>

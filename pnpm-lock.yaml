@@ -117,6 +117,9 @@ importers:
       vue-3-slider-component:
         specifier: ^1.0.2
         version: 1.0.2(vue@3.5.22(typescript@5.9.3))
+      vue-component-type-helpers:
+        specifier: ^3.0.5
+        version: 3.1.2
       vue-lazyload:
         specifier: ^3.0.0
         version: 3.0.0

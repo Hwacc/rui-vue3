@@ -16,7 +16,9 @@ const meta = {
     },
     class: { control: 'text' },
     tooltip: { control: 'text' },
-    tooltipTheme: { control: 'select', options: ['default', 'dark'] },
+    ui: {
+      control: 'object',
+    },
   },
 } satisfies Meta<typeof Button>
 
@@ -33,6 +35,11 @@ export const Default: Story = {
     default: 'Default',
     variant: 'default',
     size: 'base',
+    ui: {
+      tooltip: {
+        theme: 'default',
+      },
+    },
   },
 }
 
@@ -43,6 +50,7 @@ export const Normal: Story = {
     },
   },
   args: {
+    ...Default.args,
     default: 'Normal',
     variant: 'normal',
     size: 'base',
@@ -56,6 +64,7 @@ export const Outline: Story = {
     },
   },
   args: {
+    ...Default.args,
     default: 'Outline',
     variant: 'outline',
     size: 'base',
@@ -69,6 +78,7 @@ export const Text: Story = {
     },
   },
   args: {
+    ...Default.args,
     default: 'Text',
     variant: 'text',
     size: 'base',
@@ -82,6 +92,7 @@ export const Icon: Story = {
     },
   },
   args: {
+    ...Default.args,
     variant: 'icon',
     tooltip: 'Camera',
     size: 'base',
@@ -151,11 +162,11 @@ export const WithTooltip: Story = {
     },
   },
   args: {
+    ...Default.args,
     default: 'With Tooltip',
     variant: 'default',
     size: 'base',
     tooltip: 'Tooltip',
-    tooltipTheme: 'default',
   },
   render: (args) => {
     return {
