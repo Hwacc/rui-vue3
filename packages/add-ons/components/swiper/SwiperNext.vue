@@ -13,6 +13,7 @@ const effectiveSwiper = computed(() => {
   return swiper ?? useSwiper()?.value
 })
 const { isCanNext } = useSwiperToggleEnabled(effectiveSwiper)
+
 function onClick() {
   isCanNext.value && effectiveSwiper.value?.slideNext()
 }

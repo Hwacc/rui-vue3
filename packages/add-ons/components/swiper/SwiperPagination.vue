@@ -2,10 +2,11 @@
 import type { PaginationEvents, Swiper } from 'swiper/types'
 import type { HTMLAttributes } from 'vue'
 import type { SwiperPaginationProps } from './interface'
+import { useForwardProps } from '@rui/add-ons/composables/useForwardProps'
 import { cn, getNodeCssVar, rem2px } from '@rui/core/lib/utils'
 import { merge } from 'lodash-es'
 import { useSwiper } from 'swiper/vue'
-import { computed, nextTick, reactive, useTemplateRef, watchEffect } from 'vue'
+import { computed, nextTick, useTemplateRef, watchEffect } from 'vue'
 import { prefix } from '.'
 import { useRegistSwiperEmits, useSwiperModule } from './utils'
 
@@ -15,7 +16,7 @@ const {
   swiper,
   ...props
 } = defineProps<
-  SwiperPaginationProps & {
+  Omit<SwiperPaginationProps, 'enabled' | 'el'> & {
     class?: HTMLAttributes['class']
     unstyled?: boolean
     swiper?: Swiper
@@ -28,23 +29,19 @@ const effectiveSwiper = computed(() => {
 })
 const { hasModule } = useSwiperModule(effectiveSwiper)
 const pagiRef = useTemplateRef('pagination')
-const reactiveProps = reactive(props)
+const forwared = useForwardProps(props)
 
 watchEffect((cleanup) => {
   if (effectiveSwiper.value && hasModule('Pagination') && pagiRef.value) {
-    if (reactiveProps.type === 'autoplay-bullets' && hasModule('Autoplay')) {
-      const onAutoplayTimeLeft = (
-        _swiper: Swiper,
-        _timeLeft: number,
-        percentage: number,
-      ) => {
+    if (forwared.value.type === 'autoplay-bullets' && hasModule('Autoplay')) {
+      const onAutoplayTimeLeft = (_swiper: Swiper, _timeLeft: number, percentage: number) => {
         pagiRef.value?.style.setProperty(
           '--rui-swiper-autoplay-percentage',
           `${Math.max(0, Math.min(1, 1 - percentage)) * 100}%`,
         )
       }
       const onPaginationRender = () => {
-        if (reactiveProps.dynamicBullets) {
+        if (forwared.value.dynamicBullets) {
           const getMinBulletSize = (): number => {
             if (pagiRef.value) {
               const bullets = effectiveSwiper.value.pagination.bullets
@@ -87,7 +84,7 @@ watchEffect((cleanup) => {
           nextTick(() => {
             if (pagiRef.value) {
               pagiRef.value.style.width = `${
-                getMinBulletSize() * (5 + (reactiveProps.dynamicMainBullets ?? 1))
+                getMinBulletSize() * (5 + (forwared.value.dynamicMainBullets ?? 1))
                 + activeBulletSize
               }px`
             }
@@ -104,14 +101,13 @@ watchEffect((cleanup) => {
     const options = merge(
       {},
       typeof effectiveSwiper.value.params.pagination === 'boolean'
-        ? {
-            enabled: effectiveSwiper.value.params.pagination,
-          }
+        ? {}
         : effectiveSwiper.value.params.pagination,
-      reactiveProps,
+      forwared.value,
       {
+        enabled: true,
         el: pagiRef.value,
-        type: reactiveProps.type === 'autoplay-bullets' ? 'bullets' : reactiveProps.type,
+        type: forwared.value.type === 'autoplay-bullets' ? 'bullets' : forwared.value.type,
       },
     )
     effectiveSwiper.value.params.pagination = options
@@ -125,12 +121,7 @@ watchEffect((cleanup) => {
 useRegistSwiperEmits({
   swiperRef: effectiveSwiper,
   emit,
-  events: [
-    'paginationHide',
-    'paginationRender',
-    'paginationShow',
-    'paginationUpdate',
-  ],
+  events: ['paginationHide', 'paginationRender', 'paginationShow', 'paginationUpdate'],
 })
 </script>
 
@@ -138,9 +129,7 @@ useRegistSwiperEmits({
   <div
     ref="pagination"
     role="pagination-container"
-    :class="
-      cn('swiper-pagination', !unstyled && `${prefix}-pagination`, propsClass)
-    "
-    :data-type="reactiveProps.type"
+    :class="cn('swiper-pagination', !unstyled && `${prefix}-pagination`, propsClass)"
+    :data-type="forwared.type"
   />
 </template>

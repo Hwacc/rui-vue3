@@ -1,27 +1,22 @@
 <script setup lang="ts">
 import type { NavigationEvents, NavigationOptions, Swiper } from 'swiper/types'
 import type { HTMLAttributes } from 'vue'
+import { useForwardProps } from '@rui/add-ons/composables/useForwardProps'
 import { cn } from '@rui/core/lib/utils'
 import { merge } from 'lodash-es'
 import { ChevronLeft } from 'lucide-vue-next'
 import { useSwiper } from 'swiper/vue'
-import { computed, reactive, useTemplateRef, watchEffect } from 'vue'
+import { computed, onMounted, useTemplateRef, watch } from 'vue'
 import { swiperNavigationVariant } from '.'
-import {
-  useRegistSwiperEmits,
-  useSwiperModule,
-  useSwiperToggleEnabled,
-} from './utils'
+import { useRegistSwiperEmits, useSwiperModule, useSwiperToggleEnabled } from './utils'
 
 const {
   class: propsClass,
   unstyled,
   swiper,
-  nextEl,
-  prevEl,
   ...props
 } = defineProps<
-  NavigationOptions & {
+  Omit<NavigationOptions, 'enabled' | 'nextEl' | 'prevEl'> & {
     class?: HTMLAttributes['class']
     unstyled?: boolean
     swiper?: Swiper
@@ -35,37 +30,40 @@ const effectiveSwiper = computed(() => {
 const { hasModule } = useSwiperModule(effectiveSwiper)
 const { isCanPrev } = useSwiperToggleEnabled(effectiveSwiper)
 const navRef = useTemplateRef('navigation')
-const reactiveProps = reactive(props)
 
-watchEffect(() => {
+const forwared = useForwardProps(props)
+
+useRegistSwiperEmits({
+  swiperRef: effectiveSwiper,
+  emit,
+  events: ['navigationHide', 'navigationPrev', 'navigationShow'],
+})
+
+watch(forwared, () => {
+  effectiveSwiper.value.params.navigation = merge(
+    {},
+    effectiveSwiper.value.params.navigation,
+    forwared.value,
+  )
+  effectiveSwiper.value.navigation.update()
+})
+
+onMounted(() => {
   if (effectiveSwiper.value && hasModule('Navigation') && navRef.value) {
     const options = merge(
       {},
       typeof effectiveSwiper.value.params.navigation === 'boolean'
-        ? {
-            enabled: effectiveSwiper.value.params.navigation,
-          }
+        ? {}
         : effectiveSwiper.value.params.navigation,
-      reactiveProps,
+      forwared.value,
       {
+        enabled: true,
         prevEl: navRef.value,
       },
     )
     effectiveSwiper.value.params.navigation = options
-    effectiveSwiper.value.navigation.destroy()
     effectiveSwiper.value.navigation.init()
-    effectiveSwiper.value.navigation.update()
   }
-})
-useRegistSwiperEmits({
-  swiperRef: effectiveSwiper,
-  emit,
-  events: [
-    'navigationHide',
-    'navigationNext',
-    'navigationPrev',
-    'navigationShow',
-  ],
 })
 </script>
 

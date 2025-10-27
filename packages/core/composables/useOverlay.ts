@@ -4,9 +4,9 @@
  * @see https://github.com/nuxt/ui/blob/v3/src/runtime/composables/useOverlay.ts
  */
 import type { Component } from 'vue'
-import { reactive, markRaw, shallowReactive } from 'vue'
+import type { ComponentEmit, ComponentProps } from 'vue-component-type-helpers'
 import { createSharedComposable } from '@vueuse/core'
-import type { ComponentProps, ComponentEmit } from 'vue-component-type-helpers'
+import { markRaw, reactive, shallowReactive } from 'vue'
 
 /**
  * This is a workaround for a design limitation in TypeScript.
@@ -66,27 +66,14 @@ type OpenedOverlay<T extends Component> = Omit<OverlayInstance<T>, 'open' | 'clo
 function _useOverlay() {
   const overlays = shallowReactive<Overlay[]>([])
 
-  const create = <T extends Component>(component: T, _options?: OverlayOptions<ComponentProps<T>>): OverlayInstance<T> => {
-    const { props, defaultOpen, destroyOnClose } = _options || {}
+  const getOverlay = (id: symbol): Overlay => {
+    const overlay = overlays.find(overlay => overlay.id === id)
 
-    const options = reactive<Overlay>({
-      id: Symbol(import.meta.dev ? 'useOverlay' : ''),
-      isOpen: !!defaultOpen,
-      component: markRaw(component!),
-      isMounted: !!defaultOpen,
-      destroyOnClose: !!destroyOnClose,
-      originalProps: props || {},
-      props: { ...props }
-    })
-
-    overlays.push(options)
-
-    return {
-      ...options,
-      open: <T extends Component>(props?: ComponentProps<T>) => open(options.id, props),
-      close: value => close(options.id, value),
-      patch: <T extends Component>(props: Partial<ComponentProps<T>>) => patch(options.id, props)
+    if (!overlay) {
+      throw new Error('Overlay not found')
     }
+
+    return overlay
   }
 
   const open = <T extends Component>(id: symbol, props?: ComponentProps<T>): OpenedOverlay<T> => {
@@ -95,7 +82,8 @@ function _useOverlay() {
     // If props are provided, merge them with the original props, otherwise use the original props
     if (props) {
       overlay.props = { ...overlay.originalProps, ...props }
-    } else {
+    }
+    else {
       overlay.props = { ...overlay.originalProps }
     }
 
@@ -107,7 +95,7 @@ function _useOverlay() {
       id,
       isMounted: overlay.isMounted,
       isOpen: overlay.isOpen,
-      result
+      result,
     })
   }
 
@@ -144,20 +132,33 @@ function _useOverlay() {
     overlay.props = { ...overlay.props, ...props }
   }
 
-  const getOverlay = (id: symbol): Overlay => {
-    const overlay = overlays.find(overlay => overlay.id === id)
-
-    if (!overlay) {
-      throw new Error('Overlay not found')
-    }
-
-    return overlay
-  }
-
   const isOpen = (id: symbol): boolean => {
     const overlay = getOverlay(id)
 
     return overlay.isOpen
+  }
+
+  const create = <T extends Component>(component: T, _options?: OverlayOptions<ComponentProps<T>>): OverlayInstance<T> => {
+    const { props, defaultOpen, destroyOnClose } = _options || {}
+
+    const options = reactive<Overlay>({
+      id: Symbol(import.meta.dev ? 'useOverlay' : ''),
+      isOpen: !!defaultOpen,
+      component: markRaw(component!),
+      isMounted: !!defaultOpen,
+      destroyOnClose: !!destroyOnClose,
+      originalProps: props || {},
+      props: { ...props },
+    })
+
+    overlays.push(options)
+
+    return {
+      ...options,
+      open: <T extends Component>(props?: ComponentProps<T>) => open(options.id, props),
+      close: value => close(options.id, value),
+      patch: <T extends Component>(props: Partial<ComponentProps<T>>) => patch(options.id, props),
+    }
   }
 
   return {
@@ -168,7 +169,7 @@ function _useOverlay() {
     create,
     patch,
     unmount,
-    isOpen
+    isOpen,
   }
 }
 

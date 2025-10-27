@@ -13,6 +13,7 @@
   },
   "peerDependencies": {
     "@floating-ui/vue": "^1.1.6",
+    "@tanstack/vue-virtual": "^3.13.12",
     "@vueuse/core": "^13.6.0",
     "assign-deep": "^1.0.1",
     "class-variance-authority": "^0.7.1",
@@ -28,6 +29,7 @@
   },
   "devDependencies": {
     "@floating-ui/vue": "^1.1.9",
+    "@tanstack/vue-virtual": "^3.13.12",
     "assign-deep": "^1.0.1",
     "muuri": "^0.9.5",
     "perfect-scrollbar": "^1.5.6",
