@@ -24,6 +24,7 @@
   },
   "devDependencies": {
     "@antfu/eslint-config": "^5.1.0",
+    "@faker-js/faker": "^10.1.0",
     "@rsbuild/core": "1.2.12",
     "@rsbuild/plugin-babel": "^1.0.4",
     "@rsbuild/plugin-sass": "^1.2.2",

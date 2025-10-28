@@ -12,6 +12,7 @@
     "sync-fix": "syncpack fix"
   },
   "peerDependencies": {
+    "@codog/vue3-infinite-loading": "^0.0.10",
     "@floating-ui/vue": "^1.1.6",
     "@tanstack/vue-virtual": "^3.13.12",
     "@vueuse/core": "^13.6.0",
@@ -28,6 +29,7 @@
     "vue-lazyload": "^3.0.0"
   },
   "devDependencies": {
+    "@codog/vue3-infinite-loading": "^0.0.10",
     "@floating-ui/vue": "^1.1.9",
     "@tanstack/vue-virtual": "^3.13.12",
     "assign-deep": "^1.0.1",

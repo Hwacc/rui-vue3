@@ -12,128 +12,134 @@ export type { FloatingTooltipOptions, SLIDER_ERROR_TYPE } from './Slider.vue'
 
 const prefix = `${PREFIX}-vue-slider`
 
-export const tvSlider = tv({
-  slots: {
-    root: [],
-    process: '',
-    dot: ['w-full', 'h-full', 'rounded-full', 'transition-transform'],
-    tooltip: ['flex', 'px-2', 'py-1', 'rounded'],
-    label: '',
-    mark: '',
-    step: '',
-    rail: '',
+export const tvSlider = tv(
+  {
+    slots: {
+      root: [],
+      process: '',
+      dot: ['w-full', 'h-full', 'rounded-full', 'transition-transform'],
+      tooltip: ['flex', 'px-2', 'py-1', 'rounded'],
+      label: '',
+      mark: '',
+      step: '',
+      rail: '',
+    },
+    variants: {
+      size: {
+        sm: '',
+        lg: '',
+        base: '',
+      },
+      scale: {
+        true: '',
+        false: '',
+      },
+      variant: {
+        floating: '',
+        default: '',
+      },
+      placement: {
+        top: '',
+        bottom: '',
+        left: '',
+        right: '',
+      },
+    },
+    compoundVariants: [
+      {
+        size: 'sm',
+        class: {
+          dot: 'border-[.0625rem]',
+        },
+      },
+      {
+        size: 'lg',
+        class: {
+          dot: 'border-[.25rem]',
+        },
+      },
+      {
+        size: 'base',
+        class: {
+          dot: 'border-[.125rem]',
+        },
+      },
+      {
+        variant: 'default',
+        class: {
+          tooltip: ['after:absolute', 'after:content-[""]', 'after:w-0', 'after:h-0'],
+        },
+      },
+      {
+        placement: 'top',
+        class: {
+          tooltip: [
+            'after:bottom-0',
+            'after:left-1/2',
+            'after:translate-x-[-50%]',
+            'after:translate-y-[100%]',
+            'after:border-[.25rem]',
+            'after:border-x-transparent',
+            'after:border-b-transparent',
+          ],
+        },
+      },
+      {
+        placement: 'bottom',
+        class: {
+          tooltip: [
+            'after:right-0',
+            'after:top-1/2',
+            'after:translate-x-[100%]',
+            'after:translate-y-[-50%]',
+            'after:border-[.25rem]',
+            'after:border-y-transparent',
+            'after:border-r-transparent',
+          ],
+        },
+      },
+      {
+        placement: 'left',
+        class: {
+          tooltip: [
+            'after:right-0',
+            'after:top-1/2',
+            'after:translate-x-[100%]',
+            'after:translate-y-[-50%]',
+            'after:border-[.25rem]',
+            'after:border-y-transparent',
+            'after:border-r-transparent',
+          ],
+        },
+      },
+      {
+        placement: 'right',
+        class: {
+          tooltip: [
+            'after:left-0',
+            'after:top-1/2',
+            'after:translate-x-[-100%]',
+            'after:translate-y-[-50%]',
+            'after:border-[.25rem]',
+            'after:border-y-transparent',
+            'after:border-l-transparent',
+          ],
+        },
+      },
+    ],
   },
-  variants: {
-    size: {
-      sm: '',
-      lg: '',
-      base: '',
-    },
-    scale: {
-      true: '',
-      false: '',
-    },
-    variant: {
-      floating: '',
-      default: '',
-    },
-    placement: {
-      top: '',
-      bottom: '',
-      left: '',
-      right: '',
+  {
+    slots: {
+      root: prefix,
+      dot: `${prefix}-dot`,
+      tooltip: `${prefix}-tooltip`,
+      label: `${prefix}-label`,
+      mark: `${prefix}-mark`,
+      step: `${prefix}-step`,
+      process: `${prefix}-process`,
+      rail: `${prefix}-rail`,
     },
   },
-  compoundSlots: [
-    {
-      size: 'sm',
-      slots: ['dot'],
-      class: 'border-[.0625rem]',
-    },
-    {
-      size: 'lg',
-      slots: ['dot'],
-      class: 'border-[.25rem]',
-    },
-    {
-      size: 'base',
-      slots: ['dot'],
-      class: 'border-[.125rem]',
-    },
-    {
-      scale: true,
-      slots: ['dot'],
-      class: 'scale-125',
-    },
-    {
-      variant: 'default',
-      slots: ['tooltip'],
-      class: ['after:absolute', 'after:content-[""]', 'after:w-0', 'after:h-0'],
-    },
-    {
-      placement: 'top',
-      slots: ['tooltip'],
-      class: [
-        'after:bottom-0',
-        'after:left-1/2',
-        'after:translate-x-[-50%]',
-        'after:translate-y-[100%]',
-        'after:border-[.25rem]',
-        'after:border-x-transparent',
-        'after:border-b-transparent',
-      ],
-    },
-    {
-      placement: 'bottom',
-      slots: ['tooltip'],
-      class: [
-        'after:right-0',
-        'after:top-1/2',
-        'after:translate-x-[100%]',
-        'after:translate-y-[-50%]',
-        'after:border-[.25rem]',
-        'after:border-y-transparent',
-        'after:border-r-transparent',
-      ],
-    },
-    {
-      placement: 'left',
-      slots: ['tooltip'],
-      class: [
-        'after:right-0',
-        'after:top-1/2',
-        'after:translate-x-[100%]',
-        'after:translate-y-[-50%]',
-        'after:border-[.25rem]',
-        'after:border-y-transparent',
-        'after:border-r-transparent',
-      ],
-    },
-    {
-      placement: 'right',
-      slots: ['tooltip'],
-      class: [
-        'after:left-0',
-        'after:top-1/2',
-        'after:translate-x-[-100%]',
-        'after:translate-y-[-50%]',
-        'after:border-[.25rem]',
-        'after:border-y-transparent',
-        'after:border-l-transparent',
-      ],
-    },
-  ],
-}, {
-  slots: {
-    root: prefix,
-    dot: `${prefix}-dot`,
-    tooltip: `${prefix}-tooltip`,
-    label: `${prefix}-label`,
-    mark: `${prefix}-mark`,
-    step: `${prefix}-step`,
-    process: `${prefix}-process`,
-    rail: `${prefix}-rail`,
-  },
-})
+)
 
 export type SliderVariants = VariantProps<typeof tvSlider>

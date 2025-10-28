@@ -30,6 +30,9 @@ importers:
       '@antfu/eslint-config':
         specifier: ^5.1.0
         version: 5.4.1(@vue/compiler-sfc@3.5.22)(eslint@9.38.0(jiti@2.6.1))(typescript@5.9.3)(vitest@3.2.4)
+      '@faker-js/faker':
+        specifier: ^10.1.0
+        version: 10.1.0
       '@rsbuild/core':
         specifier: 1.2.12
         version: 1.2.12
@@ -96,6 +99,9 @@ importers:
         specifier: ^3.5.x
         version: 3.5.22(typescript@5.9.3)
     devDependencies:
+      '@codog/vue3-infinite-loading':
+        specifier: ^0.0.10
+        version: 0.0.10(vue@3.5.22(typescript@5.9.3))
       '@floating-ui/vue':
         specifier: ^1.1.9
         version: 1.1.9(vue@3.5.22(typescript@5.9.3))
@@ -167,11 +173,11 @@ importers:
         specifier: ^3.0.2
         version: 3.3.1
       tailwind-variants:
-        specifier: ^2.1.0
-        version: 2.1.0(tailwind-merge@3.3.1)(tailwindcss@4.1.15)
+        specifier: ^3.1.1
+        version: 3.1.1(tailwind-merge@3.3.1)(tailwindcss@4.1.15)
       vue-component-type-helpers:
         specifier: ^3.0.5
-        version: 3.1.1
+        version: 3.1.2
 
   packages/themes:
     dependencies:
@@ -512,6 +518,11 @@ packages:
   '@clack/prompts@0.11.0':
     resolution: {integrity: sha512-pMN5FcrEw9hUkZA4f+zLlzivQSeQf5dRGJjSUbvVYDLvpKCdQx5OaknvKzgbtXOizhP+SJJJjqEbOe55uKKfAw==}
 
+  '@codog/vue3-infinite-loading@0.0.10':
+    resolution: {integrity: sha512-RNv3TDNP90fi5K8/myYM4stOl60sbjMp5i25PiObF/us3l0fIUjFbNz4PioEbmjj4pYn4U5pYS+Sm93aR8GMhw==}
+    peerDependencies:
+      vue: ^3.2.0
+
   '@es-joy/jsdoccomment@0.50.2':
     resolution: {integrity: sha512-YAdE/IJSpwbOTiaURNCKECdAwqrJuFiZhylmesBcIRawtYKnBR2wxPhoIewMg+Yu+QuYvHfJNReWpoxGBKOChA==}
     engines: {node: '>=18'}
@@ -746,6 +757,10 @@ packages:
   '@eslint/plugin-kit@0.4.0':
     resolution: {integrity: sha512-sB5uyeq+dwCWyPi31B2gQlVlo+j5brPlWx4yZBrEaRo/nhdDE8Xke1gsGgtiBdaBTxuTkceLVuVt/pclrasb0A==}
     engines: {node: ^18.18.0 || ^20.9.0 || >=21.1.0}
+
+  '@faker-js/faker@10.1.0':
+    resolution: {integrity: sha512-C3mrr3b5dRVlKPJdfrAXS8+dq+rq8Qm5SNRazca0JKgw1HQERFmrVb0towvMmw5uu8hHKNiQasMaR/tydf3Zsg==}
+    engines: {node: ^20.19.0 || ^22.13.0 || ^23.5.0 || >=24.0.0, npm: '>=10'}
 
   '@floating-ui/core@1.7.3':
     resolution: {integrity: sha512-sGnvb5dmrJaKEZ+LDIpguvdX3bDlEllmv4/ClQ9awcmCZrlx5jQyyMWFM5kBI+EyNOCDDiKk8il0zeuX3Zlg/w==}
@@ -3605,6 +3620,7 @@ packages:
 
   motion-v@1.7.3:
     resolution: {integrity: sha512-lwgrge7Y7FF9LxBxZ//MsSLPPjh4z1yYE9ie236Pa89mRCsBlONXbLcseln6G6LyAG8pt3PpzUxWt2grwMcBAA==}
+    deprecated: deprecate
     peerDependencies:
       '@vueuse/core': '>=10.0.0'
       vue: '>=3.0.0'
@@ -4603,6 +4619,16 @@ packages:
       tailwind-merge:
         optional: true
 
+  tailwind-variants@3.1.1:
+    resolution: {integrity: sha512-ftLXe3krnqkMHsuBTEmaVUXYovXtPyTK7ckEfDRXS8PBZx0bAUas+A0jYxuKA5b8qg++wvQ3d2MQ7l/xeZxbZQ==}
+    engines: {node: '>=16.x', pnpm: '>=7.x'}
+    peerDependencies:
+      tailwind-merge: '>=3.0.0'
+      tailwindcss: '*'
+    peerDependenciesMeta:
+      tailwind-merge:
+        optional: true
+
   tailwindcss-animated@1.1.2:
     resolution: {integrity: sha512-SI4owS5ojserhgEYIZA/uFVdNjU2GMB2P3sjtjmFA52VxoUi+Hht6oR5+RdT+CxrX9cNNYEa+vbTWHvN9zbj3w==}
     peerDependencies:
@@ -4930,9 +4956,6 @@ packages:
 
   vue-component-type-helpers@2.2.12:
     resolution: {integrity: sha512-YbGqHZ5/eW4SnkPNR44mKVc6ZKQoRs/Rux1sxC6rdwXb4qpbOSYfDr9DsTHolOTGmIKgM9j141mZbBeg05R1pw==}
-
-  vue-component-type-helpers@3.1.1:
-    resolution: {integrity: sha512-B0kHv7qX6E7+kdc5nsaqjdGZ1KwNKSUQDWGy7XkTYT7wFsOpkEyaJ1Vq79TjwrrtuLRgizrTV7PPuC4rRQo+vw==}
 
   vue-component-type-helpers@3.1.2:
     resolution: {integrity: sha512-ch3/SKBtxdZq18vsEntiGCdSszCRNfhX5QaTxjSacCAXLlNQRXfXo+ANjoQEYJMsJOJy1/vHF6Tkc4s85MS+zw==}
@@ -5386,6 +5409,10 @@ snapshots:
       picocolors: 1.1.1
       sisteransi: 1.0.5
 
+  '@codog/vue3-infinite-loading@0.0.10(vue@3.5.22(typescript@5.9.3))':
+    dependencies:
+      vue: 3.5.22(typescript@5.9.3)
+
   '@es-joy/jsdoccomment@0.50.2':
     dependencies:
       '@types/estree': 1.0.8
@@ -5563,6 +5590,8 @@ snapshots:
     dependencies:
       '@eslint/core': 0.16.0
       levn: 0.4.1
+
+  '@faker-js/faker@10.1.0': {}
 
   '@floating-ui/core@1.7.3':
     dependencies:
@@ -9736,6 +9765,12 @@ snapshots:
     optionalDependencies:
       tailwind-merge: 3.3.1
 
+  tailwind-variants@3.1.1(tailwind-merge@3.3.1)(tailwindcss@4.1.15):
+    dependencies:
+      tailwindcss: 4.1.15
+    optionalDependencies:
+      tailwind-merge: 3.3.1
+
   tailwindcss-animated@1.1.2(tailwindcss@4.1.15):
     dependencies:
       tailwindcss: 4.1.15
@@ -10049,8 +10084,6 @@ snapshots:
       typescript: 5.7.3
 
   vue-component-type-helpers@2.2.12: {}
-
-  vue-component-type-helpers@3.1.1: {}
 
   vue-component-type-helpers@3.1.2: {}
 

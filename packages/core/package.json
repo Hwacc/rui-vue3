@@ -33,7 +33,7 @@
     "motion-v": "^1.0.1",
     "reka-ui": "https://pkg.pr.new/reka-ui@2239",
     "tailwind-merge": "^3.0.2",
-    "tailwind-variants": "^2.1.0",
+    "tailwind-variants": "^3.1.1",
     "vue-component-type-helpers": "^3.0.5"
   }
 }
