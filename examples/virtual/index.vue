@@ -2,6 +2,7 @@
 import type { LoadingStateHandler } from '@rui/add-ons/components/virtual'
 import { faker } from '@faker-js/faker'
 import {
+  VirtualGrid,
   VirtualInfiniteLoading,
   VirtualList,
   VirtualListItem,
@@ -91,6 +92,22 @@ async function loadMore($state: LoadingStateHandler) {
         </VirtualListItem>
         <VirtualInfiniteLoading @infinite="loadMore" />
       </VirtualList>
+    </div>
+    <div class="flex w-full items-center gap-4">
+      <VirtualGrid
+        class="flex-1 h-[400px] overflow-x-hidden"
+        :data-source="longNameList"
+        :row="4"
+        :column="2"
+      >
+        <VirtualListItem
+          v-slot="{ data }"
+          class="w-full wrap-break-word overflow-hidden"
+          dynamic
+        >
+          <div>{{ data }}</div>
+        </VirtualListItem>
+      </VirtualGrid>
     </div>
   </div>
 </template>

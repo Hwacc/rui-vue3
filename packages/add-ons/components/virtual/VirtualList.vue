@@ -4,7 +4,8 @@ import type { HTMLAttributes } from 'vue'
 import type { VirtualListProps } from '.'
 import { useForwardExpose } from '@rui/add-ons/composables/useForwardExpose'
 import { ref } from 'vue'
-import { VirtualListImpl, VirtualRoot } from '.'
+import { VirtualRoot } from '.'
+import VirtualListImpl from './VirtualListImpl.vue'
 
 const props = defineProps<
   VirtualListProps<T> & {

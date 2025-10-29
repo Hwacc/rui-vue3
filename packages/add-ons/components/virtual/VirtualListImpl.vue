@@ -7,8 +7,15 @@ import { merge } from 'lodash-es'
 import { cloneVNode, computed, Fragment, h, useSlots, useTemplateRef } from 'vue'
 import { injectVirtualContext, tvVirtualList } from '.'
 
-const { dataSource, unstyled, ui, ...props } = defineProps<
+const {
+  dataSource,
+  unstyled,
+  ui,
+  class: propsClass,
+  ...props
+} = defineProps<
   VirtualListProps<T> & {
+    class?: HTMLAttributes['class']
     unstyled?: boolean
     ui?: {
       viewport?: {
@@ -127,7 +134,7 @@ defineExpose({
       base({
         horizontal: forwarded.horizontal,
         unstyled,
-        class: [ui?.viewport?.class],
+        class: [ui?.viewport?.class, propsClass],
       })
     "
     :data-horizontal="forwarded.horizontal ? true : undefined"

@@ -3,9 +3,9 @@ import type { VirtualizerOptions } from '@tanstack/vue-virtual'
 import { PREFIX } from '@rui/core/lib/constants'
 import { tv } from '@rui/core/lib/tv'
 
+export { default as VirtualGrid } from './VirtualGrid.vue'
 export { default as VirtualInfiniteLoading } from './VirtualInfiniteLoading.vue'
 export { default as VirtualList } from './VirtualList.vue'
-export { default as VirtualListImpl } from './VirtualListImpl.vue'
 export { default as VirtualListItem } from './VirtualListItem.vue'
 export { injectVirtualContext, default as VirtualRoot } from './VirtualRoot.tsx'
 
@@ -51,31 +51,35 @@ export const tvVirtualInfiniteLoading = tv(
     defaultVariants: {
       size: 'base',
     },
-    compoundVariants: [{
-      size: 'base',
-      class: {
-        loading: 'py-2',
-        spinner: 'size-6',
-        complete: 'py-2',
-        error: 'py-2 gap-2',
+    compoundVariants: [
+      {
+        size: 'base',
+        class: {
+          loading: 'py-2',
+          spinner: 'size-6',
+          complete: 'py-2',
+          error: 'py-2 gap-2',
+        },
       },
-    }, {
-      size: 'sm',
-      class: {
-        loading: 'py-1.5',
-        spinner: 'size-5',
-        complete: 'py-1.5',
-        error: 'py-1.5 gap-1',
+      {
+        size: 'sm',
+        class: {
+          loading: 'py-1.5',
+          spinner: 'size-5',
+          complete: 'py-1.5',
+          error: 'py-1.5 gap-1',
+        },
       },
-    }, {
-      size: 'lg',
-      class: {
-        loading: 'py-3',
-        spinner: 'size-7',
-        complete: 'py-3',
-        error: 'py-3 gap-2.5',
+      {
+        size: 'lg',
+        class: {
+          loading: 'py-3',
+          spinner: 'size-7',
+          complete: 'py-3',
+          error: 'py-3 gap-2.5',
+        },
       },
-    }],
+    ],
   },
   {
     slots: {
@@ -88,6 +92,28 @@ export const tvVirtualInfiniteLoading = tv(
   },
 )
 export type VirtualInfiniteLoadingVariants = VariantProps<typeof tvVirtualInfiniteLoading>
+
+export const tvVirtualGrid = tv(
+  {
+    slots: {
+      base: 'size-full overflow-auto',
+      scroll: '',
+    },
+    variants: {
+      horizontal: {
+        true: '',
+        false: '',
+      },
+    },
+  },
+  {
+    slots: {
+      base: `${prefix}-grid`,
+      scroll: `${prefix}-grid-scroll`,
+    },
+  },
+)
+export type VirtualGridVariants = VariantProps<typeof tvVirtualGrid>
 
 export interface VirtualListProps<T>
   extends Omit<
@@ -105,6 +131,14 @@ export interface VirtualListProps<T>
   scrollToFn?: VirtualizerOptions<Element, Element>['scrollToFn']
   observeElementRect?: VirtualizerOptions<Element, Element>['observeElementRect']
   observeElementOffset?: VirtualizerOptions<Element, Element>['observeElementOffset']
+}
+
+export interface VirtualGridProps<T> {
+  dataSource: Array<T>
+  row: number
+  column: number
+  rowVirtualizerOptions?: Omit<VirtualListProps<T>, 'dataSource'>
+  columnVirtualizerOptions?: Omit<VirtualListProps<T>, 'dataSource'>
 }
 
 export enum LOADING_STATE {
