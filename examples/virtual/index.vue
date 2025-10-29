@@ -1,6 +1,11 @@
 <script setup lang="ts">
+import type { LoadingStateHandler } from '@rui/add-ons/components/virtual'
 import { faker } from '@faker-js/faker'
-import { VirtualList, VirtualListItem } from '@rui/add-ons/components/virtual'
+import {
+  VirtualInfiniteLoading,
+  VirtualList,
+  VirtualListItem,
+} from '@rui/add-ons/components/virtual'
 import { ref } from 'vue'
 
 const longNameList = ref(
@@ -18,6 +23,22 @@ const asyncSentenceList = ref(
     .fill(0)
     .map(() => faker.lorem.sentence({ min: 20, max: 70 })),
 )
+
+let requestCount = 0
+async function loadMore($state: LoadingStateHandler) {
+  $state.loading()
+  await new Promise(resolve => setTimeout(resolve, 1000))
+  asyncSentenceList.value.push(
+    ...Array.from({ length: 1 })
+      .fill(0)
+      .map(() => faker.lorem.sentence(5)),
+  )
+  console.log('requestCount', requestCount)
+  $state.error()
+  requestCount++
+  if (requestCount >= 5)
+    $state.error()
+}
 </script>
 
 <template>
@@ -44,14 +65,9 @@ const asyncSentenceList = ref(
     </div>
     <div class="flex w-full items-center gap-4">
       <VirtualList
-        class="flex-1 h-[400px]"
+        class="flex-1 h-[400px] overflow-x-hidden"
         :gap="20"
         :data-source="longSentenceList"
-        :ui="{
-          viewport: {
-            class: 'overflow-x-hidden',
-          },
-        }"
       >
         <VirtualListItem
           v-slot="{ data }"
@@ -62,24 +78,18 @@ const asyncSentenceList = ref(
         </VirtualListItem>
       </VirtualList>
       <VirtualList
-        class="flex-1 h-[400px]"
+        class="flex-1 h-[400px] overflow-x-hidden"
         :gap="20"
         :data-source="asyncSentenceList"
-        :ui="{
-          viewport: {
-            class: 'overflow-x-hidden',
-          },
-        }"
       >
-        <template #default>
-          <VirtualListItem
-            v-slot="{ data }"
-            class="w-full wrap-break-word overflow-hidden"
-            dynamic
-          >
-            <div>{{ data }}</div>
-          </VirtualListItem>
-        </template>
+        <VirtualListItem
+          v-slot="{ data }"
+          class="w-full wrap-break-word overflow-hidden"
+          dynamic
+        >
+          <div>{{ data }}</div>
+        </VirtualListItem>
+        <VirtualInfiniteLoading @infinite="loadMore" />
       </VirtualList>
     </div>
   </div>

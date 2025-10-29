@@ -2,6 +2,9 @@
 import { useTemplateRef, watch } from 'vue'
 import { injectVirtualContext } from './VirtualRoot'
 
+defineOptions({
+  name: 'VirtualListItem',
+})
 const { data, dynamic, index } = defineProps<{ data?: T, dynamic?: boolean, index?: number }>()
 defineSlots<{ default: { data: T, index?: number } }>()
 

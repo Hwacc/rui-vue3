@@ -1,22 +1,15 @@
 <script lang="ts" generic="T" setup>
+import type { Virtualizer } from '@tanstack/vue-virtual'
 import type { HTMLAttributes } from 'vue'
 import type { VirtualListProps } from '.'
-import { useForwardProps } from '@rui/add-ons/composables/useForwardProps'
-import { tvVirtualList, VirtualListImpl, VirtualRoot } from '.'
+import { useForwardExpose } from '@rui/add-ons/composables/useForwardExpose'
+import { ref } from 'vue'
+import { VirtualListImpl, VirtualRoot } from '.'
 
-const {
-  class: propsClass,
-  unstyled,
-  ui,
-  ...props
-} = defineProps<
+const props = defineProps<
   VirtualListProps<T> & {
-    class?: HTMLAttributes['class']
     unstyled?: boolean
     ui?: {
-      base?: {
-        class?: HTMLAttributes['class']
-      }
       viewport?: {
         class?: HTMLAttributes['class']
       }
@@ -26,34 +19,30 @@ const {
     }
   }
 >()
-defineSlots<{
-  prepend: () => any
-  default: () => any
-  append: () => any
-}>()
+defineSlots<{ default: () => any }>()
 
-const { base } = tvVirtualList()
-const forwarded = useForwardProps(props)
+const virtualizer = ref<Virtualizer<Element, Element> | null>(null)
+// 向上暴露 virtualizer
+defineExpose({
+  get virtualizer() {
+    return virtualizer.value
+  },
+})
+const { forwardRef } = useForwardExpose()
 </script>
 
 <template>
   <VirtualRoot>
-    <div
-      :class="
-        base({ horizontal: forwarded.horizontal, unstyled, class: [ui?.base?.class, propsClass] })
+    <VirtualListImpl
+      v-bind="{ ...props, ...$attrs }"
+      :ref="
+        (innerExpose) => {
+          virtualizer = (innerExpose as any)?.virtualizer ?? null
+          forwardRef(innerExpose)
+        }
       "
     >
-      <slot name="prepend" />
-      <VirtualListImpl
-        v-bind="forwarded"
-        :ui="ui"
-        :unstyled="unstyled"
-      >
-        <template #default>
-          <slot name="default" />
-        </template>
-      </VirtualListImpl>
-      <slot name="append" />
-    </div>
+      <slot />
+    </VirtualListImpl>
   </VirtualRoot>
 </template>

@@ -1,7 +1,6 @@
 <script lang="ts" generic="T" setup>
 import type { HTMLAttributes, VNode } from 'vue'
 import type { VirtualListProps } from '.'
-import InfiniteLoading from '@codog/vue3-infinite-loading'
 import { useForwardProps } from '@rui/add-ons/composables/useForwardProps'
 import { useVirtualizer } from '@tanstack/vue-virtual'
 import { merge } from 'lodash-es'
@@ -31,7 +30,7 @@ const forwarded = useForwardProps(props)
 const virtualOptions = computed(() => {
   const _staticOptions = {
     enabled: true,
-    count: dataSource.length,
+    count: virtualContext.enableInfinite.value ? dataSource.length + 1 : dataSource.length,
     overscan: forwarded.value.overscan ?? 1,
     getScrollElement: () => parentEl.value,
     estimateSize: (index: number) => forwarded.value.estimateSize?.(index) ?? 30,
@@ -40,31 +39,42 @@ const virtualOptions = computed(() => {
 })
 const virtualizer = useVirtualizer<Element, Element>(virtualOptions)
 virtualContext.virtualizer = virtualizer
-defineExpose({
-  virtualizer,
-})
 
 const slots = useSlots()
+const defaultSlotNode = slots.default!()[0]
+let itemVNode: VNode | null = null
+let infiniteLoadingVNode: VNode | null = null
+if (defaultSlotNode.type === Fragment && Array.isArray(defaultSlotNode.children)) {
+  defaultSlotNode.children.forEach((child) => {
+    if (child) {
+      const _cname = ((child as VNode).type as any).name
+      if (_cname === 'VirtualInfiniteLoading') {
+        infiniteLoadingVNode = child as VNode
+        virtualContext.enableInfinite.value = true
+      }
+      else if (_cname === 'VirtualListItem') {
+        itemVNode = child as VNode
+      }
+    }
+  })
+}
+else {
+  itemVNode = defaultSlotNode
+}
+
 const virtualizedItems = computed(() => {
-  if (slots.loading) {
-    const loadingNode = slots.loading()[0]
-    console.log('loadingNode', loadingNode)
-  }
   const virtualItems = virtualizer.value.getVirtualItems().map((virtualItem) => {
-    const defaultNode = slots.default!()[0]
-    const targetNode
-      = defaultNode.type === Fragment && Array.isArray(defaultNode.children)
-        ? (defaultNode.children[0] as VNode)
-        : defaultNode
+    const _realIndex = virtualItem.index
+    const renderNode = _realIndex < dataSource.length ? itemVNode : infiniteLoadingVNode
     return {
       vItem: virtualItem,
-      is: cloneVNode(targetNode, {
-        'data': dataSource[virtualItem.index],
-        'index': virtualItem.index,
+      is: cloneVNode(renderNode ?? h('div'), {
+        'data': dataSource[_realIndex],
+        'index': _realIndex,
         'key': `${virtualItem.key}`,
-        'data-index': virtualItem.index,
+        'data-index': _realIndex,
         'aria-setsize': dataSource.length,
-        'aria-posinset': virtualItem.index + 1,
+        'aria-posinset': _realIndex + 1,
         'style': forwarded.value.horizontal
           ? {
               position: 'absolute',
@@ -83,20 +93,6 @@ const virtualizedItems = computed(() => {
       }),
     }
   })
-  virtualItems.splice(virtualItems.length - 1, 1, {
-    vItem: { ...virtualItems[virtualItems.length - 1]?.vItem, key: 'loading' },
-    is: h(InfiniteLoading, {
-      style: {
-        width: '100%',
-        position: 'absolute',
-        top: 0,
-        left: 0,
-        transform: `translateY(${virtualItems[virtualItems.length - 1]?.vItem.start}px)`,
-        overflowAnchor: 'none',
-      },
-    }),
-  })
-  console.log('virtualItems', virtualItems)
   return virtualItems
 })
 
@@ -117,6 +113,11 @@ const scrollAreaStyle = computed(() => {
 })
 
 const { viewport, scroll } = tvVirtualList()
+defineExpose({
+  get virtualizer() {
+    return virtualizer.value
+  },
+})
 </script>
 
 <template>
@@ -137,20 +138,11 @@ const { viewport, scroll } = tvVirtualList()
       :style="scrollAreaStyle"
     >
       <!-- items -->
-      <template
+      <component
+        :is="is"
         v-for="{ is, vItem } in virtualizedItems"
         :key="vItem.key"
-      >
-        <component
-          :is="is"
-          v-if="vItem.key !== 'loading'"
-          :key="vItem.key"
-        />
-        <component
-          :is="is"
-          v-else
-        />
-      </template>
+      />
     </div>
   </div>
 </template>
