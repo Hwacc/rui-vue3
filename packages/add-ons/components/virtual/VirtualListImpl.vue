@@ -112,7 +112,7 @@ const scrollAreaStyle = computed(() => {
   }
 })
 
-const { viewport, scroll } = tvVirtualList()
+const { base, scroll } = tvVirtualList()
 defineExpose({
   get virtualizer() {
     return virtualizer.value
@@ -124,7 +124,7 @@ defineExpose({
   <div
     ref="parentEl"
     :class="
-      viewport({
+      base({
         horizontal: forwarded.horizontal,
         unstyled,
         class: [ui?.viewport?.class],

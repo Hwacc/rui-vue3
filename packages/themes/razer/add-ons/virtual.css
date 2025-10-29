@@ -1,0 +1,17 @@
+
+@layer components {
+
+  .rui-virtual-list {
+    @apply webkit-scrollbar-self;
+  }
+
+  .rui-virtual-infinite-spinner {
+    @apply stroke-rz-green;
+  }
+
+  .rui-virtual-infinite-error {
+    & .retry {
+      @apply cursor-pointer hover:text-rz-green;
+    }
+  }
+}

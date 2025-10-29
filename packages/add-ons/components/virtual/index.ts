@@ -13,8 +13,7 @@ const prefix = `${PREFIX}-virtual`
 export const tvVirtualList = tv(
   {
     slots: {
-      base: 'flex overflow-hidden',
-      viewport: 'flex-1 size-full overflow-auto',
+      base: 'size-full overflow-auto',
       scroll: '',
     },
     variants: {
@@ -23,25 +22,10 @@ export const tvVirtualList = tv(
         false: '',
       },
     },
-    compoundVariants: [
-      {
-        horizontal: true,
-        class: {
-          base: 'flex-row',
-        },
-      },
-      {
-        horizontal: false,
-        class: {
-          base: 'flex-col',
-        },
-      },
-    ],
   },
   {
     slots: {
       base: `${prefix}-list`,
-      viewport: `${prefix}-list-viewport`,
       scroll: `${prefix}-list-scroll`,
     },
   },

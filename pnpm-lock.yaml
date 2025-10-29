@@ -99,9 +99,6 @@ importers:
         specifier: ^3.5.x
         version: 3.5.22(typescript@5.9.3)
     devDependencies:
-      '@codog/vue3-infinite-loading':
-        specifier: ^0.0.10
-        version: 0.0.10(vue@3.5.22(typescript@5.9.3))
       '@floating-ui/vue':
         specifier: ^1.1.9
         version: 1.1.9(vue@3.5.22(typescript@5.9.3))
@@ -517,11 +514,6 @@ packages:
 
   '@clack/prompts@0.11.0':
     resolution: {integrity: sha512-pMN5FcrEw9hUkZA4f+zLlzivQSeQf5dRGJjSUbvVYDLvpKCdQx5OaknvKzgbtXOizhP+SJJJjqEbOe55uKKfAw==}
-
-  '@codog/vue3-infinite-loading@0.0.10':
-    resolution: {integrity: sha512-RNv3TDNP90fi5K8/myYM4stOl60sbjMp5i25PiObF/us3l0fIUjFbNz4PioEbmjj4pYn4U5pYS+Sm93aR8GMhw==}
-    peerDependencies:
-      vue: ^3.2.0
 
   '@es-joy/jsdoccomment@0.50.2':
     resolution: {integrity: sha512-YAdE/IJSpwbOTiaURNCKECdAwqrJuFiZhylmesBcIRawtYKnBR2wxPhoIewMg+Yu+QuYvHfJNReWpoxGBKOChA==}
@@ -5408,10 +5400,6 @@ snapshots:
       '@clack/core': 0.5.0
       picocolors: 1.1.1
       sisteransi: 1.0.5
-
-  '@codog/vue3-infinite-loading@0.0.10(vue@3.5.22(typescript@5.9.3))':
-    dependencies:
-      vue: 3.5.22(typescript@5.9.3)
 
   '@es-joy/jsdoccomment@0.50.2':
     dependencies:
