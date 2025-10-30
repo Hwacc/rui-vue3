@@ -27,7 +27,7 @@ const asyncSentenceList = ref(
 )
 
 let requestCount = 0
-async function loadMore($state: LoadingStateHandler) {
+async function loadMoreSentence($state: LoadingStateHandler) {
   $state.loading()
   await new Promise(resolve => setTimeout(resolve, 1000))
   asyncSentenceList.value.push(
@@ -91,7 +91,7 @@ async function loadMore($state: LoadingStateHandler) {
         >
           <div>{{ data }}</div>
         </VirtualListItem>
-        <VirtualInfiniteLoading @infinite="loadMore" />
+        <VirtualInfiniteLoading @infinite="loadMoreSentence" />
       </VirtualList>
     </div>
     <div class="flex w-full items-center gap-4">
@@ -103,10 +103,24 @@ async function loadMore($state: LoadingStateHandler) {
       >
         <VirtualGridItem
           v-slot="{ data }"
-          class="w-[100px] wrap-break-word overflow-hidden "
+          class="w-[100px] wrap-break-word overflow-hidden"
         >
           <div>{{ data }}</div>
         </VirtualGridItem>
+      </VirtualGrid>
+      <VirtualGrid
+        class="flex-1 h-[400px]"
+        :data-source="longNameList"
+        :row="20"
+        :gap="[20, 20]"
+      >
+        <VirtualGridItem
+          v-slot="{ data }"
+          class="w-[100px] wrap-break-word overflow-hidden"
+        >
+          <div>{{ data }}</div>
+        </VirtualGridItem>
+        <VirtualInfiniteLoading @infinite="loadMoreSentence" />
       </VirtualGrid>
     </div>
   </div>

@@ -1,6 +1,7 @@
 <script lang="ts" setup>
 import type { HTMLAttributes } from 'vue'
 import type { LoadingStateHandler, VirtualInfiniteLoadingVariants } from '.'
+import { useForwardExpose } from '@rui/add-ons/composables/useForwardExpose'
 import { LoaderCircle } from 'lucide-vue-next'
 import { onMounted, onUnmounted, shallowRef, useTemplateRef, watch } from 'vue'
 import { injectVirtualContext, LOADING_STATE, tvVirtualInfiniteLoading } from '.'
@@ -33,7 +34,6 @@ defineSlots<{
 const context = injectVirtualContext()
 const { infiniteState: state } = context
 
-const el = useTemplateRef('el')
 const stateHandler: LoadingStateHandler = {
   loading() {
     state.value = LOADING_STATE.LOADING
@@ -53,6 +53,8 @@ function doInfinite() {
   emit('infinite', stateHandler)
 }
 
+const { virtualizer } = injectVirtualContext()
+const { forwardRef, currentRef } = useForwardExpose()
 const observer = shallowRef<IntersectionObserver | null>(null)
 onMounted(() => {
   if (state.value === LOADING_STATE.IDLE && enableFirstLoad) {
@@ -70,8 +72,8 @@ onMounted(() => {
     },
     { root: context.parentEl?.value, rootMargin: '0px 0px 0px 0px' },
   )
-  if (el.value)
-    observer.value?.observe(el.value)
+  if (currentRef.value)
+    observer.value?.observe(currentRef.value as Element)
 })
 
 onUnmounted(() => {
@@ -79,19 +81,17 @@ onUnmounted(() => {
   observer.value = null
 })
 
-// measure infinite loading element
-const { virtualizer } = injectVirtualContext()
-watch(el, (el) => {
-  if (virtualizer?.value && el)
-    virtualizer.value.measureElement(el)
-})
-
 const { base, loading, spinner, complete, error } = tvVirtualInfiniteLoading()
 </script>
 
 <template>
   <div
-    ref="el"
+    :ref="
+      (el) => {
+        if (virtualizer && el) virtualizer.measureElement(el as Element)
+        forwardRef(el)
+      }
+    "
     :class="base({ size, unstyled, class: propsClass })"
   >
     <slot
