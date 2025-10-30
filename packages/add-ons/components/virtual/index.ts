@@ -4,6 +4,7 @@ import { PREFIX } from '@rui/core/lib/constants'
 import { tv } from '@rui/core/lib/tv'
 
 export { default as VirtualGrid } from './VirtualGrid.vue'
+export { default as VirtualGridItem } from './VirtualGridItem.vue'
 export { default as VirtualInfiniteLoading } from './VirtualInfiniteLoading.vue'
 export { default as VirtualList } from './VirtualList.vue'
 export { default as VirtualListItem } from './VirtualListItem.vue'
@@ -14,7 +15,7 @@ export const tvVirtualList = tv(
   {
     slots: {
       base: 'size-full overflow-auto',
-      scroll: '',
+      scroll: 'relative',
     },
     variants: {
       horizontal: {
@@ -97,13 +98,7 @@ export const tvVirtualGrid = tv(
   {
     slots: {
       base: 'size-full overflow-auto',
-      scroll: '',
-    },
-    variants: {
-      horizontal: {
-        true: '',
-        false: '',
-      },
+      scroll: 'relative',
     },
   },
   {
@@ -135,8 +130,9 @@ export interface VirtualListProps<T>
 
 export interface VirtualGridProps<T> {
   dataSource: Array<T>
-  row: number
-  column: number
+  row?: number
+  column?: number
+  gap?: [number, number]
   rowVirtualizerOptions?: Omit<VirtualListProps<T>, 'dataSource'>
   columnVirtualizerOptions?: Omit<VirtualListProps<T>, 'dataSource'>
 }

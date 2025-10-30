@@ -20,6 +20,7 @@ watch(el, (el) => {
   <div
     v-bind="$attrs"
     ref="el"
+    :data-index="index"
   >
     <slot
       :data="data"

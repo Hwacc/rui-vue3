@@ -1,11 +1,12 @@
 <script lang="ts" generic="T" setup>
-import type { HTMLAttributes, VNode } from 'vue'
+import type { HTMLAttributes } from 'vue'
 import type { VirtualListProps } from '.'
 import { useForwardProps } from '@rui/add-ons/composables/useForwardProps'
 import { useVirtualizer } from '@tanstack/vue-virtual'
 import { merge } from 'lodash-es'
-import { cloneVNode, computed, Fragment, h, useSlots, useTemplateRef } from 'vue'
+import { cloneVNode, computed, h, useTemplateRef } from 'vue'
 import { injectVirtualContext, tvVirtualList } from '.'
+import { useDetectSlotNode } from './composables/useDetectSlotNode'
 
 const {
   dataSource,
@@ -47,32 +48,12 @@ const virtualOptions = computed(() => {
 const virtualizer = useVirtualizer<Element, Element>(virtualOptions)
 virtualContext.virtualizer = virtualizer
 
-const slots = useSlots()
-const defaultSlotNode = slots.default!()[0]
-let itemVNode: VNode | null = null
-let infiniteLoadingVNode: VNode | null = null
-if (defaultSlotNode.type === Fragment && Array.isArray(defaultSlotNode.children)) {
-  defaultSlotNode.children.forEach((child) => {
-    if (child) {
-      const _cname = ((child as VNode).type as any).name
-      if (_cname === 'VirtualInfiniteLoading') {
-        infiniteLoadingVNode = child as VNode
-        virtualContext.enableInfinite.value = true
-      }
-      else if (_cname === 'VirtualListItem') {
-        itemVNode = child as VNode
-      }
-    }
-  })
-}
-else {
-  itemVNode = defaultSlotNode
-}
+const { itemVNode, infiniteVNode } = useDetectSlotNode()
 
 const virtualizedItems = computed(() => {
-  const virtualItems = virtualizer.value.getVirtualItems().map((virtualItem) => {
+  return virtualizer.value.getVirtualItems().map((virtualItem) => {
     const _realIndex = virtualItem.index
-    const renderNode = _realIndex < dataSource.length ? itemVNode : infiniteLoadingVNode
+    const renderNode = _realIndex < dataSource.length ? itemVNode : infiniteVNode
     return {
       vItem: virtualItem,
       is: cloneVNode(renderNode ?? h('div'), {
@@ -100,7 +81,6 @@ const virtualizedItems = computed(() => {
       }),
     }
   })
-  return virtualItems
 })
 
 const scrollAreaStyle = computed(() => {
