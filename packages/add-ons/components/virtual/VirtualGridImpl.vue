@@ -2,10 +2,10 @@
 import type { ComponentPublicInstance, HTMLAttributes } from 'vue'
 import type { VirtualGridProps } from '.'
 import { useVirtualizer } from '@tanstack/vue-virtual'
+import { merge } from 'lodash-es'
 import { cloneVNode, computed, h, useTemplateRef } from 'vue'
 import { injectVirtualContext, tvVirtualGrid } from '.'
 import { useDetectSlotNode } from './composables/useDetectSlotNode'
-import { merge } from 'lodash-es'
 
 const {
   dataSource,
@@ -31,14 +31,15 @@ const {
 >()
 
 const virtualContext = injectVirtualContext()
-const parentEl = useTemplateRef<Element>('parentEl')
+const parentEl = useTemplateRef<HTMLDivElement>('parentEl')
 virtualContext.parentEl = parentEl
 
 const grid = computed<[number, number]>(() => {
   const isInfiniteEnable = virtualContext.enableInfinite.value
   if (row && !column) {
     return [isInfiniteEnable ? row + 1 : row, Math.ceil(dataSource.length / row)]
-  } else if (!row && column) {
+  }
+  else if (!row && column) {
     return [
       isInfiniteEnable
         ? Math.ceil(dataSource.length / column) + 1
@@ -81,6 +82,9 @@ const colVirtualizer = useVirtualizer<Element, Element>(colVirtualOptions)
 virtualContext.columnVirtualizer = colVirtualizer
 const virtualColumns = computed(() => colVirtualizer.value.getVirtualItems())
 
+const totalSizeRows = computed(() => rowVirtualizer.value.getTotalSize())
+const totalSizeColumns = computed(() => colVirtualizer.value.getTotalSize())
+
 const { itemVNode, infiniteVNode } = useDetectSlotNode()
 const virtualizedRows = computed(() => {
   return virtualRows.value.map((virtualRow) => {
@@ -100,8 +104,8 @@ const virtualizedRows = computed(() => {
         }),
       }
     })
-    const rowVNode =
-      rowIndex < (virtualContext.enableInfinite.value ? grid.value[0] - 1 : grid.value[0])
+    const rowVNode
+      = rowIndex < (virtualContext.enableInfinite.value ? grid.value[0] - 1 : grid.value[0])
         ? h(
             'div',
             {
@@ -113,15 +117,17 @@ const virtualizedRows = computed(() => {
                 top: 0,
                 left: 0,
                 gap: `${gap[1]}px`,
-                // FIXME: colVNodes[0].vItem.start 做 translateX 有时不准确, 像动态 dynamic measure 造成的问题
-                // 1. 推测 overscan 越小发生的概率越小 2. 观察scroll area 右下角也发生了偏移
+                // FIXME: colVNodes[0].vItem.start 做 translateX 有时不准确
+                // 表现像动态 dynamic measure 造成的问题
+                // 1. 推测 overscan 越小发生的概率越小
+                // 2. 观察scroll area 右下角也发生了偏移
                 transform: `
                  translateX(${colVNodes[0].vItem.start}px)
                  translateY(${virtualRow.start - rowVirtualizer.value.options.scrollMargin}px)
                 `,
               },
             },
-            colVNodes.map((colVNode) => colVNode.is)
+            colVNodes.map(colVNode => colVNode.is),
           )
         : cloneVNode(infiniteVNode ?? h('div'), {
             'data-index': rowIndex,
@@ -129,10 +135,9 @@ const virtualizedRows = computed(() => {
               position: 'absolute',
               top: 0,
               left: 0,
-              width: `${parentEl.value?.offsetWidth}px`,
-              // TODO: infinie 组件的 translateX 需要定位 从而跟着组件底部横向滚动 保持在viewport中
+              width: `${parentEl.value?.clientWidth ?? 0}px`,
               transform: `
-                 translateX(${colVNodes[0].vItem.start}px)
+                 translateX(${Math.ceil(parentEl.value?.scrollLeft ?? 0)}px)
                  translateY(${virtualRow.start - rowVirtualizer.value.options.scrollMargin}px)
                 `,
             },
@@ -144,13 +149,12 @@ const virtualizedRows = computed(() => {
   })
 })
 
-const totalSizeRows = computed(() => rowVirtualizer.value.getTotalSize())
-const totalSizeColumns = computed(() => colVirtualizer.value.getTotalSize())
-
 function measureElement(el: Element | ComponentPublicInstance) {
   if (rowVirtualizer.value && el) {
-    if (el instanceof Element) rowVirtualizer.value.measureElement(el)
-    else if (el.$el) rowVirtualizer.value.measureElement(el.$el)
+    if (el instanceof Element)
+      rowVirtualizer.value.measureElement(el)
+    else if (el.$el)
+      rowVirtualizer.value.measureElement(el.$el)
   }
 }
 const { base, scroll } = tvVirtualGrid()
