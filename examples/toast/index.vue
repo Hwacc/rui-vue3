@@ -18,7 +18,9 @@ function onOpenToastClick() {
     variant: 'error',
     title: 'Toast Title',
     description: 'Toast Description',
-    duration: 0,
+    ui: {
+      root: { duration: 0 },
+    },
   })
 }
 
@@ -27,6 +29,9 @@ function onOpenRenderToastClick() {
     variant: 'success',
     title: 'Toast Title',
     description: () => <p>The VNode Description</p>,
+    ui: {
+      root: { duration: 0 },
+    },
   })
 }
 
@@ -41,7 +46,9 @@ function onOpenCustomMessageClick() {
   message({
     title: 'Custom Message Content',
     icon: () => <Smile class="size-5" />,
-    duration: 0,
+    ui: {
+      root: { duration: 0 },
+    },
   })
 }
 </script>
