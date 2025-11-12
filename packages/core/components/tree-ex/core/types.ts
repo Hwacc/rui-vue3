@@ -57,4 +57,5 @@ export type TreeKeyField = {
   selected: string
   checked: string
   children: string
+  title: string
 }

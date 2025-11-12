@@ -128,8 +128,8 @@ export default class TreeStore<T extends Record<string, any>> extends TreeEventT
     }
     else {
       node.checked = value
-      if (node.origin) {
-        ;(node.origin[this.options.field.checked] as boolean) = value
+      if (node.raw && this.options.field.checked in node.raw) {
+        ;(node.raw[this.options.field.checked] as boolean) = value
       }
     }
 
@@ -184,7 +184,6 @@ export default class TreeStore<T extends Record<string, any>> extends TreeEventT
     keys.forEach((key) => {
       this.setChecked(key, value, false, false)
     })
-
     this.triggerCheckedChange(triggerEvent, triggerDataChange)
   }
 
@@ -231,7 +230,6 @@ export default class TreeStore<T extends Record<string, any>> extends TreeEventT
     })
     // 清空未加载多选选中节点
     this.unloadCheckedKeys = []
-
     this.triggerCheckedChange(triggerEvent, triggerDataChange)
   }
 
@@ -291,8 +289,8 @@ export default class TreeStore<T extends Record<string, any>> extends TreeEventT
       if (!value) {
         // 取消当前选中节点
         node.selected = value
-        if (node.origin) {
-          ;(node.origin[this.options.field.selected] as boolean) = value
+        if (node.raw && this.options.field.selected in node.raw) {
+          ;(node.raw[this.options.field.selected] as boolean) = value
         }
         this.currentSelectedKey = null
       }
@@ -307,8 +305,8 @@ export default class TreeStore<T extends Record<string, any>> extends TreeEventT
           }
         }
         node.selected = value
-        if (node.origin) {
-          ;(node.origin[this.options.field.selected] as boolean) = value
+        if (node.raw && this.options.field.selected in node.raw) {
+          ;(node.raw[this.options.field.selected] as boolean) = value
         }
         this.currentSelectedKey = node[this.options.field.id]
         this.unloadSelectedKey = null
@@ -1268,8 +1266,8 @@ export default class TreeStore<T extends Record<string, any>> extends TreeEventT
         }
         node.checked = value
         node.indeterminate = false
-        if (node.origin) {
-          ;(node.origin[this.options.field.checked] as boolean) = value
+        if (node.raw && this.options.field.checked in node.raw) {
+          ;(node.raw[this.options.field.checked] as boolean) = value
         }
       }
     }
@@ -1316,8 +1314,8 @@ export default class TreeStore<T extends Record<string, any>> extends TreeEventT
         isInterrupted = true
         node.checked = false
         node.indeterminate = true
-        if (node.origin) {
-          ;(node.origin[this.options.field.checked] as boolean) = false
+        if (node.raw && this.options.field.checked in node.raw) {
+          ;(node.raw[this.options.field.checked] as boolean) = false
         }
         break
       }
@@ -1325,8 +1323,8 @@ export default class TreeStore<T extends Record<string, any>> extends TreeEventT
     if (!isInterrupted) {
       node.checked = hasChecked
       node.indeterminate = false
-      if (node.origin) {
-        ;(node.origin[this.options.field.checked] as boolean) = hasChecked
+      if (node.raw && this.options.field.checked in node.raw) {
+        ;(node.raw[this.options.field.checked] as boolean) = hasChecked
       }
     }
   }

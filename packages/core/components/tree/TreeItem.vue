@@ -50,7 +50,7 @@ const forward = useForwardPropsEmits(props, emit)
       v-bind="forward"
       :class="cn(treeItemVariants({ unstyled, size }), propsClass)"
     >
-      <slot v-bind="slotProps" />
+      <slot v-bind="{ ...slotProps }" />
     </TreeItem>
   </Motion>
 </template>

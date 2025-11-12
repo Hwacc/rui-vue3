@@ -63,36 +63,34 @@ export const TREE_SEARCH_API_METHODS = [
   'search',
 ] as const
 
-export const DEFAULT_TREE_PROPS = {
+export const DEFAULT_TREE_KEY_FIELD = {
+  id: 'id',
+  children: 'children',
+  selected: 'selected',
+  checked: 'checked',
+  title: 'title',
+} as const
+
+export const DEFAULT_TREE_ROOT_PROPS = {
   data: () => [],
   unloadDataList: () => [],
-  showUnloadCheckedNodes: true,
-  emptyText: '暂无数据',
-  titleField: 'title',
-  keyField: 'id',
+  field: () => DEFAULT_TREE_KEY_FIELD,
   separator: ',',
   checkable: false,
   selectable: false,
   filteredNodeCheckable: false,
   cascade: true,
   enableLeafOnly: false,
-  disableAll: false,
   defaultExpandAll: false,
   defaultExpandedKeys: () => [],
-  expandedKeys: () => [],
-  draggable: false,
-  droppable: false,
-  beforeDropMethod: () => () => true,
   ignoreMode: ignoreEnum.none,
   autoLoad: true,
   expandOnFilter: true,
-  unselectOnClick: true,
-  loading: false,
+  as: 'ul',
+}
 
-  nodeMinHeight: 30,
+export const DEFAULT_TREE_ITEM_PROPS = {
   nodeIndent: 20,
-  renderNodeAmount: 100,
-  bufferNodeAmount: 20,
 }
 
 export enum placementEnum {
@@ -159,8 +157,4 @@ export const TREE_EVENTS = [...TREE_NODE_EVENTS, ...STORE_EVENTS]
 
 export const TREE_SEARCH_EVENTS = ['search', ...TREE_EVENTS]
 
-export const TREE_DROP_EVENTS = [
-  'clear',
-  'dropdown-visible-change',
-  ...TREE_SEARCH_EVENTS,
-]
+export const TREE_DROP_EVENTS = ['clear', 'dropdown-visible-change', ...TREE_SEARCH_EVENTS]

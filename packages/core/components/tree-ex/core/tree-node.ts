@@ -1,4 +1,5 @@
 import type { TreeKeyField, TreeNodeKeyType } from './types'
+import { DEFAULT_TREE_KEY_FIELD } from './constants'
 
 interface IKeyOption {
   [key: string]: TreeNodeKeyType
@@ -52,28 +53,22 @@ export default class TreeNode<T extends Record<string, any>> {
   /** 子节点是否已加载 */
   _loaded: boolean = false
 
-  origin: T | null = null
+  raw: T
   // #endregion Properties
 
   constructor(
-    origin: T,
+    raw: T,
     parent: null | TreeNode<T> = null,
     readonly _remote: boolean = false,
-    readonly _filed: TreeKeyField = {
-      id: 'id',
-      selected: 'selected',
-      checked: 'checked',
-      children: 'children',
-    },
+    readonly _filed: TreeKeyField = DEFAULT_TREE_KEY_FIELD,
   ) {
-    this.origin = origin
-
-    if (origin[_filed.id] == null) {
+    this.raw = raw
+    if (!raw[_filed.id]) {
       // 如果没有 id 字段，随机赋值一个
       this[_filed.id] = Math.random().toString(36).substring(2)
     }
     else {
-      this[_filed.id] = origin[_filed.id]
+      this[_filed.id] = raw[_filed.id]
     }
 
     this._parent = parent
@@ -81,17 +76,18 @@ export default class TreeNode<T extends Record<string, any>> {
       this._level = this._parent._level + 1
     }
 
-    this.visible
-      = this._parent === null || (this._parent.expand && this._parent.visible)
+    this.checked = raw[_filed.checked] ?? false
+    this.selected = raw[_filed.selected] ?? false
 
-    if (Array.isArray(origin[_filed.children])) {
-      this.setChildren(origin[_filed.children])
+    this.visible = this._parent === null || (this._parent.expand && this._parent.visible)
+
+    if (Array.isArray(raw[_filed.children])) {
+      this.setChildren(raw[_filed.children])
     }
 
     if (this.children.length) {
       this._loaded = true
     }
-
     if (!this._remote) {
       this.isLeaf = !this.children.length
     }
@@ -103,12 +99,7 @@ export default class TreeNode<T extends Record<string, any>> {
    */
   setChildren(children: T[]): void {
     this.children = children.map((child) => {
-      return new TreeNode(
-        child,
-        this,
-        this._remote,
-        this._filed,
-      )
+      return new TreeNode(child, this, this._remote, this._filed)
     })
   }
 }

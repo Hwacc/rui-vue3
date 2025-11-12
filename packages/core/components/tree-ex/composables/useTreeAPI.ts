@@ -1,10 +1,12 @@
 import type { Reactive } from 'vue'
 import type TreeStore from '../core/tree-store'
-import type { AnyPropsArrayType } from '../core/types'
 import type { TreeRootProps } from '../interface'
 import { ref } from 'vue'
 
-export function useTreeAPI(store: Reactive<TreeStore>, props: TreeRootProps) {
+export function useTreeAPI<T extends Record<string, any>>(
+  store: Reactive<TreeStore<T>>,
+  props: TreeRootProps<T>,
+) {
   const isRootLoading = ref(false)
 
   async function loadRootNodes() {
@@ -16,7 +18,7 @@ export function useTreeAPI(store: Reactive<TreeStore>, props: TreeRootProps) {
             props.load(null, resolve, reject)
         })
         if (Array.isArray(root)) {
-          store.setData(root as AnyPropsArrayType)
+          store.setData(root as T[])
         }
       }
       catch {}
