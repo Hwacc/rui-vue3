@@ -53,6 +53,9 @@ export default class TreeNode<T extends Record<string, any>> {
   /** 子节点是否已加载 */
   _loaded: boolean = false
 
+  /** 节点 id */
+  id: TreeNodeKeyType
+
   raw: T
   // #endregion Properties
 
@@ -65,10 +68,10 @@ export default class TreeNode<T extends Record<string, any>> {
     this.raw = raw
     if (!raw[_filed.id]) {
       // 如果没有 id 字段，随机赋值一个
-      this[_filed.id] = Math.random().toString(36).substring(2)
+      this.id = Math.random().toString(36).substring(2)
     }
     else {
-      this[_filed.id] = raw[_filed.id]
+      this.id = raw[_filed.id]
     }
 
     this._parent = parent

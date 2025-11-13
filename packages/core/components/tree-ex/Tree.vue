@@ -17,7 +17,7 @@ const {
   render,
   ui,
   class: propsClass,
-  size = 'lg',
+  size = 'base',
   unstyled,
   ...props
 } = withDefaults(
@@ -80,7 +80,7 @@ const { base, item, content, title, arrow } = tvTree()
         <TreeItem
           v-for="node in renderNodes"
           v-bind="ui?.item"
-          :key="node.key"
+          :key="node.id"
           :data="node"
           :node-indent="nodeIndent"
           :show-line="showLine"
@@ -109,9 +109,11 @@ const { base, item, content, title, arrow } = tvTree()
                     name="prefix"
                     v-bind="{ node }"
                   />
-                  <span>
-                    {{ node.raw[props.field.title ?? 'title'] }}
-                  </span>
+                  <slot name="title">
+                    <span>
+                      {{ node.raw[props.field.title ?? 'title'] }}
+                    </span>
+                  </slot>
                   <slot
                     name="suffix"
                     v-bind="{ node }"

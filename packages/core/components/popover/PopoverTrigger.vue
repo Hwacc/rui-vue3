@@ -154,7 +154,7 @@ const { forwardRef, currentElement: triggerElement } = useForwardExpose()
       :data-state="open ? 'open' : 'closed'"
       v-on="triggerListeners"
     >
-      <slot v-bind="{ disabled }" />
+      <slot v-bind="{ open, disabled }" />
     </Primitive>
   </PopoverAnchor>
 </template>

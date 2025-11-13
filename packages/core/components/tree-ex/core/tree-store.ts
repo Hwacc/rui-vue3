@@ -201,7 +201,7 @@ export default class TreeStore<T extends Record<string, any>> extends TreeEventT
             checkCascade(node.children)
           }
           else {
-            this.setChecked(node[this.options.field.id], true, false, false)
+            this.setChecked(node.id, true, false, false)
           }
         })
       }
@@ -211,7 +211,7 @@ export default class TreeStore<T extends Record<string, any>> extends TreeEventT
       const length = this.flatData.length
       for (let i = 0; i < length; i++) {
         const node = this.flatData[i]
-        this.setChecked(node[this.options.field.id], true, false, false)
+        this.setChecked(node.id, true, false, false)
       }
     }
 
@@ -226,7 +226,7 @@ export default class TreeStore<T extends Record<string, any>> extends TreeEventT
   clearChecked(triggerEvent: boolean = true, triggerDataChange: boolean = true): void {
     const currentCheckedNodes = this.getCheckedNodes()
     currentCheckedNodes.forEach((checkedNode) => {
-      this.setChecked(checkedNode[this.options.field.id], false, false, false)
+      this.setChecked(checkedNode.id, false, false, false)
     })
     // 清空未加载多选选中节点
     this.unloadCheckedKeys = []
@@ -308,7 +308,7 @@ export default class TreeStore<T extends Record<string, any>> extends TreeEventT
         if (node.raw && this.options.field.selected in node.raw) {
           ;(node.raw[this.options.field.selected] as boolean) = value
         }
-        this.currentSelectedKey = node[this.options.field.id]
+        this.currentSelectedKey = node.id
         this.unloadSelectedKey = null
       }
     }
@@ -460,7 +460,7 @@ export default class TreeStore<T extends Record<string, any>> extends TreeEventT
 
     if (expandParent && node._parent && value) {
       await this.setExpand(
-        node._parent[this.options.field.id],
+        node._parent.id,
         value,
         expandParent,
         false,
@@ -490,7 +490,7 @@ export default class TreeStore<T extends Record<string, any>> extends TreeEventT
   setExpandAll(value: boolean, triggerDataChange: boolean = true): void {
     this.flatData.forEach((node) => {
       if (!this.options.load || node._loaded) {
-        this.setExpand(node[this.options.field.id], value, false, false, false)
+        this.setExpand(node.id, value, false, false, false)
       }
     })
 
@@ -578,7 +578,7 @@ export default class TreeStore<T extends Record<string, any>> extends TreeEventT
   }
 
   updateNodes(newNodes: ITreeNodeOptions[]) {
-    const validNodes = newNodes.filter(node => node[this.options.field.id] != null)
+    const validNodes = newNodes.filter(node => node.id != null)
     if (!validNodes.length)
       return
 
@@ -587,7 +587,7 @@ export default class TreeStore<T extends Record<string, any>> extends TreeEventT
     let triggerSetDataFlag = false
 
     validNodes.forEach((newNode) => {
-      const key = newNode[this.options.field.id]
+      const key = newNode.id
       const node = this.mapData[key]
       if (node) {
         triggerSetDataFlag = triggerSetDataFlag || this.isChildrenChanged(node, newNode)
@@ -652,7 +652,7 @@ export default class TreeStore<T extends Record<string, any>> extends TreeEventT
    */
   getCheckedKeys(ignoreMode = this.options.ignoreMode): TreeNodeKeyType[] {
     return this.getCheckedNodes(ignoreMode)
-      .map(checkedNodes => checkedNodes[this.options.field.id])
+      .map(checkedNodes => checkedNodes.id)
       .concat(this.unloadCheckedKeys)
   }
 
@@ -697,7 +697,7 @@ export default class TreeStore<T extends Record<string, any>> extends TreeEventT
    * 获取展开节点 keys
    */
   getExpandKeys(): TreeNodeKeyType[] {
-    return this.getExpandNodes().map(node => node[this.options.field.id])
+    return this.getExpandNodes().map(node => node.id)
   }
 
   /**
@@ -724,7 +724,7 @@ export default class TreeStore<T extends Record<string, any>> extends TreeEventT
     if (!node)
       return null
 
-    this.remove(node[this.options.field.id], false, false)
+    this.remove(node.id, false, false)
 
     const referenceNode = this.mapData[referenceKey]
     const parentNode = referenceNode._parent
@@ -760,7 +760,7 @@ export default class TreeStore<T extends Record<string, any>> extends TreeEventT
     if (!node)
       return null
 
-    this.remove(node[this.options.field.id], false, false)
+    this.remove(node.id, false, false)
 
     const referenceNode = this.mapData[referenceKey]
     const parentNode = referenceNode._parent
@@ -812,7 +812,7 @@ export default class TreeStore<T extends Record<string, any>> extends TreeEventT
       const childrenLength = parentNode.children.length
       return this.insertAfter(
         insertedNode,
-        parentNode.children[childrenLength - 1][this.options.field.id],
+        parentNode.children[childrenLength - 1].id,
         triggerEvent,
         triggerDataChange,
       )
@@ -822,7 +822,7 @@ export default class TreeStore<T extends Record<string, any>> extends TreeEventT
     if (!node)
       return null
 
-    this.remove(node[this.options.field.id], false, false)
+    this.remove(node.id, false, false)
 
     const flatIndex = this.findIndex(parentKey) + 1
 
@@ -845,7 +845,7 @@ export default class TreeStore<T extends Record<string, any>> extends TreeEventT
     if (!parentNode.isLeaf) {
       return this.insertBefore(
         insertedNode,
-        parentNode.children[0][this.options.field.id],
+        parentNode.children[0].id,
         triggerEvent,
         triggerDataChange,
       )
@@ -855,7 +855,7 @@ export default class TreeStore<T extends Record<string, any>> extends TreeEventT
     if (!node)
       return null
 
-    this.remove(node[this.options.field.id], false, false)
+    this.remove(node.id, false, false)
 
     const flatIndex = this.findIndex(parentKey) + 1
 
@@ -901,7 +901,7 @@ export default class TreeStore<T extends Record<string, any>> extends TreeEventT
     const deleteInMap = (key: TreeNodeKeyType): void => {
       const node = this.mapData[key]
       delete this.mapData[key]
-      node.children.forEach(child => deleteInMap(child[this.options.field.id]))
+      node.children.forEach(child => deleteInMap(child.id))
     }
     deleteInMap(removedKey)
 
@@ -958,7 +958,7 @@ export default class TreeStore<T extends Record<string, any>> extends TreeEventT
     for (let i = index + 1; i < length; i++) {
       if (this.flatData[i]._level > node._level) {
         // 从 mapData 中移除
-        delete this.mapData[this.flatData[i][this.options.field.id]]
+        delete this.mapData[this.flatData[i].id]
         deleteCount++
 
         // 如果是 Selected 的节点，则记录
@@ -1019,14 +1019,14 @@ export default class TreeStore<T extends Record<string, any>> extends TreeEventT
     const parentNode = isParent ? referenceNode : referenceNode._parent
     if (insertedNode instanceof TreeNode) {
       // 与参照节点是同一个节点
-      if (insertedNode[this.options.field.id] === referenceKey)
+      if (insertedNode.id === referenceKey)
         return null
       return insertedNode
     }
     else if (typeof insertedNode === 'object') {
-      if (insertedNode[this.options.field.id] === referenceKey)
+      if (insertedNode.id === referenceKey)
         return null
-      const mapNode = this.mapData[insertedNode[this.options.field.id]]
+      const mapNode = this.mapData[insertedNode.id]
       if (mapNode)
         return mapNode
       return new TreeNode(insertedNode, parentNode, !!this.options.load, this.options.field)
@@ -1069,7 +1069,7 @@ export default class TreeStore<T extends Record<string, any>> extends TreeEventT
     // 更新父节点 isLeaf, expand
     if (parentNode) {
       parentNode.isLeaf = false
-      this.setExpand(parentNode[this.options.field.id], true, false, false, false)
+      this.setExpand(parentNode.id, true, false, false, false)
     }
     else if (typeof dataIndex === 'number' && dataIndex > -1) {
       // 没有父节点，则需要插入到 this.data 中以保证数据正确
@@ -1099,7 +1099,7 @@ export default class TreeStore<T extends Record<string, any>> extends TreeEventT
     this.triggerCheckedChange(triggerEvent, triggerDataChange)
     // 处理单选
     if (movingNode.selected) {
-      this.setSelected(movingNode[this.options.field.id], true, triggerEvent, triggerDataChange)
+      this.setSelected(movingNode.id, true, triggerEvent, triggerDataChange)
     }
   }
 
@@ -1138,7 +1138,7 @@ export default class TreeStore<T extends Record<string, any>> extends TreeEventT
           = (parent._parent === null || (parent._parent.expand && parent._parent.visible))
             && parent._filterVisible
         this.options.expandOnFilter
-        && this.setExpand(parent[this.options.field.id], true, false, false, false)
+        && this.setExpand(parent.id, true, false, false, false)
       })
       node.visible = node._parent === null || (node._parent.expand && node._parent.visible)
     })
@@ -1209,7 +1209,7 @@ export default class TreeStore<T extends Record<string, any>> extends TreeEventT
     const length = nodes.length
     for (let i = 0; i < length; i++) {
       const node = nodes[i]
-      const key: TreeNodeKeyType = node[this.options.field.id]
+      const key: TreeNodeKeyType = node.id
       result.push(node)
       if (this.mapData[key]) {
         throw new Error('[VTree] Duplicate tree node key.')
@@ -1224,13 +1224,13 @@ export default class TreeStore<T extends Record<string, any>> extends TreeEventT
 
       if (node.selected && overrideSelected) {
         this.clearSelected(false, false)
-        this.currentSelectedKey = node[this.options.field.id]
+        this.currentSelectedKey = node.id
         this.emit('selected-change', node, this.currentSelectedKey)
       }
 
       if ((this.options.defaultExpandAll || node.expand) && !this.options.load && !node.isLeaf) {
         node.expand = false
-        this.setExpand(node[this.options.field.id], true, false, false, false)
+        this.setExpand(node.id, true, false, false, false)
       }
 
       if (node.children.length) {
@@ -1342,11 +1342,11 @@ export default class TreeStore<T extends Record<string, any>> extends TreeEventT
   ): number {
     if (searchList !== null) {
       const key: TreeNodeKeyType
-        = keyOrNode instanceof TreeNode ? keyOrNode[this.options.field.id] : keyOrNode
+        = keyOrNode instanceof TreeNode ? keyOrNode.id : keyOrNode
       const length = searchList.length
       for (let i = 0; i < length; i++) {
         if (searchList[0] instanceof TreeNode) {
-          if (key === (searchList as TreeNode<T>[])[i][this.options.field.id]) {
+          if (key === (searchList as TreeNode<T>[])[i].id) {
             return i
           }
         }

@@ -104,7 +104,7 @@ function handleNodeCheck(node: TreeNode<T>) {
   if (!props.cascade && props.enableLeafOnly && !node.isLeaf)
     return
   store.setChecked(
-    node[props.field?.id ?? 'id'],
+    node.id,
     node.indeterminate ? true : !node.checked,
     true,
     true,
@@ -112,10 +112,10 @@ function handleNodeCheck(node: TreeNode<T>) {
   )
 }
 function handleNodeSelect(node: TreeNode<T>) {
-  store.setSelected(node[props.field?.id ?? 'id'], true, true, true)
+  store.setSelected(node.id, true, true, true)
 }
 function handleNodeExpand(node: TreeNode<T>) {
-  store.setExpand(node[props.field?.id ?? 'id'], !node.expand)
+  store.setExpand(node.id, !node.expand)
 }
 
 function emitCheckableEvent(checkedNodes: TreeNode<T>[], checkedKeys: TreeNodeKeyType[]) {
