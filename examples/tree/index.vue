@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { Tree } from '@rui/core/components/tree'
 import { Tree as TreeEx } from '@rui/core/components/tree-ex'
-import { ref } from 'vue'
+import { ref, watch } from 'vue'
 
 const data = ref([
   {
@@ -80,11 +80,17 @@ const data = ref([
     ],
   },
 ])
+
+const treeControler = ref(['node-2'])
+watch(treeControler, (value) => {
+  console.log('tree control', value)
+})
 </script>
 
 <template>
   <div class="container flex flex-col items-center gap-4">
     <TreeEx
+      v-model="treeControler"
       :data="data"
       :field="{
         id: 'key',

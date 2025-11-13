@@ -4,11 +4,9 @@ import { merge } from 'lodash-es'
 import { motion } from 'motion-v'
 import { computed, defineComponent } from 'vue'
 
-export const TreeItemMotion = defineComponent<
-  MotionProps<'div'> & MotionHTMLAttributes<'div'>
->({
+export const TreeItemMotion = defineComponent<MotionProps<'div'> & MotionHTMLAttributes<'div'>>({
   name: 'TreeItemMotion',
-  setup(props, { slots }) {
+  setup(props, { attrs, slots }) {
     const { duration, ease } = useAnimationParams()
     const mergedProps = computed(() => {
       return merge(
@@ -23,7 +21,14 @@ export const TreeItemMotion = defineComponent<
       )
     })
     return () => {
-      return <motion.div {...mergedProps.value}>{slots.default?.()}</motion.div>
+      return (
+        <motion.div
+          {...mergedProps.value}
+          {...attrs}
+        >
+          {slots.default?.()}
+        </motion.div>
+      )
     }
   },
 })

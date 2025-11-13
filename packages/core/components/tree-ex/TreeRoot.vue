@@ -4,7 +4,6 @@ import type TreeNode from './core/tree-node'
 import type { TreeNodeKeyType } from './core/types'
 import type { TreeRootProps, VModelType } from './interface'
 import { filter } from 'lodash-es'
-import { AnimatePresence } from 'motion-v'
 import { Primitive, RovingFocusGroup } from 'reka-ui'
 import { computed, onBeforeUnmount, onMounted, reactive, ref, watch } from 'vue'
 import { tvTreeRaw } from '.'
@@ -149,6 +148,7 @@ function emitSelectableEvent(
 }
 
 onMounted(() => {
+  []
   store.on('visible-data-change', () => {})
   store.on('render-data-change', () => {})
   store.on('checked-change', (checkedNodes: TreeNode<T>[], checkedKeys: TreeNodeKeyType[]) => {
@@ -162,6 +162,9 @@ onMounted(() => {
   )
   if (props.data.length) {
     store.setData(props.data)
+    if (props.modelValue) {
+      store.setCheckedKeys(props.modelValue as TreeNodeKeyType[], true, false, false)
+    }
     if (props.defaultExpandedKeys.length) {
       store.setExpandKeys(props.defaultExpandedKeys, true)
     }
@@ -200,12 +203,7 @@ const { base } = tvTreeRaw()
       :as="as"
       :class="base({ unstyled, class: [ui?.class, propsClass] })"
     >
-      <AnimatePresence
-        :initial="false"
-        mode="sync"
-      >
-        <slot :render-nodes="renderNodes" />
-      </AnimatePresence>
+      <slot :render-nodes="renderNodes" />
     </Primitive>
   </RovingFocusGroup>
 </template>
