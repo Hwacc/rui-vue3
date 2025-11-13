@@ -109,7 +109,7 @@ const { base, item, content, title, arrow } = tvTree()
                     name="prefix"
                     v-bind="{ node }"
                   />
-                  <slot name="title">
+                  <slot name="title" v-bind="{ node }">
                     <span>
                       {{ node.raw[props.field.title ?? 'title'] }}
                     </span>
