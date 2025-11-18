@@ -3,6 +3,7 @@ import type { HTMLAttributes } from 'vue'
 import type TreeNode from './core/tree-node'
 import type { TreeNodeKeyType } from './core/types'
 import type { TreeRootProps, VModelType } from './interface'
+import { Virtualizer } from '@tanstack/vue-virtual'
 import { filter } from 'lodash-es'
 import { Primitive, RovingFocusGroup } from 'reka-ui'
 import { computed, onBeforeUnmount, onMounted, reactive, ref, watch } from 'vue'
@@ -103,13 +104,7 @@ const renderNodes = computed(() => {
 function handleNodeCheck(node: TreeNode<T>) {
   if (!props.cascade && props.enableLeafOnly && !node.isLeaf)
     return
-  store.setChecked(
-    node.id,
-    node.indeterminate ? true : !node.checked,
-    true,
-    true,
-    true,
-  )
+  store.setChecked(node.id, node.indeterminate ? true : !node.checked, true, true, true)
 }
 function handleNodeSelect(node: TreeNode<T>) {
   store.setSelected(node.id, true, true, true)
@@ -148,7 +143,6 @@ function emitSelectableEvent(
 }
 
 onMounted(() => {
-  []
   store.on('visible-data-change', () => {})
   store.on('render-data-change', () => {})
   store.on('checked-change', (checkedNodes: TreeNode<T>[], checkedKeys: TreeNodeKeyType[]) => {
@@ -184,6 +178,7 @@ onBeforeUnmount(() => {
 
 provideTreeRootContext({
   isRootLoading,
+  virtualizer: null,
   handleNodeCheck,
   handleNodeSelect,
   handleNodeExpand,

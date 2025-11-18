@@ -7,6 +7,10 @@ export type { TreeRootProps } from './interface'
 export { default as Tree } from './Tree.vue'
 export { default as TreeItem } from './TreeItem.vue'
 export { default as TreeRoot } from './TreeRoot.vue'
+export { injectTreeRootContext } from './treeRootContext'
+export { default as TreeVirtualizer } from './TreeVirtualizer.vue'
+
+export { default as VirtualTree } from './VirtualTree.vue'
 
 export const prefix = `${PREFIX}-tree`
 
@@ -15,12 +19,14 @@ export const tvTreeRaw = tv(
     slots: {
       base: ['list-none', 'select-none'],
       item: ['flex', 'items-center', 'outline-none', 'pl-(--rui-tree-item-padding-left)'],
+      virtualizer: ['w-full overflow-y-auto overflow-x-hidden overscroll-contain'],
     },
   },
   {
     slots: {
       base: `${prefix}`,
       item: `${prefix}-item`,
+      virtualizer: `${prefix}-virtualizer`,
     },
   },
 )
@@ -34,6 +40,7 @@ export const tvTree = tv({
     content: ['flex items-center gap-4 min-w-50'],
     title: ['flex items-center justify-between flex-1'],
     arrow: 'data-[expand=true]:rotate-90 transition-transform',
+    virtualizer: [],
   },
   variants: {
     size: {

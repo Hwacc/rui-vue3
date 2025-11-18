@@ -1,6 +1,5 @@
 <script setup lang="ts">
-import { Tree } from '@rui/core/components/tree'
-import { Tree as TreeEx } from '@rui/core/components/tree-ex'
+import { Tree, VirtualTree } from '@rui/core/components/tree-ex'
 import { ref, watch } from 'vue'
 
 const data = ref([
@@ -89,13 +88,28 @@ watch(treeControler, (value) => {
 
 <template>
   <div class="container flex flex-col items-center gap-4">
-    <TreeEx
-      v-model="treeControler"
-      :data="data"
-      :field="{
-        id: 'key',
-        children: 'myChildren',
-      }"
-    />
+    <div class="flex gap-4">
+      <Tree
+        v-model="treeControler"
+        :data="data"
+        :field="{
+          id: 'key',
+          children: 'myChildren',
+        }"
+      />
+      <VirtualTree
+        class="w-[300px] h-[200px]"
+        :data="data"
+        :field="{
+          id: 'key',
+          children: 'myChildren',
+        }"
+        :ui="{
+          virtualizer: {
+            class: 'h-[200px]',
+          },
+        }"
+      />
+    </div>
   </div>
 </template>

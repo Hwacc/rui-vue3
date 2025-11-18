@@ -13,3 +13,12 @@
   --z-devtools: 9999;
   --z-max: 2147483647;
 }
+
+@utility overflow-anchor-none {
+  overflow-anchor: none;
+}
+
+@utility overflow-anchor-auto {
+  overflow-anchor: auto;
+}
+

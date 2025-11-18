@@ -14,7 +14,7 @@ const prefix = `${PREFIX}-virtual`
 export const tvVirtualList = tv(
   {
     slots: {
-      base: 'size-full overflow-auto',
+      base: 'size-full overflow-auto overflow-anchor-none overscroll-contain',
       scroll: 'relative',
     },
     variants: {
@@ -97,7 +97,7 @@ export type VirtualInfiniteLoadingVariants = VariantProps<typeof tvVirtualInfini
 export const tvVirtualGrid = tv(
   {
     slots: {
-      base: 'size-full overflow-auto',
+      base: 'size-full overflow-auto overflow-anchor-none overscroll-contain',
       scroll: 'relative',
     },
   },

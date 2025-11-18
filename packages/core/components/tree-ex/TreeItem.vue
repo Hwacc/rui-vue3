@@ -1,5 +1,5 @@
 <script setup lang="ts" generic="T extends Record<string, any>">
-import type { HTMLAttributes } from 'vue'
+import type { ComponentPublicInstance, HTMLAttributes, VNode } from 'vue'
 import type { TreeItemProps } from '../tree-ex/interface'
 import type TreeNode from './core/tree-node'
 import { Primitive, RovingFocusItem, useForwardProps } from 'reka-ui'
@@ -14,6 +14,7 @@ const {
   class: propsClass,
   unstyled = false,
   ui,
+  virtualInfo,
   ...props
 } = withDefaults(
   defineProps<
@@ -33,7 +34,15 @@ const emit = defineEmits<{
   expandChange: [TreeNode<T>, boolean]
 }>()
 const forward = useForwardProps(props)
-const { handleNodeCheck, handleNodeSelect, handleNodeExpand } = injectTreeRootContext()
+const { virtualizer, handleNodeCheck, handleNodeSelect, handleNodeExpand } = injectTreeRootContext()
+
+function measureElement(node: Element | ComponentPublicInstance | null) {
+  if (!node || !virtualizer)
+    return
+  virtualizer.value.measureElement(
+    (node as ComponentPublicInstance).$el ? (node as ComponentPublicInstance).$el : node,
+  )
+}
 
 watch(
   () => data.checked,
@@ -63,6 +72,7 @@ const { item } = tvTreeRaw()
   >
     <Primitive
       v-bind="{ ...forward, ...$attrs }"
+      :ref="measureElement"
       role="treeitem"
       :class="item({ unstyled, class: [ui?.class, propsClass] })"
       :style="{
@@ -75,6 +85,7 @@ const { item } = tvTreeRaw()
       :data-checked="data.checked ? 'true' : undefined"
       :data-selected="data.selected ? 'true' : undefined"
       :data-indeterminate="data.indeterminate ? 'true' : undefined"
+      :data-index="virtualInfo ? virtualInfo.index : undefined"
     >
       <component
         :is="forward.render(data)"

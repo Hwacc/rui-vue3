@@ -1,3 +1,4 @@
+import type { VirtualItem } from '@tanstack/vue-virtual'
 import type { PrimitiveProps } from 'reka-ui'
 import type { VNode } from 'vue'
 import type TreeNode from './core/tree-node'
@@ -81,6 +82,9 @@ export interface TreeItemProps<T extends Record<string, any>> extends PrimitiveP
 
   /** 节点渲染 render 函数 */
   render?: (node: TreeNode<T>) => VNode
+
+  /** 虚拟列表Item信息 */
+  virtualInfo?: VirtualItem
 }
 
 export interface TreeProps<T extends Record<string, any>>

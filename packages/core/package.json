@@ -28,6 +28,7 @@
     "@floating-ui/vue": "^1.1.6",
     "@iconify/vue": "^5.0.0",
     "@internationalized/date": "^3.8.0",
+    "@tanstack/vue-virtual": "^3.13.12",
     "@vueuse/shared": "^13.6.0",
     "class-variance-authority": "^0.7.1",
     "motion-v": "^1.0.1",

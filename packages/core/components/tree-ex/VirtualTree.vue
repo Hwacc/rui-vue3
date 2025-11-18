@@ -1,3 +1,4 @@
+<!-- eslint-disable vue/custom-event-name-casing -->
 <script setup lang="ts" generic="T extends Record<string, any>">
 import type { HTMLAttributes } from 'vue'
 import type { ComponentProps } from 'vue-component-type-helpers'
@@ -5,10 +6,8 @@ import type { TreeVariants } from '.'
 import type TreeNode from './core/tree-node'
 import type { TreeProps, VModelType } from './interface'
 import { ChevronRight } from 'lucide-vue-next'
-import { AnimatePresence } from 'motion-v'
-import { TreeItem, TreeRoot, tvTree } from '.'
+import { TreeItem, TreeRoot, TreeVirtualizer, tvTree } from '.'
 import { Checkbox } from '../checkbox'
-import { TreeItemMotion } from '../motion/TreeItemMotion'
 import { DEFAULT_TREE_ITEM_PROPS, DEFAULT_TREE_ROOT_PROPS } from './core/constants'
 
 const {
@@ -42,6 +41,8 @@ const {
         arrow?: {
           class?: HTMLAttributes['class']
         }
+        // prettier-ignore
+        virtualizer?: (Omit<ComponentProps<typeof TreeVirtualizer>, 'unstyled'>)
       }
     }
   >(),
@@ -60,79 +61,88 @@ const emit = defineEmits<{
   'item:checkedChange': [TreeNode<T>, boolean]
   'item:selectedChange': [TreeNode<T>, boolean]
 }>()
-const { base, item, content, title, arrow } = tvTree()
+
+const { base, item, virtualizer: tvVirtualizer, title, arrow } = tvTree()
 </script>
 
 <!-- eslint-disable vue/custom-event-name-casing -->
 <template>
   <TreeRoot
     v-bind="props"
-    :class="base({ class: [ui?.root?.class, propsClass], size, unstyled })"
+    :class="base({ class: [ui?.root?.class, propsClass], size })"
     :ui="ui?.root"
+    :unstyled="unstyled"
     @update:model-value="emit('update:modelValue', $event)"
     @checked-change="(...args) => emit('tree:checkedChange', ...args)"
     @selected-change="(...args) => emit('tree:selectedChange', ...args)"
   >
-    <template #default="{ renderNodes }">
-      <AnimatePresence
-        :initial="false"
-        mode="sync"
-      >
+    <TreeVirtualizer
+      v-bind="ui?.virtualizer"
+      :class="tvVirtualizer({ class: ui?.virtualizer?.class })"
+    >
+      <template #default="{ virtualItems, getRenderNode }">
         <TreeItem
-          v-for="node in renderNodes"
+          v-for="vItem in virtualItems"
           v-bind="ui?.item"
-          :key="node.id"
-          :data="node"
+          :key="getRenderNode(vItem.index).id"
+          :data="getRenderNode(vItem.index)"
+          :virtual-info="vItem"
           :node-indent="nodeIndent"
           :show-line="showLine"
           :render="render"
-          :class="item({ class: ui?.item?.class, size, unstyled })"
+          :class="item({ class: ui?.item?.class, size })"
           :unstyled="unstyled"
           @expand-change="(...args) => emit('item:expandChange', ...args)"
           @checked-change="(...args) => emit('item:checkedChange', ...args)"
           @selected-change="(...args) => emit('item:selectedChange', ...args)"
         >
           <template #default="{ handleNodeExpand, handleNodeCheck }">
-            <TreeItemMotion :class="content({ class: ui?.content?.class, size, unstyled })">
-              <slot v-bind="{ node, handleNodeExpand, handleNodeCheck }">
-                <Checkbox
-                  v-bind="ui?.content?.checkbox"
-                  :model-value="node.indeterminate ? 'indeterminate' : node.checked"
-                  :size="size"
-                  :unstyled="unstyled"
-                  @click="handleNodeCheck(node)"
+            <slot v-bind="{ node: getRenderNode(vItem.index), handleNodeExpand, handleNodeCheck }">
+              <Checkbox
+                v-bind="ui?.content?.checkbox"
+                :model-value="
+                  getRenderNode(vItem.index).indeterminate
+                    ? 'indeterminate'
+                    : getRenderNode(vItem.index).checked
+                "
+                :size="size"
+                :unstyled="unstyled"
+                @click="handleNodeCheck(getRenderNode(vItem.index))"
+              />
+              <div
+                :class="title({ class: ui?.title?.class, size })"
+                @click="
+                  getRenderNode(vItem.index).isLeaf
+                    ? handleNodeCheck(getRenderNode(vItem.index))
+                    : handleNodeExpand(getRenderNode(vItem.index))
+                "
+              >
+                <slot
+                  name="prefix"
+                  v-bind="{ node: getRenderNode(vItem.index) }"
                 />
-                <div
-                  :class="title({ class: ui?.title?.class, size, unstyled })"
-                  @click="node.isLeaf ? handleNodeCheck(node) : handleNodeExpand(node)"
+                <slot
+                  name="title"
+                  v-bind="{ node: getRenderNode(vItem.index) }"
                 >
-                  <slot
-                    name="prefix"
-                    v-bind="{ node }"
-                  />
-                  <slot
-                    name="title"
-                    v-bind="{ node }"
-                  >
-                    <span>
-                      {{ node.raw[props.field.title ?? 'title'] }}
-                    </span>
-                  </slot>
-                  <slot
-                    name="suffix"
-                    v-bind="{ node }"
-                  />
-                  <ChevronRight
-                    v-if="node.children.length"
-                    :data-expand="node.expand"
-                    :class="arrow({ class: ui?.arrow?.class, size, unstyled })"
-                  />
-                </div>
-              </slot>
-            </TreeItemMotion>
+                  <span>
+                    {{ getRenderNode(vItem.index).raw[props.field.title ?? 'title'] }}
+                  </span>
+                </slot>
+                <slot
+                  name="suffix"
+                  v-bind="{ node: getRenderNode(vItem.index) }"
+                />
+                <ChevronRight
+                  v-if="getRenderNode(vItem.index).children.length"
+                  :data-expand="getRenderNode(vItem.index).expand"
+                  :class="arrow({ class: ui?.arrow?.class, size })"
+                />
+              </div>
+            </slot>
           </template>
         </TreeItem>
-      </AnimatePresence>
-    </template>
+      </template>
+    </TreeVirtualizer>
   </TreeRoot>
 </template>
