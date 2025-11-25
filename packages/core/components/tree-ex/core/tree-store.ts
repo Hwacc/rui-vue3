@@ -1170,7 +1170,9 @@ export default class TreeStore<T extends Record<string, any>> extends TreeEventT
       return
     }
     // 因为多选模式下，value 传过来的数据跟数据上标识 checked: true 的结果可能不一致，因此需要触发一个事件告诉外部最终勾选了哪些节点
-    this.emit('checked-change', this.getCheckedNodes(), newCheckedKeys)
+    if (keys.length > 0) {
+      this.emit('checked-change', this.getCheckedNodes(), newCheckedKeys)
+    }
   }
 
   /**
