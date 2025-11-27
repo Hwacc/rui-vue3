@@ -9,7 +9,7 @@ const prefix = `${PREFIX}-checkbox`
 
 export const tvCheckbox = tv({
   slots: {
-    root: ['flex', 'items-center', 'gap-2.5'],
+    root: ['flex', 'items-center', 'gap-2.5', 'w-fit'],
     box: ['peer', 'shrink-0', 'rounded-xs', 'border'],
     indicator: ['flex', 'h-full', 'w-full', 'items-center', 'justify-center', 'text-inherit'],
     label: '',

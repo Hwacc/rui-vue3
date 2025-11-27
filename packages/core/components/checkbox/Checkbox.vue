@@ -16,6 +16,7 @@ const {
   stopPropagation = false,
   unstyled,
   ui,
+  class: propsClass,
   ...props
 } = defineProps<
   CheckboxRootProps & {
@@ -96,7 +97,7 @@ const forwarded = useForwardProps(props)
 
 <template>
   <label
-    :class="tvSlots.root({ class: [ui?.root?.class, props.class] })"
+    :class="tvSlots.root({ class: [ui?.root?.class, propsClass] })"
     :disabled="props.disabled || undefined"
     :data-size="mergeSize"
     @click="
