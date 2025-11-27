@@ -4,6 +4,7 @@ import { tv } from '@rui/core/lib/tv'
 
 export { default as CircleProgress } from './CircleProgress.vue'
 export { default as Progress } from './Progress.vue'
+export { ProgressIndicator } from 'reka-ui'
 
 const prefix = `${PREFIX}-progress`
 

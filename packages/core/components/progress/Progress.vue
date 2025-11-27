@@ -50,5 +50,6 @@ const forwarded = useForwardProps(props)
           : `transform: translateX(-${100 - (modelValue ?? 0)}%);`
       "
     />
+    <slot/>
   </ProgressRoot>
 </template>
