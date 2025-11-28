@@ -26,12 +26,14 @@ const {
   class: propsClass,
   size = 'base',
   unstyled,
+  enabled = true,
   ...props
 } = defineProps<
   PerfectScrollBarOptions & {
     class?: string;
     size?: 'base' | 'sm' | 'xs';
     unstyled?: boolean;
+    enabled?: boolean;
   }
 >();
 
@@ -64,6 +66,27 @@ const containerRef = useTemplateRef('container');
 
 const ps = shallowRef<PerfectScrollbar | null>(null);
 watch(
+  () => enabled,
+  (value) => {
+    if (value && containerRef.value) {
+      ps.value = new PerfectScrollbar(
+        containerRef.value!,
+        defaults({}, props, {
+          handlers: ['click-rail', 'drag-thumb', 'keyboard', 'wheel', 'touch'],
+          wheelSpeed: 1,
+          scrollXMarginOffset: 0,
+          scrollYMarginOffset: 0,
+          scrollingThreshold: 1000,
+          swipeEasing: true,
+        })
+      );
+    } else if (!value) {
+      ps.value?.destroy();
+      ps.value = null;
+    }
+  }
+);
+watch(
   () => props,
   () => {
     ps.value?.update();
@@ -74,6 +97,7 @@ useResizeObserver(containerRef, () => {
 });
 
 onMounted(() => {
+  if (!enabled) return;
   ps.value = new PerfectScrollbar(
     containerRef.value!,
     defaults({}, props, {
@@ -85,7 +109,6 @@ onMounted(() => {
       swipeEasing: true,
     })
   );
-  console.log(ps.value);
   scrollEvents.forEach((name) => {
     containerRef.value?.addEventListener(name as any, () => emits(name as any, ps.value as any));
   });
@@ -109,4 +132,3 @@ onUnmounted(() => {
     <slot />
   </div>
 </template>
-
