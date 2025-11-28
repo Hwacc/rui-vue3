@@ -68,8 +68,6 @@ export default defineComponent({
                   modelValue,
                 })
               }
-
-              console.log('selectedLabel', selectedLabel, modelValue)
               if (isEmpty(selectedLabel))
                 return placeholder?.value
               if (!multiple.value) {
