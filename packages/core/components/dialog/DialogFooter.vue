@@ -13,7 +13,9 @@ const {
   class?: HTMLAttributes['class']
   unstyled?: boolean
   ui?: {
-    root?: HTMLAttributes['class']
+    root?: {
+      class?: HTMLAttributes['class']
+    }
     cancel?: ComponentProps<typeof Button> & {
       text?: string
     }
@@ -31,7 +33,7 @@ const { footer } = tvDialog()
 </script>
 
 <template>
-  <div :class="footer({ unstyled, class: [ui?.root, propsClass] })">
+  <div :class="footer({ unstyled, class: [ui?.root?.class, propsClass] })">
     <slot>
       <DialogClose :close-from="DialogCloseFrom.CancelButton">
         <Button
